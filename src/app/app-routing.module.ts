@@ -1,4 +1,5 @@
-import { LoginComponent } from './login/login.component';
+import { GuardaAutenticacao } from './_helpers/guarda-autenticacao';
+import { LoginComponent } from './views/login/login.component';
 import { Funcao } from './_enuns/funcao';
 import { HomeProfessorComponent } from './views/professor/home-professor/home-professor.component';
 import { NgModule } from '@angular/core';
@@ -14,17 +15,17 @@ const routes: Routes = [
   {
     path: 'homealuno',
     component: HomeAlunoComponent,
-    // canActivate: [AuthGuard],
-    data: { roles: [Funcao.ALUNO] }
+    canActivate: [GuardaAutenticacao],
+    data: { roles: [Funcao.Aluno] }
   },
   {
     path: 'homeprofessor',
     component: HomeProfessorComponent,
-    // canActivate: [AuthGuard],
-    data: { roles: [Funcao.PROFESSOR] }
+    canActivate: [GuardaAutenticacao],
+    data: { roles: [Funcao.Professor] }
   },
 
-  // otherwise redirect to home
+  
   { path: '**', redirectTo: '' }
 ];
 

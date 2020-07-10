@@ -1,5 +1,5 @@
+import { Usuario } from './usuario';
 import { EDisciplina } from './edisciplina';
-import { User } from './user';
-export class Professor extends User {
+export class Professor extends Usuario {
     disciplinas: Array<EDisciplina>;
 }

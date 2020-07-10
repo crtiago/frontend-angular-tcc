@@ -1,5 +1,5 @@
-import { Funcao } from './../_enuns/funcao';
-export class User {
+import { Funcao } from '../_enuns/funcao';
+export class Usuario {
     id: number;
     cpf: string;
     nascimento: Date;
