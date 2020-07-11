@@ -10,7 +10,8 @@ import { HomeAlunoComponent } from './views/aluno/home-aluno/home-aluno.componen
 const routes: Routes = [
   {
     path: '',
-    component: LoginComponent
+    component: LoginComponent,
+    canActivate: [GuardaAutenticacao],
   },
   {
     path: 'homealuno',

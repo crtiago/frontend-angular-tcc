@@ -7,7 +7,6 @@ import { map } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
-/*Verificado*/
 export class AutenticacaoService {
     private usuarioAtualSubject: BehaviorSubject<Usuario>;
     public usuarioAtual: Observable<Usuario>;
@@ -28,6 +27,7 @@ export class AutenticacaoService {
      .pipe(map(usuario => {
 
       if(usuario){
+        console.log(usuario)
         localStorage.setItem('usuarioAtual', JSON.stringify(usuario));
         this.usuarioAtualSubject.next(usuario);
       }

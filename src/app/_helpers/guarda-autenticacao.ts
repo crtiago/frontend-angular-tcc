@@ -14,10 +14,12 @@ export class GuardaAutenticacao implements CanActivate {
         const usuarioAtual = this.autenticacaoService.valorUsuarioAtual;
         if (usuarioAtual) {
             if (rota.data.roles && rota.data.roles.indexOf(usuarioAtual.tipoUsuario) === -1) {
+                console.log('Ola' + rota.data.roles)
+                console.log(usuarioAtual)
                 this.roteador.navigate(['/login']);
                 return false;
-               
             }
+            
             return true;
         }
 

@@ -1,4 +1,4 @@
 export enum Funcao {
-    Aluno = 'Aluno',
-    Professor = 'Professor'
+    Aluno = 1,
+    Professor = 2
 }

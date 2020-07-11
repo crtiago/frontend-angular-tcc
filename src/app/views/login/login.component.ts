@@ -15,21 +15,21 @@ import { first } from 'rxjs/operators';
 export class LoginComponent implements OnInit, OnDestroy {
 
   loginForm: FormGroup;
-    loading = false;
-    submitted = false;
-    returnUrl: string;
-    error = '';
+  loading = false;
+  submitted = false;
+  returnUrl: string;
+  error = '';
 
   constructor(@Inject(DOCUMENT) private _document, private formBuilder: FormBuilder,
     private rota: ActivatedRoute,
     private routeador: Router,
     private autenticacaoService: AutenticacaoService
   ) {
-    /*if (this.autenticacaoService.valorUsuarioAtual.tipoUsuario == 1) {
+    if (this.autenticacaoService.valorUsuarioAtual.tipoUsuario == 1) {
       this.routeador.navigate(['/homealuno']);
     } else {
       this.routeador.navigate(['/homeprofessor']);
-    }*/
+    }
   }
 
   ngOnInit() {
@@ -60,6 +60,7 @@ export class LoginComponent implements OnInit, OnDestroy {
             .pipe(first())
             .subscribe(
                 data => {
+                  
                     this.routeador.navigate([this.returnUrl]);
                 },
                 error => {
