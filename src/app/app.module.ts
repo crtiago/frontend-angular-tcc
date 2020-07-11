@@ -1,5 +1,3 @@
-import { GuardaAutenticacao } from './_helpers/guarda-autenticacao';
-import { AutenticacaoService } from './_servicos/login/autenticacao.service';
 import { LoginComponent } from './views/login/login.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -23,11 +21,9 @@ import { HttpClientModule } from '@angular/common/http';
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
   ],
   providers: [
-    AutenticacaoService,
-    GuardaAutenticacao
   ],
   bootstrap: [AppComponent]
 })

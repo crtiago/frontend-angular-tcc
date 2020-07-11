@@ -1,4 +1,5 @@
-import { AutenticacaoService } from './../../_servicos/login/autenticacao.service';
+import { Funcao } from './../../_enuns/funcao';
+import { AutenticacaoServiceService } from './../../_servicos/login/autenticacao-service.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit, OnDestroy, ViewEncapsulation, Inject } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
@@ -11,63 +12,64 @@ import { first } from 'rxjs/operators';
   styleUrls: ['./login.component.css'],
   encapsulation: ViewEncapsulation.None,
 })
-/*Verificado*/
 export class LoginComponent implements OnInit, OnDestroy {
-
   loginForm: FormGroup;
-  loading = false;
-  submitted = false;
-  returnUrl: string;
-  error = '';
+  clicado = false;
+  url: string;
+  erro = '';
 
-  constructor(@Inject(DOCUMENT) private _document, private formBuilder: FormBuilder,
-    private rota: ActivatedRoute,
-    private routeador: Router,
-    private autenticacaoService: AutenticacaoService
-  ) {
-    if (this.autenticacaoService.valorUsuarioAtual.tipoUsuario == 1) {
-      this.routeador.navigate(['/homealuno']);
-    } else {
-      this.routeador.navigate(['/homeprofessor']);
-    }
+  constructor(
+    @Inject(DOCUMENT) private _document,
+    private formBuilder: FormBuilder,
+    private route: ActivatedRoute,
+    private router: Router,
+    private autenticacaoService: AutenticacaoServiceService) {
   }
 
   ngOnInit() {
+    this.loginForm = this.formBuilder.group({
+      cpf: ['', Validators.required],
+      senha: ['', Validators.required]
+    });
+
+
     //Adiciona a tag do corpo do formulário de classe, para alterar o background-color
     this._document.body.classList.add('bodybg-color');
-
-    this.loginForm = this.formBuilder.group({
-      username: ['', Validators.required],
-      password: ['', Validators.required]
-  });
-
-  // get return url from route parameters or default to '/'
-  this.returnUrl = this.rota.snapshot.queryParams['returnUrl'] || '/login';
   }
 
   get f() { return this.loginForm.controls; }
 
-    onSubmit() {
-        this.submitted = true;
+  enviar() {
+    this.clicado = true;
 
-        // stop here if form is invalid
-        if (this.loginForm.invalid) {
-            return;
-        }
-
-        this.submitted = true;
-        this.autenticacaoService.login(this.f.username.value, this.f.password.value)
-            .pipe(first())
-            .subscribe(
-                data => {
-                  
-                    this.routeador.navigate([this.returnUrl]);
-                },
-                error => {
-                    this.error = error;
-                    this.loading = false;
-                });
+    // stop here if form is invalid
+    if (this.loginForm.invalid) {
+      return;
     }
+
+    this.autenticacaoService.login(this.f.cpf.value, this.f.senha.value)
+      .pipe(first()).subscribe(
+        data => {
+          if (data == undefined) {
+            console.log("Não autorizado");
+          } else if (data.TipoUsuario == Funcao.Aluno) {
+            this.router.navigate(['homealuno']);
+            this.sair();
+          } else if (data.TipoUsuario == Funcao.Professor) {
+            this.router.navigate(['homeprofessor']);
+            this.sair();
+          }
+        },
+        error => {
+          this.erro = error;
+        });
+  }
+
+  sair() {
+    this.autenticacaoService.logout();
+    console.log("Deslogado")
+  }
+
 
   ngOnDestroy() {
     //Remove a tag do corpo do formulário de classe 

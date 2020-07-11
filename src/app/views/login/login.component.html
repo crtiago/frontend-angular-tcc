@@ -1,29 +1,46 @@
-<!--div class="container">
+<div class="container">
     <div class="row">
         <div class="col-md-6">
-            <form class="box">
+            <form [formGroup]="loginForm"  class="box">
+                <!--Imagem IFSC-->
                 <div>
-                    <div>
-                        <img class="img" src="../../assets/img/logo_ifsc.png">
-                    </div>
-                    <div>
-                        <p class="info">Por favor, entre com seu CPF e senha.</p>
-                        <input type="text" name="" placeholder="CPF">
-                        <input type="password" name="" placeholder="Senha">
-                        <div>
-                            <div>
-                                <input type="submit" name="" value="Entrar" href="#">
-                            </div>
-                            <div>
-                                <input type="submit" name="" value="Cadastre-se" href="#">
-                            </div>
-                        </div>
+                    <img class="img" src="../../assets/img/logo_ifsc.png">
+                </div>
+                <!--Informações para o usuário-->
+                <div>
+                    <p class="info">Por favor, entre com seu CPF e senha.</p>
+                </div>
+                <!--Input do CPF-->
+                <div class="form-group field">
+                    <input type="text" formControlName="cpf" class="form-control"
+                        [ngClass]="{ 'is-invalid': clicado && f.cpf.errors }" placeholder="000.000.000-00">
+                    <div *ngIf="clicado && f.cpf.errors" class="invalid-feedback">
+                        <div *ngIf="f.cpf.errors.required">Insira o CPF</div>
                     </div>
                 </div>
+                <!--Input da Senha-->
+                <div class="form-group field">
+                    <input type="password" formControlName="senha" class="form-control"
+                        [ngClass]="{ 'is-invalid': clicado && f.senha.errors }" placeholder="Senha">
+                        <div *ngIf="clicado && f.senha.errors" class="invalid-feedback">
+                            <div *ngIf="f.senha.errors.required">Insira a senha</div>
+                        </div>
+                </div>
+
+                <div>
+                    <div>
+                        <input (click)="enviar()" type="submit" name="" value="Entrar" href="#">
+                    </div>
+                    <div>
+                        <input (click)="sair()" type="submit" name="" value="Cadastre-se" href="#">
+                    </div>
+                </div>
+
+
             </form>
         </div>
     </div>
-</div-->
+</div>
 
 <!-- TODO
     Colocar mascara no campo CPF
@@ -31,32 +48,3 @@
     Desabilitar o campo senha enquanto n houver CPF válido, e habilitar quando for válido
     Mudar posição texto input
 -->
-
-<div class="col-md-6 offset-md-3 mt-5">
-    <div class="card">
-        <div class="card-body">
-            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-                <div class="form-group">
-                    <label for="username">Username</label>
-                    <input type="text" formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.username.errors }" />
-                    <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
-                        <div *ngIf="f.username.errors.required">Username is required</div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
-                    <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-                        <div *ngIf="f.password.errors.required">Password is required</div>
-                    </div>
-                </div>
-                <button [disabled]="loading" class="btn btn-primary">
-                    <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
-                    Login
-                </button>
-                <div *ngIf="error" class="alert alert-danger mt-3 mb-0">{{error}}</div>
-            </form>
-        </div>
-    </div>
-</div>
-
