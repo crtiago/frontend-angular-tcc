@@ -51,8 +51,8 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.autenticacaoService.login(this.f.cpf.value, this.f.senha.value)
       .pipe(first()).subscribe(
         data => {
-          console.log(this.autenticacaoService.redirectUrl);
-          this.router.navigateByUrl(this.autenticacaoService.redirectUrl);
+          
+         // this.router.navigateByUrl();
         },
         error => {
           this.erro = error;
