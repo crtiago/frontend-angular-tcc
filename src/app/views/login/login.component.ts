@@ -1,5 +1,5 @@
 import { Funcao } from './../../_enuns/funcao';
-import { AutenticacaoServiceService } from './../../_servicos/login/autenticacao-service.service';
+import { AutenticacaoService } from '../../_servicos/login/autenticacao.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit, OnDestroy, ViewEncapsulation, Inject } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
@@ -15,7 +15,6 @@ import { first } from 'rxjs/operators';
 export class LoginComponent implements OnInit, OnDestroy {
   loginForm: FormGroup;
   clicado = false;
-  url: string;
   erro = '';
 
   constructor(
@@ -23,7 +22,11 @@ export class LoginComponent implements OnInit, OnDestroy {
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private autenticacaoService: AutenticacaoServiceService) {
+    private autenticacaoService: AutenticacaoService) {
+
+    if (!this.autenticacaoService.userValue) {
+      this.router.navigate(['/login']);
+    }
   }
 
   ngOnInit() {
@@ -31,8 +34,6 @@ export class LoginComponent implements OnInit, OnDestroy {
       cpf: ['', Validators.required],
       senha: ['', Validators.required]
     });
-
-
     //Adiciona a tag do corpo do formulário de classe, para alterar o background-color
     this._document.body.classList.add('bodybg-color');
   }
@@ -50,15 +51,8 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.autenticacaoService.login(this.f.cpf.value, this.f.senha.value)
       .pipe(first()).subscribe(
         data => {
-          if (data == undefined) {
-            console.log("Não autorizado");
-          } else if (data.TipoUsuario == Funcao.Aluno) {
-            this.router.navigate(['homealuno']);
-            this.sair();
-          } else if (data.TipoUsuario == Funcao.Professor) {
-            this.router.navigate(['homeprofessor']);
-            this.sair();
-          }
+          console.log(this.autenticacaoService.redirectUrl);
+          this.router.navigateByUrl(this.autenticacaoService.redirectUrl);
         },
         error => {
           this.erro = error;
@@ -67,7 +61,6 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   sair() {
     this.autenticacaoService.logout();
-    console.log("Deslogado")
   }
 
 

@@ -1,27 +1,24 @@
+import { RouteGuardService } from './_helpers/route-guard.service';
 import { LoginComponent } from './views/login/login.component';
 import { Funcao } from './_enuns/funcao';
-import { HomeProfessorComponent } from './views/professor/home-professor/home-professor.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { HomeAlunoComponent } from './views/aluno/home-aluno/home-aluno.component';
-
 
 const routes: Routes = [
+  { path: 'login', component: LoginComponent },
   {
-    path: '',
-    component: LoginComponent,
+    path: 'prof',
+    canActivate : [RouteGuardService],
+    loadChildren: () => import('./views/professor/professor.module').then(m => m.ProfessorModule),
+    data: { roles: [Funcao.Professor] }
   },
   {
-    path: 'homealuno',
-    component: HomeAlunoComponent,
+    path: 'aluno',
+    canActivate : [RouteGuardService],
+    loadChildren: () => import('./views/aluno/aluno.module').then(m => m.AlunoModule),
+    data: { roles: [Funcao.Aluno] }
   },
-  {
-    path: 'homeprofessor',
-    component: HomeProfessorComponent,
-  },
-
-  
-  { path: '**', redirectTo: '' }
+  { path: '', redirectTo: 'login', pathMatch: 'full' }
 ];
 
 @NgModule({
