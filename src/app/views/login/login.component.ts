@@ -1,7 +1,7 @@
-import { Funcao } from './../../_enuns/funcao';
+import { Validacoes } from './../../_helpers/validacoes';
 import { AutenticacaoService } from '../../_servicos/login/autenticacao.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Component, OnInit, OnDestroy, ViewEncapsulation, Inject } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewEncapsulation, Inject, OnChanges, SimpleChanges } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { first } from 'rxjs/operators';
@@ -18,14 +18,16 @@ import { first } from 'rxjs/operators';
  * logado ou não, caso o usuário esteja logado ele direciona para a página home do mesmo
  */
 export class LoginComponent implements OnInit, OnDestroy {
-  loginForm: FormGroup;
-  clique = false;
+
+  // Aqui damos um nome para nosso formulário
+  // E ele precisa ser do tipo FormGroup
+  formularioDeUsuario: FormGroup;
+  habilita = true;
   erro = '';
 
   constructor(
     @Inject(DOCUMENT) private _document,
-    private formBuilder: FormBuilder,
-    private route: ActivatedRoute,
+    private fb: FormBuilder,
     private router: Router,
     private autenticacaoService: AutenticacaoService) {
 
@@ -38,29 +40,33 @@ export class LoginComponent implements OnInit, OnDestroy {
     }
   }
 
+
   ngOnInit() {
-    this.loginForm = this.formBuilder.group({
-      cpf: ['', Validators.required],
-      senha: ['', Validators.required]
-    });
-    //Adiciona a tag do corpo do formulário de classe, colocando a imagem de fundo do ifsc
+    this.criarFormularioDeUsuario();
     this._document.body.classList.add('bodybg-background');
   }
 
-  get f() { return this.loginForm.controls; }
+  criarFormularioDeUsuario() {
+    this.formularioDeUsuario = this.fb.group({
+      cpf: ['', Validators.compose([Validators.required, Validacoes.validarCPF])],
+      //TODO Desabilitar o campo senha enquanto n digitar um cpf válido
+      senha: [{ value: '', disabled: false }, Validators.compose([Validators.required])],
+    });
+  }
+
+  get cpf() {
+    return this.formularioDeUsuario.get('cpf');
+  }
+
+  get senha() {
+    return this.formularioDeUsuario.get('senha');
+  }
 
   enviar() {
-    this.clique = true;
-
-    // stop here if form is invalid
-    if (this.loginForm.invalid) {
-      return;
-    }
-
-    this.autenticacaoService.login(this.f.cpf.value, this.f.senha.value)
+    this.autenticacaoService.login(this.formularioDeUsuario.value.cpf, this.formularioDeUsuario.value.senha)
       .pipe(first()).subscribe(
         data => {
-         if (data.TipoUsuario == 1) {
+          if (data.TipoUsuario == 1) {
             this.router.navigate(['aluno']);
           } else if (data.TipoUsuario == 2) {
             this.router.navigate(['prof']);
@@ -76,7 +82,6 @@ export class LoginComponent implements OnInit, OnDestroy {
   sair() {
     this.autenticacaoService.logout();
   }
-
 
   ngOnDestroy() {
     //Remove a tag do corpo do formulário de classe, deixando sem a imagem do ifsc de fundo

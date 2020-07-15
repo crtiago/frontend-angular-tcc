@@ -30,15 +30,22 @@
     opacity: 0.8;
 }
 
-/*Muda a cor de fundo e da letra quando o usuário passa o mouse em cima do botão*/
-.box input[type="submit"]:hover {
-    background: rgb(47,158,64);
-    color: rgb(238,241,236);
-}
-
 /*Centraliza e coloca os botões lado a lado*/
 div > div {
     display: inline-block;
+}
+
+/*Muda o estilo do botão quando o mesmo estiver desabilitado*/
+.box button:disabled{
+    border: 2px solid gray;
+    color: gray;
+    cursor: unset;
+}
+
+/*Muda a cor de fundo e da letra quando o usuário passa o mouse em cima do botão*/
+.box button:hover:enabled {
+    background: rgb(47,158,64);
+    color: rgb(238,241,236);
 }
 
 /*Estilo e tamanho da Imagem*/
