@@ -12,7 +12,8 @@ export class ProfHomeComponent implements OnInit {
 
   ngOnInit(): void {
   }
-  sair() {
+  
+  logout() {
     this.autenticacaoService.logout();
   }
 

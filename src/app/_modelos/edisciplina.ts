@@ -1,4 +1,8 @@
+
+/**
+ * Modelo da Disciplina, utilizada no modelo Professor
+ */
 export class EDisciplina{
-    codigo: number;
-    nome: string;
+    Codigo: number;
+    Nome: string;
 }

@@ -12,9 +12,14 @@ import { first } from 'rxjs/operators';
   styleUrls: ['./login.component.css'],
   encapsulation: ViewEncapsulation.None,
 })
+
+/**
+ * Componente de Login, responsável por fazer a validação dos campos e verificar se o usuário está
+ * logado ou não, caso o usuário esteja logado ele direciona para a página home do mesmo
+ */
 export class LoginComponent implements OnInit, OnDestroy {
   loginForm: FormGroup;
-  clicado = false;
+  clique = false;
   erro = '';
 
   constructor(
@@ -24,8 +29,12 @@ export class LoginComponent implements OnInit, OnDestroy {
     private router: Router,
     private autenticacaoService: AutenticacaoService) {
 
-    if (!this.autenticacaoService.userValue) {
-      this.router.navigate(['/login']);
+    if (this.autenticacaoService.getUsuario) {
+      if (this.autenticacaoService.getUsuario.TipoUsuario == 1) {
+        this.router.navigate(['aluno']);
+      } else {
+        this.router.navigate(['prof']);
+      }
     }
   }
 
@@ -34,14 +43,14 @@ export class LoginComponent implements OnInit, OnDestroy {
       cpf: ['', Validators.required],
       senha: ['', Validators.required]
     });
-    //Adiciona a tag do corpo do formulário de classe, para alterar o background-color
-    this._document.body.classList.add('bodybg-color');
+    //Adiciona a tag do corpo do formulário de classe, colocando a imagem de fundo do ifsc
+    this._document.body.classList.add('bodybg-background');
   }
 
   get f() { return this.loginForm.controls; }
 
   enviar() {
-    this.clicado = true;
+    this.clique = true;
 
     // stop here if form is invalid
     if (this.loginForm.invalid) {
@@ -51,8 +60,13 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.autenticacaoService.login(this.f.cpf.value, this.f.senha.value)
       .pipe(first()).subscribe(
         data => {
-          
-         // this.router.navigateByUrl();
+         if (data.TipoUsuario == 1) {
+            this.router.navigate(['aluno']);
+          } else if (data.TipoUsuario == 2) {
+            this.router.navigate(['prof']);
+          } else {
+            this.router.navigate(['login']);
+          }
         },
         error => {
           this.erro = error;
@@ -65,8 +79,8 @@ export class LoginComponent implements OnInit, OnDestroy {
 
 
   ngOnDestroy() {
-    //Remove a tag do corpo do formulário de classe 
-    this._document.body.classList.add('bodybg-color');
+    //Remove a tag do corpo do formulário de classe, deixando sem a imagem do ifsc de fundo
+    this._document.body.classList.remove('bodybg-background');
   }
 
 }

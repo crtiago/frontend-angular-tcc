@@ -1,13 +1,17 @@
 import { Funcao } from '../_enuns/funcao';
+
+/**
+ * Modelo Usuário
+ */
+
 export class Usuario {
-    id: number;
+    IdUsuario: number;
     CPF: string;
-    nascimento: Date;
-    nome: string;
-    email: string;
-    fone: string;
-    senha: string;
-    instituicao: string;
-    imagemPerfil: null;
+    Nascimento: Date;
+    Nome: string;
+    Email: string;
+    Telefone: string;
+    Instituicao: string;
+    ImagemUsuario: null;
     TipoUsuario: Funcao;
 }

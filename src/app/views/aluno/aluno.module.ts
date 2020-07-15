@@ -6,7 +6,7 @@ import { AlunoHomeComponent } from './aluno-home/aluno-home.component';
 
 
 @NgModule({
-  declarations: [AlunoHomeComponent],
+  declarations: [AlunoHomeComponent,],
   imports: [
     CommonModule,
     AlunoRoutingModule

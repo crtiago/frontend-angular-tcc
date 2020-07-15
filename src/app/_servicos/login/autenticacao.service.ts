@@ -1,3 +1,4 @@
+import { environment } from './../../../environments/environment';
 import { Usuario } from './../../_modelos/usuario';
 import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
@@ -8,6 +9,10 @@ import { BehaviorSubject, Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
+
+/**
+ * Classe responsável pela autenticação e comunicação com o backend
+ */
 export class AutenticacaoService {
   private usuarioSubject: BehaviorSubject<Usuario>;
   public usuario: Observable<Usuario>;
@@ -17,12 +22,21 @@ export class AutenticacaoService {
     this.usuario = this.usuarioSubject.asObservable();
   }
 
-  public get userValue(): Usuario {
+  /**
+   * Método que retorna o usuário e suas informações
+   */
+  public get getUsuario(): Usuario {
     return this.usuarioSubject.value;
   }
 
+  /**
+   * Método de login que faz a conexão com a API, enviando o CPF e a senha, e retornando 
+   * o usuário se os dados estiverem corretos caso contrário retorna Erro 404
+   * @param CPF 
+   * @param Senha 
+   */
   login(CPF: string, Senha: string) {
-    return this.http.post<any>(`https://api-tcc-sti.herokuapp.com/api/Login`, { CPF, Senha })
+    return this.http.post<any>(`${environment.apiUrl}/Login`, { CPF, Senha })
       .pipe(
         map(usuario => {
           // Armazena o usuário no armazenamento local para manter conectado entre as atualizações da página
@@ -35,6 +49,12 @@ export class AutenticacaoService {
   };
 
 
+  /**
+   * Método que realiza o lougout do usuário do sistema:
+   * - Remove do localStorage
+   * - Define o usuarioSubject como null
+   * - E navega para a tela de Login
+   */
   logout() {
     localStorage.removeItem('usuario');
     this.usuarioSubject.next(null);
