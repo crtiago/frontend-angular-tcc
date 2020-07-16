@@ -40,15 +40,18 @@
                 <!--Botões de envio-->
                 <div>
                     <div>
-                        <button (click)="enviar()" [disabled]="!formularioDeUsuario.valid">
+                        <button (click)="login()" [disabled]="!formularioDeUsuario.valid">
                             <span *ngIf="carregar" class="spinner-border spinner-border-sm mr-1"></span>
-                            Enviar</button>
+                            Entrar</button>
                     </div>
                     <div>
-                        <button (click)="sair()">Cadastre-se</button>
+                        <button type="button" routerLink="/cadastro">
+                            Cadastre-se</button>
+
                     </div>
                 </div>
-
+                <!--Mensagem para caso os dados inseridos pelo usuário esteja incorreto-->
+                <div *ngIf="erro" class="alert alert-danger mt-3 mb-0">{{erro}}</div>
             </form>
 
         </div>
@@ -56,8 +59,7 @@
 </div>
 
 
-<!-- TODO
+<!-- TODO - Possíveis Alterações a se discutir
     Desabilitar o campo senha enquanto n houver CPF válido, e habilitar quando for válido
-    Mensagem usuário ao errar dados
-    Error Interceptor
+    Colocar icone de check e de x nos inputs, mudando a forma de apresentação de erro
 -->

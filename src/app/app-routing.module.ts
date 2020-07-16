@@ -1,3 +1,4 @@
+import { CadastroComponent } from './views/cadastro/cadastro.component';
 import { RouteGuardService } from './_helpers/route-guard.service';
 import { LoginComponent } from './views/login/login.component';
 import { Funcao } from './_enuns/funcao';
@@ -6,6 +7,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
+  { path: 'cadastro',  component: CadastroComponent},
   {
     path: 'prof',
     canActivate : [RouteGuardService],

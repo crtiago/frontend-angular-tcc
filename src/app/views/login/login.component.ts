@@ -28,13 +28,10 @@ export class LoginComponent implements OnInit, OnDestroy {
     private router: Router,
     private autenticacaoService: AutenticacaoService) {
 
-    if (this.autenticacaoService.getUsuario) {
-      if (this.autenticacaoService.getUsuario.TipoUsuario == 1) {
-        this.router.navigate(['aluno']);
-      } else {
-        this.router.navigate(['prof']);
-      }
-    }
+    /**
+      * Antes de construir verifica se há algum usuário logado, caso haja, direciona pra home do mesmo
+      */
+    autenticacaoService.logado();
   }
 
   ngOnInit() {
@@ -42,15 +39,21 @@ export class LoginComponent implements OnInit, OnDestroy {
     this._document.body.classList.add('bodybg-background');
   }
 
+  /**
+   * Método responsável por validar os campos cpf e senha
+   */
   criarFormularioDeUsuario() {
     this.formularioDeUsuario = this.fb.group({
-      cpf: ['', Validators.compose([Validators.required,Validacoes.validarCPF])],
+      cpf: ['', Validators.compose([Validators.required, Validacoes.validarCPF])],
       //TODO Desabilitar o campo senha enquanto n digitar um cpf válido
       senha: [{ value: '', disabled: false }, Validators.compose([Validators.required])],
     });
   }
 
 
+  /**
+   * Métodos get do formulário para obter os erros
+   */
   get cpf() {
     return this.formularioDeUsuario.get('cpf');
   }
@@ -59,7 +62,11 @@ export class LoginComponent implements OnInit, OnDestroy {
     return this.formularioDeUsuario.get('senha');
   }
 
-  enviar() {
+
+  /**
+   * Método que faz o login no sistema e direciona a rota especifica conforme o tipo de usuário
+   */
+  login() {
     this.carregar = true;
     this.autenticacaoService.login(this.formularioDeUsuario.value.cpf, this.formularioDeUsuario.value.senha)
       .pipe(first()).subscribe(
@@ -68,18 +75,14 @@ export class LoginComponent implements OnInit, OnDestroy {
             this.router.navigate(['aluno']);
           } else if (data.TipoUsuario == 2) {
             this.router.navigate(['prof']);
-          } else {
-            this.router.navigate(['login']);
           }
         },
         error => {
-          this.erro = error;
+          //Remove a o texto 'Error:' e adiciona a mensagem a variável erro
+          this.erro = error.toString().replace("Error:","");
+          //Caso retorne erro ele desativa o circulo de carregamento
           this.carregar = false;
         });
-  }
-
-  sair() {
-    this.autenticacaoService.logout();
   }
 
   ngOnDestroy() {

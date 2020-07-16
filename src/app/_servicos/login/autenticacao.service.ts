@@ -1,10 +1,10 @@
 import { environment } from './../../../environments/environment';
 import { Usuario } from './../../_modelos/usuario';
 import { Router } from '@angular/router';
-import { Injectable } from '@angular/core';
+import { Injectable, ErrorHandler } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +16,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 export class AutenticacaoService {
   private usuarioSubject: BehaviorSubject<Usuario>;
   public usuario: Observable<Usuario>;
-  
+
   constructor(private router: Router, private http: HttpClient) {
     this.usuarioSubject = new BehaviorSubject<Usuario>(JSON.parse(localStorage.getItem('usuario')));
     this.usuario = this.usuarioSubject.asObservable();
@@ -39,15 +39,31 @@ export class AutenticacaoService {
     return this.http.post<any>(`${environment.apiUrl}/Login`, { CPF, Senha })
       .pipe(
         map(usuario => {
-          // Armazena o usuário no armazenamento local para manter conectado entre as atualizações da página
-          localStorage.setItem('usuario', JSON.stringify(usuario.Data));
-          this.usuarioSubject.next(usuario.Data);
-          return usuario.Data;
+          if (!usuario.Sucesso) {
+            throw new Error(usuario.Mensagem);
+          } else {
+            // Armazena o usuário no armazenamento local para manter conectado entre as atualizações da página
+            localStorage.setItem('usuario', JSON.stringify(usuario.Data));
+            this.usuarioSubject.next(usuario.Data);
+            return usuario.Data;
+          }
         }
         )
       )
   };
 
+  /**
+   * Método que retorna ao home do tipo do usuário logado
+   */
+  logado() {
+    if (this.getUsuario) {
+      if (this.getUsuario.TipoUsuario == 1) {
+        this.router.navigate(['aluno']);
+      } else {
+        this.router.navigate(['prof']);
+      }
+    }
+  }
 
   /**
    * Método que realiza o lougout do usuário do sistema:
