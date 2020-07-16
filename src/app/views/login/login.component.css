@@ -26,7 +26,7 @@
     padding: 30px;
     background:rgb(238,241,236);
     text-align: center;
-    border-radius: 30px 30px 30px 30px;
+    border-radius: 10px;
     opacity: 0.8;
 }
 
@@ -61,4 +61,3 @@ div > div {
     color:black;
     font-weight: bolder;
 }
-

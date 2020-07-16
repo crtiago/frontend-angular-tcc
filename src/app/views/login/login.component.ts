@@ -1,9 +1,9 @@
 import { Validacoes } from './../../_helpers/validacoes';
 import { AutenticacaoService } from '../../_servicos/login/autenticacao.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Component, OnInit, OnDestroy, ViewEncapsulation, Inject, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewEncapsulation, Inject } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { first } from 'rxjs/operators';
 
 @Component({
@@ -18,11 +18,8 @@ import { first } from 'rxjs/operators';
  * logado ou não, caso o usuário esteja logado ele direciona para a página home do mesmo
  */
 export class LoginComponent implements OnInit, OnDestroy {
-
-  // Aqui damos um nome para nosso formulário
-  // E ele precisa ser do tipo FormGroup
   formularioDeUsuario: FormGroup;
-  habilita = true;
+  carregar = false;
   erro = '';
 
   constructor(
@@ -40,7 +37,6 @@ export class LoginComponent implements OnInit, OnDestroy {
     }
   }
 
-
   ngOnInit() {
     this.criarFormularioDeUsuario();
     this._document.body.classList.add('bodybg-background');
@@ -48,11 +44,12 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   criarFormularioDeUsuario() {
     this.formularioDeUsuario = this.fb.group({
-      cpf: ['', Validators.compose([Validators.required, Validacoes.validarCPF])],
+      cpf: ['', Validators.compose([Validators.required,Validacoes.validarCPF])],
       //TODO Desabilitar o campo senha enquanto n digitar um cpf válido
       senha: [{ value: '', disabled: false }, Validators.compose([Validators.required])],
     });
   }
+
 
   get cpf() {
     return this.formularioDeUsuario.get('cpf');
@@ -63,6 +60,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   enviar() {
+    this.carregar = true;
     this.autenticacaoService.login(this.formularioDeUsuario.value.cpf, this.formularioDeUsuario.value.senha)
       .pipe(first()).subscribe(
         data => {
@@ -76,6 +74,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         },
         error => {
           this.erro = error;
+          this.carregar = false;
         });
   }
 
