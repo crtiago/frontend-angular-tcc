@@ -1,11 +1,21 @@
-import { AbstractControl } from '@angular/forms';
+import { AbstractControl, FormGroup } from '@angular/forms';
+
+/**
+ * Classe responsável por fazer as validações necessárias em inputs como CPF, Menor de 16, Confirmação 
+ * de senha.
+ */
 
 export class Validacoes {
 
+
+    /**
+     * Método que valida o CPF, só é aceito CPF válido
+     * @param controle
+     */
     static validarCPF(controle: AbstractControl) {
 
         const cpf = controle.value.replace(/[^\d]+/g, '');
-        if (cpf == '') return { cpfInvalido: true };;
+        if (cpf == '') return { cpfInvalido: null };
         // Elimina CPFs invalidos conhecidos	
         if (cpf.length != 11 ||
             cpf == "00000000000" ||
@@ -37,7 +47,68 @@ export class Validacoes {
             rev = 0;
         if (rev != parseInt(cpf.charAt(10)))
             return { cpfInvalido: true };
+        return null
+    }
+
+    /**
+     * Método que verifica se o usuário é maior de 16 anos
+     * @param controle 
+     */
+    static maiorQue16Anos(controle: AbstractControl) {
+        const nascimento = controle.value;
+        const [ano, mes, dia] = nascimento.split('-');
+        const hoje = new Date();
+        const dataNascimento = new Date(ano, mes, dia, 0, 0, 0);
+        const tempoParaTeste = 1000 * 60 * 60 * 24 * 365 * 16; //16 anos em mili segundos...
+
+        if (hoje.getTime() - dataNascimento.getTime() >= tempoParaTeste)
+            return null;
+
+        return { menorDe16: true };
+    }
+
+    /**
+     * Método para validar o ano, não permitindo ano posterior ao que está, e inferior
+     * ao atual menos 80 anos
+     * @param controle 
+     */
+    static validarAno(controle: AbstractControl){
+        const ano = controle.value;
+        const anoAtual = new Date();
+        const anoLimiteInferior = anoAtual.getFullYear() - 80;
+
+        if(ano > anoAtual.getFullYear()){
+            return { anoInvalido: true};    
+        }else if(ano < anoLimiteInferior){
+            return { anoInvalido: true};  
+        }
         return null;
+        
+    }
+
+
+    /**
+     * Método que verifica se as senhas são iguais ou não
+     * @param senha 
+     * @param confirmarSenha 
+     */
+    static conferem(senha: string, confirmarSenha: string) {
+        return (formGroup: FormGroup) => {
+            const _senha = formGroup.controls[senha];
+            const _confirmarSenha = formGroup.controls[confirmarSenha];
+
+            if (_confirmarSenha.errors && !_confirmarSenha.errors.naoConferem) {
+                // Retorna se outro validador já encontrou um erro no Confirmar Senha
+                return;
+            }
+
+            // Define erro em Confirmar Senha se a validação falhar
+            if (_senha.value !== _confirmarSenha.value) {
+                _confirmarSenha.setErrors({ naoConferem: true });
+            } else {
+                _confirmarSenha.setErrors(null);
+            }
+        }
     }
 
 

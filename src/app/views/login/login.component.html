@@ -16,24 +16,24 @@
 
                 <!--Input do CPF-->
                 <div class="form-group">
-                    <input type="text" formControlName="cpf" class="form-control" placeholder="000.000.000-00" mask="000.000.000-00" [ngClass]="{ 'is-invalid': cpf.errors }">
-                    <div *ngIf="!cpf.pristine && cpf.errors" class="invalid-feedback">
-                        <p *ngIf="cpf.errors.cpfInvalido">
+                    <input type="text" formControlName="cpf" class="form-control" placeholder="000.000.000-00" mask="000.000.000-00" [ngClass]="{ 'is-invalid':!f.cpf.pristine && f.cpf.errors }">
+                    <div *ngIf="!f.cpf.pristine && f.cpf.errors" class="invalid-feedback">
+                        <div *ngIf="f.cpf.errors.cpfInvalido">
                             Digite um CPF válido
-                        </p>
-                        <p *ngIf="cpf.errors.required">
+                        </div>
+                        <div *ngIf="f.cpf.errors.required">
                             CPF é obrigatório.
-                        </p>
+                        </div>
                     </div>
                 </div>
 
                 <!--Input da Senha-->
                 <div class="form-group">
-                    <input type="password" formControlName="senha" class="form-control" placeholder="Senha" [ngClass]="{ 'is-invalid': senha.errors }">
-                    <div *ngIf="!senha.pristine && senha.errors" class="invalid-feedback">
-                        <p *ngIf="senha.errors.required">
+                    <input type="password" formControlName="senha" class="form-control" placeholder="Senha" [ngClass]="{ 'is-invalid': !f.senha.pristine && f.senha.errors }">
+                    <div *ngIf="!f.senha.pristine && f.senha.errors" class="invalid-feedback">
+                        <div *ngIf="f.senha.errors.required">
                             Senha é obrigatória.
-                        </p>
+                        </div>
                     </div>
                 </div>
 
@@ -61,5 +61,4 @@
 
 <!-- TODO - Possíveis Alterações a se discutir
     Desabilitar o campo senha enquanto n houver CPF válido, e habilitar quando for válido
-    Colocar icone de check e de x nos inputs, mudando a forma de apresentação de erro
 -->

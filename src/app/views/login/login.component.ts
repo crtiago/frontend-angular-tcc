@@ -46,21 +46,15 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.formularioDeUsuario = this.fb.group({
       cpf: ['', Validators.compose([Validators.required, Validacoes.validarCPF])],
       //TODO Desabilitar o campo senha enquanto n digitar um cpf válido
-      senha: [{ value: '', disabled: false }, Validators.compose([Validators.required])],
+      senha: ['', Validators.compose([Validators.required])],
     });
   }
 
 
   /**
-   * Métodos get do formulário para obter os erros
+   * Método get do formulário para obter os erros
    */
-  get cpf() {
-    return this.formularioDeUsuario.get('cpf');
-  }
-
-  get senha() {
-    return this.formularioDeUsuario.get('senha');
-  }
+  get f() { return this.formularioDeUsuario.controls; }
 
 
   /**
@@ -71,6 +65,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.autenticacaoService.login(this.formularioDeUsuario.value.cpf, this.formularioDeUsuario.value.senha)
       .pipe(first()).subscribe(
         data => {
+          //Direciona para a home do usuário conforme o tipo que ele for
           if (data.TipoUsuario == 1) {
             this.router.navigate(['aluno']);
           } else if (data.TipoUsuario == 2) {

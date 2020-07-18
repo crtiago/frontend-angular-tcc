@@ -10,21 +10,11 @@
     background-size: cover;
   }
 
-
 /*Estilo dos Inputs*/
 .box input[type="text"],
 .box input[type="password"] {
-    border: 0;
-    background: none;
-    display: block;
-    margin: 20px auto;
-    text-align: left;
-    border: 2px solid black;
-    padding: 10px 10px;
-    width: 250px;
-    outline: none;
-    color: black;
-    border-radius: 10px;
+    width: 300px;
+    margin: 5px auto;
 }
 
 /*Estilo dos botões*/
@@ -38,6 +28,7 @@
     outline: none;
     color: rgb(47,158,64);
     border-radius: 10px;
-    transition: 0.25s;
     cursor: pointer;
 }
+
+

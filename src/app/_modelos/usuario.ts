@@ -1,7 +1,7 @@
 import { Funcao } from '../_enuns/funcao';
 
 /**
- * Modelo Usuário
+ * Modelo Usuário, que será usada por Aluno e Professor
  */
 
 export class Usuario {

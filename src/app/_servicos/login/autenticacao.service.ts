@@ -39,6 +39,7 @@ export class AutenticacaoService {
     return this.http.post<any>(`${environment.apiUrl}/Login`, { CPF, Senha })
       .pipe(
         map(usuario => {
+          //Se o Sucesso for false, ele retorna o Erro com a mensagem que vem do back
           if (!usuario.Sucesso) {
             throw new Error(usuario.Mensagem);
           } else {
