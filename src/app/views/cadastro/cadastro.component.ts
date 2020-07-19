@@ -12,7 +12,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class CadastroComponent implements OnInit, OnDestroy {
   formularioDeUsuario: FormGroup;
   submitted = false;
-  tipoUsuario: number;
+  desabilitar = true;
+
+  tipoUsuarios: any = ['Não selecionado', 'Aluno', 'Professor']
 
   constructor(private fb: FormBuilder,
     @Inject(DOCUMENT) private _document,
@@ -30,35 +32,37 @@ export class CadastroComponent implements OnInit, OnDestroy {
     this._document.body.classList.add('bodybg-background');
   }
 
-  criarFormularioDeUsuario(){
+  criarFormularioDeUsuario() {
     this.formularioDeUsuario = this.fb.group({
       nome: ['', Validators.required],
       cpf: ['', Validators.compose([Validators.required, Validacoes.validarCPF])],
-      // validates date format yyyy-mm-dd
-      nascimento: ['', [Validators.required, Validacoes.maiorQue16Anos,Validators.pattern(/^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$/)]],
+      nascimento: ['', [Validators.required, Validacoes.maiorQue16Anos, Validators.pattern(/^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$/)]],
       email: ['', [Validators.required, Validators.email]],
-      telefone: ['',Validators.minLength(10)],
+      telefone: ['', Validators.minLength(10)],
       instituicao: ['', Validators.required],
       senha: ['', [Validators.required, Validators.minLength(6)]],
       confirmarSenha: ['', Validators.required],
-      tipoUsuario:['', Validators.required],
-      matricula:[{value:'', disabled: this.validar()},Validators.required],
-      anoIngresso:['', Validators.compose([Validators.required, Validators.minLength(4), Validacoes.validarAno])],
-      acceptTerms: [false, Validators.requiredTrue]
+      tipoUsuario: ['', Validators.required],
+      matricula: [{ value: '', disabled: true }, Validators.required],
+      anoIngresso: [{ value: '', disabled: true }, Validators.compose([Validators.required, Validators.minLength(4), Validacoes.validarAno])],
     }, {
       validator: Validacoes.conferem('senha', 'confirmarSenha')
     });
   };
-  
-validar(){
-  if(this.tipoUsuario == 1){
-    return true;
-  }
-}
 
- /**
-   * Método get do formulário para obter os erros
-   */
+  getTipo(e) {
+    if (this.formularioDeUsuario.get('tipoUsuario').value == 1) {
+      this.formularioDeUsuario.get('matricula').enable();
+      this.formularioDeUsuario.get('anoIngresso').enable();
+    } else {
+      this.formularioDeUsuario.get('matricula').disable();
+      this.formularioDeUsuario.get('anoIngresso').disable();
+    }
+  }
+
+  /**
+    * Método get do formulário para obter os erros
+    */
   get f() { return this.formularioDeUsuario.controls; }
 
   onSubmit() {

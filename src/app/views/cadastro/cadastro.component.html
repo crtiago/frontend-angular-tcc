@@ -33,7 +33,8 @@
                     <input type="date" formControlName="nascimento" class="form-control"
                         [ngClass]="{ 'is-invalid':!f.nascimento.pristine && f.nascimento.errors }" />
                     <div *ngIf="!f.nascimento.pristine && f.nascimento.errors" class="invalid-feedback">
-                        <div *ngIf="!f.nascimento.errors.required && !f.nascimento.errors.pattern && f.nascimento.errors.menorDe16">
+                        <div
+                            *ngIf="!f.nascimento.errors.required && !f.nascimento.errors.pattern && f.nascimento.errors.menorDe16">
                             Você deve ter mais de 16 anos.
                         </div>
                         <div *ngIf="f.nascimento.errors.required">Data de nascimento é obrigatória.</div>
@@ -46,14 +47,14 @@
                 <!--Input Imagem de Perfil-->
                 <div class="form-group col-2">
                     <label>Imagem de Perfil</label>
-                    <input type="file" name="myImage" accept="image/*"/>
+                    <input type="file" name="myImage" accept="image/*" />
                 </div>
             </div>
 
             <!--Segunda Linha de Inputs-->
             <div class="form-row">
 
-               <!--Input Email-->
+                <!--Input Email-->
                 <div class="form-group col-6">
                     <label>Email</label>
                     <input type="text" formControlName="email" class="form-control"
@@ -68,16 +69,17 @@
                 <div class="form-group col-2">
                     <label>Telefone</label>
                     <input type="text" formControlName="telefone" class="form-control" placeholder="(00) 00000-0000"
-                    mask="(00) 00000-0000" [ngClass]="{ 'is-invalid':!f.telefone.pristine && f.telefone.errors }" />
+                        mask="(00) 00000-0000" [ngClass]="{ 'is-invalid':!f.telefone.pristine && f.telefone.errors }" />
                     <div *ngIf="!f.telefone.pristine && f.telefone.errors" class="invalid-feedback">
-                         <div *ngIf="f.telefone.errors.minlength">Insira um telefone válido.</div>
+                        <div *ngIf="f.telefone.errors.minlength">Insira um telefone válido.</div>
                     </div>
                 </div>
 
                 <!--Select Instituição-->
                 <div class="form-group col-4">
                     <label>Instituição</label>
-                    <select formControlName="instituicao" class="form-control" [ngClass]="{ 'is-invalid': !f.instituicao.pristine && f.instituicao.errors }">
+                    <select formControlName="instituicao" class="form-control"
+                        [ngClass]="{ 'is-invalid': !f.instituicao.pristine && f.instituicao.errors }">
                         <option value=""></option>
                         <option value="IFSC">IFSC</option>
                         <option value="UFSC">UFSC</option>
@@ -89,7 +91,7 @@
                     </div>
                 </div>
 
-                
+
             </div>
 
             <!--Terceira Linha dos Inputs-->
@@ -120,8 +122,8 @@
                 <!--Select Tipo de Usuário-->
                 <div class="form-group col-2">
                     <label>Tipo de Usuário</label>
-                    <select [value]="tipoUsuario" formControlName="tipoUsuario" class="form-control" [ngClass]="{ 'is-invalid': !f.tipoUsuario.pristine && f.tipoUsuario.errors }">
-                        <option value=""></option>
+                    <select (change)="getTipo($event)" formControlName="tipoUsuario" class="form-control"
+                        [ngClass]="{ 'is-invalid': !f.tipoUsuario.pristine && f.tipoUsuario.errors }">
                         <option value="1">Aluno</option>
                         <option value="2">Professor</option>
                     </select>
@@ -130,36 +132,34 @@
                     </div>
                 </div>
 
+                <!--Inputs do Tipo Usuário = Aluno-->
                 <!--Input Matricula do Aluno-->
-                <div  class="form-group col-2">
+                <div *ngIf="f.tipoUsuario.value == 1" class="form-group col-2">
                     <label>Matricula</label>
-                    <input type="text" mask="000000000000000000" formControlName="matricula" class="form-control" [ngClass]="{ 'is-invalid':!f.matricula.pristine && f.matricula.errors }" />
+                    <input type="text" mask="000000000000000000" formControlName="matricula" class="form-control"
+                        [ngClass]="{ 'is-invalid':!f.matricula.pristine && f.matricula.errors }" />
                     <div *ngIf="!f.matricula.pristine && f.matricula.errors" class="invalid-feedback">
-                         <div *ngIf="f.matricula.errors.required">Matricula é obrigatória.</div>
+                        <div *ngIf="f.matricula.errors.required">Matricula é obrigatória.</div>
                     </div>
                 </div>
 
                 <!--Input Ano Ingresso do Aluno-->
                 <div *ngIf="f.tipoUsuario.value == 1" class="form-group col-2">
                     <label>Ano de Ingresso</label>
-                    <input type="text" mask="0000" formControlName="anoIngresso" class="form-control" [ngClass]="{ 'is-invalid':!f.anoIngresso.pristine && f.anoIngresso.errors }" />
+                    <input type="text" mask="0000" formControlName="anoIngresso" class="form-control"
+                        [ngClass]="{ 'is-invalid':!f.anoIngresso.pristine && f.anoIngresso.errors }" />
                     <div *ngIf="!f.anoIngresso.pristine && f.anoIngresso.errors" class="invalid-feedback">
-                         <div *ngIf="f.anoIngresso.errors.required">Ano de Ingresso é obrigatório.</div>
-                         <div *ngIf="(f.anoIngresso.errors.anoInvalido || f.anoIngresso.errors.minlength) && !f.anoIngresso.errors.required">
-                             Insira um ano válido.
-                            </div>
+                        <div *ngIf="f.anoIngresso.errors.required">Ano de Ingresso é obrigatório.</div>
+                        <div
+                            *ngIf="(f.anoIngresso.errors.anoInvalido || f.anoIngresso.errors.minlength) && !f.anoIngresso.errors.required">
+                            Insira um ano válido.
+                        </div>
                     </div>
                 </div>
+                <!--Fim dos Inputs do Tipo Usuário = Aluno-->           
+                
+                <!-- TODO Colocar multiple select Prof-->
 
-
-
-            </div>
-
-            <div class="form-group form-check">
-                <input type="checkbox" formControlName="acceptTerms" id="acceptTerms" class="form-check-input"
-                    [ngClass]="{ 'is-invalid': f.acceptTerms.errors }" />
-                <label for="acceptTerms" class="form-check-label">Accept Terms & Conditions</label>
-                <div *ngIf=" f.acceptTerms.errors" class="invalid-feedback">Accept Ts & Cs is required</div>
             </div>
             <div class="text-center">
                 <button class="btn btn-primary mr-1" [disabled]="!formularioDeUsuario.valid">Register</button>

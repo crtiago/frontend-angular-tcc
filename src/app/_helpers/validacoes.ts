@@ -77,13 +77,10 @@ export class Validacoes {
         const anoAtual = new Date();
         const anoLimiteInferior = anoAtual.getFullYear() - 80;
 
-        if(ano > anoAtual.getFullYear()){
+        if((ano > anoAtual.getFullYear()) || (ano < anoLimiteInferior)){
             return { anoInvalido: true};    
-        }else if(ano < anoLimiteInferior){
-            return { anoInvalido: true};  
         }
-        return null;
-        
+        return null;        
     }
 
 
@@ -109,6 +106,15 @@ export class Validacoes {
                 _confirmarSenha.setErrors(null);
             }
         }
+    }
+
+    static desabilitarCampos(controle: AbstractControl){
+        const tipoUsuario = controle.value;
+
+        console.log(tipoUsuario);
+
+        return false;
+
     }
 
 
