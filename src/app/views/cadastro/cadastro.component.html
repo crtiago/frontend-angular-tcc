@@ -156,14 +156,38 @@
                         </div>
                     </div>
                 </div>
-                <!--Fim dos Inputs do Tipo Usuário = Aluno-->           
-                
-                <!-- TODO Colocar multiple select Prof-->
+                <!--Fim dos Inputs do Tipo Usuário = Aluno-->
+
+                <!--Input do Tipo Usuário = Professor-->
+                <div *ngIf="f.tipoUsuario.value == 2" class="form-group col-4">
+                    <label>Disciplinas de Interesse</label>
+                    <select (change)="getDisciplinas($event)" formControlName="disciplinas" class="form-control"
+                        [ngClass]="{ 'is-invalid': !f.disciplinas.pristine && f.disciplinas.errors }">
+                        <option *ngFor="let disciplina of todasDisciplinas" [value]="disciplina">{{ disciplina }}</option>
+                    </select>
+                    <div *ngIf="!f.disciplinas.pristine && f.disciplinas.errors" class="invalid-feedback">
+                        <div *ngIf="f.disciplinas.required">Escolha no minímo uma disciplina de interesse.</div>
+                    </div>
+                </div>
+                <!--Fim dos Inputs do Tipo Usuário = Professor-->
 
             </div>
+
+            <!--Botões com as disciplinas escolhidas pelo Professor-->
+            <label *ngIf="f.tipoUsuario.value == 2">Disciplinas de Interesse</label>
+            <div *ngIf="f.tipoUsuario.value == 2" class="form-row">
+                <h5 *ngFor="let disciplina of disciplinasInteresse" style="margin: 0px 5px 8px;"> 
+                    <span class="badge badge-success">{{disciplina}}
+                        <button type="button" (click)="removerDisciplina(disciplina)"class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </span>
+                </h5>
+            </div>
+
             <div class="text-center">
-                <button class="btn btn-primary mr-1" [disabled]="!formularioDeUsuario.valid">Register</button>
-                <button class="btn btn-secondary" type="reset" (click)="onReset()">Cancel</button>
+                <button class="btn btn-primary mr-1" [disabled]="!formularioDeUsuario.valid">Cadastrar</button>
+                <button class="btn btn-secondary" type="reset" (click)="onReset()">Cancelar</button>
             </div>
         </form>
     </div>

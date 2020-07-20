@@ -1,3 +1,4 @@
+import { MetodosEnuns } from './_helpers/metodos-enuns';
 import { InterceptadorErros } from './_helpers/interceptador-erros';
 import { LoginComponent } from './views/login/login.component';
 import { BrowserModule } from '@angular/platform-browser';
@@ -28,6 +29,7 @@ const maskConfig: Partial<IConfig> = {
     NgxMaskModule.forRoot(maskConfig)
   ],
   providers: [
+    MetodosEnuns,
     { provide: HTTP_INTERCEPTORS, useClass: InterceptadorErros, multi: true },
   ],
   bootstrap: [AppComponent]

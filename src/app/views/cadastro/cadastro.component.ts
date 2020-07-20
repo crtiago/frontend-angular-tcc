@@ -1,8 +1,10 @@
+import { MetodosEnuns } from './../../_helpers/metodos-enuns';
 import { Validacoes } from './../../_helpers/validacoes';
 import { AutenticacaoService } from './../../_servicos/login/autenticacao.service';
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { STRING_TYPE } from '@angular/compiler';
 
 @Component({
   selector: 'app-cadastro',
@@ -12,19 +14,20 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class CadastroComponent implements OnInit, OnDestroy {
   formularioDeUsuario: FormGroup;
   submitted = false;
-  desabilitar = true;
-
-  tipoUsuarios: any = ['Não selecionado', 'Aluno', 'Professor']
+  todasDisciplinas = [];
+  disciplinasInteresse = [];
 
   constructor(private fb: FormBuilder,
     @Inject(DOCUMENT) private _document,
-    private autenticacaoService: AutenticacaoService
+    private autenticacaoService: AutenticacaoService,
+    private metodosDisciplinas: MetodosEnuns
   ) {
 
-    /**
-     * Antes de construir verifica se há algum usuário logado, caso haja, direciona pra home do mesmo
-     */
+    //Antes de construir verifica se há algum usuário logado, caso haja, direciona pra home do mesmo
     this.autenticacaoService.logado();
+
+    //Pega todos os valores das disciplinas 
+    this.todasDisciplinas = metodosDisciplinas.getValores();
   }
 
   ngOnInit() {
@@ -45,6 +48,7 @@ export class CadastroComponent implements OnInit, OnDestroy {
       tipoUsuario: ['', Validators.required],
       matricula: [{ value: '', disabled: true }, Validators.required],
       anoIngresso: [{ value: '', disabled: true }, Validators.compose([Validators.required, Validators.minLength(4), Validacoes.validarAno])],
+      disciplinas: [{ value: '', disabled: true }, Validators.required]
     }, {
       validator: Validacoes.conferem('senha', 'confirmarSenha')
     });
@@ -52,12 +56,50 @@ export class CadastroComponent implements OnInit, OnDestroy {
 
   getTipo(e) {
     if (this.formularioDeUsuario.get('tipoUsuario').value == 1) {
+
+      //Se o TipoUsuário for Aluno ele habilita os seus inputs
       this.formularioDeUsuario.get('matricula').enable();
       this.formularioDeUsuario.get('anoIngresso').enable();
+
+      //Se o TipoUsuário for Aluno ele desabilita os inputs do professor
+      this.formularioDeUsuario.get('disciplinas').disable();
+      
+      //Reseta os campos do professor
+      this.disciplinasInteresse = [];
+      this.todasDisciplinas = this.metodosDisciplinas.getValores();
     } else {
+
+      //Se o TipoUsuário for Professor ele desabilita os inputs do Aluno
+      this.formularioDeUsuario.get('matricula').reset();
+      this.formularioDeUsuario.get('anoIngresso').reset();
       this.formularioDeUsuario.get('matricula').disable();
       this.formularioDeUsuario.get('anoIngresso').disable();
+      
+
+      //Se o TipoUsuário for Professor ele habilita os seus inputs
+      this.formularioDeUsuario.get('disciplinas').enable();
     }
+  }
+
+  getDisciplinas(e) {
+    const disciplina = this.formularioDeUsuario.get('disciplinas').value;
+
+    //Pega o indice 
+    const index = this.todasDisciplinas.indexOf(disciplina);
+
+    //Adiciona a disciplina de interesse escolhida
+    this.disciplinasInteresse.push(disciplina);
+
+    //Remove a disciplina escolhida  
+    this.todasDisciplinas.splice(index, 1);
+  }
+
+  removerDisciplina(disciplina: string) {
+    //Remove a disciplina escolhida
+    const index = this.disciplinasInteresse.indexOf(disciplina);
+    this.disciplinasInteresse.splice(index, 1);
+
+    this.todasDisciplinas.push(disciplina);
   }
 
   /**

@@ -1,5 +1,5 @@
+import { EDisciplina } from './../_enuns/edisciplinas';
 import { Usuario } from './usuario';
-import { EDisciplina } from './edisciplina';
 
 /**
  * Modelo Professor que extende da classe Usuário
