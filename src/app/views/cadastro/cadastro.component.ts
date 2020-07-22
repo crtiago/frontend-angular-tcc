@@ -1,26 +1,54 @@
+import { first } from 'rxjs/operators';
+import { CadastroService } from './../../_servicos/cadastro/cadastro.service';
+import { TratamentoImagem } from '../../_helpers/tratamento-imagem';
 import { MetodosEnuns } from './../../_helpers/metodos-enuns';
 import { Validacoes } from './../../_helpers/validacoes';
 import { AutenticacaoService } from './../../_servicos/login/autenticacao.service';
-import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
+import { Component, OnInit, Inject, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { STRING_TYPE } from '@angular/compiler';
+import * as $ from "jquery";
+
+//Varivável para habilitar e usar o jquery
+declare var $: any;
 
 @Component({
   selector: 'app-cadastro',
   templateUrl: './cadastro.component.html',
   styleUrls: ['./cadastro.component.css']
 })
+
+/**
+ * Componente de Cadastro, responsável por fazer o cadastro do usuário no sistema
+ */
 export class CadastroComponent implements OnInit, OnDestroy {
+
+  //Variável que recebe o modal de Alerta Sucesso para poder habilitá-lo
+  @ViewChild('modalSucesso') modalSucesso: ElementRef;
+  //Variável que recebe o modal de Alerta Sucesso para poder habilitá-lo
+  @ViewChild('modalErro') modalErro: ElementRef;
+  //Variável para criar o formulário reativo
   formularioDeUsuario: FormGroup;
-  submitted = false;
+  //Variável para receber a mensagem do backend para caso de sucesso
+  mensagem = '';
+  //Lista com todas as disciplinas
   todasDisciplinas = [];
+  //Lista com as disciplinas de interesse do professor
   disciplinasInteresse = [];
+  //Varíavel para receber a mensagem de erro do backend
+  erro = '';
+  //Variável para receber a imagem na base64
+  imagem: any;
+  //Varíavel para habilitar o spinner de carregamento
+  carregar = false;
+
 
   constructor(private fb: FormBuilder,
     @Inject(DOCUMENT) private _document,
     private autenticacaoService: AutenticacaoService,
-    private metodosDisciplinas: MetodosEnuns
+    private metodosDisciplinas: MetodosEnuns,
+    private tratamentoImagem: TratamentoImagem,
+    private cadastroService: CadastroService,
   ) {
 
     //Antes de construir verifica se há algum usuário logado, caso haja, direciona pra home do mesmo
@@ -39,7 +67,7 @@ export class CadastroComponent implements OnInit, OnDestroy {
     this.formularioDeUsuario = this.fb.group({
       nome: ['', Validators.required],
       cpf: ['', Validators.compose([Validators.required, Validacoes.validarCPF])],
-      nascimento: ['', [Validators.required, Validacoes.maiorQue16Anos, Validators.pattern(/^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$/)]],
+      nascimento: ['', [Validacoes.validarAno,Validators.required, Validacoes.maiorQue16Anos, Validators.pattern(/^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$/)]],
       email: ['', [Validators.required, Validators.email]],
       telefone: ['', Validators.minLength(10)],
       instituicao: ['', Validators.required],
@@ -63,7 +91,7 @@ export class CadastroComponent implements OnInit, OnDestroy {
 
       //Se o TipoUsuário for Aluno ele desabilita os inputs do professor
       this.formularioDeUsuario.get('disciplinas').disable();
-      
+
       //Reseta os campos do professor
       this.disciplinasInteresse = [];
       this.todasDisciplinas = this.metodosDisciplinas.getValores();
@@ -74,7 +102,7 @@ export class CadastroComponent implements OnInit, OnDestroy {
       this.formularioDeUsuario.get('anoIngresso').reset();
       this.formularioDeUsuario.get('matricula').disable();
       this.formularioDeUsuario.get('anoIngresso').disable();
-      
+
 
       //Se o TipoUsuário for Professor ele habilita os seus inputs
       this.formularioDeUsuario.get('disciplinas').enable();
@@ -97,9 +125,12 @@ export class CadastroComponent implements OnInit, OnDestroy {
   removerDisciplina(disciplina: string) {
     //Remove a disciplina escolhida
     const index = this.disciplinasInteresse.indexOf(disciplina);
-    this.disciplinasInteresse.splice(index, 1);
 
+
+    //Adiciona a disciplina
     this.todasDisciplinas.push(disciplina);
+
+    this.disciplinasInteresse.splice(index, 1);
   }
 
   /**
@@ -107,21 +138,64 @@ export class CadastroComponent implements OnInit, OnDestroy {
     */
   get f() { return this.formularioDeUsuario.controls; }
 
-  onSubmit() {
-    this.submitted = true;
+  cadastrar(model: any) {
+    this.carregar = true;
 
-    // stop here if form is invalid
-    if (this.formularioDeUsuario.invalid) {
-      return;
+    this.imagem = this.tratamentoImagem.imagemString;
+
+    if (this.formularioDeUsuario.get('tipoUsuario').value == 1) {
+      this.cadastroService.cadastroAluno(
+        this.formularioDeUsuario.get('cpf').value,
+        this.formularioDeUsuario.get('email').value,
+        this.formularioDeUsuario.get('instituicao').value,
+        this.formularioDeUsuario.get('nascimento').value,
+        this.formularioDeUsuario.get('nome').value,
+        this.formularioDeUsuario.get('senha').value,
+        this.formularioDeUsuario.get('telefone').value,
+        this.formularioDeUsuario.get('tipoUsuario').value,
+        this.imagem,
+        this.formularioDeUsuario.get('matricula').value,
+        this.formularioDeUsuario.get('anoIngresso').value).pipe(first()).subscribe(
+          data => {
+            this.carregar = false;
+            this.mensagem = data.Mensagem;
+            $(this.modalSucesso.nativeElement).modal('show');
+          },
+          error => {
+            this.carregar = false;
+            //Remove a o texto 'Error:' e adiciona a mensagem a variável erro
+            this.erro = error.toString().replace("Error:", "");
+            $(this.modalErro.nativeElement).modal('show');
+          });
+    } else {
+      this.cadastroService.cadastroProfessor(
+        this.formularioDeUsuario.get('cpf').value,
+        this.formularioDeUsuario.get('email').value,
+        this.formularioDeUsuario.get('instituicao').value,
+        this.formularioDeUsuario.get('nascimento').value,
+        this.formularioDeUsuario.get('nome').value,
+        this.formularioDeUsuario.get('senha').value,
+        this.formularioDeUsuario.get('telefone').value,
+        this.formularioDeUsuario.get('tipoUsuario').value,
+        this.imagem,
+        this.disciplinasInteresse)
+        .pipe(first()).subscribe(
+          data => {
+            this.carregar = false;
+            this.mensagem = data.Mensagem;
+            $(this.modalSucesso.nativeElement).modal('show');
+          },
+          error => {
+            this.carregar = false;
+            //Remove a o texto 'Error:' e adiciona a mensagem a variável erro
+            this.erro = error.toString().replace("Error:", "");
+            $(this.modalErro.nativeElement).modal('show');
+          });
     }
-
-    // display form values on success
-    alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.formularioDeUsuario.value, null, 4));
   }
 
-  onReset() {
-    this.submitted = false;
-    this.formularioDeUsuario.reset();
+  converteImagem64(event) {
+    this.tratamentoImagem.getFiles(event);
   }
 
   ngOnDestroy() {

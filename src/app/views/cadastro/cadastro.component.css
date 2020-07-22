@@ -1,6 +1,42 @@
+/*Estilo do botão fechar dos badges das disciplinas interessadas*/
 .badge .close {
 		margin-left: .25rem;
 		color: inherit;
 		font-size: 100%;
 		text-shadow: 0 1px 0 rgba(#000, .5);
 }
+
+/*Estilo do alerta*/
+.alerta{
+	width:100%;
+ 	padding:20px;
+	text-align:center;
+}
+
+.alerta img{
+	width:76px;
+	height:auto;
+	margin:0 auto;
+	display:block;
+	margin-bottom:25px;
+}
+
+.alerta h1{
+	font-size: 42px;
+    margin-bottom: 25px;
+	color:#5C5C5C;
+}
+
+.alerta p{
+	font-size: 20px;
+    margin-bottom: 27px;
+ 	color:#5C5C5C;
+}
+
+/*Estilo botão close do alerta de Erro*/
+.close:hover{
+	background-color:transparent;
+	color: black;
+}
+
+

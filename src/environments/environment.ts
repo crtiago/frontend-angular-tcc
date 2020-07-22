@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'https://api-tcc-sti.herokuapp.com/api'
+  apiUrl: 'https://api-sti-tcc.herokuapp.com/api'
 };
 
 /*

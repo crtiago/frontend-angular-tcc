@@ -20,8 +20,10 @@
     "@angular/platform-browser-dynamic": "~10.0.4",
     "@angular/router": "~10.0.4",
     "bootstrap": "^4.5.0",
+    "jquery": "^3.5.1",
     "ngx-mask": "^9.1.2",
     "rxjs": "~6.5.5",
+    "save": "^2.4.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.3"
   },

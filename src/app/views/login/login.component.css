@@ -1,6 +1,3 @@
-/*Importa o estilo global*/
-@import '../../../styles.css';
-
 /*Centraliza todo o conteúdo na esquerda*/
 .container {
     width: 100vw;
@@ -18,7 +15,14 @@
     background:rgb(238,241,236);
     text-align: center;
     border-radius: 10px;
-    opacity: 0.8;
+    opacity: 0.9;
+}
+
+/*Estilo dos Inputs*/
+.box input[type="text"],
+.box input[type="password"] {
+    width: 300px;
+    margin: 5px auto;
 }
 
 /*Centraliza e coloca os botões lado a lado*/
@@ -26,20 +30,7 @@ div > div {
     display: inline-block;
 }
 
-/*Muda o estilo do botão quando o mesmo estiver desabilitado*/
-.box button:disabled{
-    border: 2px solid gray;
-    color: gray;
-    cursor: unset;
-}
-
-/*Muda a cor de fundo e da letra quando o usuário passa o mouse em cima do botão*/
-.box button:hover:enabled {
-    background: rgb(47,158,64);
-    color: rgb(238,241,236);
-}
-
-/*Estilo e tamanho da Imagem*/
+/*Estilo e tamanho da logo do IFSC*/
 .img{
     width: 150px;
     height: 218px;
@@ -47,7 +38,7 @@ div > div {
     vertical-align: bottom;
 }
 
-/*Muda o estilo da informção abaixo da logo do ifsc*/
+/*Muda o estilo da informção abaixo da logo do IFSC*/
 .info{
     color:black;
     font-weight: bolder;

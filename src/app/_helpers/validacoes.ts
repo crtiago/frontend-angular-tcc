@@ -83,7 +83,6 @@ export class Validacoes {
         return null;        
     }
 
-
     /**
      * Método que verifica se as senhas são iguais ou não
      * @param senha 
@@ -107,15 +106,5 @@ export class Validacoes {
             }
         }
     }
-
-    static desabilitarCampos(controle: AbstractControl){
-        const tipoUsuario = controle.value;
-
-        console.log(tipoUsuario);
-
-        return false;
-
-    }
-
 
 }

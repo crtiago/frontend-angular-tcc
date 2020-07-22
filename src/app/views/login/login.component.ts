@@ -3,8 +3,9 @@ import { AutenticacaoService } from '../../_servicos/login/autenticacao.service'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit, OnDestroy, ViewEncapsulation, Inject } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { first } from 'rxjs/operators';
+
 
 @Component({
   selector: 'app-login',
@@ -26,6 +27,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     @Inject(DOCUMENT) private _document,
     private fb: FormBuilder,
     private router: Router,
+    private route: ActivatedRoute,
     private autenticacaoService: AutenticacaoService) {
 
     /**

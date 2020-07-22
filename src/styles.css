@@ -10,22 +10,26 @@
     background-size: cover;
   }
 
-/*Estilo dos Inputs*/
-.box input[type="text"],
-.box input[type="password"] {
-    width: 300px;
-    margin: 5px auto;
+/*Muda o estilo do botão quando o mesmo estiver desabilitado*/
+button:disabled{
+    border: 2px solid gray;
+    color: gray;
+    cursor: unset;
+}
+
+/*Muda a cor de fundo e da letra quando o usuário passa o mouse em cima do botão*/
+button:hover:enabled {
+    background: rgb(47,158,64);
+    color: rgb(238,241,236);
 }
 
 /*Estilo dos botões*/
-.box button {
+button {
     background: none;
-    display: block;
     margin: 0 5px;
     text-align: center;
     border: 2px solid rgb(47,158,64);
-    padding: 14px 40px;
-    outline: none;
+    padding: 7px 40px;
     color: rgb(47,158,64);
     border-radius: 10px;
     cursor: pointer;

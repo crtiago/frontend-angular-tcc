@@ -1,3 +1,4 @@
+import { TratamentoImagem } from './_helpers/tratamento-imagem';
 import { MetodosEnuns } from './_helpers/metodos-enuns';
 import { InterceptadorErros } from './_helpers/interceptador-erros';
 import { LoginComponent } from './views/login/login.component';
@@ -10,6 +11,7 @@ import { AppComponent } from './app.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { CadastroComponent } from './views/cadastro/cadastro.component';
+
 
 const maskConfig: Partial<IConfig> = {
   validation: false,
@@ -30,6 +32,7 @@ const maskConfig: Partial<IConfig> = {
   ],
   providers: [
     MetodosEnuns,
+    TratamentoImagem,
     { provide: HTTP_INTERCEPTORS, useClass: InterceptadorErros, multi: true },
   ],
   bootstrap: [AppComponent]

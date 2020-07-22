@@ -1,7 +1,7 @@
-<div class="card m-3">
+<div class="card m-5" style="opacity: 0.9;">
     <h5 class="card-header">Cadastro de Usuário</h5>
     <div class="card-body">
-        <form [formGroup]="formularioDeUsuario" (ngSubmit)="onSubmit()">
+        <form [formGroup]="formularioDeUsuario" (ngSubmit)="cadastrar(formularioDeUsuario.value)">
 
             <!--Primeira Linha de Inputs-->
             <div class="form-row">
@@ -47,7 +47,7 @@
                 <!--Input Imagem de Perfil-->
                 <div class="form-group col-2">
                     <label>Imagem de Perfil</label>
-                    <input type="file" name="myImage" accept="image/*" />
+                    <input (change)="converteImagem64($event)" type="file" name="myImage" accept="image/*" />
                 </div>
             </div>
 
@@ -90,8 +90,6 @@
                         <div *ngIf="f.instituicao.errors.required">Instituição é obrigatória.</div>
                     </div>
                 </div>
-
-
             </div>
 
             <!--Terceira Linha dos Inputs-->
@@ -163,10 +161,12 @@
                     <label>Disciplinas de Interesse</label>
                     <select (change)="getDisciplinas($event)" formControlName="disciplinas" class="form-control"
                         [ngClass]="{ 'is-invalid': !f.disciplinas.pristine && f.disciplinas.errors }">
-                        <option *ngFor="let disciplina of todasDisciplinas" [value]="disciplina">{{ disciplina }}</option>
+                        <option *ngFor="let disciplina of todasDisciplinas" [value]="disciplina">{{ disciplina }}
+                        </option>
                     </select>
                     <div *ngIf="!f.disciplinas.pristine && f.disciplinas.errors" class="invalid-feedback">
                         <div *ngIf="f.disciplinas.required">Escolha no minímo uma disciplina de interesse.</div>
+
                     </div>
                 </div>
                 <!--Fim dos Inputs do Tipo Usuário = Professor-->
@@ -176,24 +176,80 @@
             <!--Botões com as disciplinas escolhidas pelo Professor-->
             <label *ngIf="f.tipoUsuario.value == 2">Disciplinas de Interesse</label>
             <div *ngIf="f.tipoUsuario.value == 2" class="form-row">
-                <h5 *ngFor="let disciplina of disciplinasInteresse" style="margin: 0px 5px 8px;"> 
+                <h5 *ngFor="let disciplina of disciplinasInteresse" style="margin: 0px 5px 8px;">
                     <span class="badge badge-success">{{disciplina}}
-                        <button type="button" (click)="removerDisciplina(disciplina)"class="close" data-dismiss="alert" aria-label="Close">
+                        <button type="button" (click)="removerDisciplina(disciplina)" class="close" data-dismiss="alert"
+                            aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </span>
                 </h5>
             </div>
 
+            <!--Botões do formulário-->
             <div class="text-center">
-                <button class="btn btn-primary mr-1" [disabled]="!formularioDeUsuario.valid">Cadastrar</button>
-                <button class="btn btn-secondary" type="reset" (click)="onReset()">Cancelar</button>
+
+                <button [disabled]="!formularioDeUsuario.valid" style="float: right;">
+                    <span *ngIf="carregar" class="spinner-border spinner-border-sm mr-1"></span>Cadastrar</button>
+                <button style="float: right;" type="button" routerLink="/login">Cancelar</button>
+
             </div>
         </form>
     </div>
 </div>
 
+<!--Modal para Sucesso-->
+<div class="modal fade" style="text-align: center;" #modalSucesso id="modalAlerta" tabindex="-1" role="dialog"
+    aria-labelledby="modalAlertaLabel" aria-hidden="!carregar" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+
+                <div class="alerta">
+                    <img src="../../../assets/img/acerto.svg" alt="">
+                    <h1>Cadastro concluído!</h1>
+                    <p>{{mensagem}}</p>
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" routerLink="/login">Entrar</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!--Modal para erro-->
+<div class="modal fade" style="text-align: center;" #modalErro id="modalAlerta" tabindex="-1" role="dialog"
+    aria-labelledby="modalAlertaLabel" aria-hidden="!carregar" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label=""><span>×</span></button>
+            </div>
+
+            <div class="modal-body">
+
+                <!--Se acontecer erro, ele habilita essa opção-->
+                <div class="alerta">
+                    <img src="../../../assets/img/erro.svg" alt="">
+                    <h1>Erro no cadastro!</h1>
+                    <p>{{erro}}</p>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
 <!-- TODO
     Mudar o estilo do input Imagem
-    Desabilitar Inputs que n sejam do tipo do usuário
+    Adicionar list faculdades
+    Mudar select para abrir para baixo
 -->
