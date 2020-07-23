@@ -29,7 +29,7 @@ export class CadastroService {
       )
   };
 
- cadastroProfessor(CPF: string, Email: string, Instituicao: string, Nascimento: Date,
+  cadastroProfessor(CPF: string, Email: string, Instituicao: string, Nascimento: Date,
     Nome: string, Senha: string, Telefone: string, TipoUsuario: number,
     Imagem: string, DisciplinasInteressadas: string[]) {
     return this.http.post<any>(`${environment.apiUrl}/Cadastro`, {

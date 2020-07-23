@@ -47,7 +47,6 @@ export class LoginComponent implements OnInit, OnDestroy {
   criarFormularioDeUsuario() {
     this.formularioDeUsuario = this.fb.group({
       cpf: ['', Validators.compose([Validators.required, Validacoes.validarCPF])],
-      //TODO Desabilitar o campo senha enquanto n digitar um cpf válido
       senha: ['', Validators.compose([Validators.required])],
     });
   }
@@ -75,9 +74,7 @@ export class LoginComponent implements OnInit, OnDestroy {
           }
         },
         error => {
-          //Remove a o texto 'Error:' e adiciona a mensagem a variável erro
           this.erro = error.toString().replace("Error:","");
-          //Caso retorne erro ele desativa o circulo de carregamento
           this.carregar = false;
         });
   }

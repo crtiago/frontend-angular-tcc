@@ -32,21 +32,18 @@ export class AutenticacaoService {
   /**
    * Método de login que faz a conexão com a API, enviando o CPF e a senha, e retornando 
    * o usuário se os dados estiverem corretos caso contrário retorna Erro 404
-   * @param CPF 
-   * @param Senha 
    */
   login(CPF: string, Senha: string) {
     return this.http.post<any>(`${environment.apiUrl}/Login`, { CPF, Senha })
       .pipe(
         map(usuario => {
-          //Se o Sucesso for false, ele retorna o Erro com a mensagem que vem do back
-          if (!usuario.Sucesso) {
-            throw new Error(usuario.Mensagem);
-          } else {
+          if (usuario.Sucesso) {
             // Armazena o usuário no armazenamento local para manter conectado entre as atualizações da página
             localStorage.setItem('usuario', JSON.stringify(usuario.Data));
             this.usuarioSubject.next(usuario.Data);
             return usuario.Data;
+          } else {
+            throw new Error(usuario.Mensagem);
           }
         }
         )
@@ -68,9 +65,6 @@ export class AutenticacaoService {
 
   /**
    * Método que realiza o lougout do usuário do sistema:
-   * - Remove do localStorage
-   * - Define o usuarioSubject como null
-   * - E navega para a tela de Login
    */
   logout() {
     localStorage.removeItem('usuario');

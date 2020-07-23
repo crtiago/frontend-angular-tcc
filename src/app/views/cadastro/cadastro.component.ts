@@ -27,21 +27,13 @@ export class CadastroComponent implements OnInit, OnDestroy {
   @ViewChild('modalSucesso') modalSucesso: ElementRef;
   //Variável que recebe o modal de Alerta Sucesso para poder habilitá-lo
   @ViewChild('modalErro') modalErro: ElementRef;
-  //Variável para criar o formulário reativo
   formularioDeUsuario: FormGroup;
-  //Variável para receber a mensagem do backend para caso de sucesso
   mensagem = '';
-  //Lista com todas as disciplinas
   todasDisciplinas = [];
-  //Lista com as disciplinas de interesse do professor
   disciplinasInteresse = [];
-  //Varíavel para receber a mensagem de erro do backend
   erro = '';
-  //Variável para receber a imagem na base64
   imagem: any;
-  //Varíavel para habilitar o spinner de carregamento
   carregar = false;
-
 
   constructor(private fb: FormBuilder,
     @Inject(DOCUMENT) private _document,
@@ -65,18 +57,18 @@ export class CadastroComponent implements OnInit, OnDestroy {
 
   criarFormularioDeUsuario() {
     this.formularioDeUsuario = this.fb.group({
-      nome: ['', Validators.required],
-      cpf: ['', Validators.compose([Validators.required, Validacoes.validarCPF])],
-      nascimento: ['', [Validacoes.validarAno,Validators.required, Validacoes.maiorQue16Anos, Validators.pattern(/^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$/)]],
-      email: ['', [Validators.required, Validators.email]],
-      telefone: ['', Validators.minLength(10)],
-      instituicao: ['', Validators.required],
-      senha: ['', [Validators.required, Validators.minLength(6)]],
-      confirmarSenha: ['', Validators.required],
       tipoUsuario: ['', Validators.required],
+      instituicao: ['', Validators.required],
       matricula: [{ value: '', disabled: true }, Validators.required],
       anoIngresso: [{ value: '', disabled: true }, Validators.compose([Validators.required, Validators.minLength(4), Validacoes.validarAno])],
-      disciplinas: [{ value: '', disabled: true }, Validators.required]
+      disciplinas: [{ value: '', disabled: true }, Validators.required],
+      nome: ['', Validators.required],
+      cpf: ['', Validators.compose([Validators.required, Validacoes.validarCPF])],
+      nascimento: ['', [Validacoes.validarAno, Validators.required, Validacoes.maiorQue16Anos, Validators.pattern(/^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$/)]],
+      email: ['', [Validators.required, Validators.email]],
+      telefone: ['', Validators.minLength(10)],
+      senha: ['', [Validators.required, Validators.minLength(6)]],
+      confirmarSenha: ['', Validators.required],
     }, {
       validator: Validacoes.conferem('senha', 'confirmarSenha')
     });
@@ -103,7 +95,6 @@ export class CadastroComponent implements OnInit, OnDestroy {
       this.formularioDeUsuario.get('matricula').disable();
       this.formularioDeUsuario.get('anoIngresso').disable();
 
-
       //Se o TipoUsuário for Professor ele habilita os seus inputs
       this.formularioDeUsuario.get('disciplinas').enable();
     }
@@ -111,26 +102,19 @@ export class CadastroComponent implements OnInit, OnDestroy {
 
   getDisciplinas(e) {
     const disciplina = this.formularioDeUsuario.get('disciplinas').value;
-
-    //Pega o indice 
     const index = this.todasDisciplinas.indexOf(disciplina);
-
-    //Adiciona a disciplina de interesse escolhida
     this.disciplinasInteresse.push(disciplina);
-
-    //Remove a disciplina escolhida  
     this.todasDisciplinas.splice(index, 1);
   }
 
   removerDisciplina(disciplina: string) {
-    //Remove a disciplina escolhida
     const index = this.disciplinasInteresse.indexOf(disciplina);
-
-
-    //Adiciona a disciplina
     this.todasDisciplinas.push(disciplina);
-
     this.disciplinasInteresse.splice(index, 1);
+  }
+
+  converteImagem64(event) {
+    this.tratamentoImagem.getFiles(event);
   }
 
   /**
@@ -155,7 +139,8 @@ export class CadastroComponent implements OnInit, OnDestroy {
         this.formularioDeUsuario.get('tipoUsuario').value,
         this.imagem,
         this.formularioDeUsuario.get('matricula').value,
-        this.formularioDeUsuario.get('anoIngresso').value).pipe(first()).subscribe(
+        this.formularioDeUsuario.get('anoIngresso').value
+        ).pipe(first()).subscribe(
           data => {
             this.carregar = false;
             this.mensagem = data.Mensagem;
@@ -178,8 +163,8 @@ export class CadastroComponent implements OnInit, OnDestroy {
         this.formularioDeUsuario.get('telefone').value,
         this.formularioDeUsuario.get('tipoUsuario').value,
         this.imagem,
-        this.disciplinasInteresse)
-        .pipe(first()).subscribe(
+        this.disciplinasInteresse
+        ).pipe(first()).subscribe(
           data => {
             this.carregar = false;
             this.mensagem = data.Mensagem;
@@ -192,10 +177,6 @@ export class CadastroComponent implements OnInit, OnDestroy {
             $(this.modalErro.nativeElement).modal('show');
           });
     }
-  }
-
-  converteImagem64(event) {
-    this.tratamentoImagem.getFiles(event);
   }
 
   ngOnDestroy() {

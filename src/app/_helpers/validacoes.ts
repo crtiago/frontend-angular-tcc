@@ -7,10 +7,8 @@ import { AbstractControl, FormGroup } from '@angular/forms';
 
 export class Validacoes {
 
-
     /**
      * Método que valida o CPF, só é aceito CPF válido
-     * @param controle
      */
     static validarCPF(controle: AbstractControl) {
 
@@ -52,7 +50,6 @@ export class Validacoes {
 
     /**
      * Método que verifica se o usuário é maior de 16 anos
-     * @param controle 
      */
     static maiorQue16Anos(controle: AbstractControl) {
         const nascimento = controle.value;
@@ -70,7 +67,6 @@ export class Validacoes {
     /**
      * Método para validar o ano, não permitindo ano posterior ao que está, e inferior
      * ao atual menos 80 anos
-     * @param controle 
      */
     static validarAno(controle: AbstractControl){
         const ano = controle.value;
@@ -85,8 +81,6 @@ export class Validacoes {
 
     /**
      * Método que verifica se as senhas são iguais ou não
-     * @param senha 
-     * @param confirmarSenha 
      */
     static conferem(senha: string, confirmarSenha: string) {
         return (formGroup: FormGroup) => {

@@ -1,7 +1,5 @@
 /**
- * Enum responsável por definir o tipo de usuário:
- * 1 para Aluno
- * 2 para Professor
+ * Enum responsável por definir o tipo de usuário
  */
 export enum Funcao {
     Aluno = 1,

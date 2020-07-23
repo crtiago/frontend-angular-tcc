@@ -1,4 +1,8 @@
 import { EDisciplina } from './../_enuns/edisciplinas';
+
+/**
+ * Classe responsável por tratar o Enum da Disciplina
+ */
 export class MetodosEnuns {
     // Retorna as chaves do enum
     getChaves(): Array<string> {

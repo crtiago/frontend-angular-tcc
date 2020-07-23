@@ -6,6 +6,81 @@
             <!--Primeira Linha de Inputs-->
             <div class="form-row">
 
+                <!--Select Tipo de Usuário-->
+                <div class="form-group col-2">
+                    <label>Tipo de Usuário</label>
+                    <select (change)="getTipo($event)" formControlName="tipoUsuario" class="form-control"
+                        [ngClass]="{ 'is-invalid': !f.tipoUsuario.pristine && f.tipoUsuario.errors }">
+                        <option value="1">Aluno</option>
+                        <option value="2">Professor</option>
+                    </select>
+                    <div *ngIf="!f.tipoUsuario.pristine && f.tipoUsuario.errors" class="invalid-feedback">
+                        <div *ngIf="f.tipoUsuario.errors.required">Tipo de Usuário é obrigatório.</div>
+                    </div>
+                </div>
+
+                <!--Select Instituição-->
+                <div class="form-group col-4">
+                    <label>Instituição</label>
+                    <select formControlName="instituicao" class="form-control"
+                        [ngClass]="{ 'is-invalid': !f.instituicao.pristine && f.instituicao.errors }">
+                        <option value=""></option>
+                        <option value="IFSC">IFSC</option>
+                        <option value="UFSC">UFSC</option>
+                        <option value="UFRS">UFRS</option>
+                        <option value="UNIPLAC">UNIPLAC</option>
+                    </select>
+                    <div *ngIf="!f.instituicao.pristine && f.instituicao.errors" class="invalid-feedback">
+                        <div *ngIf="f.instituicao.errors.required">Instituição é obrigatória.</div>
+                    </div>
+                </div>
+
+                <!--Inputs do Tipo Usuário = Aluno-->
+                <!--Input Matricula do Aluno-->
+                <div *ngIf="f.tipoUsuario.value == 1" class="form-group col-2">
+                    <label>Matricula</label>
+                    <input type="text" mask="000000000000000000" formControlName="matricula" class="form-control"
+                        [ngClass]="{ 'is-invalid':!f.matricula.pristine && f.matricula.errors }" />
+                    <div *ngIf="!f.matricula.pristine && f.matricula.errors" class="invalid-feedback">
+                        <div *ngIf="f.matricula.errors.required">Matricula é obrigatória.</div>
+                    </div>
+                </div>
+
+                <!--Input Ano Ingresso do Aluno-->
+                <div *ngIf="f.tipoUsuario.value == 1" class="form-group col-2">
+                    <label>Ano de Ingresso</label>
+                    <input type="text" mask="0000" formControlName="anoIngresso" class="form-control"
+                        [ngClass]="{ 'is-invalid':!f.anoIngresso.pristine && f.anoIngresso.errors }" />
+                    <div *ngIf="!f.anoIngresso.pristine && f.anoIngresso.errors" class="invalid-feedback">
+                        <div *ngIf="f.anoIngresso.errors.required">Ano de Ingresso é obrigatório.</div>
+                        <div
+                            *ngIf="(f.anoIngresso.errors.anoInvalido || f.anoIngresso.errors.minlength) && !f.anoIngresso.errors.required">
+                            Insira um ano válido.
+                        </div>
+                    </div>
+                </div>
+                <!--Fim dos Inputs do Tipo Usuário = Aluno-->
+
+                <!--Input do Tipo Usuário = Professor-->
+                <div *ngIf="f.tipoUsuario.value == 2" class="form-group col-6">
+                    <label>Disciplinas de Interesse</label>
+                    <select (change)="getDisciplinas($event)" formControlName="disciplinas" class="form-control"
+                        [ngClass]="{ 'is-invalid': !f.disciplinas.pristine && f.disciplinas.errors }">
+                        <option *ngFor="let disciplina of todasDisciplinas" [value]="disciplina">{{ disciplina }}
+                        </option>
+                    </select>
+                    <div *ngIf="!f.disciplinas.pristine && f.disciplinas.errors" class="invalid-feedback">
+                        <div *ngIf="f.disciplinas.required">Escolha no minímo uma disciplina de interesse.</div>
+
+                    </div>
+                </div>
+                <!--Fim dos Inputs do Tipo Usuário = Professor-->
+
+            </div>
+
+            <!--Segunda Linha de Inputs-->
+            <div class="form-row">
+
                 <!--Input Nome-->
                 <div class="form-group col-4">
                     <label>Nome Completo</label>
@@ -51,7 +126,7 @@
                 </div>
             </div>
 
-            <!--Segunda Linha de Inputs-->
+            <!--Terceira Linha de Inputs-->
             <div class="form-row">
 
                 <!--Input Email-->
@@ -75,24 +150,9 @@
                     </div>
                 </div>
 
-                <!--Select Instituição-->
-                <div class="form-group col-4">
-                    <label>Instituição</label>
-                    <select formControlName="instituicao" class="form-control"
-                        [ngClass]="{ 'is-invalid': !f.instituicao.pristine && f.instituicao.errors }">
-                        <option value=""></option>
-                        <option value="IFSC">IFSC</option>
-                        <option value="UFSC">UFSC</option>
-                        <option value="UFRS">UFRS</option>
-                        <option value="UNIPLAC">UNIPLAC</option>
-                    </select>
-                    <div *ngIf="!f.instituicao.pristine && f.instituicao.errors" class="invalid-feedback">
-                        <div *ngIf="f.instituicao.errors.required">Instituição é obrigatória.</div>
-                    </div>
-                </div>
             </div>
 
-            <!--Terceira Linha dos Inputs-->
+            <!--Quarta Linha dos Inputs-->
             <div class="form-row">
 
                 <!--Input Senha-->
@@ -116,60 +176,6 @@
                         <div *ngIf="f.confirmarSenha.errors.naoConferem">Senhas não conferem.</div>
                     </div>
                 </div>
-
-                <!--Select Tipo de Usuário-->
-                <div class="form-group col-2">
-                    <label>Tipo de Usuário</label>
-                    <select (change)="getTipo($event)" formControlName="tipoUsuario" class="form-control"
-                        [ngClass]="{ 'is-invalid': !f.tipoUsuario.pristine && f.tipoUsuario.errors }">
-                        <option value="1">Aluno</option>
-                        <option value="2">Professor</option>
-                    </select>
-                    <div *ngIf="!f.tipoUsuario.pristine && f.tipoUsuario.errors" class="invalid-feedback">
-                        <div *ngIf="f.tipoUsuario.errors.required">Tipo de Usuário é obrigatório.</div>
-                    </div>
-                </div>
-
-                <!--Inputs do Tipo Usuário = Aluno-->
-                <!--Input Matricula do Aluno-->
-                <div *ngIf="f.tipoUsuario.value == 1" class="form-group col-2">
-                    <label>Matricula</label>
-                    <input type="text" mask="000000000000000000" formControlName="matricula" class="form-control"
-                        [ngClass]="{ 'is-invalid':!f.matricula.pristine && f.matricula.errors }" />
-                    <div *ngIf="!f.matricula.pristine && f.matricula.errors" class="invalid-feedback">
-                        <div *ngIf="f.matricula.errors.required">Matricula é obrigatória.</div>
-                    </div>
-                </div>
-
-                <!--Input Ano Ingresso do Aluno-->
-                <div *ngIf="f.tipoUsuario.value == 1" class="form-group col-2">
-                    <label>Ano de Ingresso</label>
-                    <input type="text" mask="0000" formControlName="anoIngresso" class="form-control"
-                        [ngClass]="{ 'is-invalid':!f.anoIngresso.pristine && f.anoIngresso.errors }" />
-                    <div *ngIf="!f.anoIngresso.pristine && f.anoIngresso.errors" class="invalid-feedback">
-                        <div *ngIf="f.anoIngresso.errors.required">Ano de Ingresso é obrigatório.</div>
-                        <div
-                            *ngIf="(f.anoIngresso.errors.anoInvalido || f.anoIngresso.errors.minlength) && !f.anoIngresso.errors.required">
-                            Insira um ano válido.
-                        </div>
-                    </div>
-                </div>
-                <!--Fim dos Inputs do Tipo Usuário = Aluno-->
-
-                <!--Input do Tipo Usuário = Professor-->
-                <div *ngIf="f.tipoUsuario.value == 2" class="form-group col-4">
-                    <label>Disciplinas de Interesse</label>
-                    <select (change)="getDisciplinas($event)" formControlName="disciplinas" class="form-control"
-                        [ngClass]="{ 'is-invalid': !f.disciplinas.pristine && f.disciplinas.errors }">
-                        <option *ngFor="let disciplina of todasDisciplinas" [value]="disciplina">{{ disciplina }}
-                        </option>
-                    </select>
-                    <div *ngIf="!f.disciplinas.pristine && f.disciplinas.errors" class="invalid-feedback">
-                        <div *ngIf="f.disciplinas.required">Escolha no minímo uma disciplina de interesse.</div>
-
-                    </div>
-                </div>
-                <!--Fim dos Inputs do Tipo Usuário = Professor-->
 
             </div>
 
@@ -251,5 +257,4 @@
 <!-- TODO
     Mudar o estilo do input Imagem
     Adicionar list faculdades
-    Mudar select para abrir para baixo
 -->

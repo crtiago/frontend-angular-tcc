@@ -1,3 +1,7 @@
+
+/**
+ * Classe responsável por trasnformar a imagem em base 64
+ */
 export class TratamentoImagem {
 
    public imagemString:string;
@@ -11,7 +15,6 @@ export class TratamentoImagem {
    
     _handleReaderLoaded(readerEvt) {
         var binaryString = readerEvt.target.result;
-        this.imagemString = btoa(binaryString);  // Converting binary string data.
-        
+        this.imagemString = btoa(binaryString); 
    }
 }

@@ -1,9 +1,6 @@
 import { Funcao } from './../_enuns/funcao';
 import { Usuario } from './usuario';
 
-/**
- * Modelo Aluno que extende da classe Usuário
- */
 export class Aluno extends Usuario {
     Matricula: number;
     AnoIngresso: number;

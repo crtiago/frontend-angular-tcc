@@ -1,5 +1,5 @@
 import { CadastroComponent } from './views/cadastro/cadastro.component';
-import { RouteGuardService } from './_helpers/route-guard.service';
+import { RouteGuardService } from './_servicos/rota/route-guard.service';
 import { LoginComponent } from './views/login/login.component';
 import { Funcao } from './_enuns/funcao';
 import { NgModule } from '@angular/core';

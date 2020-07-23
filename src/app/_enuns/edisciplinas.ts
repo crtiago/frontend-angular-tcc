@@ -1,3 +1,7 @@
+/**
+ * Enum com as disciplinas do Curso de Ciência da Computação
+ */
+
 export enum EDisciplina {
 
     //	FASE 1
