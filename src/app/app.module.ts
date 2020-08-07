@@ -11,6 +11,7 @@ import { AppComponent } from './app.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { CadastroComponent } from './views/cadastro/cadastro.component';
+import { SidebarModule } from 'ng-sidebar';
 
 
 const maskConfig: Partial<IConfig> = {
@@ -28,7 +29,8 @@ const maskConfig: Partial<IConfig> = {
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
-    NgxMaskModule.forRoot(maskConfig)
+    NgxMaskModule.forRoot(maskConfig),
+    SidebarModule.forRoot()
   ],
   providers: [
     MetodosEnuns,

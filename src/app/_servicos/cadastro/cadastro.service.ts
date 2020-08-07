@@ -12,10 +12,10 @@ export class CadastroService {
 
   cadastroAluno(CPF: string, Email: string, Instituicao: string, Nascimento: Date,
     Nome: string, Senha: string, Telefone: string, TipoUsuario: number,
-    Imagem: string, Matricula: number, AnoIngresso: number) {
+    ImagemUsuario: string, Matricula: number, AnoIngresso: number) {
     return this.http.post<any>(`${environment.apiUrl}/Cadastro`, {
       CPF, Email, Instituicao, Nascimento,
-      Nome, Senha, Telefone, TipoUsuario, Imagem, Matricula, AnoIngresso
+      Nome, Senha, Telefone, TipoUsuario, ImagemUsuario, Matricula, AnoIngresso
     })
       .pipe(
         map(data => {
@@ -31,9 +31,9 @@ export class CadastroService {
 
   cadastroProfessor(CPF: string, Email: string, Instituicao: string, Nascimento: Date,
     Nome: string, Senha: string, Telefone: string, TipoUsuario: number,
-    Imagem: string, DisciplinasInteressadas: string[]) {
+    ImagemUsuario: string, DisciplinasInteressadas: string[]) {
     return this.http.post<any>(`${environment.apiUrl}/Cadastro`, {
-      CPF, Email, Instituicao, Nascimento, Nome, Senha, Telefone, TipoUsuario, Imagem, DisciplinasInteressadas
+      CPF, Email, Instituicao, Nascimento, Nome, Senha, Telefone, TipoUsuario, ImagemUsuario, DisciplinasInteressadas
     }).pipe(map(data => {
       if (data.Sucesso) {
         return data;

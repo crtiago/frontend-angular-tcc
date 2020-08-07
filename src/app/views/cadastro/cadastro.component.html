@@ -1,4 +1,4 @@
-<div class="card m-5" style="opacity: 0.9;">
+<div class="card m-3" style="opacity: 0.98;">
     <h5 class="card-header">Cadastro de Usuário</h5>
     <div class="card-body">
         <form [formGroup]="formularioDeUsuario" (ngSubmit)="cadastrar(formularioDeUsuario.value)">
@@ -7,24 +7,29 @@
             <div class="form-row">
 
                 <!--Select Tipo de Usuário-->
-                <div class="form-group col-2">
-                    <label>Tipo de Usuário</label>
-                    <select (change)="getTipo($event)" formControlName="tipoUsuario" class="form-control"
-                        [ngClass]="{ 'is-invalid': !f.tipoUsuario.pristine && f.tipoUsuario.errors }">
+                <div class="col-md-2 mb-2">
+                    <label>Usuário<span class="asterisco">*</span></label>
+                    <select (change)="getTipo($event)" formControlName="tipoUsuario"
+                        class="form-control form-control-sm"
+                        [ngClass]="{ 'is-invalid': !f.tipoUsuario.pristine && f.tipoUsuario.errors, 'is-valid': !f.tipoUsuario.errors }">
+                        <option value="" selected disabled hidden>Escolha uma opção</option>
                         <option value="1">Aluno</option>
                         <option value="2">Professor</option>
                     </select>
                     <div *ngIf="!f.tipoUsuario.pristine && f.tipoUsuario.errors" class="invalid-feedback">
                         <div *ngIf="f.tipoUsuario.errors.required">Tipo de Usuário é obrigatório.</div>
                     </div>
+                    <div class="valid-feedback">
+                        Tudo certo!
+                    </div>
                 </div>
 
                 <!--Select Instituição-->
-                <div class="form-group col-4">
-                    <label>Instituição</label>
-                    <select formControlName="instituicao" class="form-control"
-                        [ngClass]="{ 'is-invalid': !f.instituicao.pristine && f.instituicao.errors }">
-                        <option value=""></option>
+                <div class="col-md-6 mb-2">
+                    <label>Instituição <span class="asterisco">*</span></label>
+                    <select formControlName="instituicao" class="form-control form-control-sm"
+                        [ngClass]="{ 'is-invalid': !f.instituicao.pristine && f.instituicao.errors, 'is-valid': !f.instituicao.errors}">
+                        <option value="" selected disabled hidden>Escolha uma opção</option>
                         <option value="IFSC">IFSC</option>
                         <option value="UFSC">UFSC</option>
                         <option value="UFRS">UFRS</option>
@@ -33,24 +38,31 @@
                     <div *ngIf="!f.instituicao.pristine && f.instituicao.errors" class="invalid-feedback">
                         <div *ngIf="f.instituicao.errors.required">Instituição é obrigatória.</div>
                     </div>
+                    <div class="valid-feedback">
+                        Tudo certo!
+                    </div>
                 </div>
 
                 <!--Inputs do Tipo Usuário = Aluno-->
                 <!--Input Matricula do Aluno-->
-                <div *ngIf="f.tipoUsuario.value == 1" class="form-group col-2">
-                    <label>Matricula</label>
-                    <input type="text" mask="000000000000000000" formControlName="matricula" class="form-control"
-                        [ngClass]="{ 'is-invalid':!f.matricula.pristine && f.matricula.errors }" />
+                <div *ngIf="f.tipoUsuario.value == 1" class="col-md-2 mb-2">
+                    <label>Matricula <span class="asterisco">*</span></label>
+                    <input type="text" mask="000000000000000000" formControlName="matricula"
+                        class="form-control form-control-sm"
+                        [ngClass]="{ 'is-invalid':!f.matricula.pristine && f.matricula.errors, 'is-valid': !f.matricula.errors }" />
                     <div *ngIf="!f.matricula.pristine && f.matricula.errors" class="invalid-feedback">
                         <div *ngIf="f.matricula.errors.required">Matricula é obrigatória.</div>
+                    </div>
+                    <div class="valid-feedback">
+                        Tudo certo!
                     </div>
                 </div>
 
                 <!--Input Ano Ingresso do Aluno-->
-                <div *ngIf="f.tipoUsuario.value == 1" class="form-group col-2">
-                    <label>Ano de Ingresso</label>
-                    <input type="text" mask="0000" formControlName="anoIngresso" class="form-control"
-                        [ngClass]="{ 'is-invalid':!f.anoIngresso.pristine && f.anoIngresso.errors }" />
+                <div *ngIf="f.tipoUsuario.value == 1" class="col-md-2 mb-2">
+                    <label>Ano Ingresso <span class="asterisco">*</span></label>
+                    <input type="text" mask="0000" formControlName="anoIngresso" class="form-control form-control-sm"
+                        [ngClass]="{ 'is-invalid':!f.anoIngresso.pristine && f.anoIngresso.errors, 'is-valid': !f.anoIngresso.errors }" />
                     <div *ngIf="!f.anoIngresso.pristine && f.anoIngresso.errors" class="invalid-feedback">
                         <div *ngIf="f.anoIngresso.errors.required">Ano de Ingresso é obrigatório.</div>
                         <div
@@ -58,55 +70,68 @@
                             Insira um ano válido.
                         </div>
                     </div>
+                    <div class="valid-feedback">
+                        Tudo certo!
+                    </div>
                 </div>
                 <!--Fim dos Inputs do Tipo Usuário = Aluno-->
 
                 <!--Input do Tipo Usuário = Professor-->
-                <div *ngIf="f.tipoUsuario.value == 2" class="form-group col-6">
-                    <label>Disciplinas de Interesse</label>
-                    <select (change)="getDisciplinas($event)" formControlName="disciplinas" class="form-control"
-                        [ngClass]="{ 'is-invalid': !f.disciplinas.pristine && f.disciplinas.errors }">
+                <div *ngIf="f.tipoUsuario.value == 2" class="col-md mb-2">
+                    <label>Disciplinas de Interesse <span class="asterisco">*</span></label>
+                    <select (change)="getDisciplinas($event)" formControlName="disciplinas"
+                        class="form-control form-control-sm"
+                        [ngClass]="{ 'is-invalid': !f.disciplinas.pristine && f.disciplinas.errors, 'is-valid': !f.disciplinas.errors && disciplinasInteresse.length != 0 }">
+                        <option value="" selected disabled hidden>Escolha uma ou mais opções</option>
                         <option *ngFor="let disciplina of todasDisciplinas" [value]="disciplina">{{ disciplina }}
                         </option>
                     </select>
                     <div *ngIf="!f.disciplinas.pristine && f.disciplinas.errors" class="invalid-feedback">
                         <div *ngIf="f.disciplinas.required">Escolha no minímo uma disciplina de interesse.</div>
-
                     </div>
+                    <div class="valid-feedback">
+                        Tudo certo!
+                    </div> 
                 </div>
                 <!--Fim dos Inputs do Tipo Usuário = Professor-->
-
             </div>
 
             <!--Segunda Linha de Inputs-->
             <div class="form-row">
 
                 <!--Input Nome-->
-                <div class="form-group col-4">
-                    <label>Nome Completo</label>
-                    <input type="text" formControlName="nome" class="form-control"
-                        [ngClass]="{ 'is-invalid':!f.nome.pristine && f.nome.errors }" />
+                <div class="col-md mb-1">
+                    <label>Nome Completo <span class="asterisco">*</span></label>
+                    <input type="text" formControlName="nome" class="form-control form-control-sm"
+                        [ngClass]="{ 'is-invalid':!f.nome.pristine && f.nome.errors, 'is-valid': !f.nome.errors}" />
                     <div *ngIf="!f.nome.pristine && f.nome.errors" class="invalid-feedback">
                         <div *ngIf="f.nome.errors.required">Nome é obrigatório.</div>
+                    </div>
+                    <div class="valid-feedback">
+                        Tudo certo!
                     </div>
                 </div>
 
                 <!--Input CPF-->
-                <div class="form-group col-2">
-                    <label>CPF</label>
-                    <input type="text" formControlName="cpf" class="form-control" placeholder="000.000.000-00"
-                        mask="000.000.000-00" [ngClass]="{ 'is-invalid': !f.cpf.pristine && f.cpf.errors }" />
+                <div class="col-md-2 mb-1">
+                    <label>CPF <span class="asterisco">*</span></label>
+                    <input type="text" formControlName="cpf" class="form-control form-control-sm"
+                        placeholder="000.000.000-00" mask="000.000.000-00"
+                        [ngClass]="{ 'is-invalid': !f.cpf.pristine && f.cpf.errors, 'is-valid': !f.cpf.errors }" />
                     <div *ngIf="!f.cpf.pristine && f.cpf.errors" class="invalid-feedback">
                         <div *ngIf="f.cpf.errors.cpfInvalido">Insira um CPF válido.</div>
                         <div *ngIf="f.cpf.errors.required">CPF é obrigatório.</div>
                     </div>
+                    <div class="valid-feedback">
+                        Tudo certo!
+                    </div>
                 </div>
 
                 <!--Input Nascimento-->
-                <div class="form-group col-2">
-                    <label>Data de Nascimento</label>
-                    <input type="date" formControlName="nascimento" class="form-control"
-                        [ngClass]="{ 'is-invalid':!f.nascimento.pristine && f.nascimento.errors }" />
+                <div class="col-md-3 mb-1">
+                    <label>Data de Nascimento <span class="asterisco">*</span></label>
+                    <input type="date" formControlName="nascimento" class="form-control form-control-sm"
+                        [ngClass]="{ 'is-invalid':!f.nascimento.pristine && f.nascimento.errors, 'is-valid': !f.nascimento.errors }" />
                     <div *ngIf="!f.nascimento.pristine && f.nascimento.errors" class="invalid-feedback">
                         <div
                             *ngIf="!f.nascimento.errors.required && !f.nascimento.errors.pattern && f.nascimento.errors.menorDe16">
@@ -117,63 +142,76 @@
                             A data está incorreta.
                         </div>
                     </div>
+                    <div class="valid-feedback">
+                        Tudo certo!
+                    </div>
                 </div>
 
-                <!--Input Imagem de Perfil-->
-                <div class="form-group col-2">
-                    <label>Imagem de Perfil</label>
-                    <input (change)="converteImagem64($event)" type="file" name="myImage" accept="image/*" />
-                </div>
             </div>
 
             <!--Terceira Linha de Inputs-->
             <div class="form-row">
 
                 <!--Input Email-->
-                <div class="form-group col-6">
-                    <label>Email</label>
-                    <input type="text" formControlName="email" class="form-control"
-                        [ngClass]="{ 'is-invalid': !f.email.pristine && f.email.errors }" />
+                <div class="col-md mb-1">
+                    <label>Email <span class="asterisco">*</span></label>
+                    <input type="text" formControlName="email" class="form-control form-control-sm"
+                        [ngClass]="{ 'is-invalid': !f.email.pristine && f.email.errors,'is-valid': !f.email.errors }" />
                     <div *ngIf=" f.email.errors" class="invalid-feedback">
                         <div *ngIf="!f.email.pristine && f.email.errors.required">Email é obrigatório.</div>
                         <div *ngIf="f.email.errors.email">O email deve ser um endereço de email válido.</div>
                     </div>
+                    <div class="valid-feedback">
+                        Tudo certo!
+                    </div>
                 </div>
 
                 <!--Input Telefone-->
-                <div class="form-group col-2">
+                <div class="col-md-3 mb-1">
                     <label>Telefone</label>
-                    <input type="text" formControlName="telefone" class="form-control" placeholder="(00) 00000-0000"
-                        mask="(00) 00000-0000" [ngClass]="{ 'is-invalid':!f.telefone.pristine && f.telefone.errors }" />
+                    <input type="text" formControlName="telefone" class="form-control form-control-sm"
+                        placeholder="(00) 00000-0000" mask="(00) 00000-0000"
+                        [ngClass]="{ 'is-invalid':!f.telefone.pristine && f.telefone.errors }" />
                     <div *ngIf="!f.telefone.pristine && f.telefone.errors" class="invalid-feedback">
                         <div *ngIf="f.telefone.errors.minlength">Insira um telefone válido.</div>
                     </div>
                 </div>
 
+                <!--Input Imagem de Perfil-->
+                <div class="col-md-4 mb-1">
+                    <label class="imagem">Imagem de Perfil</label>
+                    <input (change)="converteImagem64($event)" type="file" name="myImage" accept="image/*" />
+                </div>
             </div>
 
             <!--Quarta Linha dos Inputs-->
             <div class="form-row">
 
                 <!--Input Senha-->
-                <div class="form-group col-3">
-                    <label>Senha</label>
-                    <input type="password" formControlName="senha" class="form-control"
-                        [ngClass]="{ 'is-invalid':!f.senha.pristine && f.senha.errors }" />
+                <div class="col-md mb-1">
+                    <label>Senha <span class="asterisco">*</span></label>
+                    <input type="password" formControlName="senha" class="form-control form-control-sm"
+                        [ngClass]="{ 'is-invalid':!f.senha.pristine && f.senha.errors, 'is-valid': !f.senha.errors }" />
                     <div *ngIf="!f.senha.pristine && f.senha.errors" class="invalid-feedback">
                         <div *ngIf="f.senha.errors.required">Senha é obrigatória.</div>
                         <div *ngIf="f.senha.errors.minlength">A senha deve ter pelo menos 6 caracteres.</div>
                     </div>
+                    <div class="valid-feedback">
+                        Tudo certo!
+                    </div>
                 </div>
 
                 <!--Input Confirmar Senha-->
-                <div class="form-group col-3">
-                    <label>Confirmar Senha</label>
-                    <input type="password" formControlName="confirmarSenha" class="form-control"
-                        [ngClass]="{ 'is-invalid': !f.confirmarSenha.pristine && f.confirmarSenha.errors }" />
+                <div class="col-md mb-1">
+                    <label>Confirmar Senha <span class="asterisco">*</span></label>
+                    <input type="password" formControlName="confirmarSenha" class="form-control form-control-sm"
+                        [ngClass]="{ 'is-invalid': !f.confirmarSenha.pristine && f.confirmarSenha.errors, 'is-valid': !f.confirmarSenha.errors }" />
                     <div *ngIf="!f.confirmarSenha.pristine && f.confirmarSenha.errors" class="invalid-feedback">
                         <div *ngIf="f.confirmarSenha.errors.required">Confirmar senha é obrigatório.</div>
                         <div *ngIf="f.confirmarSenha.errors.naoConferem">Senhas não conferem.</div>
+                    </div>
+                    <div class="valid-feedback">
+                        Tudo certo!
                     </div>
                 </div>
 
@@ -182,20 +220,20 @@
             <!--Botões com as disciplinas escolhidas pelo Professor-->
             <label *ngIf="f.tipoUsuario.value == 2">Disciplinas de Interesse</label>
             <div *ngIf="f.tipoUsuario.value == 2" class="form-row">
-                <h5 *ngFor="let disciplina of disciplinasInteresse" style="margin: 0px 5px 8px;">
+                <h6 *ngFor="let disciplina of disciplinasInteresse" style="margin: 0px 5px 8px;">
                     <span class="badge badge-success">{{disciplina}}
                         <button type="button" (click)="removerDisciplina(disciplina)" class="close" data-dismiss="alert"
                             aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
+                            <span aria-hidden="true" style="margin-left: 2px;"><i class="fa fa-times" aria-hidden="true"></i></span>
                         </button>
                     </span>
-                </h5>
+                </h6>
             </div>
 
-            <!--Botões do formulário-->
+            <!--Botões do formulário [disabled]="!formularioDeUsuario.valid"-->
             <div class="text-center">
 
-                <button [disabled]="!formularioDeUsuario.valid" style="float: right;">
+                <button  style="float: right;">
                     <span *ngIf="carregar" class="spinner-border spinner-border-sm mr-1"></span>Cadastrar</button>
                 <button style="float: right;" type="button" routerLink="/login">Cancelar</button>
 
@@ -229,15 +267,11 @@
 
 <!--Modal para erro-->
 <div class="modal fade" style="text-align: center;" #modalErro id="modalAlerta" tabindex="-1" role="dialog"
-    aria-labelledby="modalAlertaLabel" aria-hidden="!carregar" data-backdrop="static" data-keyboard="false">
+    aria-labelledby="modalAlertaLabel" aria-hidden="!carregar">
     <div class="modal-dialog">
-        <div class="modal-content">
-
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label=""><span>×</span></button>
-            </div>
-
+        <div class="modal-content">       
             <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal" aria-label=""><span>×</span></button>
 
                 <!--Se acontecer erro, ele habilita essa opção-->
                 <div class="alerta">

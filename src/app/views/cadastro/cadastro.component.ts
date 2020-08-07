@@ -34,6 +34,7 @@ export class CadastroComponent implements OnInit, OnDestroy {
   erro = '';
   imagem: any;
   carregar = false;
+  telefone = '(11) 11111-1111';
 
   constructor(private fb: FormBuilder,
     @Inject(DOCUMENT) private _document,
@@ -55,6 +56,7 @@ export class CadastroComponent implements OnInit, OnDestroy {
     this._document.body.classList.add('bodybg-background');
   }
 
+
   criarFormularioDeUsuario() {
     this.formularioDeUsuario = this.fb.group({
       tipoUsuario: ['', Validators.required],
@@ -62,7 +64,7 @@ export class CadastroComponent implements OnInit, OnDestroy {
       matricula: [{ value: '', disabled: true }, Validators.required],
       anoIngresso: [{ value: '', disabled: true }, Validators.compose([Validators.required, Validators.minLength(4), Validacoes.validarAno])],
       disciplinas: [{ value: '', disabled: true }, Validators.required],
-      nome: ['', Validators.required],
+      nome: ['', Validators.required,],
       cpf: ['', Validators.compose([Validators.required, Validacoes.validarCPF])],
       nascimento: ['', [Validacoes.validarAno, Validators.required, Validacoes.maiorQue16Anos, Validators.pattern(/^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$/)]],
       email: ['', [Validators.required, Validators.email]],
@@ -85,6 +87,7 @@ export class CadastroComponent implements OnInit, OnDestroy {
       this.formularioDeUsuario.get('disciplinas').disable();
 
       //Reseta os campos do professor
+      this.formularioDeUsuario.get('disciplinas').reset();
       this.disciplinasInteresse = [];
       this.todasDisciplinas = this.metodosDisciplinas.getValores();
     } else {
@@ -123,7 +126,11 @@ export class CadastroComponent implements OnInit, OnDestroy {
   get f() { return this.formularioDeUsuario.controls; }
 
   cadastrar(model: any) {
-    this.carregar = true;
+
+    this.erro = "Escolha uma ou mais disciplina de Interesse"
+    $(this.modalErro.nativeElement).modal('show');
+
+   /* this.carregar = true;
 
     this.imagem = this.tratamentoImagem.imagemString;
 
@@ -140,30 +147,37 @@ export class CadastroComponent implements OnInit, OnDestroy {
         this.imagem,
         this.formularioDeUsuario.get('matricula').value,
         this.formularioDeUsuario.get('anoIngresso').value
-        ).pipe(first()).subscribe(
-          data => {
-            this.carregar = false;
-            this.mensagem = data.Mensagem;
-            $(this.modalSucesso.nativeElement).modal('show');
-          },
-          error => {
-            this.carregar = false;
-            //Remove a o texto 'Error:' e adiciona a mensagem a variável erro
-            this.erro = error.toString().replace("Error:", "");
-            $(this.modalErro.nativeElement).modal('show');
-          });
+      ).pipe(first()).subscribe(
+        data => {
+          this.carregar = false;
+          this.mensagem = data.Mensagem;
+          $(this.modalSucesso.nativeElement).modal('show');
+        },
+        error => {
+          this.carregar = false;
+          //Remove a o texto 'Error:' e adiciona a mensagem a variável erro
+          this.erro = error.toString().replace("Error:", "");
+          $(this.modalErro.nativeElement).modal('show');
+        });
     } else {
-      this.cadastroService.cadastroProfessor(
-        this.formularioDeUsuario.get('cpf').value,
-        this.formularioDeUsuario.get('email').value,
-        this.formularioDeUsuario.get('instituicao').value,
-        this.formularioDeUsuario.get('nascimento').value,
-        this.formularioDeUsuario.get('nome').value,
-        this.formularioDeUsuario.get('senha').value,
-        this.formularioDeUsuario.get('telefone').value,
-        this.formularioDeUsuario.get('tipoUsuario').value,
-        this.imagem,
-        this.disciplinasInteresse
+
+      if (this.disciplinasInteresse.length == 0) {
+        this.carregar = false;
+        this.erro = "Escolha uma ou mais disciplina de Interesse"
+        $(this.modalErro.nativeElement).modal('show');
+      } else {
+
+        this.cadastroService.cadastroProfessor(
+          this.formularioDeUsuario.get('cpf').value,
+          this.formularioDeUsuario.get('email').value,
+          this.formularioDeUsuario.get('instituicao').value,
+          this.formularioDeUsuario.get('nascimento').value,
+          this.formularioDeUsuario.get('nome').value,
+          this.formularioDeUsuario.get('senha').value,
+          this.formularioDeUsuario.get('telefone').value,
+          this.formularioDeUsuario.get('tipoUsuario').value,
+          this.imagem,
+          this.disciplinasInteresse
         ).pipe(first()).subscribe(
           data => {
             this.carregar = false;
@@ -176,7 +190,8 @@ export class CadastroComponent implements OnInit, OnDestroy {
             this.erro = error.toString().replace("Error:", "");
             $(this.modalErro.nativeElement).modal('show');
           });
-    }
+      }
+    }*/
   }
 
   ngOnDestroy() {

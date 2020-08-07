@@ -1,41 +1,21 @@
-/*Centraliza todo o conteúdo na esquerda*/
-.container {
-    width: 100vw;
-    height: 100vh;
-    display: flex;
-    flex-direction: row;
-    justify-content: left;
-    align-items: center
- }
-
-/*Estilo da Box*/
-.box {
-    width: 400px;
-    padding: 30px;
-    background:rgb(238,241,236);
-    text-align: center;
-    border-radius: 10px;
-    opacity: 0.9;
-}
-
-/*Estilo dos Inputs*/
-.box input[type="text"],
-.box input[type="password"] {
-    width: 300px;
-    margin: 5px auto;
-}
-
-/*Centraliza e coloca os botões lado a lado*/
-div > div {
+.main-section{
+    margin: 0 center;
+    margin-top: 20px;
+    padding: 0;
     display: inline-block;
 }
 
-/*Estilo e tamanho da logo do IFSC*/
-.img{
-    width: 150px;
-    height: 218px;
-    margin: 0 10px;
-    vertical-align: bottom;
+.modal-content{
+   background:rgb(238,241,236);
+   text-align: center;
+   border-radius: 10px;
+   opacity: 0.9;
+   padding: 0 18px;
+}
+
+.logo{
+    margin-bottom: 20px;
+    margin-top: 20px;
 }
 
 /*Muda o estilo da informção abaixo da logo do IFSC*/
@@ -43,3 +23,17 @@ div > div {
     color:black;
     font-weight: bolder;
 }
+
+/*Estilo dos Inputs*/
+.form-group input[type="text"],
+.form-group input[type="password"] {
+    width: 250px;
+    margin: 5px auto;
+}
+
+.alert{
+    margin-bottom: 20px;
+}
+
+
+

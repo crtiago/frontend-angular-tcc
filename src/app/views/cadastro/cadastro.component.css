@@ -1,9 +1,14 @@
+.card{
+	margin: 0 center;
+}
+
 /*Estilo do botão fechar dos badges das disciplinas interessadas*/
 .badge .close {
-		margin-left: .25rem;
-		color: inherit;
-		font-size: 100%;
-		text-shadow: 0 1px 0 rgba(#000, .5);
+	margin: 0px !important;
+	margin-left: .25rem;
+	color: inherit;
+	font-size: 100%;
+	text-shadow: 0 1px 0 rgba(#000, .5);
 }
 
 /*Estilo do alerta*/
@@ -33,10 +38,24 @@
  	color:#5C5C5C;
 }
 
+.imagem{
+    inline-size: 130px;
+}
+
 /*Estilo botão close do alerta de Erro*/
+
+.close{
+	margin: 0px !important;
+}
+
 .close:hover{
 	background-color:transparent;
 	color: black;
+}
+
+.asterisco{
+	color: red; 
+	font-weight: bold;
 }
 
 
