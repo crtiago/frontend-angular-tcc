@@ -31,10 +31,10 @@ export class CadastroComponent implements OnInit, OnDestroy {
   mensagem = '';
   todasDisciplinas = [];
   disciplinasInteresse = [];
+  textoInputImagem = "Selecione uma imagem";
   erro = '';
   imagem: any;
   carregar = false;
-  telefone = '(11) 11111-1111';
 
   constructor(private fb: FormBuilder,
     @Inject(DOCUMENT) private _document,
@@ -55,7 +55,6 @@ export class CadastroComponent implements OnInit, OnDestroy {
     this.criarFormularioDeUsuario();
     this._document.body.classList.add('bodybg-background');
   }
-
 
   criarFormularioDeUsuario() {
     this.formularioDeUsuario = this.fb.group({
@@ -117,6 +116,7 @@ export class CadastroComponent implements OnInit, OnDestroy {
   }
 
   converteImagem64(event) {
+    this.textoInputImagem = "Imagem Selecionada";
     this.tratamentoImagem.getFiles(event);
   }
 
@@ -127,10 +127,7 @@ export class CadastroComponent implements OnInit, OnDestroy {
 
   cadastrar(model: any) {
 
-    this.erro = "Escolha uma ou mais disciplina de Interesse"
-    $(this.modalErro.nativeElement).modal('show');
-
-   /* this.carregar = true;
+   this.carregar = true;
 
     this.imagem = this.tratamentoImagem.imagemString;
 
@@ -191,7 +188,7 @@ export class CadastroComponent implements OnInit, OnDestroy {
             $(this.modalErro.nativeElement).modal('show');
           });
       }
-    }*/
+    }
   }
 
   ngOnDestroy() {

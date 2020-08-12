@@ -1,5 +1,6 @@
 .card{
 	margin: 0 center;
+	opacity: 0.9;
 }
 
 /*Estilo do botão fechar dos badges das disciplinas interessadas*/
@@ -39,7 +40,7 @@
 }
 
 .imagem{
-    inline-size: 130px;
+    inline-size: 100%;
 }
 
 /*Estilo botão close do alerta de Erro*/
@@ -56,6 +57,20 @@
 .asterisco{
 	color: red; 
 	font-weight: bold;
+}
+
+/* Esconde o input */
+input[type='file'] {
+	display: none
+  }
+  
+  /* Aparência que terá o seletor de arquivo */
+.labelImage {
+	background-color: rgb(47,158,64);
+	border-radius: 5px;
+	color: #fff;
+	cursor: pointer;
+	padding: 4px 20px
 }
 
 
