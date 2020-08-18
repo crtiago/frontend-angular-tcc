@@ -1,27 +1,7 @@
-.botaoAbrirSidebar{
-    padding: 3px 4px;
-    background-color: none;
-    margin-top: 0px;
-}
-
-.listaBotoesSidebar{
-    -webkit-transition: .3s all ease;
-    -o-transition: .3s all ease;
-    transition: .3s all ease;
-    margin: 0% !important;
-    border:none!important;
-    background-color: rgb(238,241,236);
-    width: 22vw; 
-    height: 11vh;
-    border-radius: 0% !important;
-    text-align: left;
-}
-
 ol,ul {
     padding-left: 0%;
     list-style:none;
 }
-
 
 h5{
     color: rgb(238,241,236);
@@ -34,26 +14,10 @@ h5{
     position: absolute;
     width: 100%;
     left: 0;
-    top: 8px;
+    top: 10px;
     text-align: center;
     overflow: visible;
     vertical-align: middle;
     height: 0;
     color: rgb(47,158,64);
-}
-
-.icon {
-    display: inline-flex;
-    align-self: center;
-}
-
-.icon svg, .icon img {
-    height: 1em;
-    width: 1em;
-    fill: currentColor;
-}
-
-.icon.baseline svg, .icon img {
-    top: .125em;
-    position: relative;
 }

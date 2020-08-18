@@ -26,12 +26,9 @@ export class AlunoBaseComponent implements OnInit {
   ngOnInit(): void {
   }
 
-
   toggleSidebar() {
     this.opened = !this.opened;
   }
-
-
 
   logout() {
     this.autenticacaoService.logout();
