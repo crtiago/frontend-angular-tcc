@@ -1,4 +1,6 @@
 @import '~bootstrap/dist/css/bootstrap.min.css';
+@import '~@fortawesome/fontawesome-free/css/all.css';
+
 
 /*Imagem de fundo das páginas Login e Cadastro*/
 .bodybg-background {

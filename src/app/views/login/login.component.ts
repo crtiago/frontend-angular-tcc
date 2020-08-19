@@ -68,6 +68,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         data => {
           //Direciona para a home do usuário conforme o tipo que ele for
           if (data.TipoUsuario == 1) {
+            localStorage.setItem('idTitulo', JSON.stringify(0));
             this.router.navigate(['aluno']);
           } else if (data.TipoUsuario == 2) {
             this.router.navigate(['prof']);
