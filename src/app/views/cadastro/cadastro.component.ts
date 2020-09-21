@@ -1,3 +1,4 @@
+import { DataReponse } from './../../_modelos/data-response';
 import { first } from 'rxjs/operators';
 import { CadastroService } from './../../_servicos/cadastro/cadastro.service';
 import { TratamentoImagem } from '../../_helpers/tratamento-imagem';
@@ -8,6 +9,7 @@ import { Component, OnInit, Inject, OnDestroy, ViewChild, ElementRef } from '@an
 import { DOCUMENT } from '@angular/common';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as $ from "jquery";
+import { ActivatedRoute } from '@angular/router';
 
 //Varivável para habilitar e usar o jquery
 declare var $: any;
@@ -35,6 +37,8 @@ export class CadastroComponent implements OnInit, OnDestroy {
   erro = '';
   imagem: any;
   carregar = false;
+  intituicoes: DataReponse;
+  idIntituicao: number;
 
   constructor(private fb: FormBuilder,
     @Inject(DOCUMENT) private _document,
@@ -42,6 +46,7 @@ export class CadastroComponent implements OnInit, OnDestroy {
     private metodosDisciplinas: MetodosEnuns,
     private tratamentoImagem: TratamentoImagem,
     private cadastroService: CadastroService,
+    private route: ActivatedRoute
   ) {
 
     //Antes de construir verifica se há algum usuário logado, caso haja, direciona pra home do mesmo
@@ -54,6 +59,7 @@ export class CadastroComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.criarFormularioDeUsuario();
     this._document.body.classList.add('bodybg-background');
+    this.intituicoes = this.route.snapshot.data.response.Data;
   }
 
   criarFormularioDeUsuario() {
@@ -135,7 +141,7 @@ export class CadastroComponent implements OnInit, OnDestroy {
       this.cadastroService.cadastroAluno(
         this.formularioDeUsuario.get('cpf').value,
         this.formularioDeUsuario.get('email').value,
-        this.formularioDeUsuario.get('instituicao').value,
+        this.idIntituicao,
         this.formularioDeUsuario.get('nascimento').value,
         this.formularioDeUsuario.get('nome').value,
         this.formularioDeUsuario.get('senha').value,
@@ -167,7 +173,7 @@ export class CadastroComponent implements OnInit, OnDestroy {
         this.cadastroService.cadastroProfessor(
           this.formularioDeUsuario.get('cpf').value,
           this.formularioDeUsuario.get('email').value,
-          this.formularioDeUsuario.get('instituicao').value,
+          this.idIntituicao,
           this.formularioDeUsuario.get('nascimento').value,
           this.formularioDeUsuario.get('nome').value,
           this.formularioDeUsuario.get('senha').value,
@@ -191,9 +197,17 @@ export class CadastroComponent implements OnInit, OnDestroy {
     }
   }
 
+  getIdInstituicao(event: any) {
+    this.idIntituicao = this.convertStringParaNumero(event.target.value);
+  }
+
   ngOnDestroy() {
     //Remove a tag do corpo do formulário de classe, deixando sem a imagem do ifsc de fundo
     this._document.body.classList.remove('bodybg-background');
+  }
+
+  convertStringParaNumero(valor: string) {
+    return Number(valor) + 1;
   }
 
 }

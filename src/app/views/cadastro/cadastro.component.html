@@ -27,13 +27,14 @@
                 <!--Select Instituição-->
                 <div class="col-md-6 mb-2">
                     <label>Instituição <span class="asterisco">*</span></label>
-                    <select formControlName="instituicao" class="form-control form-control-sm"
+                    <select (change)="getIdInstituicao($event)" formControlName="instituicao" class="form-control form-control-sm"
                         [ngClass]="{ 'is-invalid': !f.instituicao.pristine && f.instituicao.errors, 'is-valid': !f.instituicao.errors}">
                         <option value="" selected disabled hidden>Escolha uma opção</option>
-                        <option value="IFSC">IFSC</option>
+                        <option value={{i}} *ngFor="let item of intituicoes; let i = index">{{item.nome}}</option>
+                        <!--option value="IFSC">IFSC</option>
                         <option value="UFSC">UFSC</option>
                         <option value="UFRS">UFRS</option>
-                        <option value="UNIPLAC">UNIPLAC</option>
+                        <option value="UNIPLAC">UNIPLAC</option-->
                     </select>
                     <div *ngIf="!f.instituicao.pristine && f.instituicao.errors" class="invalid-feedback">
                         <div *ngIf="f.instituicao.errors.required">Instituição é obrigatória.</div>

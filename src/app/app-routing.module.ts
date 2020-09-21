@@ -1,3 +1,4 @@
+import { UtilMetodos } from './_helpers/util-metodos';
 import { CadastroComponent } from './views/cadastro/cadastro.component';
 import { RouteGuardService } from './_servicos/rota/route-guard.service';
 import { LoginComponent } from './views/login/login.component';
@@ -7,16 +8,21 @@ import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
-  { path: 'cadastro',  component: CadastroComponent},
+  {
+    path: 'cadastro', component: CadastroComponent,
+    resolve: {
+      response: UtilMetodos
+    }
+  },
   {
     path: 'prof',
-    canActivate : [RouteGuardService],
+    canActivate: [RouteGuardService],
     loadChildren: () => import('./views/professor/professor.module').then(m => m.ProfessorModule),
     data: { roles: [Funcao.Professor] }
   },
   {
     path: 'aluno',
-    canActivate : [RouteGuardService],
+    canActivate: [RouteGuardService],
     loadChildren: () => import('./views/aluno/aluno.module').then(m => m.AlunoModule),
     data: { roles: [Funcao.Aluno] }
   },

@@ -1,3 +1,4 @@
+import { UtilMetodos } from './_helpers/util-metodos';
 import { TratamentoImagem } from './_helpers/tratamento-imagem';
 import { MetodosEnuns } from './_helpers/metodos-enuns';
 import { InterceptadorErros } from './_helpers/interceptador-erros';
@@ -36,6 +37,7 @@ const maskConfig: Partial<IConfig> = {
     MetodosEnuns,
     TratamentoImagem,
     { provide: HTTP_INTERCEPTORS, useClass: InterceptadorErros, multi: true },
+    UtilMetodos
   ],
   bootstrap: [AppComponent]
 })
