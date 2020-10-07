@@ -1,6 +1,9 @@
 @import '~bootstrap/dist/css/bootstrap.min.css';
 @import '~@fortawesome/fontawesome-free/css/all.css';
 
+.body{
+    background-color: red;
+}
 
 /*Imagem de fundo das páginas Login e Cadastro*/
 .bodybg-background {
@@ -32,7 +35,7 @@ button:disabled{
 }
 
 /*Muda a cor de fundo e da letra quando o usuário passa o mouse em cima do botão*/
-button:hover:enabled {
+button:hover:enabled, button:active, button:focus {
     background: rgb(47,158,64);
     color: rgb(238,241,236);
 }
@@ -60,6 +63,10 @@ button:focus, button:active {
     width: 80%;
     text-align: center;
     align-items: center;
+ }
+
+ .ng-sidebar__content{
+    background-color: #d8ecdb;
  }
 
 /*Botão que abre a Sidebar*/

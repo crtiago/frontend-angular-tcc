@@ -1,7 +1,7 @@
 import { UtilMetodos } from './_helpers/util-metodos';
-import { CadastroComponent } from './views/cadastro/cadastro.component';
+import { CadastroComponent } from './views/utils/cadastro/cadastro.component';
 import { RouteGuardService } from './_servicos/rota/route-guard.service';
-import { LoginComponent } from './views/login/login.component';
+import { LoginComponent } from './views/utils/login/login.component';
 import { Funcao } from './_enuns/funcao';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';

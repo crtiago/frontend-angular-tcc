@@ -1,10 +1,12 @@
-import { DataReponse } from './../../_modelos/data-response';
+import { Validacoes } from './../../../_helpers/validacoes';
+import { CadastroService } from './../../../_servicos/cadastro/cadastro.service';
+import { TratamentoImagem } from './../../../_helpers/tratamento-imagem';
+import { MetodosEnuns } from './../../../_helpers/metodos-enuns';
+import { AutenticacaoService } from './../../../_servicos/login/autenticacao.service';
+import { DataReponse } from './../../../_modelos/data-response';
+
 import { first } from 'rxjs/operators';
-import { CadastroService } from './../../_servicos/cadastro/cadastro.service';
-import { TratamentoImagem } from '../../_helpers/tratamento-imagem';
-import { MetodosEnuns } from './../../_helpers/metodos-enuns';
-import { Validacoes } from './../../_helpers/validacoes';
-import { AutenticacaoService } from './../../_servicos/login/autenticacao.service';
+
 import { Component, OnInit, Inject, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';

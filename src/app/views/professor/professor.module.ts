@@ -1,15 +1,24 @@
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SidebarModule } from 'ng-sidebar';
+import { ProfBaseComponent } from './prof-base/prof-base.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { ProfessorRoutingModule } from './professor-routing.module';
-import { ProfHomeComponent } from './prof-home/prof-home.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { SalasComponent } from './salas/salas.component';
+import { ConfiguracoesComponent } from './configuracoes/configuracoes.component';
+import { SuporteComponent } from './suporte/suporte.component';
 
 
 @NgModule({
-  declarations: [ProfHomeComponent],
+  declarations: [ ProfBaseComponent,DashboardComponent, SalasComponent, ConfiguracoesComponent, SuporteComponent],
   imports: [
     CommonModule,
-    ProfessorRoutingModule
+    FormsModule,
+    ReactiveFormsModule,
+    ProfessorRoutingModule,
+    SidebarModule.forRoot()
   ]
 })
 export class ProfessorModule { }

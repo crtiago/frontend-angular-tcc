@@ -16,7 +16,8 @@
                 <!--Input do CPF-->
                 <div class="form-group">
                     <input type="text" formControlName="cpf" class="form-control" placeholder="000.000.000-00"
-                        mask="000.000.000-00" [ngClass]="{ 'is-invalid':!f.cpf.pristine && f.cpf.errors, 'is-valid': !f.cpf.errors  }">
+                        mask="000.000.000-00"
+                        [ngClass]="{ 'is-invalid':!f.cpf.pristine && f.cpf.errors, 'is-valid': !f.cpf.errors  }">
                     <div *ngIf="!f.cpf.pristine && f.cpf.errors" class="invalid-feedback">
                         <div *ngIf="f.cpf.errors.cpfInvalido">
                             Digite um CPF válido
@@ -40,18 +41,18 @@
 
 
                 <!--Botões de envio-->
-               <button type="button" routerLink="/cadastro">
-                    Cadastre-se</button>
+                <button (click)="cadastro()">
+                    <span *ngIf="spinnerCadastro"
+                        class="spinner-border spinner-border-sm mr-1"></span>Cadastre-se</button>
 
                 <button (click)="login()" [disabled]="!formularioDeUsuario.valid">
-                    <span *ngIf="carregar" class="spinner-border spinner-border-sm mr-1"></span>
+                    <span *ngIf="spinnerLogin" class="spinner-border spinner-border-sm mr-1"></span>
                     Entrar</button>
 
                 <!--Mensagem para caso os dados inseridos pelo usuário esteja incorreto-->
                 <div *ngIf="erro" class="alert alert-danger mt-2 mb-2">{{erro}}</div>
 
             </form>
-
 
         </div>
     </div>

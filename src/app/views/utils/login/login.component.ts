@@ -1,5 +1,5 @@
-import { Validacoes } from './../../_helpers/validacoes';
-import { AutenticacaoService } from '../../_servicos/login/autenticacao.service';
+import { Validacoes } from './../../../_helpers/validacoes';
+import { AutenticacaoService } from './../../../_servicos/login/autenticacao.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit, OnDestroy, ViewEncapsulation, Inject } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
@@ -20,7 +20,8 @@ import { first } from 'rxjs/operators';
  */
 export class LoginComponent implements OnInit, OnDestroy {
   formularioDeUsuario: FormGroup;
-  carregar = false;
+  spinnerLogin = false;
+  spinnerCadastro = false;
   erro = '';
 
   constructor(
@@ -62,10 +63,11 @@ export class LoginComponent implements OnInit, OnDestroy {
    * Método que faz o login no sistema e direciona a rota especifica conforme o tipo de usuário
    */
   login() {
-    this.carregar = true;
+    this.spinnerLogin = true;
     this.autenticacaoService.login(this.formularioDeUsuario.value.cpf, this.formularioDeUsuario.value.senha)
       .pipe(first()).subscribe(
         data => {
+          this.spinnerLogin = true;
           //Direciona para a home do usuário conforme o tipo que ele for
           if (data.TipoUsuario == 1) {
             localStorage.setItem('idTitulo', JSON.stringify(0));
@@ -76,8 +78,13 @@ export class LoginComponent implements OnInit, OnDestroy {
         },
         error => {
           this.erro = error.toString().replace("Error:","");
-          this.carregar = false;
+          this.spinnerLogin = false;
         });
+  }
+
+  cadastro(){
+    this.spinnerCadastro = true;
+    this.router.navigate(['cadastro']);
   }
 
   ngOnDestroy() {

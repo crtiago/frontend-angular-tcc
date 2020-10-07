@@ -1,16 +1,16 @@
-import { AutenticacaoService } from '../../../_servicos/login/autenticacao.service';
-import { Component, OnInit, Input, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
+import { DomSanitizer } from '@angular/platform-browser';
+import { AutenticacaoService } from './../../../_servicos/login/autenticacao.service';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-aluno-base',
-  templateUrl: './aluno-base.component.html',
-  styleUrls: ['./aluno-base.component.css']
+  selector: 'app-prof-base',
+  templateUrl: './prof-base.component.html',
+  styleUrls: ['./prof-base.component.css']
 })
-export class AlunoBaseComponent implements OnInit{
+export class ProfBaseComponent implements OnInit {
 
-  listaTitulosNavbar = ['Dashboard', 'Simulado', 'Sala', 'Configurações', 'Suporte'];
+  listaTitulosNavbar = ['Dashboard', 'Gerenciar Salas', 'Configurações', 'Suporte'];
   idTitulo:any;
   aberta: boolean = false;
   usuario: any;
@@ -19,7 +19,7 @@ export class AlunoBaseComponent implements OnInit{
   constructor(private autenticacaoService: AutenticacaoService, private sanitizer: DomSanitizer, private route: ActivatedRoute) {
     this.usuario = autenticacaoService.getUsuario;
     this.base64Image = this.usuario.ImagemUsuario;    
-    this.idTitulo = localStorage.getItem('idTituloAluno');
+    this.idTitulo = localStorage.getItem('idTituloProf');
   }
  
   getImagem() {
@@ -32,7 +32,7 @@ export class AlunoBaseComponent implements OnInit{
 
   botaoSidebar(id:number) {
     this.idTitulo = id;
-    localStorage.setItem('idTituloAluno', JSON.stringify(this.idTitulo));
+    localStorage.setItem('idTituloProf', JSON.stringify(this.idTitulo));
     this.aberta = !this.aberta;
   }
 

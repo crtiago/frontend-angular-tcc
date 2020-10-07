@@ -1,0 +1,28 @@
+ol,ul {
+    padding-left: 0%;
+    list-style:none;
+}
+
+h5{
+    color: rgb(238,241,236);
+    position: absolute;
+    width: 100%;
+    top: 20vh;    
+}
+
+.click:focus{
+    background-color:  rgb(238,241,236) !important;
+    color: rgb(47,158,64);
+}
+
+.titulo{
+    position: absolute;
+    width: 100%;
+    left: 0;
+    top: 10px;
+    text-align: center;
+    overflow: visible;
+    vertical-align: middle;
+    height: 0;
+    color: rgb(47,158,64);
+}

@@ -10,12 +10,15 @@ import { SalaComponent } from './sala/sala.component';
 import { AlunoBaseComponent } from './aluno-base/aluno-base.component';
 import { ConfiguracoesComponent } from './configuracoes/configuracoes.component';
 import { SuporteComponent } from './suporte/suporte.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
   declarations: [DashboardComponent, SimuladoComponent, SalaComponent, AlunoBaseComponent, ConfiguracoesComponent, SuporteComponent,],
   imports: [
     CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
     AlunoRoutingModule,
     SidebarModule.forRoot()
   ]
