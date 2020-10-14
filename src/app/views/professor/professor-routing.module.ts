@@ -1,5 +1,6 @@
-import { SuporteComponent } from './suporte/suporte.component';
-import { ConfiguracoesComponent } from './configuracoes/configuracoes.component';
+import { UtilMetodos } from './../../_helpers/util-metodos';
+import { ConfiguracoesComponent } from './../utils/configuracoes/configuracoes.component';
+import { SuporteComponent } from './../utils/suporte/suporte.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { SalasComponent } from './salas/salas.component';
 import { ProfBaseComponent } from './prof-base/prof-base.component';
@@ -15,7 +16,12 @@ const routes: Routes = [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
       { path: 'dashboard', component: DashboardComponent },
       { path: 'salas', component: SalasComponent },
-      { path: 'configuracoes', component: ConfiguracoesComponent },
+      {
+        path: 'configuracoes', component: ConfiguracoesComponent,
+        resolve: {
+          response: UtilMetodos
+        }
+      },
       { path: 'suporte', component: SuporteComponent },
     ]
   }

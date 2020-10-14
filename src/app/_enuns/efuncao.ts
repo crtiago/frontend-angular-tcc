@@ -1,7 +1,7 @@
 /**
  * Enum responsável por definir o tipo de usuário
  */
-export enum Funcao {
+export enum EFuncao {
     Aluno = 1,
     Professor = 2
 }

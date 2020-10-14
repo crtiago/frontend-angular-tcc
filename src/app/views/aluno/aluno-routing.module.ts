@@ -1,5 +1,6 @@
-import { SuporteComponent } from './suporte/suporte.component';
-import { ConfiguracoesComponent } from './configuracoes/configuracoes.component';
+import { UtilMetodos } from './../../_helpers/util-metodos';
+import { ConfiguracoesComponent } from './../utils/configuracoes/configuracoes.component';
+import { SuporteComponent } from './../utils/suporte/suporte.component';
 import { AlunoBaseComponent } from './aluno-base/aluno-base.component';
 import { SalaComponent } from './sala/sala.component';
 import { SimuladoComponent } from './simulado/simulado.component';
@@ -16,7 +17,11 @@ const routes: Routes = [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'simulado', component: SimuladoComponent },
       { path: 'sala', component: SalaComponent },
-      { path: 'configuracoes', component: ConfiguracoesComponent },
+      {
+        path: 'configuracoes', component: ConfiguracoesComponent, resolve: {
+          response: UtilMetodos
+        }
+      },
       { path: 'suporte', component: SuporteComponent },
     ]
   },

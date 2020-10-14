@@ -3,3 +3,11 @@
     margin-left: 20% !important;
     margin-right: 20% !important;
 }
+.assunto{
+    margin-left: 1% !important;
+    margin-right: 1% !important;
+}
+
+textarea {
+    resize: none;
+}

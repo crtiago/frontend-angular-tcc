@@ -1,0 +1,242 @@
+<div class="card m-4">
+    <h5 class="card-header" style="text-align: center;">{{usuario.Nome}}</h5>
+    <div class="card-body">
+        <form [formGroup]="formularioDeUsuario" (ngSubmit)="alterar()">
+            <!--Imagem de perfil-->
+            <div class="form-row">
+                <div class="col" style="text-align: center;">
+                    <img *ngIf="imagemUsuario" class="perfilconfig" [src]="getImagem()">
+                    <img *ngIf="imagemUsuario == null || imagemUsuario == ''" src="../../../../assets/img/usuario.svg"
+                        class="perfilconfig">
+                </div>
+            </div>
+            <!--Input Imagem de Perfil-->
+            <div class="form-row">
+                <div class="col-md mb-1" style="text-align: center; margin-top: 5px;">
+                    <label class="labelImage" for='selecao-arquivo'>{{textoInputImagem}}</label>
+                    <input formControlName="imagem" id='selecao-arquivo'
+                        (change)="converteImagem64Dinamicamente($event)" type="file" name="myImage" accept="image/*" />
+                </div>
+            </div>
+            <!--Primeira Linha de Inputs-->
+            <div class="form-row">
+                <!--Select Instituição-->
+                <div class="col-md-6 mb-2">
+                    <label>Instituição <span class="asterisco">*</span></label>
+                    <select (change)="getIdInstituicao($event)" formControlName="instituicao"
+                        class="form-control form-control-sm"
+                        [ngClass]="{ 'is-invalid': !f.instituicao.pristine && f.instituicao.errors, 'is-valid': !f.instituicao.pristine && !f.instituicao.errors}">
+                        <option value="" selected disabled hidden>{{usuario.Instituicao.Nome}}</option>
+                        <option value={{i+1}} *ngFor="let item of instituicoes; let i = index">{{item.nome}}</option>
+                    </select>
+                    <div *ngIf="!f.instituicao.pristine && f.instituicao.errors" class="invalid-feedback">
+                        <div *ngIf="f.instituicao.errors.required">Instituição é obrigatória.</div>
+                    </div>
+                    <div class="valid-feedback">
+                        Tudo certo!
+                    </div>
+                </div>
+
+                <!--Inputs do Tipo Usuário = Aluno-->
+                <!--Input Matricula do Aluno-->
+                <div *ngIf="usuario.TipoUsuario == 1" class="col-md-2 mb-2">
+                    <label>Matricula <span class="asterisco">*</span></label>
+                    <input type="text" mask="000000000000000000" formControlName="matricula"
+                        class="form-control form-control-sm"
+                        [ngClass]="{ 'is-invalid':!f.matricula.pristine && f.matricula.errors, 'is-valid': !f.matricula.pristine && !f.matricula.errors }" />
+                    <div *ngIf="!f.matricula.pristine && f.matricula.errors" class="invalid-feedback">
+                        <div *ngIf="f.matricula.errors.required">Matricula é obrigatória.</div>
+                    </div>
+                    <div class="valid-feedback">
+                        Tudo certo!
+                    </div>
+                </div>
+
+                <!--Input Ano Ingresso do Aluno-->
+                <div *ngIf="usuario.TipoUsuario == 1" class="col-md-2 mb-2">
+                    <label>Ano Ingresso <span class="asterisco">*</span></label>
+                    <input type="text" mask="0000" formControlName="anoIngresso" class="form-control form-control-sm"
+                        [ngClass]="{ 'is-invalid':!f.anoIngresso.pristine && f.anoIngresso.errors, 'is-valid': !f.anoIngresso.pristine && !f.anoIngresso.errors }" />
+                    <div *ngIf="!f.anoIngresso.pristine && f.anoIngresso.errors" class="invalid-feedback">
+                        <div *ngIf="f.anoIngresso.errors.required">Ano de Ingresso é obrigatório.</div>
+                        <div
+                            *ngIf="(f.anoIngresso.errors.anoInvalido || f.anoIngresso.errors.minlength) && !f.anoIngresso.errors.required">
+                            Insira um ano válido.
+                        </div>
+                    </div>
+                    <div class="valid-feedback">
+                        Tudo certo!
+                    </div>
+                </div>
+                <!--Fim dos Inputs do Tipo Usuário = Aluno-->
+
+                <!--Input do Tipo Usuário = Professor-->
+                <div *ngIf="usuario.TipoUsuario == 2" class="col-md mb-2">
+                    <label>Disciplinas de Interesse <span class="asterisco">*</span></label>
+                    <select (change)="getDisciplinas($event)" formControlName="disciplinas"
+                        class="form-control form-control-sm"
+                        [ngClass]="{ 'is-invalid': this.disciplinasInteresse.length == 0 || !f.disciplinas.pristine && f.disciplinas.errors, 'is-valid': this.disciplinasInteresse.length != 0 && !f.disciplinas.errors && !f.disciplinas.pristine }">
+                        <option *ngFor="let disciplina of todasDisciplinas" [value]="disciplina">{{ disciplina }}
+                        </option>
+                    </select>
+                    <div *ngIf="this.disciplinasInteresse.length == 0 || !f.disciplinas.pristine && f.disciplinas.errors"
+                        class="invalid-feedback">
+                        <div *ngIf="this.disciplinasInteresse.length == 0 || f.disciplinas.required">Escolha no minímo
+                            uma disciplina de interesse.</div>
+                    </div>
+                    <div class="valid-feedback">
+                        Tudo certo!
+                    </div>
+                </div>
+                <!--Fim dos Inputs do Tipo Usuário = Professor-->
+            </div>
+            <!--Segunda Linha de Inputs-->
+            <div class="form-row">
+
+                <!--Input Nome-->
+                <div class="col-md mb-1">
+                    <label>Nome Completo <span class="asterisco">*</span></label>
+                    <input type="text" formControlName="nome" class="form-control form-control-sm"
+                        [ngClass]="{ 'is-invalid':!f.nome.pristine && f.nome.errors, 'is-valid': !f.nome.pristine && !f.nome.errors}" />
+                    <div *ngIf="!f.nome.pristine && f.nome.errors" class="invalid-feedback">
+                        <div *ngIf="f.nome.errors.required">Nome é obrigatório.</div>
+                    </div>
+                    <div class="valid-feedback">
+                        Tudo certo!
+                    </div>
+                </div>
+
+                <!--Input CPF-->
+                <div class="col-md-2 mb-1">
+                    <label>CPF <span class="asterisco">*</span></label>
+                    <input type="text" formControlName="cpf" class="form-control form-control-sm"
+                        placeholder="000.000.000-00" mask="000.000.000-00"
+                        [ngClass]="{ 'is-invalid': !f.cpf.pristine && f.cpf.errors, 'is-valid': !f.cpf.pristine && !f.cpf.errors }" />
+                    <div *ngIf="!f.cpf.pristine && f.cpf.errors" class="invalid-feedback">
+                        <div *ngIf="f.cpf.errors.cpfInvalido">Insira um CPF válido.</div>
+                        <div *ngIf="f.cpf.errors.required">CPF é obrigatório.</div>
+                    </div>
+                    <div class="valid-feedback">
+                        Tudo certo!
+                    </div>
+                </div>
+                <!--Input Nascimento-->
+                <div class="col-md-3 mb-1">
+                    <label>Data de Nascimento <span class="asterisco">*</span></label>
+                    <input type="date" formControlName="nascimento" class="form-control form-control-sm"
+                        [ngClass]="{ 'is-invalid':!f.nascimento.pristine && f.nascimento.errors, 'is-valid': !f.nascimento.pristine && !f.nascimento.errors }" />
+                    <div *ngIf="!f.nascimento.pristine && f.nascimento.errors" class="invalid-feedback">
+                        <div
+                            *ngIf="!f.nascimento.errors.required && !f.nascimento.errors.pattern && f.nascimento.errors.menorDe16">
+                            Você deve ter mais de 16 anos.
+                        </div>
+                        <div *ngIf="f.nascimento.errors.required">Data de nascimento é obrigatória.</div>
+                        <div *ngIf="f.nascimento.errors.pattern">
+                            A data está incorreta.
+                        </div>
+                    </div>
+                    <div class="valid-feedback">
+                        Tudo certo!
+                    </div>
+                </div>
+
+
+            </div>
+
+            <!--Terceira Linha de Inputs-->
+            <div class="form-row">
+
+                <!--Input Email-->
+                <div class="col-md mb-1">
+                    <label>Email <span class="asterisco">*</span></label>
+                    <input type="text" formControlName="email" class="form-control form-control-sm"
+                        [ngClass]="{ 'is-invalid': !f.email.pristine && f.email.errors,'is-valid': !f.email.pristine && !f.email.errors }" />
+                    <div *ngIf=" f.email.errors" class="invalid-feedback">
+                        <div *ngIf="!f.email.pristine && f.email.errors.required">Email é obrigatório.</div>
+                        <div *ngIf="f.email.errors.email">O email deve ser um endereço de email válido.</div>
+                    </div>
+                    <div class="valid-feedback">
+                        Tudo certo!
+                    </div>
+                </div>
+
+                <!--Input Telefone-->
+                <div class="col-md-3 mb-1">
+                    <label>Telefone</label>
+                    <input type="text" formControlName="telefone" class="form-control form-control-sm"
+                        placeholder="(00) 00000-0000" mask="(00) 00000-0000"
+                        [ngClass]="{ 'is-invalid':!f.telefone.pristine && f.telefone.errors }" />
+                    <div *ngIf="!f.telefone.pristine && f.telefone.errors" class="invalid-feedback">
+                        <div *ngIf="f.telefone.errors.minlength">Insira um telefone válido.</div>
+                    </div>
+                </div>
+            </div>
+
+            <!--Botões com as disciplinas escolhidas pelo Professor-->
+            <label *ngIf="usuario.TipoUsuario == 2">Disciplinas de Interesse</label>
+            <div *ngIf="usuario.TipoUsuario == 2" class="form-row">
+                <h6 *ngFor="let disciplina of disciplinasInteresse" style="margin: 0px 5px 8px;">
+                    <span class="badge badge-success">{{disciplina}}
+                        <button type="button" (click)="removerDisciplina(disciplina)" class="close" data-dismiss="alert"
+                            aria-label="Close">
+                            <span aria-hidden="true" style="margin-left: 2px;"><i class="fa fa-times"
+                                    aria-hidden="true"></i></span>
+                        </button>
+                    </span>
+                </h6>
+            </div>
+
+            <!--Botões do formulário-->
+            <div class="text-center">
+
+                <button style="float: right;" [disabled]="!formularioDeUsuario.valid || formularioDeUsuario.pristine">
+                    <span *ngIf="carregar" class="spinner-border spinner-border-sm mr-1"></span>Salvar</button>
+
+            </div>
+        </form>
+    </div>
+</div>
+
+<!--Modal para Sucesso-->
+<div class="modal fade" style="text-align: center;" #modalSucesso id="modalAlerta" tabindex="-1" role="dialog"
+    aria-labelledby="modalAlertaLabel" aria-hidden="!carregar" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+
+                <div class="alerta">
+                    <img src="../../../assets/img/acerto.svg" alt="">
+                    <h1>Informações atualizadas com sucesso!</h1>
+                    <p>{{mensagem}}</p>
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" (click)="atualizarPagina()">Ok</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!--Modal para erro-->
+<div class="modal fade" style="text-align: center;" #modalErro id="modalAlerta" tabindex="-1" role="dialog"
+    aria-labelledby="modalAlertaLabel" aria-hidden="!carregar">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal" aria-label=""><span>×</span></button>
+
+                <!--Se acontecer erro, ele habilita essa opção-->
+                <div class="alerta">
+                    <img src="../../../assets/img/erro.svg" alt="">
+                    <h1>Informações não atualizadas!</h1>
+                    <p>{{erro}}</p>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>

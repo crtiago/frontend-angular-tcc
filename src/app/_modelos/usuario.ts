@@ -1,4 +1,4 @@
-import { Funcao } from '../_enuns/funcao';
+import { EFuncao } from '../_enuns/efuncao';
 
 export class Usuario {
     IdUsuario: number;
@@ -10,10 +10,10 @@ export class Usuario {
     Telefone: string;
     Instituicao: string;
     ImagemUsuario: string;
-    TipoUsuario: Funcao;
+    TipoUsuario: EFuncao;
 
     constructor(cpf: string, nascimento: Date, nome: string, senha: string, email: string, telefone: string,
-        instituicao: string, imagemUsuario: string, tipoUsuario: Funcao) {
+        instituicao: string, imagemUsuario: string, tipoUsuario: EFuncao) {
         this.CPF = cpf;
         this.Nascimento = nascimento;
         this.Nome = nome;

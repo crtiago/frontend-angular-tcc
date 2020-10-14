@@ -14,7 +14,8 @@
                     </svg>
                 </button>
                 <img *ngIf="base64Image" class="perfil" [src]="getImagem()">
-                <img *ngIf="base64Image == null" src="../../../../assets/img/usuario.svg" class="perfil">
+                <img *ngIf="base64Image == null  || base64Image == ''" src="../../../../assets/img/usuario.svg"
+                    class="perfil">
                 <h5>{{usuario.Nome}}</h5>
             </div>
 

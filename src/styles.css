@@ -127,6 +127,13 @@ button:focus, button:active {
 	transform: translate(-50%, -50%);
 }
 
+.perfilconfig{
+    background-color: rgb(47,158,64);
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+}
+
 
 @media(min-width:500px){
     /*Estilo da sidebar*/

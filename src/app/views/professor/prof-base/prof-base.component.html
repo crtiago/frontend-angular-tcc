@@ -14,7 +14,7 @@
                     </svg>
                 </button>
                 <img *ngIf="base64Image" class="perfil" [src]="getImagem()">
-                <img *ngIf="base64Image == null" src="../../../../assets/img/usuario.svg" class="perfil">
+                <img *ngIf="base64Image == null || base64Image == ''" src="../../../../assets/img/usuario.svg" class="perfil">
                 <h5>{{usuario.Nome}}</h5>
             </div>
 
@@ -24,7 +24,7 @@
                         <i class="fas fa-signal"></i> &nbsp;&nbsp;&nbsp;Dashboard
                     </button></li>
                 <li><button routerLink="salas" (click)="botaoSidebar(1)" class="listaBotoesSidebar">
-                    <i class="fas fa-chalkboard-teacher"></i> &nbsp;&nbsp;&nbsp;Gerenciar Salas
+                        <i class="fas fa-chalkboard-teacher"></i> &nbsp;&nbsp;&nbsp;Gerenciar Salas
                     </button></li>
                 <li><button routerLink="configuracoes" (click)="botaoSidebar(2)" class="listaBotoesSidebar">
                         <i class="fas fa-sliders-h"></i> &nbsp;&nbsp;&nbsp;Configurações

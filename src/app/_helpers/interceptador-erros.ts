@@ -18,6 +18,10 @@ export class InterceptadorErros implements HttpInterceptor {
                 const error = 'Falha de comunicação com o servidor, tente novamente mais tarde!';
                 return throwError(error);
             }
+            if ([405].indexOf(err.status) !== -1) {
+                const error = 'Erro ao atualizar as informações do usuário, tente novamente mais tarde';
+                return throwError(error);
+            }
         }))
     }
 }

@@ -7,12 +7,11 @@ import { CommonModule } from '@angular/common';
 import { ProfessorRoutingModule } from './professor-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { SalasComponent } from './salas/salas.component';
-import { ConfiguracoesComponent } from './configuracoes/configuracoes.component';
-import { SuporteComponent } from './suporte/suporte.component';
+
 
 
 @NgModule({
-  declarations: [ ProfBaseComponent,DashboardComponent, SalasComponent, ConfiguracoesComponent, SuporteComponent],
+  declarations: [ ProfBaseComponent,DashboardComponent, SalasComponent],
   imports: [
     CommonModule,
     FormsModule,

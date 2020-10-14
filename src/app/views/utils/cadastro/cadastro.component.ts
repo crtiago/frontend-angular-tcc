@@ -1,3 +1,4 @@
+import { EDisciplina } from './../../../_enuns/edisciplinas';
 import { Validacoes } from './../../../_helpers/validacoes';
 import { CadastroService } from './../../../_servicos/cadastro/cadastro.service';
 import { TratamentoImagem } from './../../../_helpers/tratamento-imagem';
@@ -55,7 +56,7 @@ export class CadastroComponent implements OnInit, OnDestroy {
     this.autenticacaoService.logado();
 
     //Pega todos os valores das disciplinas 
-    this.todasDisciplinas = metodosDisciplinas.getValores();
+    this.todasDisciplinas = metodosDisciplinas.getValores(EDisciplina);
   }
 
   ngOnInit() {
@@ -96,7 +97,7 @@ export class CadastroComponent implements OnInit, OnDestroy {
       //Reseta os campos do professor
       this.formularioDeUsuario.get('disciplinas').reset();
       this.disciplinasInteresse = [];
-      this.todasDisciplinas = this.metodosDisciplinas.getValores();
+      this.todasDisciplinas = this.metodosDisciplinas.getValores(EDisciplina);
     } else {
 
       //Se o TipoUsuário for Professor ele desabilita os inputs do Aluno

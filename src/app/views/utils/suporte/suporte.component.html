@@ -1,0 +1,56 @@
+<div class="suporte">
+  <form [formGroup]="formularioDeUsuario" >
+
+    <div class="form-row assunto">
+    <!--Input do Assunto-->
+    <div class="col-md mb-1">
+      <div class="form-group">
+        <select (change)="getAssunto($event)" formControlName="assunto" class="form-control"
+          [ngClass]="{ 'is-invalid': !f.assunto.pristine && f.assunto.errors, 'is-valid': !f.assunto.errors }">
+          <option value="" selected disabled hidden>Escolha um assunto</option>
+          <option *ngFor="let assunto of assuntos; let i = index" value={{i}}>{{ assunto }}
+          </option>
+        </select>
+        <div *ngIf="!f.assunto.pristine && f.assunto.errors" class="invalid-feedback">
+          <div *ngIf="f.assunto.errors.required">
+            Assunto é obrigatório.
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!--Input do Outro Assunto-->
+  <div *ngIf="f.assunto.value == 2" class="col-md mb-1">
+      <div class="form-group">
+        <input type="text" formControlName="outroAssunto" class="form-control" placeholder="Digite um assunto"
+          [ngClass]="{ 'is-invalid':!f.outroAssunto.pristine && f.outroAssunto.errors, 'is-valid': !f.outroAssunto.errors  }">
+        <div *ngIf="!f.outroAssunto.pristine && f.outroAssunto.errors" class="invalid-feedback">
+          <div *ngIf="f.outroAssunto.errors.required">
+            Assunto é obrigatório.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <!--Input da Descrição-->
+    <div class="col-md mb-1">
+      <div class="form-group">
+        <textarea type="text" formControlName="descricao" placeholder="Descrição do assunto" class="form-control"
+          id="exampleFormControlTextarea1" rows="13"
+          [ngClass]="{ 'is-invalid': !f.descricao.pristine && f.descricao.errors, 'is-valid': !f.descricao.errors }"></textarea>
+        <div *ngIf="!f.descricao.pristine && f.descricao.errors" class="invalid-feedback">
+          <div *ngIf="f.descricao.errors.required">
+            Descrição é obrigatória.
+          </div>
+          <div *ngIf="f.descricao.errors.minlength">
+            Descrição muito curta.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button style="float:right;" [disabled]="!formularioDeUsuario.valid">Enviar</button>
+  </form>
+</div>

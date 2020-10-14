@@ -1,0 +1,76 @@
+.card{
+	margin: 0 center;
+	opacity: 0.9;
+}
+
+/*Estilo do botão fechar dos badges das disciplinas interessadas*/
+.badge .close {
+	margin: 0px !important;
+	margin-left: .25rem;
+	color: inherit;
+	font-size: 100%;
+	text-shadow: 0 1px 0 rgba(#000, .5);
+}
+
+/*Estilo do alerta*/
+.alerta{
+	width:100%;
+ 	padding:20px;
+	text-align:center;
+}
+
+.alerta img{
+	width:76px;
+	height:auto;
+	margin:0 auto;
+	display:block;
+	margin-bottom:25px;
+}
+
+.alerta h1{
+	font-size: 42px;
+    margin-bottom: 25px;
+	color:#5C5C5C;
+}
+
+.alerta p{
+	font-size: 20px;
+    margin-bottom: 27px;
+ 	color:#5C5C5C;
+}
+
+.imagem{
+    inline-size: 100%;
+}
+
+/*Estilo botão close do alerta de Erro*/
+
+.close{
+	margin: 0px !important;
+}
+
+.close:hover{
+	background-color:transparent;
+	color: black;
+}
+
+.asterisco{
+	color: red; 
+	font-weight: bold;
+}
+
+/* Esconde o input */
+input[type='file'] {
+	display: none
+  }
+  
+  /* Aparência que terá o seletor de arquivo */
+.labelImage {
+	background-color: rgb(47,158,64);
+	border-radius: 5px;
+	color: #fff;
+	cursor: pointer;
+	padding: 4px 20px
+}
+
+
