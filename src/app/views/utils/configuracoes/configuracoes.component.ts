@@ -1,13 +1,13 @@
+import { Validacoes } from './../../../_helpers/validacoes';
+import { EDisciplina } from './../../../_enuns/edisciplinas';
+import { CadastroService } from 'src/app/_servicos/cadastro/cadastro.service';
+import { MetodosEnuns } from './../../../_helpers/metodos-enuns';
+import { AutenticacaoService } from './../../../_servicos/login/autenticacao.service';
 import { first } from 'rxjs/operators';
 import { DomSanitizer } from '@angular/platform-browser';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, ElementRef, OnInit, ViewChild, Inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { EDisciplina } from 'src/app/_enuns/edisciplinas';
-import { MetodosEnuns } from 'src/app/_helpers/metodos-enuns';
-import { Validacoes } from 'src/app/_helpers/validacoes';
-import { CadastroService } from 'src/app/_servicos/cadastro/cadastro.service';
-import { AutenticacaoService } from 'src/app/_servicos/login/autenticacao.service';
 import * as $ from "jquery";
 
 //Varivável para habilitar e usar o jquery
