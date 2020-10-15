@@ -1,6 +1,6 @@
+import { CadastroService } from 'src/app/_servicos/cadastro/cadastro.service';
 import { Validacoes } from './../../../_helpers/validacoes';
 import { EDisciplina } from './../../../_enuns/edisciplinas';
-import { CadastroService } from 'src/app/_servicos/cadastro/cadastro.service';
 import { MetodosEnuns } from './../../../_helpers/metodos-enuns';
 import { AutenticacaoService } from './../../../_servicos/login/autenticacao.service';
 import { first } from 'rxjs/operators';
