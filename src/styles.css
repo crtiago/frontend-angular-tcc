@@ -134,7 +134,6 @@ button:focus, button:active {
     height: 200px;
 }
 
-
 @media(min-width:500px){
     /*Estilo da sidebar*/
     .ng-sidebar{

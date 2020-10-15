@@ -40,7 +40,7 @@ const maskConfig: Partial<IConfig> = {
   providers: [
     MetodosEnuns,
     TratamentoImagem,
-   // { provide: HTTP_INTERCEPTORS, useClass: InterceptadorErros, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: InterceptadorErros, multi: true },
     UtilMetodos
   ],
   bootstrap: [AppComponent]

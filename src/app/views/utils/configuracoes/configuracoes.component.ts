@@ -1,12 +1,10 @@
 import { first } from 'rxjs/operators';
 import { DomSanitizer } from '@angular/platform-browser';
-import { DOCUMENT } from '@angular/common';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, ElementRef, OnInit, ViewChild, Inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EDisciplina } from 'src/app/_enuns/edisciplinas';
 import { MetodosEnuns } from 'src/app/_helpers/metodos-enuns';
-import { TratamentoImagem } from 'src/app/_helpers/tratamento-imagem';
 import { Validacoes } from 'src/app/_helpers/validacoes';
 import { CadastroService } from 'src/app/_servicos/cadastro/cadastro.service';
 import { AutenticacaoService } from 'src/app/_servicos/login/autenticacao.service';
@@ -40,18 +38,14 @@ export class ConfiguracoesComponent implements OnInit {
 
 
   constructor(private fb: FormBuilder,
-    @Inject(DOCUMENT) private _document,
     private autenticacaoService: AutenticacaoService,
     private metodosDisciplinas: MetodosEnuns,
-    private tratamentoImagem: TratamentoImagem,
     private cadastroService: CadastroService,
     private route: ActivatedRoute,
     private sanitizer: DomSanitizer,
-    private router: Router
   ) {
-    this.usuario = autenticacaoService.getUsuario;
+    this.usuario = this.autenticacaoService.getUsuario;
     this.imagemUsuario = this.usuario.ImagemUsuario;
-    console.log(this.usuario);
     if (this.usuario.TipoUsuario == 2) {
       this.todasDisciplinas = metodosDisciplinas.getValores(EDisciplina);
       this.getDisciplinasInteresseNaoSelecionadas();
@@ -168,13 +162,10 @@ export class ConfiguracoesComponent implements OnInit {
   get f() { return this.formularioDeUsuario.controls; }
 
   alterar() {
-
-    console.log(JSON.stringify(this.formularioDeUsuario.value, null, 4));
-    console.log(JSON.stringify(this.disciplinasInteresse, null, 4));
-    // this.formularioDeUsuario.get('instituicao').setValue(this.formularioDeUsuario.get('instituicao').value);
-
     this.carregar = true;
     this.idIntituicao = this.convertStringParaNumero(this.formularioDeUsuario.get('instituicao').value);
+
+    console.log(this.idIntituicao);
 
     if (this.usuario.TipoUsuario == 1) {
       this.cadastroService.alterarAluno(
@@ -218,6 +209,7 @@ export class ConfiguracoesComponent implements OnInit {
         data => {
           this.carregar = false;
           this.mensagem = data.Mensagem;
+          localStorage.setItem('usuario', JSON.stringify(data.Data));
           $(this.modalSucesso.nativeElement).modal('show');
         },
         error => {
@@ -240,7 +232,7 @@ export class ConfiguracoesComponent implements OnInit {
   }
 
   convertStringParaNumero(valor: string) {
-    return Number(valor) + 1;
+    return Number(valor);
   }
 
 }

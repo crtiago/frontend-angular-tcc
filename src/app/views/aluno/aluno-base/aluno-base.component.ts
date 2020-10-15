@@ -1,7 +1,7 @@
 import { AutenticacaoService } from '../../../_servicos/login/autenticacao.service';
 import { Component, OnInit, Input, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router } from '@angular/router';
 
 @Component({
   selector: 'app-aluno-base',
@@ -15,11 +15,24 @@ export class AlunoBaseComponent implements OnInit{
   aberta: boolean = false;
   usuario: any;
   base64Image: string;
+  spinnerCarregamento: boolean = false;
 
-  constructor(private autenticacaoService: AutenticacaoService, private sanitizer: DomSanitizer, private route: ActivatedRoute) {
+  constructor(private autenticacaoService: AutenticacaoService, private sanitizer: DomSanitizer, private router: Router) {
     this.usuario = autenticacaoService.getUsuario;
     this.base64Image = this.usuario.ImagemUsuario;    
     this.idTitulo = localStorage.getItem('idTituloAluno');
+
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationStart) {
+        this.spinnerCarregamento = true;
+      }
+
+      if (event instanceof NavigationEnd ||
+        event instanceof NavigationCancel ||
+        event instanceof NavigationError) {
+        this.spinnerCarregamento = false;
+      }
+    });
   }
  
   getImagem() {

@@ -1,3 +1,4 @@
+import { NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router } from '@angular/router';
 import { Component } from '@angular/core';
 
 @Component({
