@@ -1,4 +1,4 @@
-import { CadastroService } from 'src/app/_servicos/cadastro/cadastro.service';
+import { CadastroService } from './../../../_servicos/cadastro/cadastro.service';
 import { Validacoes } from './../../../_helpers/validacoes';
 import { EDisciplina } from './../../../_enuns/edisciplinas';
 import { MetodosEnuns } from './../../../_helpers/metodos-enuns';
