@@ -1,3 +1,4 @@
+import { SharedComponentsModule } from './../../shared-components.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -18,6 +19,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     FormsModule,
     ReactiveFormsModule,
     AlunoRoutingModule,
+    SharedComponentsModule,
     SidebarModule.forRoot()
   ]
 })

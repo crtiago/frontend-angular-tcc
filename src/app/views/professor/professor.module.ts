@@ -1,3 +1,4 @@
+import { SharedComponentsModule } from './../../shared-components.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SidebarModule } from 'ng-sidebar';
 import { ProfBaseComponent } from './prof-base/prof-base.component';
@@ -17,6 +18,7 @@ import { SalasComponent } from './salas/salas.component';
     FormsModule,
     ReactiveFormsModule,
     ProfessorRoutingModule,
+    SharedComponentsModule,
     SidebarModule.forRoot()
   ]
 })
