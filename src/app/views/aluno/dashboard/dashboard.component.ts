@@ -77,7 +77,7 @@ export class DashboardComponent implements OnInit {
                 padding: 10
             }          
         }],
-        xAxes: [{
+        dataset: [{
           barPercentage: 0.4      
       }]       
       },
@@ -91,13 +91,12 @@ export class DashboardComponent implements OnInit {
   chart3 = {
     data:{
       datasets: [{
-          data: [6, 12, 10],
-          backgroundColor: ["#5b6582","#98a4c7","#36a2eb"],
+          data: [250, 50],
+          backgroundColor: ["green","red"],
       }],
       labels: [
-          'html',
-          'css',
-          'javascript'
+          'Acertos',
+          'Erros',
       ]
       
     },

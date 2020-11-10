@@ -29,6 +29,9 @@ const maskConfig: Partial<IConfig> = {
     SuporteComponent,
     ConfiguracoesComponent
   ],
+  entryComponents:[
+    ConfiguracoesComponent
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
