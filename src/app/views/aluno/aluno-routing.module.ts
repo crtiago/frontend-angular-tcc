@@ -1,3 +1,5 @@
+import { SimuladoPersonalizadoComponent } from './simulado-personalizado/simulado-personalizado.component';
+import { SimuladoGeradoComponent } from './simulado-gerado/simulado-gerado.component';
 import { UtilMetodos } from './../../_helpers/util-metodos';
 import { ConfiguracoesComponent } from './../utils/configuracoes/configuracoes.component';
 import { SuporteComponent } from './../utils/suporte/suporte.component';
@@ -15,7 +17,9 @@ const routes: Routes = [
     children: [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
       { path: 'dashboard', component: DashboardComponent },
-      { path: 'simulado', component: SimuladoComponent },
+      { path: 'simulado', component: SimuladoComponent},
+      { path: 'simuladogerado', component: SimuladoGeradoComponent},
+      { path: 'simuladopersonalizado', component: SimuladoPersonalizadoComponent},
       { path: 'sala', component: SalaComponent },
       {
         path: 'configuracoes', component: ConfiguracoesComponent, resolve: {
@@ -23,6 +27,7 @@ const routes: Routes = [
         }
       },
       { path: 'suporte', component: SuporteComponent },
+      
     ]
   },
 

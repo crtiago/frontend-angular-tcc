@@ -1,4 +1,3 @@
-import { SuporteComponent } from './views/utils/suporte/suporte.component';
 import { CadastroComponent } from './views/utils/cadastro/cadastro.component';
 import { UtilMetodos } from './_helpers/util-metodos';
 import { TratamentoImagem } from './_helpers/tratamento-imagem';
@@ -14,7 +13,6 @@ import { AppComponent } from './app.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { SidebarModule } from 'ng-sidebar';
-import { ConfiguracoesComponent } from './views/utils/configuracoes/configuracoes.component';
 
 
 const maskConfig: Partial<IConfig> = {
@@ -25,7 +23,7 @@ const maskConfig: Partial<IConfig> = {
   declarations: [
     AppComponent,
     LoginComponent,
-    CadastroComponent,  
+    CadastroComponent,
   ],
   imports: [
     BrowserModule,

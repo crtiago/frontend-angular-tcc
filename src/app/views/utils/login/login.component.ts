@@ -84,7 +84,6 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   cadastro(){
     this.spinnerCadastro = true;
-    console.log("teste")
     this.router.navigate(['cadastro']);
   }
 

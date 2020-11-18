@@ -134,6 +134,12 @@ button:focus, button:active {
     height: 200px;
 }
 
+/*Estilo do asterisco para campos obrigatórios*/
+.asterisco{
+	color: red; 
+	font-weight: bold;
+}
+
 @media(min-width:500px){
     /*Estilo da sidebar*/
     .ng-sidebar{

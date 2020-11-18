@@ -1,0 +1,12 @@
+.area{
+    margin-top: 5% !important;
+    margin-left: 20% !important;
+    margin-right: 20% !important;
+    background-color: white;
+    border-radius: 10px;
+}
+
+.question{
+    margin-top: 10px;
+    width: 35%;   
+}

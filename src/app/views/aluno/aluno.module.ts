@@ -10,10 +10,12 @@ import { SimuladoComponent } from './simulado/simulado.component';
 import { SalaComponent } from './sala/sala.component';
 import { AlunoBaseComponent } from './aluno-base/aluno-base.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SimuladoGeradoComponent } from './simulado-gerado/simulado-gerado.component';
+import { SimuladoPersonalizadoComponent } from './simulado-personalizado/simulado-personalizado.component';
 
 
 @NgModule({
-  declarations: [DashboardComponent, SimuladoComponent, SalaComponent, AlunoBaseComponent],
+  declarations: [DashboardComponent, SimuladoComponent, SalaComponent, AlunoBaseComponent, SimuladoGeradoComponent, SimuladoPersonalizadoComponent],
   imports: [
     CommonModule,
     FormsModule,
