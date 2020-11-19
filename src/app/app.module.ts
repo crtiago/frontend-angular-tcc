@@ -13,6 +13,7 @@ import { AppComponent } from './app.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { SidebarModule } from 'ng-sidebar';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 const maskConfig: Partial<IConfig> = {
@@ -31,7 +32,8 @@ const maskConfig: Partial<IConfig> = {
     ReactiveFormsModule,
     HttpClientModule,
     NgxMaskModule.forRoot(maskConfig),
-    SidebarModule.forRoot()
+    SidebarModule.forRoot(),
+    BrowserAnimationsModule,
   ],
   providers: [
     MetodosEnuns,

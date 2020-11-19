@@ -6,15 +6,14 @@
             <div class="col-md mb-1">
             <h5 class="tempo">30:20</h5></div>
         </div>
-        
+        <mat-progress-bar mode="determinate" [value]="value"></mat-progress-bar>
     </div>
     
     <div class="card-body">
         <div class="form-row">
             <!--Perguntas-->
             <div class="col-md mb-1">
-                <p style="text-align: justify;">Está em discussão, na sociedade brasileira, a possibilidade de uma reforma política e eleitoral. Fala-se, entre outras propostas, em financiamento público de campanhas, fidelidade partidária, lista eleitoral fechada e voto distrital. Os dispositivos ligados à obrigatoriedade de os candidatos fazerem declaração pública de bens e prestarem contas dos gastos devem ser aperfeiçoados, os órgãos públicos de fiscalização e controle podem ser equipados e reforçados.
-                Com base no exposto, mudanças na legislação eleitoral poderão representar, como principal aspecto, um reforço da</p>
+                <p style="text-align: justify;">Questão</p>
             </div>
         </div>
 
@@ -76,7 +75,7 @@
         </div>
         <!--Botões do formulário-->
         <div class="text-center">
-            <button style="float: right;">Próxima</button>
+            <button (click)="proxima()" style="float: right;">Próxima</button>
         </div>
     </div>
 </div>

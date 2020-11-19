@@ -2,9 +2,9 @@
     margin-bottom: 15px;
 }
 
-
 ol, ul {
     list-style: none;
+    padding-left: 0px;
 }
 .answerList li:first-child {
     border-top-width: 0;
@@ -77,3 +77,15 @@ input[type=checkbox], input[type=radio] {
     }
 }
 
+/*Cores da progressbar*/
+::ng-deep .mat-progress-bar-fill::after {
+    background-color:rgb(47,158,64);
+}
+
+::ng-deep .mat-progress-bar-buffer {
+    background: #d8f3dc;
+}
+
+::ng-deep .mat-progress-bar {
+    border-radius: 2px;
+}
