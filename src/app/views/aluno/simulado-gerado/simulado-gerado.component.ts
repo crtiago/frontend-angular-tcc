@@ -1,3 +1,4 @@
+import { MathContent } from './../../../_math/math-content';
 import { Component, OnInit } from '@angular/core';
 import { ProgressBarMode } from '@angular/material/progress-bar';
 
@@ -12,7 +13,13 @@ export class SimuladoGeradoComponent implements OnInit {
   mode: ProgressBarMode = 'determinate';
   value = 0;
 
-  constructor() { }
+  mathLatex: MathContent = {
+    latex: 'Acerca da posição relativa $\\left ( y_{n} \\right ) = \\frac{1}{n}$ então $\\lim_{n \\rightarrow \\infty} y_{n} = 1$'
+  };
+
+  constructor() {
+
+   }
 
   ngOnInit(): void {
   }

@@ -1,19 +1,23 @@
 <div class="card m-4">
-    <div class="card-header" >
+    <div class="card-header">
         <div class="form-row">
             <div class="col-md mb-1">
-            <h5 class="questaoheader">Questão (1/20)</h5></div>
+                <h5 class="questaoheader">Questão (1/20)</h5>
+            </div>
             <div class="col-md mb-1">
-            <h5 class="tempo">30:20</h5></div>
+                <h5 class="tempo">30:20</h5>
+            </div>
         </div>
         <mat-progress-bar mode="determinate" [value]="value"></mat-progress-bar>
     </div>
-    
+
     <div class="card-body">
         <div class="form-row">
             <!--Perguntas-->
             <div class="col-md mb-1">
-                <p style="text-align: justify;">Questão</p>
+
+               <div style="text-align: justify;" [appMath]="mathLatex"></div>
+
             </div>
         </div>
 

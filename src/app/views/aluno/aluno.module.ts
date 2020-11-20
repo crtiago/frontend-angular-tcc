@@ -1,3 +1,4 @@
+import { MathModule } from './../../_math/math.module';
 import { MatProgressBar, MatProgressBarModule } from '@angular/material/progress-bar';
 import { SharedComponentsModule } from './../../shared-components.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -25,6 +26,7 @@ import { SimuladoPersonalizadoComponent } from './simulado-personalizado/simulad
     SharedComponentsModule,
     SidebarModule.forRoot(),
     MatProgressBarModule,
+    MathModule.forRoot()
   ]
 })
 export class AlunoModule { }

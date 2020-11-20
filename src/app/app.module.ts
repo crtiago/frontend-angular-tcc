@@ -1,3 +1,4 @@
+import { MathModule } from './_math/math.module';
 import { CadastroComponent } from './views/utils/cadastro/cadastro.component';
 import { UtilMetodos } from './_helpers/util-metodos';
 import { TratamentoImagem } from './_helpers/tratamento-imagem';
@@ -34,6 +35,7 @@ const maskConfig: Partial<IConfig> = {
     NgxMaskModule.forRoot(maskConfig),
     SidebarModule.forRoot(),
     BrowserAnimationsModule,
+    MathModule.forRoot()
   ],
   providers: [
     MetodosEnuns,
