@@ -5,81 +5,59 @@
                 <h5 class="questaoheader">Questão (1/20)</h5>
             </div>
             <div class="col-md mb-1">
-                <h5 class="tempo">30:20</h5>
+                <h5 class="tempo">
+                    <countdown [config]="tempo"></countdown>
+                </h5>
             </div>
         </div>
         <mat-progress-bar mode="determinate" [value]="value"></mat-progress-bar>
     </div>
 
     <div class="card-body">
+
         <div class="form-row">
-            <!--Perguntas-->
+            <!--Pergunta-->
             <div class="col-md mb-1">
+                <div class="math" [appMath]="pergunta"></div>
+            </div>
 
-               <div style="text-align: justify;" [appMath]="mathLatex"></div>
-
+            <div *ngIf="imagem" class="col-md mb-1">
+                <img class="imagemPergunta" src="{{imagem}}">
             </div>
         </div>
 
         <div class="form-row">
             <!--Alternativas-->
             <div class="col-md mb-1">
-                <ul class="answerList">
+                <ul class="listaRespostas">
                     <li>
                         <label>
-                            <input type="radio" name="answerGroup" value="0" id="answerGroup_0"> Alternativa A</label>
+                            <input type="radio" name="alternativa" value="0" id="alternativaA"> Alternativa A</label>
                     </li>
                     <li>
                         <label>
-                            <input type="radio" name="answerGroup" value="1" id="answerGroup_1"> Alternativa B</label>
+                            <input type="radio" name="alternativa" value="1" id="alternativaB"> Alternativa B</label>
                     </li>
                     <li>
                         <label>
-                            <input type="radio" name="answerGroup" value="2" id="answerGroup_2"> Alternativa C</label>
+                            <input type="radio" name="alternativa" value="2" id="alternativaC"> Alternativa C</label>
                     </li>
                     <li>
                         <label>
-                            <input type="radio" name="answerGroup" value="3" id="answerGroup_3"> Alternativa D</label>
+                            <input type="radio" name="alternativa" value="3" id="alternativaD"> Alternativa D</label>
                     </li>
                     <li>
                         <label>
-                            <input type="radio" name="answerGroup" value="4" id="answerGroup_4"> Alternativa E</label>
+                            <input type="radio" name="alternativa" value="4" id="alternativaE"> Alternativa E</label>
                     </li>
                 </ul>
             </div>
         </div>
-
-        <div class="form-row">
-            <!--Input da Descrição-->
-            <div class="col-md mb-1">
-
-            </div>
-        </div>
-
-        <div class="form-row">
-            <!--Input da Tipo Simulado-->
-            <div class="col-md mb-1">
-
-            </div>
-        </div>
-
-        <!--FIXME ver a melhor forma que fica posicionado os proximos dois inputs-->
-        <div class="form-row">
-            <!--Input da Quantidade de Questões-->
-            <div class="col-md mb-1">
-
-            </div>
-        </div>
-
-        <div class="form-row">
-            <!--Input da Tempo do Simulado-->
-            <div class="col-md mb-1">
-
-            </div>
-        </div>
+        
         <!--Botões do formulário-->
         <div class="text-center">
-            <button (click)="proxima()" style="float: right;">Próxima</button>
+            <button (click)="proximaQuestao()" style="float: right;">Próxima</button>
+            <button (click)="finalizarSimulado()" style="float: left;">Finalizar Simulado</button>
         </div>
     </div>
 </div>

@@ -1,0 +1,18 @@
+.questao{
+    width: 30%;
+    margin: auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.botao{
+    border: 2px solid #DC3545;
+    color: #DC3545;
+}
+
+.botao:hover:enabled {
+    background: #DC3545;
+    color: rgb(238,241,236);
+}

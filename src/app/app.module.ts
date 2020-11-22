@@ -1,3 +1,6 @@
+import { ConfirmacaoDialogoService } from './views/utils/caixa-dialogo/confirmacao-dialogo.service';
+import { ConfirmacaoDialogoComponent } from './views/utils/caixa-dialogo/confirmacao-dialogo.component';
+import { DeactivateGuardService } from './_servicos/rota/deactivate-guard.service';
 import { MathModule } from './_math/math.module';
 import { CadastroComponent } from './views/utils/cadastro/cadastro.component';
 import { UtilMetodos } from './_helpers/util-metodos';
@@ -15,6 +18,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { SidebarModule } from 'ng-sidebar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CountdownModule } from 'ngx-countdown';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 const maskConfig: Partial<IConfig> = {
@@ -26,6 +31,7 @@ const maskConfig: Partial<IConfig> = {
     AppComponent,
     LoginComponent,
     CadastroComponent,
+    ConfirmacaoDialogoComponent
   ],
   imports: [
     BrowserModule,
@@ -35,13 +41,17 @@ const maskConfig: Partial<IConfig> = {
     NgxMaskModule.forRoot(maskConfig),
     SidebarModule.forRoot(),
     BrowserAnimationsModule,
-    MathModule.forRoot()
+    MathModule.forRoot(),
+    CountdownModule,
+    NgbModule
   ],
   providers: [
     MetodosEnuns,
     TratamentoImagem,
     { provide: HTTP_INTERCEPTORS, useClass: InterceptadorErros, multi: true },
-    UtilMetodos
+    UtilMetodos,
+    DeactivateGuardService,
+    ConfirmacaoDialogoService
   ],
   bootstrap: [AppComponent]
 })

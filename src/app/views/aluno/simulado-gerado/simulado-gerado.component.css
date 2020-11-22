@@ -1,19 +1,15 @@
-.answerList {
-    margin-bottom: 15px;
-}
-
+/*Remove o estilo padrão das listas*/
 ol, ul {
     list-style: none;
     padding-left: 0px;
-}
-.answerList li:first-child {
-    border-top-width: 0;
+    margin-top: 2%;
 }
 
-.answerList li {
+.listaRespostas li {
     padding: 3px 0;
 }
-.answerList label {
+
+.listaRespostas label {
     display: block;
     padding: 6px;
     border-radius: 6px;
@@ -23,41 +19,6 @@ ol, ul {
     cursor: pointer;
     font-family: Arial, sans-serif;
 }
-input[type=checkbox], input[type=radio] {
-    margin: 4px 0 0;
-    margin-top: 1px;
-    line-height: normal;
-}
-.questionsRow {
-    background: #dee3e6;
-    margin: 0 -20px;
-    padding: 10px 20px;
-    border-radius: 0 0 3px 3px;
-}
-.button, .greyButton {
-    background-color: #f2f2f2;
-    color: #888888;
-    display: inline-block;
-    border: solid 3px #cccccc;
-    vertical-align: middle;
-    text-shadow: 0 1px 0 #ffffff;
-    line-height: 27px;
-    min-width: 160px;
-    text-align: center;
-    padding: 5px 20px;
-    text-decoration: none;
-    border-radius: 0px;
-    text-transform: capitalize;
-}
-.questionsRow span {
-    float: right;
-    display: inline-block;
-    line-height: 30px;
-    border: solid 1px #aeb9c0;
-    padding: 0 10px;
-    background: #FFF;
-    color: #007fbe;
-}
 
 .questaoheader{
     text-align: left;
@@ -65,10 +26,21 @@ input[type=checkbox], input[type=radio] {
 
 .tempo{
     text-align: right;
+    
+}
+
+.math{
+    text-align: justify;
+   
+}
+
+.imagemPergunta{
+    margin-top: 10%;
+    margin-left: 10%;
+    width: 75%;
 }
 
 @media(max-width: 767px){
-    /*Estilo da sidebar*/
     .questaoheader{
         text-align: center;
     }
@@ -87,5 +59,5 @@ input[type=checkbox], input[type=radio] {
 }
 
 ::ng-deep .mat-progress-bar {
-    border-radius: 2px;
+    border-radius: 1px;
 }

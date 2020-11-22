@@ -14,15 +14,16 @@ const routes: Routes = [
     path: '', component: ProfBaseComponent,
     children: [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-      { path: 'dashboard', component: DashboardComponent },
-      { path: 'salas', component: SalasComponent },
+      { path: 'dashboard', component: DashboardComponent,data: { title: 'Dashboard' } },
+      { path: 'salas', component: SalasComponent, data: { title: 'Salas' }},
       {
         path: 'configuracoes', component: ConfiguracoesComponent,
         resolve: {
           response: UtilMetodos
-        }
+        },
+        data: { title: 'Configurações' }
       },
-      { path: 'suporte', component: SuporteComponent },
+      { path: 'suporte', component: SuporteComponent, data: { title: 'Suporte' } },
     ]
   }
 ];

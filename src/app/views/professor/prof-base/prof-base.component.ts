@@ -1,7 +1,8 @@
 import { ActivatedRoute, NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router } from '@angular/router';
-import { DomSanitizer } from '@angular/platform-browser';
+import { DomSanitizer, Title } from '@angular/platform-browser';
 import { AutenticacaoService } from './../../../_servicos/login/autenticacao.service';
 import { Component, OnInit } from '@angular/core';
+import { filter, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-prof-base',
@@ -10,29 +11,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProfBaseComponent implements OnInit {
 
-  listaTitulosNavbar = ['Dashboard', 'Gerenciar Salas', 'Configurações', 'Suporte'];
-  idTitulo: any;
   aberta: boolean = false;
   usuario: any;
   base64Image: string;
   spinnerCarregamento: boolean = false;
+  tituloNavbar: string;
 
-  constructor(private autenticacaoService: AutenticacaoService, private sanitizer: DomSanitizer, private router: Router) {
+  constructor(private autenticacaoService: AutenticacaoService, private sanitizer: DomSanitizer, private router: Router, private route: ActivatedRoute, private titleAba: Title) {
     this.usuario = autenticacaoService.getUsuario;
     this.base64Image = this.usuario.ImagemUsuario;
-    this.idTitulo = localStorage.getItem('idTituloProf');
 
-    this.router.events.subscribe((event) => {
-      if (event instanceof NavigationStart) {
-        this.spinnerCarregamento = true;
-      }
+    /*Método que pega o título da Navbar, os titulos estão localizado em aluno-routing.module.ts*/
+    this.getTituloNavbar();
 
-      if (event instanceof NavigationEnd ||
-        event instanceof NavigationCancel ||
-        event instanceof NavigationError) {
-        this.spinnerCarregamento = false;
-      }
-    });
+    /*Método que cria a tela de Loading até os dados serem trazidos do backend*/
+    this.loadingParaAguardarDadosDoBackend();
   }
 
   getImagem() {
@@ -43,14 +36,54 @@ export class ProfBaseComponent implements OnInit {
   }
 
 
-  botaoSidebar(id: number) {
-    this.idTitulo = id;
-    localStorage.setItem('idTituloProf', JSON.stringify(this.idTitulo));
+  botaoSidebar() {
     this.aberta = !this.aberta;
   }
 
   logout() {
     this.autenticacaoService.logout();
+  }
+
+  getTituloNavbar() {
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd),
+      map(() => {
+        let child = this.route.firstChild;
+        while (child) {
+          if (child.firstChild) {
+            child = child.firstChild;
+          } else if (child.snapshot.data && child.snapshot.data['title']) {
+            return child.snapshot.data['title'];
+          } else {
+            return null;
+          }
+        }
+        return null;
+      })
+    ).subscribe((data: any) => {
+      this.tituloNavbar = data;
+      this.titleAba.setTitle(data);
+    });
+  }
+
+  loadingParaAguardarDadosDoBackend() {
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationStart) {
+        /*Devido a tela de configurações demorar mais, é setado o titulo até ela ser carregada, 
+        para não ficar com o título da página anterior*/
+        if (event.url == "/prof/configuracoes") {
+          this.tituloNavbar = "Configurações"
+          this.titleAba.setTitle("Configurações");
+        }
+        this.spinnerCarregamento = true;
+      }
+
+      if (event instanceof NavigationEnd ||
+        event instanceof NavigationCancel ||
+        event instanceof NavigationError) {
+        this.spinnerCarregamento = false;
+      }
+    });
   }
 
 }

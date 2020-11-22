@@ -14,6 +14,7 @@ import { AlunoBaseComponent } from './aluno-base/aluno-base.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SimuladoGeradoComponent } from './simulado-gerado/simulado-gerado.component';
 import { SimuladoPersonalizadoComponent } from './simulado-personalizado/simulado-personalizado.component';
+import { CountdownModule } from 'ngx-countdown';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { SimuladoPersonalizadoComponent } from './simulado-personalizado/simulad
     SharedComponentsModule,
     SidebarModule.forRoot(),
     MatProgressBarModule,
-    MathModule.forRoot()
+    MathModule.forRoot(),
+    CountdownModule
   ]
 })
 export class AlunoModule { }

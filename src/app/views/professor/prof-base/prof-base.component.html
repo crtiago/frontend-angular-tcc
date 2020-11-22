@@ -6,7 +6,7 @@
             <!--Itens superiores da sidebar-->
             <div style="position: relative; left: 0; top: 0;">
                 <img src="../../../../assets/img/ifsc-colorido.jpg" class="fundo" />
-                <button class="botaoFecharSidebar click" (click)="botaoSidebar(idTitulo)">
+                <button class="botaoFecharSidebar click" (click)="botaoSidebar()">
                     <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-chevron-left" fill="currentColor"
                         xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd"
@@ -21,16 +21,16 @@
 
             <!--Lista de botões-->
             <ul>
-                <li><button routerLink="dashboard" (click)="botaoSidebar(0)" class="listaBotoesSidebar">
+                <li><button routerLink="dashboard" (click)="botaoSidebar()" class="listaBotoesSidebar">
                         <i class="fas fa-signal"></i> &nbsp;&nbsp;&nbsp;Dashboard
                     </button></li>
-                <li><button routerLink="salas" (click)="botaoSidebar(1)" class="listaBotoesSidebar">
+                <li><button routerLink="salas" (click)="botaoSidebar()" class="listaBotoesSidebar">
                         <i class="fas fa-chalkboard-teacher"></i> &nbsp;&nbsp;&nbsp;Gerenciar Salas
                     </button></li>
-                <li><button routerLink="configuracoes" (click)="botaoSidebar(2)" class="listaBotoesSidebar">
+                <li><button routerLink="configuracoes" (click)="botaoSidebar()" class="listaBotoesSidebar">
                         <i class="fas fa-sliders-h"></i> &nbsp;&nbsp;&nbsp;Configurações
                     </button></li>
-                <li><button routerLink="suporte" (click)="botaoSidebar(3)" class="listaBotoesSidebar">
+                <li><button routerLink="suporte" (click)="botaoSidebar()" class="listaBotoesSidebar">
                         <i class="fas fa-life-ring"></i> &nbsp;&nbsp;&nbsp;Suporte
                     </button></li>
                 <li><button (click)="logout()" class="listaBotoesSidebar">
@@ -38,21 +38,20 @@
                     </button></li>
             </ul>
 
-
         </div>
     </ng-sidebar>
 
     <!-- Page content -->
     <div ng-sidebar-content>
         <nav class="navbar">
-            <button class="botaoAbrirSidebar click" (click)="botaoSidebar(idTitulo)">
+            <button class="botaoAbrirSidebar click" (click)="botaoSidebar()">
                 <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-chevron-right" fill="currentColor"
                     xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd"
                         d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z" />
                 </svg>
             </button>
-            <h3 class="titulo">{{listaTitulosNavbar[idTitulo]}}</h3>
+            <h3 class="titulo">{{ tituloNavbar }}</h3>
         </nav>
         <div *ngIf="spinnerCarregamento">
             <div class="text-center">
