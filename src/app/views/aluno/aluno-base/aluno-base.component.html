@@ -36,7 +36,7 @@
                 <li><button routerLink="suporte" (click)="botaoSidebar()" class="listaBotoesSidebar">
                         <i class="fas fa-life-ring"></i> &nbsp;&nbsp;&nbsp;Suporte
                     </button></li>
-                <li><button (click)="logout()" [disabled]="bloquearLogoutSimulado()" class="listaBotoesSidebar">
+                <li><button (click)="logout()" class="listaBotoesSidebar">
                         <i class="fas fa-sign-out-alt"></i> &nbsp;&nbsp;&nbsp;Sair
                     </button></li>
             </ul>
@@ -48,7 +48,7 @@
     <!-- Page content -->
     <div ng-sidebar-content>
         <nav class="navbar">
-            <button class="botaoAbrirSidebar" (click)="botaoSidebar()">
+            <button class="botaoAbrirSidebar" (click)="botaoSidebar()" [disabled]="bloquearBotaoNavbar()">
                 <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-chevron-right" fill="currentColor"
                     xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd"

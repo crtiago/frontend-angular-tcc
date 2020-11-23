@@ -82,7 +82,7 @@ export class AlunoBaseComponent implements OnInit {
     });
   }
 
-  bloquearLogoutSimulado() {
+  bloquearBotaoNavbar() {
     return this.tituloNavbar == "Simulado Gerado" ? true : false;
   }
 
