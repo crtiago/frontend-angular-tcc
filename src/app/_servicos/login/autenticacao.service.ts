@@ -1,4 +1,4 @@
-import { environment } from './../../../environments/environment.prod';
+import { environment } from './../../../environments/environment';
 import { Usuario } from './../../_modelos/usuario';
 import { Router } from '@angular/router';
 import { Injectable, ErrorHandler } from '@angular/core';

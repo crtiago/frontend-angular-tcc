@@ -165,8 +165,6 @@ export class ConfiguracoesComponent implements OnInit {
     this.carregar = true;
     this.idIntituicao = this.convertStringParaNumero(this.formularioDeUsuario.get('instituicao').value);
 
-    console.log(this.idIntituicao);
-
     if (this.usuario.TipoUsuario == 1) {
       this.cadastroService.alterarAluno(
         this.usuario.IdUsuario,
