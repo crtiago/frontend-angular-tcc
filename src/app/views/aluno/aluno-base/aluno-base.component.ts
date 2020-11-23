@@ -17,7 +17,7 @@ export class AlunoBaseComponent implements OnInit {
   spinnerCarregamento: boolean = false;
   tituloNavbar: string;
 
-  constructor(private autenticacaoService: AutenticacaoService, private sanitizer: DomSanitizer, private router: Router, private route: ActivatedRoute, private titleAba: Title) {
+  constructor(private autenticacaoService: AutenticacaoService, private sanitizer: DomSanitizer, private router: Router, private route: ActivatedRoute, private tituloAba: Title) {
     this.usuario = autenticacaoService.getUsuario;
     this.base64Image = this.usuario.ImagemUsuario;
 
@@ -60,14 +60,17 @@ export class AlunoBaseComponent implements OnInit {
       })
     ).subscribe((data: any) => {
       this.tituloNavbar = data;
-      this.titleAba.setTitle(data);
+      this.tituloAba.setTitle(data);
     });
   }
 
   loadingParaAguardarDadosDoBackend() {
     this.router.events.subscribe((event) => {
+     if(this.tituloNavbar == "Simulado Gerado"){
+      this.spinnerCarregamento = false;
+     }
       
-     if (event instanceof NavigationStart && this.tituloNavbar != "Simulado Gerado") {
+     if (event instanceof NavigationStart) {
         this.spinnerCarregamento = true;
       }
 

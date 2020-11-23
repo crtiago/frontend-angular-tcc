@@ -76,6 +76,7 @@
                     <select (change)="getDisciplinas($event)" formControlName="disciplinas"
                         class="form-control form-control-sm"
                         [ngClass]="{ 'is-invalid': this.disciplinasInteresse.length == 0 || !f.disciplinas.pristine && f.disciplinas.errors, 'is-valid': this.disciplinasInteresse.length != 0 && !f.disciplinas.errors && !f.disciplinas.pristine }">
+                        <option value="" selected data-default hidden>Selecione uma ou mais disciplinas</option>
                         <option *ngFor="let disciplina of todasDisciplinas" [value]="disciplina">{{ disciplina }}
                         </option>
                     </select>

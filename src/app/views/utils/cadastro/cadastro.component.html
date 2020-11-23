@@ -27,7 +27,8 @@
                 <!--Select Instituição-->
                 <div class="col-md-6 mb-2">
                     <label>Instituição <span class="asterisco">*</span></label>
-                    <select (change)="getIdInstituicao($event)" formControlName="instituicao" class="form-control form-control-sm"
+                    <select (change)="getIdInstituicao($event)" formControlName="instituicao"
+                        class="form-control form-control-sm"
                         [ngClass]="{ 'is-invalid': !f.instituicao.pristine && f.instituicao.errors, 'is-valid': !f.instituicao.errors}">
                         <option value="" selected disabled hidden>Escolha uma opção</option>
                         <option value={{i}} *ngFor="let item of intituicoes; let i = index">{{item.nome}}</option>
@@ -79,7 +80,7 @@
                     <select (change)="getDisciplinas($event)" formControlName="disciplinas"
                         class="form-control form-control-sm"
                         [ngClass]="{ 'is-invalid': !f.disciplinas.pristine && f.disciplinas.errors, 'is-valid': !f.disciplinas.errors && disciplinasInteresse.length != 0 }">
-                        <option value="" selected disabled hidden>Escolha uma ou mais opções</option>
+                        <option value="" selected data-default hidden>Selecione uma ou mais disciplinas</option>
                         <option *ngFor="let disciplina of todasDisciplinas" [value]="disciplina">{{ disciplina }}
                         </option>
                     </select>
@@ -178,7 +179,8 @@
                 <div class="col-md mb-1">
                     <label class="imagem">Imagem de Perfil</label>
                     <label class="labelImage" for='selecao-arquivo'>{{textoInputImagem}}</label>
-                    <input id='selecao-arquivo' (change)="converteImagem64($event)" type="file" name="myImage" accept="image/*" />
+                    <input id='selecao-arquivo' (change)="converteImagem64($event)" type="file" name="myImage"
+                        accept="image/*" />
                 </div>
             </div>
 

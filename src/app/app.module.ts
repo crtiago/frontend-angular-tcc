@@ -30,8 +30,7 @@ const maskConfig: Partial<IConfig> = {
   declarations: [
     AppComponent,
     LoginComponent,
-    CadastroComponent,
-    ConfirmacaoDialogoComponent
+    CadastroComponent
   ],
   imports: [
     BrowserModule,
