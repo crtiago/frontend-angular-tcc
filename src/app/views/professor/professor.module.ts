@@ -1,4 +1,3 @@
-import { MathModule } from './../../_math/math.module';
 import { SharedComponentsModule } from './../../shared-components.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SidebarModule } from 'ng-sidebar';
@@ -23,7 +22,6 @@ import { KatexModule } from 'ng-katex';
     ProfessorRoutingModule,
     SharedComponentsModule,
     SidebarModule.forRoot(),
-    MathModule.forRoot(),
     CountdownModule,
     KatexModule
   ]

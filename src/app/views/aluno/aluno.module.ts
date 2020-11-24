@@ -1,5 +1,4 @@
-import { MathModule } from './../../_math/math.module';
-import { MatProgressBar, MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { SharedComponentsModule } from './../../shared-components.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { NgModule } from '@angular/core';
@@ -28,7 +27,6 @@ import { KatexModule } from 'ng-katex';
     SharedComponentsModule,
     SidebarModule.forRoot(),
     MatProgressBarModule,
-    MathModule.forRoot(),
     CountdownModule,
     KatexModule
   ]

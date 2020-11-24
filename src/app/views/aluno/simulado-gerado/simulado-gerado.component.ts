@@ -1,6 +1,5 @@
 import { ConfirmacaoDialogoService } from './../../utils/caixa-dialogo/confirmacao-dialogo.service';
 import { Router } from '@angular/router';
-import { MathContent } from './../../../_math/math-content';
 import { Component, OnInit, ViewChild, ElementRef, HostListener } from '@angular/core';
 import { ProgressBarMode } from '@angular/material/progress-bar';
 
@@ -20,19 +19,10 @@ export class SimuladoGeradoComponent implements OnInit {
   Acerca da posição relativa $\\left ( y_{n} \\right ) = \\frac{1}{n}$ então $\\lim_{n \\rightarrow \\infty} y_{n} = 1$ 4 Textos grandes, inspiradores e com lindas lições de vida! É cada um mais lindo que o outro, confira: 1. A flor da honestidade Conta-se que por volta do ano 250 A.C, na China antiga, um príncipe da região norte do país, estava às vésperas de ser coroado imperador, mas, de acordo com a lei, ele deveria se casar. Sabendo disso, ele resolveu fazer uma “disputa” entre as moças da corte ou quem quer que se achasse digna de sua proposta No dia seguinte, o príncipe anunciou que receberia, numa celebração especiale. Tire esta ideia insensata da cabeça; eu sei que você deve estar sofrendo, mas não torne o sofrimento uma loucura. Textos grandes, inspiradores e com lindas lições de vida! É cada um mais lindo que o outro, confira: 1. A flor da honestidade Conta-se que por volta do ano 250 A.C, na China antiga, um príncipe da região norte do país, estava às vésperas de ser coroado imperador, mas, de acordo com a lei, ele deveria se casar. Sabendo disso, ele resolveu fazer uma “disputa” entre as moças da corte ou quem quer que se achasse digna de sua proposta No dia seguinte, o príncipe anunciou que receberia, numa celebração especial, todas as pretendentes e lançaria um desafio. Uma velha senhora, serva do palácio há muitos anos, ouvindo os comentários sobre os preparativos, sentiu uma leve tristeza, pois sabia que sua jovem filha nutria um sentimento de profundo amor pelo príncipe Ao chegar em casa e relatar o fato a jovem, espantou-se ao saber que ela pretendia ir à celebração, e indagou incrédulainha filha, o que você fará lá? Estarão presentes todas as mais belas e ricas moças da corte. Tire esta ideia insensata da cabeça; eu sei que você deve estar sofrendo, mas não torne o sofrimento uma loucura
   `;
 
-  pergunta: MathContent = {
-    latex: 'Acerca da posição relativa $\\left ( y_{n} \\right ) = \\frac{1}{n}$ então $\\lim_{n \\rightarrow \\infty} y_{n} = 1$ 4 Textos grandes, inspiradores e com lindas lições de vida! É cada um mais lindo que o outro, confira: 1. A flor da honestidade Conta-se que por volta do ano 250 A.C, na China antiga, um príncipe da região norte do país, estava às vésperas de ser coroado imperador, mas, de acordo com a lei, ele deveria se casar. Sabendo disso, ele resolveu fazer uma “disputa” entre as moças da corte ou quem quer que se achasse digna de sua proposta No dia seguinte, o príncipe anunciou que receberia, numa celebração especiale. Tire esta ideia insensata da cabeça; eu sei que você deve estar sofrendo, mas não torne o sofrimento uma loucura. Textos grandes, inspiradores e com lindas lições de vida! É cada um mais lindo que o outro, confira: 1. A flor da honestidade Conta-se que por volta do ano 250 A.C, na China antiga, um príncipe da região norte do país, estava às vésperas de ser coroado imperador, mas, de acordo com a lei, ele deveria se casar. Sabendo disso, ele resolveu fazer uma “disputa” entre as moças da corte ou quem quer que se achasse digna de sua proposta No dia seguinte, o príncipe anunciou que receberia, numa celebração especial, todas as pretendentes e lançaria um desafio. Uma velha senhora, serva do palácio há muitos anos, ouvindo os comentários sobre os preparativos, sentiu uma leve tristeza, pois sabia que sua jovem filha nutria um sentimento de profundo amor pelo príncipe Ao chegar em casa e relatar o fato a jovem, espantou-se ao saber que ela pretendia ir à celebração, e indagou incrédulainha filha, o que você fará lá? Estarão presentes todas as mais belas e ricas moças da corte. Tire esta ideia insensata da cabeça; eu sei que você deve estar sofrendo, mas não torne o sofrimento uma loucura'
-  };
-
   constructor(private router: Router, private confirmacaoDialogoService: ConfirmacaoDialogoService) {
   }
 
-  @HostListener('window:beforeunload',['$event']) function(e) {
-     localStorage.setItem('teste', "Salvo");
-   };
-
   ngOnInit(): void {
-    console.log(localStorage.getItem('teste'));
   }
 
   canDeactivate() {
@@ -46,7 +36,6 @@ export class SimuladoGeradoComponent implements OnInit {
 
   proximaQuestao() {
     this.value = this.value + 5;
-    this.handleEvent(event);
   }
 
   finalizarSimulado() {
@@ -55,9 +44,5 @@ export class SimuladoGeradoComponent implements OnInit {
 
   converterMinutosEmSegundos(minutos: number) {
     return minutos * 60;
-  }
-
-  handleEvent(event){
-    console.log(event)
   }
 }
