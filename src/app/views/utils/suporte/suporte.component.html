@@ -40,7 +40,7 @@
     <div class="col-md mb-1">
       <div class="form-group">
         <textarea type="text" formControlName="descricao" placeholder="Descrição do assunto" class="form-control"
-          id="exampleFormControlTextarea1" rows="13"
+          id="exampleFormControlTextarea1" rows="13%"
           [ngClass]="{ 'is-invalid': !f.descricao.pristine && f.descricao.errors, 'is-valid': !f.descricao.errors }"></textarea>
         <div *ngIf="!f.descricao.pristine && f.descricao.errors" class="invalid-feedback">
           <div *ngIf="f.descricao.errors.required">

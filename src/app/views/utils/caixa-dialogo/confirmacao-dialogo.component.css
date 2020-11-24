@@ -10,6 +10,7 @@
 .botao{
     border: 2px solid #DC3545;
     color: #DC3545;
+    float: right;
 }
 
 .botao:hover:enabled {

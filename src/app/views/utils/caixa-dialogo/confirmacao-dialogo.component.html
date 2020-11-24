@@ -1,14 +1,9 @@
 <div class="modal-body">
     <div>
-        <div class="form-row">
-            <img class="questao" src="{{ imagem }}" alt="">
-        </div>
         <div class="form-row" style="text-align: center;">
             {{ mensagem }}
         </div>
+        <button type="button" class="botao" (click)="rejeitar()">{{ btnCancelarTexto }}</button>
+        <button type="button" style="float: right;" (click)="aceitar()">{{ btnOkTexto }}</button>
     </div>
-</div>
-<div class="modal-footer">
-    <button type="button" class="botao" (click)="rejeitar()">{{ btnCancelarTexto }}</button>
-    <button type="button" (click)="aceitar()">{{ btnOkTexto }}</button>
 </div>

@@ -34,8 +34,8 @@
                     <select formControlName="tipoSimulado" class="form-control form-control-sm"
                         [ngClass]="{ 'is-invalid': !f.tipoSimulado.pristine && f.tipoSimulado.errors, 'is-valid': !f.tipoSimulado.errors }">
                         <option value="" selected disabled hidden>Escolha uma opção</option>
-                        <option value="1">ENADE</option>
-                        <option value="2">POSCOMP</option>
+                        <option value="1">Exame Nacional de Desempenho dos Estudantes (ENADE)</option>
+                        <option value="2">Exame Nacional para ingresso no Mestrado e Doutorado em Computação (POSCOMP)</option>
                         <option value="2">Ambos</option>
                     </select>
                     <div *ngIf="!f.tipoSimulado.pristine && f.tipoSimulado.errors" class="invalid-feedback">

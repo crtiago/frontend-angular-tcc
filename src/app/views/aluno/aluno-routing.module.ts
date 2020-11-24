@@ -20,7 +20,7 @@ const routes: Routes = [
       { path: 'dashboard', component: DashboardComponent, data: { title: 'Dashboard' } },
       { path: 'simulado', component: SimuladoComponent, data: { title: 'Simulado' } },
       { path: 'simuladogerado', component: SimuladoGeradoComponent, canDeactivate: [DeactivateGuardService], data: { title: 'Simulado Gerado' } },
-      { path: 'simuladopersonalizado', component: SimuladoPersonalizadoComponent, data: { title: 'Simulado Personalizado' } },
+      { path: 'simuladopersonalizado', component: SimuladoPersonalizadoComponent, data: { title: 'Simulado' } },
       { path: 'sala', component: SalaComponent, data: { title: 'Sala' } },
       {
         path: 'configuracoes',  component: ConfiguracoesComponent, resolve: {

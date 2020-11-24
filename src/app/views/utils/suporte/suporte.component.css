@@ -1,7 +1,5 @@
 .suporte{
     margin-top: 5% !important;
-    margin-left: 20% !important;
-    margin-right: 20% !important;
 }
 .assunto{
     margin-left: 1% !important;
@@ -9,5 +7,6 @@
 }
 
 textarea {
+    margin-top: 2%;
     resize: none;
 }

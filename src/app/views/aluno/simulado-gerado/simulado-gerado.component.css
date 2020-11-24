@@ -40,13 +40,17 @@ ol, ul {
     width: 75%;
 }
 
+.botoes{
+    float: right;
+}
+
 @media(max-width: 767px){
     .questaoheader{
         text-align: center;
     }
     .tempo{
         text-align: center;
-    }
+    }   
 }
 
 /*Cores da progressbar*/

@@ -1,7 +1,8 @@
 .area{
-    margin-top: 5% !important;
-    margin-left: 20% !important;
-    margin-right: 20% !important;
+    margin-top: 2% !important;
+    margin-left: 5% !important;
+    margin-right: 5% !important;
+    margin-bottom: 1% !important;
     background-color: white;
     border-radius: 10px;
 }
