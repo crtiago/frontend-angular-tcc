@@ -41,13 +41,13 @@
 
 
                 <!--Botões de envio-->
-                <button (click)="cadastro()">
-                    <span *ngIf="spinnerCadastro"
-                        class="spinner-border spinner-border-sm mr-1"></span>Cadastre-se</button>
-
                 <button (click)="login()" [disabled]="!formularioDeUsuario.valid">
                     <span *ngIf="spinnerLogin" class="spinner-border spinner-border-sm mr-1"></span>
                     Entrar</button>
+
+                <button (click)="cadastro()">
+                    <span *ngIf="spinnerCadastro"
+                        class="spinner-border spinner-border-sm mr-1"></span>Cadastre-se</button>
 
                 <!--Mensagem para caso os dados inseridos pelo usuário esteja incorreto-->
                 <div *ngIf="erro" class="alert alert-danger mt-2 mb-2">{{erro}}</div>
