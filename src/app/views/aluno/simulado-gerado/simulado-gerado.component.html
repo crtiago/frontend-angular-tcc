@@ -6,7 +6,7 @@
             </div>
             <div class="col-md mb-1">
                 <h5 class="tempo">
-                    <countdown [config]="tempo"></countdown>
+                    <countdown [config]="tempo" (event)="handleEvent($event)"></countdown>
                 </h5>
             </div>
         </div>
@@ -19,6 +19,10 @@
             <!--Pergunta-->
             <div class="col-md mb-1">
                 <div class="math" [appMath]="pergunta"></div>
+            </div>
+
+            <div class="col-md mb-1">
+                <ng-katex-paragraph [paragraph]="paragraph"></ng-katex-paragraph>
             </div>
 
             <div *ngIf="imagem" class="col-md mb-1">

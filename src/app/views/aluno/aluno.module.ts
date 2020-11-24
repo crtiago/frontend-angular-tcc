@@ -15,6 +15,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SimuladoGeradoComponent } from './simulado-gerado/simulado-gerado.component';
 import { SimuladoPersonalizadoComponent } from './simulado-personalizado/simulado-personalizado.component';
 import { CountdownModule } from 'ngx-countdown';
+import { KatexModule } from 'ng-katex';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { CountdownModule } from 'ngx-countdown';
     SidebarModule.forRoot(),
     MatProgressBarModule,
     MathModule.forRoot(),
-    CountdownModule
+    CountdownModule,
+    KatexModule
   ]
 })
 export class AlunoModule { }

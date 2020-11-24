@@ -1,5 +1,6 @@
 @import '~bootstrap/dist/css/bootstrap.min.css';
 @import '~@fortawesome/fontawesome-free/css/all.css';
+@import '~katex/dist/katex.css';
 
 /*Imagem de fundo das páginas Login e Cadastro*/
 .bodybg-background {
@@ -136,6 +137,20 @@ button:focus, button:active {
 }
 
 /*Configurações da responsividade*/
+/* Verificar melhor a responsividade Landscape
+@media only screen and (orientation: landscape){
+    .navbar{
+        height: 16vh;
+    }
+    .fundo{
+        height: 30vh;
+    }
+    .perfil{
+        margin-bottom: 20px;
+    }
+}*/
+
+
 @media(min-width:500px){
     /*Estilo da sidebar*/
     .ng-sidebar{

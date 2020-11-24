@@ -20,6 +20,7 @@ import { SidebarModule } from 'ng-sidebar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CountdownModule } from 'ngx-countdown';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { KatexModule } from 'ng-katex';
 
 
 const maskConfig: Partial<IConfig> = {
@@ -42,7 +43,8 @@ const maskConfig: Partial<IConfig> = {
     BrowserAnimationsModule,
     MathModule.forRoot(),
     CountdownModule,
-    NgbModule
+    NgbModule,
+    KatexModule
   ],
   providers: [
     MetodosEnuns,

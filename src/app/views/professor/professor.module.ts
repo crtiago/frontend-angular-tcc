@@ -10,6 +10,7 @@ import { ProfessorRoutingModule } from './professor-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { SalasComponent } from './salas/salas.component';
 import { CountdownModule } from 'ngx-countdown';
+import { KatexModule } from 'ng-katex';
 
 
 
@@ -23,7 +24,8 @@ import { CountdownModule } from 'ngx-countdown';
     SharedComponentsModule,
     SidebarModule.forRoot(),
     MathModule.forRoot(),
-    CountdownModule
+    CountdownModule,
+    KatexModule
   ]
 })
 export class ProfessorModule { }
