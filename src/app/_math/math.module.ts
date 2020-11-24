@@ -11,7 +11,7 @@ export class MathModule {
     // see https://docs.mathjax.org/en/latest/advanced/dynamic.html
     const script = document.createElement('script') as HTMLScriptElement;
     script.type = 'text/javascript';
-    script.src = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML';
+    script.src = '//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML';
     script.async = true;
 
     document.getElementsByTagName('head')[0].appendChild(script);
