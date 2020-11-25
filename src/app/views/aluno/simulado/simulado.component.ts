@@ -8,9 +8,6 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SimuladoComponent implements OnInit {
   
-  defaultImage = '../../../assets/img/imagem-padrao.svg';
-  image = '../../../assets/img/exame.svg';
-
   spinnerPadrao = false;
   spinnerPersonalizado = false;
 
