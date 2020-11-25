@@ -15,6 +15,7 @@ import { SimuladoGeradoComponent } from './simulado-gerado/simulado-gerado.compo
 import { SimuladoPersonalizadoComponent } from './simulado-personalizado/simulado-personalizado.component';
 import { CountdownModule } from 'ngx-countdown';
 import { KatexModule } from 'ng-katex';
+import { LazyLoadImageModule } from 'ng-lazyload-image';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { KatexModule } from 'ng-katex';
     SidebarModule.forRoot(),
     MatProgressBarModule,
     CountdownModule,
-    KatexModule
+    KatexModule,
+    LazyLoadImageModule
   ]
 })
 export class AlunoModule { }

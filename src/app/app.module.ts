@@ -19,6 +19,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CountdownModule } from 'ngx-countdown';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { KatexModule } from 'ng-katex';
+import { LazyLoadImageModule } from 'ng-lazyload-image';
 
 
 const maskConfig: Partial<IConfig> = {
@@ -41,7 +42,8 @@ const maskConfig: Partial<IConfig> = {
     BrowserAnimationsModule,
     CountdownModule,
     NgbModule,
-    KatexModule
+    KatexModule,
+    LazyLoadImageModule
   ],
   providers: [
     MetodosEnuns,

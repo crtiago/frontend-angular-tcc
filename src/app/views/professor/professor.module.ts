@@ -10,6 +10,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { SalasComponent } from './salas/salas.component';
 import { CountdownModule } from 'ngx-countdown';
 import { KatexModule } from 'ng-katex';
+import { LazyLoadImageModule } from 'ng-lazyload-image';
 
 
 
@@ -23,7 +24,8 @@ import { KatexModule } from 'ng-katex';
     SharedComponentsModule,
     SidebarModule.forRoot(),
     CountdownModule,
-    KatexModule
+    KatexModule,
+    LazyLoadImageModule
   ]
 })
 export class ProfessorModule { }
