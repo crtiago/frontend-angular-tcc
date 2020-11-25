@@ -1,6 +1,7 @@
 <div class="area">
     <div class="alerta" style="text-align: center;">
-        <img class="question" src="../../../assets/img/exame.svg" alt="">
+        <img class="question" loading="lazy" src="../../../assets/img/exame.svg" alt="">
+        <img class="question" [defaultImage]="defaultImage" [lazyLoad]="image">
         <h2>Selecione o tipo do simulado:</h2>
         <button (click)="criarSimuladoPadrao()"> <span *ngIf="spinnerPadrao" class="spinner-border spinner-border-sm mr-1"></span>Padrão</button>
         <button (click)="criarSimuladoPersonalizado()"> <span *ngIf="spinnerPersonalizado" class="spinner-border spinner-border-sm mr-1"></span>Personalizado</button>
