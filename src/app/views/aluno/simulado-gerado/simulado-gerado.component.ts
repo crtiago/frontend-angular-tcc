@@ -1,6 +1,7 @@
+import { CanComponentDeactivate } from './../../../_servicos/rota/deactivate-guard.service';
 import { ConfirmacaoDialogoService } from './../../utils/caixa-dialogo/confirmacao-dialogo.service';
 import { Router } from '@angular/router';
-import { Component, OnInit, ViewChild, ElementRef, HostListener } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, HostListener, Input } from '@angular/core';
 import { ProgressBarMode } from '@angular/material/progress-bar';
 
 @Component({
@@ -8,7 +9,7 @@ import { ProgressBarMode } from '@angular/material/progress-bar';
   templateUrl: './simulado-gerado.component.html',
   styleUrls: ['./simulado-gerado.component.css']
 })
-export class SimuladoGeradoComponent implements OnInit {
+export class SimuladoGeradoComponent implements OnInit, CanComponentDeactivate {
 
   mode: ProgressBarMode = 'determinate';
   value = 0;
@@ -28,7 +29,9 @@ export class SimuladoGeradoComponent implements OnInit {
   canDeactivate() {
     if (this.value < 100) {
       let result: Promise<boolean> = this.confirmacaoDialogoService.confirm('../../../../assets/img/question.svg', 'Seu progresso será perdido! Tem certeza que deseja sair?')
-        .then((confirmed) => confirmed)
+        .then((confirmed) => confirmed).catch(function () {
+          return false;
+        });
       return result;
     }
     return true;

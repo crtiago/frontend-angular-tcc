@@ -137,18 +137,14 @@ button:focus, button:active {
 }
 
 /*Configurações da responsividade*/
-/* Verificar melhor a responsividade Landscape
-@media only screen and (orientation: landscape){
+
+/* Configurações para dispositivos móveis no modo paisagem*/
+@media only screen and (hover: none) and (pointer: coarse) and (orientation:landscape){
     .navbar{
-        height: 16vh;
+        background-color: red;
+        height: 20vh;
     }
-    .fundo{
-        height: 30vh;
-    }
-    .perfil{
-        margin-bottom: 20px;
-    }
-}*/
+}
 
 
 @media(min-width:500px){

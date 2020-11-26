@@ -1,5 +1,5 @@
 import { AutenticacaoService } from '../../../_servicos/login/autenticacao.service';
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { DomSanitizer, Title } from '@angular/platform-browser';
 import { NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router, ActivatedRoute } from '@angular/router';
 import { filter, map } from 'rxjs/operators';
@@ -32,7 +32,8 @@ export class AlunoBaseComponent implements OnInit {
     return this.sanitizer.bypassSecurityTrustResourceUrl('data:image/*;base64,' + this.base64Image);
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+  }
 
   botaoSidebar() {
     this.aberta = !this.aberta;
@@ -66,11 +67,11 @@ export class AlunoBaseComponent implements OnInit {
 
   loadingParaAguardarDadosDoBackend() {
     this.router.events.subscribe((event) => {
-     if(this.tituloNavbar == "Simulado Gerado"){
-      this.spinnerCarregamento = false;
-     }
-      
-     if (event instanceof NavigationStart) {
+      if (this.tituloNavbar == "Simulado Gerado") {
+        this.spinnerCarregamento = false;
+      }
+
+      if (event instanceof NavigationStart) {
         this.spinnerCarregamento = true;
       }
 
