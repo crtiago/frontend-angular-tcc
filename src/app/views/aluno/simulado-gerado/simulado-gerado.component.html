@@ -6,18 +6,18 @@
             </div>
             <div class="col-md mb-1">
                 <h5 class="tempo">
-                    <countdown #cd  [config]="tempo" (event)="getTempoAtual($event)"></countdown>
+                    <countdown #cd [config]="tempo" (event)="getTempoAtual($event)"></countdown>
                 </h5>
             </div>
         </div>
-        <mat-progress-bar mode="determinate" [value]="value"></mat-progress-bar>
+        <mat-progress-bar mode="determinate" [value]="progresso"></mat-progress-bar>
     </div>
 
     <div class="card-body">
 
         <div class="form-row">
             <!--Pergunta-->
-            
+
             <div class="col-md mb-1">
                 <ng-katex-paragraph class="math" [paragraph]="paragraph"></ng-katex-paragraph>
             </div>
@@ -30,36 +30,42 @@
         <div class="form-row">
             <!--Alternativas-->
             <div class="col-md mb-1">
-                <ul class="listaRespostas">
-                    <li>
-                        <label>
-                            <input type="radio" name="alternativa" value="0" id="alternativaA"> Alternativa A</label>
-                    </li>
-                    <li>
-                        <label>
-                            <input type="radio" name="alternativa" value="1" id="alternativaB"> Alternativa B</label>
-                    </li>
-                    <li>
-                        <label>
-                            <input type="radio" name="alternativa" value="2" id="alternativaC"> Alternativa C</label>
-                    </li>
-                    <li>
-                        <label>
-                            <input type="radio" name="alternativa" value="3" id="alternativaD"> Alternativa D</label>
-                    </li>
-                    <li>
-                        <label>
-                            <input type="radio" name="alternativa" value="4" id="alternativaE"> Alternativa E</label>
-                    </li>
-                </ul>
+                <form [formGroup]="formulario">
+                    <ul class="listaRespostas">
+                        <li>
+                            <label>
+                                <input type="radio" formControlName="alternativas" name="alternativas" value="0"
+                                    id="alternativaA"> Alternativa A</label>
+                        </li>
+                        <li>
+                            <label>
+                                <input type="radio" formControlName="alternativas" name="alternativas" value="1"
+                                    id="alternativaB"> Alternativa B</label>
+                        </li>
+                        <li>
+                            <label>
+                                <input type="radio" formControlName="alternativas" name="alternativas" value="2"
+                                    id="alternativaC"> Alternativa C</label>
+                        </li>
+                        <li>
+                            <label>
+                                <input type="radio" formControlName="alternativas" name="alternativas" value="3"
+                                    id="alternativaD"> Alternativa D</label>
+                        </li>
+                        <li>
+                            <label>
+                                <input type="radio" formControlName="alternativas" name="alternativas" value="4"
+                                    id="alternativaE"> Alternativa E</label>
+                        </li>
+                    </ul>
+                </form>
             </div>
         </div>
 
         <!--Botões do formulário-->
         <div class="form-row">
             <div class="col-md mb-1">
-                <button (click)="proximaQuestao()" class="botoes">Próxima Questão</button>
-                <button (click)="finalizarSimulado()" class="botoes">Finalizar Simulado</button>
+                <button (click)="proximaQuestao()" [disabled]="!formulario.valid" class="botoes">{{ textoBotao }}</button>
             </div>
         </div>
     </div>

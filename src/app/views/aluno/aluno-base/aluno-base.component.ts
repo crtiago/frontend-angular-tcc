@@ -17,7 +17,7 @@ export class AlunoBaseComponent implements OnInit {
   spinnerCarregamento: boolean = false;
   tituloNavbar: string;
 
-  constructor(private autenticacaoService: AutenticacaoService, private sanitizer: DomSanitizer, private router: Router, private route: ActivatedRoute, private tituloAba: Title) {
+  constructor(private autenticacaoService: AutenticacaoService, private sanitizer: DomSanitizer, private router: Router, private route: ActivatedRoute) {
     this.usuario = autenticacaoService.getUsuario;
     this.base64Image = this.usuario.ImagemUsuario;
 
@@ -61,7 +61,6 @@ export class AlunoBaseComponent implements OnInit {
       })
     ).subscribe((data: any) => {
       this.tituloNavbar = data;
-      this.tituloAba.setTitle(data);
     });
   }
 

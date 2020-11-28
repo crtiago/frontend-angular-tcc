@@ -41,7 +41,10 @@ export class SimuladoPersonalizadoComponent implements OnInit {
     this.carregar = true;
     //Salvando o tempo digitado
     let tempo = this.converterMinutosEmSegundos(this.formularioDeUsuario.get('tempoSimulado').value);
-    localStorage.setItem('tempo', JSON.stringify(tempo));
+    sessionStorage.setItem('tempo', JSON.stringify(tempo));
+
+    //Setando o progresso do usuário para 0, pois ele está iniciando
+    sessionStorage.setItem('progresso', '0');
 
     this.router.navigateByUrl('/aluno/simuladogerado');
   }

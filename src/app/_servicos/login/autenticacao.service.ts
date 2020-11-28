@@ -67,7 +67,8 @@ export class AutenticacaoService {
    * Método que realiza o lougout do usuário do sistema:
    */
   logout() {
-    localStorage.removeItem('usuario');
+    localStorage.clear();
+    sessionStorage.clear();
     this.usuarioSubject.next(null);
     this.router.navigate(['login']);
   }

@@ -18,23 +18,27 @@ export class SimuladoComponent implements OnInit {
 
   criarSimuladoPersonalizado() {
     this.spinnerPersonalizado = true;
-    localStorage.setItem('tipoSimulado', '0')
+    sessionStorage.setItem('tipoSimulado', '0')
     this.router.navigateByUrl('/aluno/simuladopersonalizado');
   }
 
   criarSimuladoEnade() {
     this.spinnerPadrao = true;
     //Tempo Padrão - 2 horas
-    localStorage.setItem('tempo', '7200')
-    localStorage.setItem('tipoSimulado', '1')
+    sessionStorage.setItem('tempo', '7200')
+    sessionStorage.setItem('tipoSimulado', '1')
+    //Setando o progresso do usuário para 0, pois ele está iniciando
+    sessionStorage.setItem('progresso', '0');
     this.router.navigateByUrl('/aluno/simuladogerado');
   }
 
   criarSimuladoPoscomp() {
     this.spinnerPadrao = true;
     //Tempo Padrão - 2 horas
-    localStorage.setItem('tempo', '7200')
-    localStorage.setItem('tipoSimulado', '2')
+    sessionStorage.setItem('tempo', '7200')
+    sessionStorage.setItem('tipoSimulado', '2')
+    //Setando o progresso do usuário para 0, pois ele está iniciando
+    sessionStorage.setItem('progresso', '0');
     this.router.navigateByUrl('/aluno/simuladogerado');
   }
 

@@ -17,7 +17,7 @@ export class ProfBaseComponent implements OnInit {
   spinnerCarregamento: boolean = false;
   tituloNavbar: string;
 
-  constructor(private autenticacaoService: AutenticacaoService, private sanitizer: DomSanitizer, private router: Router, private route: ActivatedRoute, private titleAba: Title) {
+  constructor(private autenticacaoService: AutenticacaoService, private sanitizer: DomSanitizer, private router: Router, private route: ActivatedRoute,) {
     this.usuario = autenticacaoService.getUsuario;
     this.base64Image = this.usuario.ImagemUsuario;
 
@@ -62,7 +62,6 @@ export class ProfBaseComponent implements OnInit {
       })
     ).subscribe((data: any) => {
       this.tituloNavbar = data;
-      this.titleAba.setTitle(data);
     });
   }
 
@@ -73,7 +72,6 @@ export class ProfBaseComponent implements OnInit {
         para não ficar com o título da página anterior*/
         if (event.url == "/prof/configuracoes") {
           this.tituloNavbar = "Configurações"
-          this.titleAba.setTitle("Configurações");
         }
         this.spinnerCarregamento = true;
       }

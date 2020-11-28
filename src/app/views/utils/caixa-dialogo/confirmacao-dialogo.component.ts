@@ -8,7 +8,6 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class ConfirmacaoDialogoComponent implements OnInit {
 
-  @Input() imagem: string;
   @Input() mensagem: string;
   @Input() btnOkTexto: string;
   @Input() btnCancelarTexto: string;
