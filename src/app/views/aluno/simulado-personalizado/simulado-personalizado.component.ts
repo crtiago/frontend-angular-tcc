@@ -21,10 +21,10 @@ export class SimuladoPersonalizadoComponent implements OnInit {
   
   criarFormularioDeUsuario() {
     this.formularioDeUsuario = this.fb.group({
-      nome: ['Simulado Personalizado', Validators.required],
+      nome: ['', Validators.required],
       //TODO ver se tem máximo de questões
-      quantidadeQuestoes: ['10', Validators.required],
-      tempoSimulado: ['10', Validators.required],
+      quantidadeQuestoes: ['', Validators.required],
+      tempoSimulado: ['', Validators.required],
       tipoSimulado: ['', Validators.required]
     });
   };
@@ -33,7 +33,15 @@ export class SimuladoPersonalizadoComponent implements OnInit {
 
   gerarSimulado(){
     this.carregar = true;
+    //Salvando o tempo digitado
+    let tempo = this.converterMinutosEmSegundos( this.formularioDeUsuario.get('tempoSimulado').value);
+    localStorage.setItem('tempo', JSON.stringify(tempo));
+    
     this.router.navigateByUrl('/aluno/simuladogerado');
+  }
+
+  converterMinutosEmSegundos(minutos: number) {
+    return minutos * 60;
   }
 
 }

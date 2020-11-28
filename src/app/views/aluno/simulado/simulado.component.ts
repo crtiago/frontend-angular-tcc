@@ -18,7 +18,8 @@ export class SimuladoComponent implements OnInit {
 
   criarSimuladoPadrao(){
     this.spinnerPadrao = true;
-    //this.router.navigate(['simuladogerado']);
+    //Tempo Padrão - 2 horas
+    localStorage.setItem('tempo', '7200')
     this.router.navigateByUrl('/aluno/simuladogerado');
   }
 

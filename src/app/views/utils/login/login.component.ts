@@ -1,3 +1,4 @@
+import { Title } from '@angular/platform-browser';
 import { Validacoes } from './../../../_helpers/validacoes';
 import { AutenticacaoService } from './../../../_servicos/login/autenticacao.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -29,7 +30,10 @@ export class LoginComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private router: Router,
     private route: ActivatedRoute,
-    private autenticacaoService: AutenticacaoService) {
+    private autenticacaoService: AutenticacaoService,
+    private tituloAba: Title) {
+    
+      tituloAba.setTitle(route.snapshot.data['title'])
 
     /**
       * Antes de construir verifica se há algum usuário logado, caso haja, direciona pra home do mesmo

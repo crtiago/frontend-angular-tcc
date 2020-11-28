@@ -6,7 +6,7 @@
             </div>
             <div class="col-md mb-1">
                 <h5 class="tempo">
-                    <countdown [config]="tempo"></countdown>
+                    <countdown #cd  [config]="tempo" (event)="getTempoAtual($event)"></countdown>
                 </h5>
             </div>
         </div>

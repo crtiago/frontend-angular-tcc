@@ -141,8 +141,10 @@ button:focus, button:active {
 /* Configurações para dispositivos móveis no modo paisagem*/
 @media only screen and (hover: none) and (pointer: coarse) and (orientation:landscape){
     .navbar{
-        background-color: red;
-        height: 20vh;
+        height: 15vh;
+    }
+    .fundo{
+        height: 28vh;
     }
 }
 

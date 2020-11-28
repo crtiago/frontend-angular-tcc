@@ -21,3 +21,10 @@ h5{
     height: 0;
     color: rgb(47,158,64);
 }
+
+/* Configurações para dispositivos móveis no modo paisagem*/
+@media only screen and (hover: none) and (pointer: coarse) and (orientation:landscape){
+    h5{
+        top: 21vh;  
+    }
+}
