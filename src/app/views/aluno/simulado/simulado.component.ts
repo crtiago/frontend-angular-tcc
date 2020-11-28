@@ -7,25 +7,35 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./simulado.component.css']
 })
 export class SimuladoComponent implements OnInit {
-  
+
   spinnerPadrao = false;
   spinnerPersonalizado = false;
 
   constructor(private router: Router) { }
 
-  ngOnInit(){
+  ngOnInit() {
   }
 
-  criarSimuladoPadrao(){
+  criarSimuladoPersonalizado() {
+    this.spinnerPersonalizado = true;
+    localStorage.setItem('tipoSimulado', '0')
+    this.router.navigateByUrl('/aluno/simuladopersonalizado');
+  }
+
+  criarSimuladoEnade() {
     this.spinnerPadrao = true;
     //Tempo Padrão - 2 horas
     localStorage.setItem('tempo', '7200')
+    localStorage.setItem('tipoSimulado', '1')
     this.router.navigateByUrl('/aluno/simuladogerado');
   }
 
-  criarSimuladoPersonalizado(){
-    this.spinnerPersonalizado = true;
-    this.router.navigateByUrl('/aluno/simuladopersonalizado');
+  criarSimuladoPoscomp() {
+    this.spinnerPadrao = true;
+    //Tempo Padrão - 2 horas
+    localStorage.setItem('tempo', '7200')
+    localStorage.setItem('tipoSimulado', '2')
+    this.router.navigateByUrl('/aluno/simuladogerado');
   }
 
 }

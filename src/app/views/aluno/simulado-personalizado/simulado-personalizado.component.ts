@@ -1,3 +1,4 @@
+import { Validacoes } from './../../../_helpers/validacoes';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
@@ -18,7 +19,7 @@ export class SimuladoPersonalizadoComponent implements OnInit {
     this.criarFormularioDeUsuario();
   }
 
-  
+
   criarFormularioDeUsuario() {
     this.formularioDeUsuario = this.fb.group({
       nome: ['', Validators.required],
@@ -26,17 +27,22 @@ export class SimuladoPersonalizadoComponent implements OnInit {
       quantidadeQuestoes: ['', Validators.required],
       tempoSimulado: ['', Validators.required],
       tipoSimulado: ['', Validators.required]
-    });
+    }, {
+      validators:
+        [Validacoes.validarQuantidadeQuestoes('quantidadeQuestoes'),
+        Validacoes.validarTempoSimulado('tempoSimulado')]
+    }
+    );
   };
 
   get f() { return this.formularioDeUsuario.controls; }
 
-  gerarSimulado(){
+  gerarSimulado() {
     this.carregar = true;
     //Salvando o tempo digitado
-    let tempo = this.converterMinutosEmSegundos( this.formularioDeUsuario.get('tempoSimulado').value);
+    let tempo = this.converterMinutosEmSegundos(this.formularioDeUsuario.get('tempoSimulado').value);
     localStorage.setItem('tempo', JSON.stringify(tempo));
-    
+
     this.router.navigateByUrl('/aluno/simuladogerado');
   }
 

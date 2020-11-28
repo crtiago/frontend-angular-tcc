@@ -54,11 +54,16 @@
                     <label>Número de Questões<span class="asterisco">*</span></label>
                     <!--TODO ver se tem como não deixar digitar o numero maior-->
                     <input type="number" style="width: 100px;" formControlName="quantidadeQuestoes"
-                        class="form-control form-control-sm" id="quantity" name="quantidadeQuestoes" min="10" max="70"
-                        [ngClass]="{ 'is-valid': !f.quantidadeQuestoes.pristine && !f.quantidadeQuestoes.errors}" />
-                    <div class="valid-feedback">
-                        Tudo certo!
-                    </div>
+                        class="form-control form-control-sm" id="quantity" name="quantidadeQuestoes" min="10" max="100"
+                        [ngClass]="{ 'is-invalid': !f.quantidadeQuestoes.pristine && f.quantidadeQuestoes.errors, 'is-valid': !f.quantidadeQuestoes.errors }" />
+                        <div *ngIf="!f.quantidadeQuestoes.pristine && f.quantidadeQuestoes.errors" class="invalid-feedback">
+                            <div *ngIf="f.quantidadeQuestoes.errors.required">Quantidade de questões é obrigatória.</div>
+                            <div *ngIf="f.quantidadeQuestoes.errors.minimo">Deve ser no mínimo 10 questões</div>
+                            <div *ngIf="f.quantidadeQuestoes.errors.maximo">Deve ser no máximo 100 questões</div>
+                        </div>
+                        <div class="valid-feedback">
+                            Tudo certo!
+                        </div>
                 </div>
             </div>
 
@@ -68,11 +73,16 @@
                     <label>Tempo do Simulado (minutos)<span class="asterisco">*</span></label>
                     <!--TODO ver se tem como não deixar digitar o numero maior-->
                     <input type="number" style="width: 100px;" formControlName="tempoSimulado"
-                        class="form-control form-control-sm" id="quantity" name="tempoSimulado" min="10" max="120"
-                        [ngClass]="{ 'is-valid': !f.tempoSimulado.pristine && !f.tempoSimulado.errors}" />
-                    <div class="valid-feedback">
-                        Tudo certo!
-                    </div>
+                        class="form-control form-control-sm" id="quantity" name="tempoSimulado" min="10" max="240"
+                        [ngClass]="{ 'is-invalid': !f.tempoSimulado.pristine && f.tempoSimulado.errors, 'is-valid': !f.tempoSimulado.errors }" />
+                        <div *ngIf="!f.tempoSimulado.pristine && f.tempoSimulado.errors" class="invalid-feedback">
+                            <div *ngIf="f.tempoSimulado.errors.required">Tempo de simulado é obrigatório.</div>
+                            <div *ngIf="f.tempoSimulado.errors.minimo">Deve ser no mínimo 10 minutos</div>
+                            <div *ngIf="f.tempoSimulado.errors.maximo">Deve ser no máximo 240 minutos</div>
+                        </div>
+                        <div class="valid-feedback">
+                            Tudo certo!
+                        </div>
                 </div>
             </div>
             <!--Botões do formulário-->

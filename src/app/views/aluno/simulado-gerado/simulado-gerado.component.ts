@@ -44,10 +44,22 @@ export class SimuladoGeradoComponent implements OnInit, CanComponentDeactivate {
   constructor(private router: Router, private confirmacaoDialogoService: ConfirmacaoDialogoService) {
     this.tempoAtual = JSON.parse(localStorage.getItem('tempo'));
     this.tempo = { leftTime: this.tempoAtual };
+
+    this.getSimuladoSelecionado();
   }
 
   ngOnInit(): void {
 
+  }
+
+  getSimuladoSelecionado() {
+    if (localStorage.getItem('tipoSimulado') == '0') {
+      console.log('Chama método getSimuladoPersonalizado');
+    } else if (localStorage.getItem('tipoSimulado') == '1') {
+      console.log('Chama método getSimuladoEnade');
+    } else if (localStorage.getItem('tipoSimulado') == '2') {
+      console.log('Chama método getSimuladoPoscomp');
+    }
   }
 
   canDeactivate() {

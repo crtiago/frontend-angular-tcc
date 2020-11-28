@@ -101,4 +101,47 @@ export class Validacoes {
         }
     }
 
+    /**
+     * Método que verifica o max e o min do campo quantidade de questões
+     */
+    static validarQuantidadeQuestoes(quantidade: string) {
+        return (formGroup: FormGroup) => {
+            const _quantidade = formGroup.controls[quantidade];
+
+            if (_quantidade.errors) {
+                // Retorna se outro validador já encontrou um erro
+                return;
+            }
+
+            if (_quantidade.value < 10) {
+                _quantidade.setErrors({ minimo: true });
+            } else if(_quantidade.value > 100) {
+                _quantidade.setErrors({ maximo: true });
+            }else{
+                _quantidade.setErrors(null);
+            }
+        }
+    }
+
+    /**
+     * Método que verifica o max e o min do campo tempo de simulado
+     */
+    static validarTempoSimulado(tempoSimulado: string) {
+        return (formGroup: FormGroup) => {
+            const _tempoSimulado = formGroup.controls[tempoSimulado];
+
+            if (_tempoSimulado.errors) {
+                // Retorna se outro validador já encontrou um erro
+                return;
+            }
+
+            if (_tempoSimulado.value < 10) {
+                _tempoSimulado.setErrors({ minimo: true });
+            } else if(_tempoSimulado.value > 240) {
+                _tempoSimulado.setErrors({ maximo: true });
+            }else{
+                _tempoSimulado.setErrors(null);
+            }
+        }
+    }
 }

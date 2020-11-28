@@ -2,7 +2,8 @@
     <div class="alerta" style="text-align: center;">
         <img class="question" loading="lazy" src="../../../assets/img/exame.svg" alt="">
         <h2>Selecione o tipo do simulado:</h2>
-        <button (click)="criarSimuladoPadrao()"> <span *ngIf="spinnerPadrao" class="spinner-border spinner-border-sm mr-1"></span>Padrão</button>
+        <button (click)="criarSimuladoEnade()"> <span *ngIf="spinnerPadrao" class="spinner-border spinner-border-sm mr-1"></span>ENADE</button>
+        <button (click)="criarSimuladoPoscomp()"> <span *ngIf="spinnerPadrao" class="spinner-border spinner-border-sm mr-1"></span>POSCOMP</button>
         <button (click)="criarSimuladoPersonalizado()"> <span *ngIf="spinnerPersonalizado" class="spinner-border spinner-border-sm mr-1"></span>Personalizado</button>
     </div>
 </div>
