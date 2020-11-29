@@ -1,3 +1,4 @@
+import { SimuladoService } from './_servicos/simulados/simulado.service';
 import { ConfirmacaoDialogoService } from './views/utils/caixa-dialogo/confirmacao-dialogo.service';
 import { DeactivateGuardService } from './_servicos/rota/deactivate-guard.service';
 import { CadastroComponent } from './views/utils/cadastro/cadastro.component';
@@ -51,7 +52,8 @@ const maskConfig: Partial<IConfig> = {
     { provide: HTTP_INTERCEPTORS, useClass: InterceptadorErros, multi: true },
     UtilMetodos,
     DeactivateGuardService,
-    ConfirmacaoDialogoService
+    ConfirmacaoDialogoService,
+    SimuladoService
   ],
   bootstrap: [AppComponent]
 })

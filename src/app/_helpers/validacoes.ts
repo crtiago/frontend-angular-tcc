@@ -137,7 +137,7 @@ export class Validacoes {
 
             if (_tempoSimulado.value < 10) {
                 _tempoSimulado.setErrors({ minimo: true });
-            } else if(_tempoSimulado.value > 240) {
+            } else if(_tempoSimulado.value > 480) {
                 _tempoSimulado.setErrors({ maximo: true });
             }else{
                 _tempoSimulado.setErrors(null);

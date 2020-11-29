@@ -2,7 +2,7 @@
     <div class="card-header">
         <div class="form-row">
             <div class="col-md mb-1">
-                <h5 class="questaoheader">Questão (1/20)</h5>
+                <h5 class="questaoheader">Questão ({{ index + 1}}/{{ quantidadeQuestoes }})</h5>
             </div>
             <div class="col-md mb-1">
                 <h5 class="tempo">
@@ -17,13 +17,14 @@
 
         <div class="form-row">
             <!--Pergunta-->
-
             <div class="col-md mb-1">
-                <ng-katex-paragraph class="math" [paragraph]="paragraph"></ng-katex-paragraph>
+                <ng-katex-paragraph class="math" [paragraph]="simulado.Questoes[index].Descricao"></ng-katex-paragraph>
             </div>
+        </div>
 
-            <div *ngIf="imagem" class="col-md mb-1">
-                <img loading="lazy" class="imagemPergunta" src="{{imagem}}">
+        <div *ngIf="imagem" class="form-row">
+            <div class="col-md mb-1">
+                <img class="imagemPergunta" [src]="getImagem()">
             </div>
         </div>
 
@@ -35,27 +36,42 @@
                         <li>
                             <label>
                                 <input type="radio" formControlName="alternativas" name="alternativas" value="0"
-                                    id="alternativaA"> Alternativa A</label>
+                                    id="alternativaA">
+                                <ng-katex-paragraph class="math" [paragraph]="simulado.Questoes[index].AlternativasA">
+                                </ng-katex-paragraph>
+                            </label>
                         </li>
                         <li>
                             <label>
                                 <input type="radio" formControlName="alternativas" name="alternativas" value="1"
-                                    id="alternativaB"> Alternativa B</label>
+                                    id="alternativaB">
+                                <ng-katex-paragraph class="math" [paragraph]="simulado.Questoes[index].AlternativasB">
+                                </ng-katex-paragraph>
+                            </label>
                         </li>
                         <li>
                             <label>
                                 <input type="radio" formControlName="alternativas" name="alternativas" value="2"
-                                    id="alternativaC"> Alternativa C</label>
+                                    id="alternativaC">
+                                <ng-katex-paragraph class="math" [paragraph]="simulado.Questoes[index].AlternativasC">
+                                </ng-katex-paragraph>
+                            </label>
                         </li>
                         <li>
                             <label>
                                 <input type="radio" formControlName="alternativas" name="alternativas" value="3"
-                                    id="alternativaD"> Alternativa D</label>
+                                    id="alternativaD">
+                                <ng-katex-paragraph class="math" [paragraph]="simulado.Questoes[index].AlternativasD">
+                                </ng-katex-paragraph>
+                            </label>
                         </li>
                         <li>
                             <label>
                                 <input type="radio" formControlName="alternativas" name="alternativas" value="4"
-                                    id="alternativaE"> Alternativa E</label>
+                                    id="alternativaE">
+                                <ng-katex-paragraph class="math" [paragraph]="simulado.Questoes[index].AlternativasE">
+                                </ng-katex-paragraph>
+                            </label>
                         </li>
                     </ul>
                 </form>
@@ -65,7 +81,8 @@
         <!--Botões do formulário-->
         <div class="form-row">
             <div class="col-md mb-1">
-                <button (click)="proximaQuestao()" [disabled]="!formulario.valid" class="botoes">{{ textoBotao }}</button>
+                <button (click)="proximaQuestao()" [disabled]="!formulario.valid"
+                    class="botoes">{{ textoBotao }}</button>
             </div>
         </div>
     </div>

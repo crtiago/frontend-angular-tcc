@@ -1,3 +1,6 @@
+import { DomSanitizer } from '@angular/platform-browser';
+import { SimuladoService } from './../../../_servicos/simulados/simulado.service';
+import { Simulado } from './../../../_modelos/simulado';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CanComponentDeactivate } from './../../../_servicos/rota/deactivate-guard.service';
 import { ConfirmacaoDialogoService } from './../../utils/caixa-dialogo/confirmacao-dialogo.service';
@@ -19,42 +22,27 @@ export class SimuladoGeradoComponent implements OnInit, OnDestroy, CanComponentD
   tempo;
   tempoAtual: number;
   habilitarBotao: boolean = true;
-  imagem = "../../../../assets/img/exame.svg";
+  imagem: string;
   textoBotao: string = "Próxima Questão"
-
   formulario: FormGroup;
+  simulado: Simulado;
+  index: number;
+  quantidadeQuestoes: number;
 
-  paragraph: string = `
-  Acerca da posição relativa $\\left ( y_{n} \\right ) = \\frac{1}{n}$ então $\\lim_{n \\rightarrow \\infty} y_{n} = 1$ 4 Textos grandes, 
-  inspiradores e com lindas lições de vida! É cada um mais lindo que o outro, confira: 1. 
-  A flor da honestidade Conta-se que por volta do ano 250 A.C, na China antiga, um príncipe 4
-  da região norte do país, estava às vésperas de ser coroado imperador, mas, de acordo com a lei, 
-  ele deveria se casar. Sabendo disso, ele resolveu fazer uma “disputa” entre as moças da corte ou 
-  quem quer que se achasse digna de sua proposta No dia seguinte, o príncipe anunciou que receberia, 
-  numa celebração especiale. Tire esta ideia insensata da cabeça; eu sei que você deve estar sofrendo, 
-  mas não torne o sofrimento uma loucura. Textos grandes, inspiradores e com lindas lições de vida! 
-  É cada um mais lindo que o outro, confira: 1. A flor da honestidade Conta-se que por volta do ano 
-  250 A.C, na China antiga, um príncipe da região norte do país, estava às vésperas de ser coroado 
-  imperador, mas, de acordo com a lei, ele deveria se casar. Sabendo disso, ele resolveu fazer uma 
-  “disputa” entre as moças da corte ou quem quer que se achasse digna de sua proposta No dia seguinte, 
-  o príncipe anunciou que receberia, numa celebração especial, todas as pretendentes e lançaria um desafio. 
-  Uma velha senhora, serva do palácio há muitos anos, ouvindo os comentários sobre os preparativos, 
-  sentiu uma leve tristeza, pois sabia que sua jovem filha nutria um sentimento de profundo amor pelo 
-  príncipe Ao chegar em casa e relatar o fato a jovem, espantou-se ao saber que ela pretendia ir à 
-  celebração, e indagou incrédulainha filha, o que você fará lá? Estarão presentes todas as mais belas 
-  e ricas moças da corte. Tire esta ideia insensata da cabeça; eu sei que você deve estar sofrendo, 
-  mas não torne o sofrimento uma loucura
-  `;
-
-  constructor(private router: Router, private confirmacaoDialogoService: ConfirmacaoDialogoService, private fb: FormBuilder) {
+  constructor(private router: Router, private sanitizer: DomSanitizer, private confirmacaoDialogoService: ConfirmacaoDialogoService, private fb: FormBuilder, private simuladoService: SimuladoService) {
     this.verificarSimulado();
     this.formulario = fb.group({
       alternativas: ['', Validators.required]
     });
+    this.simulado = this.simuladoService.getSimuladoValor;
+    this.index = Number(sessionStorage.getItem('index'));
+    console.log(this.imagem);
+    this.quantidadeQuestoes = Object.keys(this.simulado.Questoes).length;
   }
 
   ngOnInit(): void {
-
+    console.log(this.simulado.Questoes);
+    this.imagem = this.simulado.Questoes[this.index].ImagemQuestao;
   }
 
   ngOnDestroy(): void {
@@ -74,6 +62,10 @@ export class SimuladoGeradoComponent implements OnInit, OnDestroy, CanComponentD
     return true;
   }
 
+  getImagem() {
+    return this.sanitizer.bypassSecurityTrustResourceUrl('data:image/*;base64,' + this.imagem);
+  }
+
   verificarSimulado() {
     if (sessionStorage.getItem('tipoSimulado') == '' || sessionStorage.getItem('tipoSimulado') == null) {
       this.router.navigateByUrl("aluno/simulado");
@@ -82,21 +74,9 @@ export class SimuladoGeradoComponent implements OnInit, OnDestroy, CanComponentD
       this.tempo = { leftTime: this.tempoAtual };
       this.progresso = Number(sessionStorage.getItem('progresso'));
 
-      if (this.progresso >= 75) {
+      if (this.index == this.quantidadeQuestoes) {
         this.textoBotao = "Finalizar Simulado"
       }
-
-      this.getSimuladoSelecionado();
-    }
-  }
-
-  getSimuladoSelecionado() {
-    if (sessionStorage.getItem('tipoSimulado') == '0') {
-      console.log('Chama método getSimuladoPersonalizado');
-    } else if (sessionStorage.getItem('tipoSimulado') == '1') {
-      console.log('Chama método getSimuladoEnade');
-    } else if (sessionStorage.getItem('tipoSimulado') == '2') {
-      console.log('Chama método getSimuladoPoscomp');
     }
   }
 
@@ -104,6 +84,7 @@ export class SimuladoGeradoComponent implements OnInit, OnDestroy, CanComponentD
   @HostListener('window:beforeunload') salvarDadosAntesDeAtualizar() {
     this.countdown.pause();
     sessionStorage.setItem('progresso', JSON.stringify(this.progresso));
+    sessionStorage.setItem('index', JSON.stringify(this.index));
   }
 
   getTempoAtual($event) {
@@ -114,21 +95,22 @@ export class SimuladoGeradoComponent implements OnInit, OnDestroy, CanComponentD
   }
 
   proximaQuestao() {
-    this.progresso = this.progresso + 25;
+    this.imagem = "";
+    this.index = this.index + 1;
+    this.progresso = this.progresso + (100 / this.quantidadeQuestoes);
     this.formulario.get('alternativas').reset();
+    this.ngOnInit();
     if (this.progresso >= 100) {
       this.router.navigateByUrl("aluno/dashboard");
       sessionStorage.setItem("tempo", '');
       sessionStorage.setItem("tipoSimulado", '');
       sessionStorage.setItem("progresso", '');
-    } else if (this.progresso >= 75) {
+      sessionStorage.setItem("index", '');
+    } else if (this.index == this.quantidadeQuestoes) {
       this.textoBotao = "Finalizar Simulado"
     }
   }
 
-  finalizarSimulado() {
-
-  }
 
   converterMinutosEmSegundos(minutos: number) {
     return minutos * 60;

@@ -1,13 +1,5 @@
-.area{
-    margin-top: 2% !important;
-    margin-left: 5% !important;
-    margin-right: 5% !important;
-    margin-bottom: 1% !important;
-    background-color: white;
-    border-radius: 10px;
-}
 
-.question{
-    margin-top: 10px;
+.imagem{
+    margin-top: 2%;
     width: 35%;   
 }
