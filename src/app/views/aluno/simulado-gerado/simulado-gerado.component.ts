@@ -6,9 +6,7 @@ import { CanComponentDeactivate } from './../../../_servicos/rota/deactivate-gua
 import { ConfirmacaoDialogoService } from './../../utils/caixa-dialogo/confirmacao-dialogo.service';
 import { Router } from '@angular/router';
 import { Component, OnInit, ViewChild, ElementRef, HostListener, Input, OnDestroy } from '@angular/core';
-import { ProgressBarMode } from '@angular/material/progress-bar';
 import { CountdownComponent } from 'ngx-countdown';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-simulado-gerado',
@@ -17,9 +15,9 @@ import { Subscription } from 'rxjs';
 })
 export class SimuladoGeradoComponent implements OnInit, OnDestroy, CanComponentDeactivate {
 
-  @ViewChild('cd', { static: false }) private countdown: CountdownComponent;
+  @ViewChild('cd', { static: false }) private cronometro: CountdownComponent;
   progresso: number;
-  tempo;
+  tempo: any;
   tempoAtual: number;
   habilitarBotao: boolean = true;
   imagem: string;
@@ -36,7 +34,6 @@ export class SimuladoGeradoComponent implements OnInit, OnDestroy, CanComponentD
     });
     this.simulado = this.simuladoService.getSimuladoValor;
     this.index = Number(sessionStorage.getItem('index'));
-    console.log(this.imagem);
     this.quantidadeQuestoes = Object.keys(this.simulado.Questoes).length;
   }
 
@@ -49,10 +46,11 @@ export class SimuladoGeradoComponent implements OnInit, OnDestroy, CanComponentD
     sessionStorage.setItem("tempo", '');
     sessionStorage.setItem("tipoSimulado", '');
     sessionStorage.setItem("progresso", '');
+    sessionStorage.setItem("index", '0');
   }
 
   canDeactivate() {
-    if (this.progresso < 100) {
+    if (this.index > (this.quantidadeQuestoes - 2)) {
       let result: Promise<boolean> = this.confirmacaoDialogoService.confirm('Seu progresso será perdido! Tem certeza que deseja sair?')
         .then((confirmed) => confirmed).catch(function () {
           return false;
@@ -73,18 +71,14 @@ export class SimuladoGeradoComponent implements OnInit, OnDestroy, CanComponentD
       this.tempoAtual = Number(sessionStorage.getItem('tempo'));
       this.tempo = { leftTime: this.tempoAtual };
       this.progresso = Number(sessionStorage.getItem('progresso'));
-
-      if (this.index == this.quantidadeQuestoes) {
-        this.textoBotao = "Finalizar Simulado"
-      }
     }
   }
 
   /*Salvando as informações caso o usuário atualize a página*/
   @HostListener('window:beforeunload') salvarDadosAntesDeAtualizar() {
-    this.countdown.pause();
+    this.cronometro.pause();
     sessionStorage.setItem('progresso', JSON.stringify(this.progresso));
-    sessionStorage.setItem('index', JSON.stringify(this.index));
+    sessionStorage.setItem('index', this.index.toString());
   }
 
   getTempoAtual($event) {
@@ -95,22 +89,24 @@ export class SimuladoGeradoComponent implements OnInit, OnDestroy, CanComponentD
   }
 
   proximaQuestao() {
-    this.imagem = "";
-    this.index = this.index + 1;
-    this.progresso = this.progresso + (100 / this.quantidadeQuestoes);
-    this.formulario.get('alternativas').reset();
-    this.ngOnInit();
-    if (this.progresso >= 100) {
+    if (this.index == (this.quantidadeQuestoes - 2)) {
+      this.textoBotao = "Finalizar Simulado"
+    }
+
+    if (this.index > (this.quantidadeQuestoes - 2)) {
       this.router.navigateByUrl("aluno/dashboard");
       sessionStorage.setItem("tempo", '');
       sessionStorage.setItem("tipoSimulado", '');
       sessionStorage.setItem("progresso", '');
       sessionStorage.setItem("index", '');
-    } else if (this.index == this.quantidadeQuestoes) {
-      this.textoBotao = "Finalizar Simulado"
+    } else {
+      this.imagem = "";
+      this.index++;
+      this.progresso = this.progresso + (100 / this.quantidadeQuestoes);
+      this.formulario.get('alternativas').reset();
+      this.ngOnInit();
     }
   }
-
 
   converterMinutosEmSegundos(minutos: number) {
     return minutos * 60;
