@@ -1,3 +1,6 @@
+import { AutenticacaoService } from './../../../_servicos/login/autenticacao.service';
+import { first } from 'rxjs/operators';
+import { Resposta } from './../../../_modelos/resposta';
 import { DomSanitizer } from '@angular/platform-browser';
 import { SimuladoService } from './../../../_servicos/simulados/simulado.service';
 import { Simulado } from './../../../_modelos/simulado';
@@ -23,11 +26,19 @@ export class SimuladoGeradoComponent implements OnInit, OnDestroy, CanComponentD
   imagem: string;
   textoBotao: string = "Próxima Questão"
   formulario: FormGroup;
-  simulado: Simulado;
+  simulado: any;
   index: number;
   quantidadeQuestoes: number;
+  listaRespostas = [];
+  aluno: any;
 
-  constructor(private router: Router, private sanitizer: DomSanitizer, private confirmacaoDialogoService: ConfirmacaoDialogoService, private fb: FormBuilder, private simuladoService: SimuladoService) {
+
+  constructor(private router: Router, private sanitizer: DomSanitizer,
+    private confirmacaoDialogoService: ConfirmacaoDialogoService, private fb: FormBuilder,
+    private simuladoService: SimuladoService, private autenticacaoService: AutenticacaoService) {
+
+    this.aluno = autenticacaoService.getUsuario;
+
     this.verificarSimulado();
     this.formulario = fb.group({
       alternativas: ['', Validators.required]
@@ -88,16 +99,30 @@ export class SimuladoGeradoComponent implements OnInit, OnDestroy, CanComponentD
   }
 
   proximaQuestao() {
+
+    this.listaRespostas.push(new Resposta(this.simulado[this.index].Id, true, this.formulario.get('alternativas').value, this.simulado[this.index].TipoQuestao));
+
     if (this.index == (this.quantidadeQuestoes - 2)) {
       this.textoBotao = "Finalizar Simulado"
     }
 
     if (this.index > (this.quantidadeQuestoes - 2)) {
-      this.router.navigateByUrl("aluno/dashboard");
-      sessionStorage.setItem("tempo", '');
-      sessionStorage.setItem("tipoSimulado", '');
-      sessionStorage.setItem("progresso", '');
-      sessionStorage.setItem("index", '');
+
+      let idSimulado = Number(sessionStorage.getItem('idSimulado'));
+
+      this.simuladoService.finalizarSimulado(idSimulado, this.aluno.IdUsuario, this.listaRespostas).pipe(first()).subscribe(
+        simulado => {
+          console.log(simulado)
+          this.router.navigateByUrl("aluno/dashboard");
+          sessionStorage.setItem("tempo", '');
+          sessionStorage.setItem("tipoSimulado", '');
+          sessionStorage.setItem("progresso", '');
+          sessionStorage.setItem("index", '');
+        },
+        error => {
+          //this.carregar = false;
+          console.log(error);
+        });
     } else {
       this.imagem = "";
       this.index++;

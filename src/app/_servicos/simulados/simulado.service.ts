@@ -54,7 +54,7 @@ export class SimuladoService {
             )
     };
 
-    buscarQuestoesSimuladoId(idSimulado:number) {
+    buscarQuestoesSimuladoId(idSimulado: number) {
         return this.http.get<any>(`${environment.apiUrl}/BuscarQuestoesSimuladoPorId?idSimulado=${idSimulado}`)
             .pipe(
                 map(questoes => {
@@ -64,6 +64,20 @@ export class SimuladoService {
                         return questoes;
                     } else {
                         throw new Error(questoes.Mensagem);
+                    }
+                }
+                )
+            )
+    }
+
+    finalizarSimulado(IdSimulado: number, IdUsuario: number, Respostas: {}) {
+        return this.http.post<any>(`${environment.apiUrl}/SalvarRespostaSimulado`, { IdSimulado, IdUsuario, Respostas })
+            .pipe(
+                map(retorno => {
+                    if (retorno.Sucesso) {
+                        return retorno;
+                    } else {
+                        throw new Error(retorno.Mensagem);
                     }
                 }
                 )

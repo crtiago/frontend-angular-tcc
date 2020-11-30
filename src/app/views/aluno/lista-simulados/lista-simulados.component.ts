@@ -46,6 +46,8 @@ export class ListaSimuladosComponent implements OnInit {
     this.carregar = true;
     this.simuladoService.buscarQuestoesSimuladoId(this.idSimuladoSelecionado).pipe(first()).subscribe(
       simulado => {
+        //Salva o id do simulado para usar posteriormente
+        sessionStorage.setItem('idSimulado',JSON.stringify(this.idSimuladoSelecionado));
         this.verificarTipoSimulado();
       },
       error => {
