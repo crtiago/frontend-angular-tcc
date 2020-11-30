@@ -1,4 +1,3 @@
-import { Simulado } from './../../../_modelos/simulado';
 import { first } from 'rxjs/operators';
 import { AutenticacaoService } from './../../../_servicos/login/autenticacao.service';
 import { SimuladoService } from './../../../_servicos/simulados/simulado.service';
@@ -30,7 +29,6 @@ export class SimuladoComponent implements OnInit {
       tipoSimulado: ['', Validators.required],
       quantidadeQuestoes: [{ value: '', disabled: true }, Validators.required],
       tempoSimulado: [{ value: '', disabled: true }, Validators.required],
-
     }, {
       validators:
         [Validacoes.validarQuantidadeQuestoes('quantidadeQuestoes'),
@@ -54,46 +52,9 @@ export class SimuladoComponent implements OnInit {
       this.formularioDeUsuario.get('tempoSimulado').reset();
     }
   }
-
-  gerarSimulado() {
-    if (this.formularioDeUsuario.get('tipoSimulado').value == '0') {
-      this.criarSimuladoPersonalizado();
-    } else if (this.formularioDeUsuario.get('tipoSimulado').value == '1') {
-      this.criarSimuladoEnade();
-    } else {
-      this.criarSimuladoPoscomp();
-    }
-
-  }
-
-  criarSimuladoPersonalizado() {
-    sessionStorage.setItem('tipoSimulado', '0')
-    //Salvando o tempo digitado
-    let tempo = this.converterMinutosEmSegundos(this.formularioDeUsuario.get('tempoSimulado').value);
-    sessionStorage.setItem('tempo', JSON.stringify(tempo));
-
-    //Setando o progresso do usuário para 0, pois ele está iniciando
-    sessionStorage.setItem('progresso', '0');
-
-    this.router.navigateByUrl('/aluno/simuladogerado');
-  }
-
-  criarSimuladoEnade() {
-    //Tempo Padrão - 4 horas
-    sessionStorage.setItem('tempo', '14400')
-    sessionStorage.setItem('tipoSimulado', '1')
-    //Setando o progresso do usuário para 0, pois ele está iniciando
-    sessionStorage.setItem('progresso', '0');
-    this.router.navigateByUrl('/aluno/simuladogerado');
-  }
-
-  criarSimuladoPoscomp() {
+ 
+  criarSimulado() {
     this.carregar = true;
-    //Tempo Padrão - 4 horas
-    sessionStorage.setItem('tempo', '14400')
-    sessionStorage.setItem('tipoSimulado', '2')
-    //Setando o progresso do usuário para 0, pois ele está iniciando
-    sessionStorage.setItem('progresso', '0');
 
     this.simuladoService.criarSimulado(
       new Date,
@@ -106,18 +67,13 @@ export class SimuladoComponent implements OnInit {
       this.formularioDeUsuario.get('tipoSimulado').value,
     ).pipe(first()).subscribe(
       resposta => {
-        sessionStorage.setItem('index','0');
-        this.router.navigateByUrl('/aluno/simuladogerado');
+        this.router.navigateByUrl('/aluno/listasimulados');
       },
       error => {
         console.log(error);
         this.carregar = false;
       });
 
-  }
-
-  converterMinutosEmSegundos(minutos: number) {
-    return minutos * 60;
   }
 
 }

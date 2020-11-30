@@ -1,3 +1,4 @@
+import { ListaSimuladosComponent } from './lista-simulados/lista-simulados.component';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { SharedComponentsModule } from './../../shared-components.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -12,14 +13,13 @@ import { SalaComponent } from './sala/sala.component';
 import { AlunoBaseComponent } from './aluno-base/aluno-base.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SimuladoGeradoComponent } from './simulado-gerado/simulado-gerado.component';
-import { SimuladoPersonalizadoComponent } from './simulado-personalizado/simulado-personalizado.component';
 import { CountdownModule } from 'ngx-countdown';
 import { KatexModule } from 'ng-katex';
 import { LazyLoadImageModule } from 'ng-lazyload-image';
 
 
 @NgModule({
-  declarations: [DashboardComponent, SimuladoComponent, SalaComponent, AlunoBaseComponent, SimuladoGeradoComponent, SimuladoPersonalizadoComponent],
+  declarations: [DashboardComponent, SimuladoComponent, SalaComponent, AlunoBaseComponent, SimuladoGeradoComponent, ListaSimuladosComponent],
   imports: [
     CommonModule,
     FormsModule,

@@ -1,0 +1,10 @@
+/*Barra de rolagem da tabela*/
+.table-overflow {
+    max-height: 60vh;
+    overflow-x:auto;
+}
+
+.data-selected{
+    background-color: #88C791;
+    color: white;
+  }

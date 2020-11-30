@@ -16,9 +16,18 @@
     <div class="card-body">
 
         <div class="form-row">
+            <div class="col-md mb-1">
+                <h5 class="questaoheader">Area: {{ simulado[index].Area }}</h5>
+            </div>
+            <div class="col-md mb-1">
+                <h5 class="tempo">Ano: {{ simulado[index].Ano }}</h5>
+            </div>
+        </div>
+
+        <div class="form-row">
             <!--Pergunta-->
             <div class="col-md mb-1">
-                <ng-katex-paragraph class="math" [paragraph]="simulado.Questoes[index].Descricao"></ng-katex-paragraph>
+                <ng-katex-paragraph class="math" [paragraph]="simulado[index].Descricao"></ng-katex-paragraph>
             </div>
         </div>
 
@@ -37,7 +46,7 @@
                             <label>
                                 <input type="radio" formControlName="alternativas" name="alternativas" value="0"
                                     id="alternativaA">
-                                <ng-katex-paragraph class="math" [paragraph]="simulado.Questoes[index].AlternativasA">
+                                <ng-katex-paragraph class="math" [paragraph]="simulado[index].AlternativasA">
                                 </ng-katex-paragraph>
                             </label>
                         </li>
@@ -45,7 +54,7 @@
                             <label>
                                 <input type="radio" formControlName="alternativas" name="alternativas" value="1"
                                     id="alternativaB">
-                                <ng-katex-paragraph class="math" [paragraph]="simulado.Questoes[index].AlternativasB">
+                                <ng-katex-paragraph class="math" [paragraph]="simulado[index].AlternativasB">
                                 </ng-katex-paragraph>
                             </label>
                         </li>
@@ -53,7 +62,7 @@
                             <label>
                                 <input type="radio" formControlName="alternativas" name="alternativas" value="2"
                                     id="alternativaC">
-                                <ng-katex-paragraph class="math" [paragraph]="simulado.Questoes[index].AlternativasC">
+                                <ng-katex-paragraph class="math" [paragraph]="simulado[index].AlternativasC">
                                 </ng-katex-paragraph>
                             </label>
                         </li>
@@ -61,7 +70,7 @@
                             <label>
                                 <input type="radio" formControlName="alternativas" name="alternativas" value="3"
                                     id="alternativaD">
-                                <ng-katex-paragraph class="math" [paragraph]="simulado.Questoes[index].AlternativasD">
+                                <ng-katex-paragraph class="math" [paragraph]="simulado[index].AlternativasD">
                                 </ng-katex-paragraph>
                             </label>
                         </li>
@@ -69,7 +78,7 @@
                             <label>
                                 <input type="radio" formControlName="alternativas" name="alternativas" value="4"
                                     id="alternativaE">
-                                <ng-katex-paragraph class="math" [paragraph]="simulado.Questoes[index].AlternativasE">
+                                <ng-katex-paragraph class="math" [paragraph]="simulado[index].AlternativasE">
                                 </ng-katex-paragraph>
                             </label>
                         </li>

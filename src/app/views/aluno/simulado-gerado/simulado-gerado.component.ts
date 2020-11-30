@@ -34,12 +34,11 @@ export class SimuladoGeradoComponent implements OnInit, OnDestroy, CanComponentD
     });
     this.simulado = this.simuladoService.getSimuladoValor;
     this.index = Number(sessionStorage.getItem('index'));
-    this.quantidadeQuestoes = Object.keys(this.simulado.Questoes).length;
+    this.quantidadeQuestoes = Object.keys(this.simulado).length;
   }
 
   ngOnInit(): void {
-    console.log(this.simulado.Questoes);
-    this.imagem = this.simulado.Questoes[this.index].ImagemQuestao;
+    this.imagem = this.simulado[this.index].ImagemQuestao;
   }
 
   ngOnDestroy(): void {
@@ -50,7 +49,7 @@ export class SimuladoGeradoComponent implements OnInit, OnDestroy, CanComponentD
   }
 
   canDeactivate() {
-    if (this.index > (this.quantidadeQuestoes - 2)) {
+    if ((this.index + 1) < this.quantidadeQuestoes) {
       let result: Promise<boolean> = this.confirmacaoDialogoService.confirm('Seu progresso será perdido! Tem certeza que deseja sair?')
         .then((confirmed) => confirmed).catch(function () {
           return false;
