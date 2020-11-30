@@ -1,3 +1,4 @@
+import { RespostaListaSimulados } from './../../_helpers/resposta-lista-simulados';
 import { ListaSimuladosComponent } from './lista-simulados/lista-simulados.component';
 import { DeactivateGuardService } from './../../_servicos/rota/deactivate-guard.service';
 import { SimuladoGeradoComponent } from './simulado-gerado/simulado-gerado.component';
@@ -19,11 +20,17 @@ const routes: Routes = [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
       { path: 'dashboard', component: DashboardComponent, data: { title: 'Dashboard' } },
       { path: 'simulado', component: SimuladoComponent, data: { title: 'Simulado' } },
-      { path: 'simuladogerado', component: SimuladoGeradoComponent, canDeactivate: [DeactivateGuardService], data: { title: 'Simulado Gerado' } },
-      { path: 'listasimulados', component: ListaSimuladosComponent, data: { title: 'Simulados' } },
+      {
+        path: 'simuladogerado', component: SimuladoGeradoComponent, canDeactivate: [DeactivateGuardService], data: { title: 'Simulado Gerado' }
+      },
+      {
+        path: 'listasimulados', component: ListaSimuladosComponent, resolve: {
+          response: RespostaListaSimulados
+        }, data: { title: 'Simulados' }
+      },
       { path: 'sala', component: SalaComponent, data: { title: 'Sala' } },
       {
-        path: 'configuracoes',  component: ConfiguracoesComponent, resolve: {
+        path: 'configuracoes', component: ConfiguracoesComponent, resolve: {
           response: UtilMetodos
         }, data: { title: 'Configurações' }
       },

@@ -1,3 +1,4 @@
+import { RespostaListaSimulados } from './_helpers/resposta-lista-simulados';
 import { SimuladoService } from './_servicos/simulados/simulado.service';
 import { ConfirmacaoDialogoService } from './views/utils/caixa-dialogo/confirmacao-dialogo.service';
 import { DeactivateGuardService } from './_servicos/rota/deactivate-guard.service';
@@ -51,6 +52,7 @@ const maskConfig: Partial<IConfig> = {
     TratamentoImagem,
     { provide: HTTP_INTERCEPTORS, useClass: InterceptadorErros, multi: true },
     UtilMetodos,
+    RespostaListaSimulados,
     DeactivateGuardService,
     ConfirmacaoDialogoService,
     SimuladoService

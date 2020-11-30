@@ -21,15 +21,9 @@ export class ListaSimuladosComponent implements OnInit {
   carregar: boolean = false;
   tipoSimulado: number;
 
-  constructor(private simuladoService: SimuladoService, private router: Router) {
+  constructor(private simuladoService: SimuladoService, private router: Router, private route: ActivatedRoute) {
 
-    this.simuladoService.buscarListaSimulados().pipe(first()).subscribe(
-      listaSimulados => {
-        this.listaSimulados = listaSimulados.Data;
-      },
-      error => {
-        console.log(error);
-      });
+    this.listaSimulados = this.route.snapshot.data.response.Data;
   }
 
   ngOnInit(): void {
@@ -37,9 +31,13 @@ export class ListaSimuladosComponent implements OnInit {
 
   simuladoSelecionado(event: any, item: any, index: any) {
     this.linhaSelecionada = index;
-    this.selecionado = true;
-    this.idSimuladoSelecionado = item.Id;
-    this.tipoSimulado = item.TipoSimulado;
+    if (!item.SimuladoRespondido) {
+      this.selecionado = true;
+      this.idSimuladoSelecionado = item.Id;
+      this.tipoSimulado = item.TipoSimulado;
+    }else{
+      this.selecionado = false;
+    }
   }
 
   iniciarSimuladoSelecionado() {
@@ -47,7 +45,7 @@ export class ListaSimuladosComponent implements OnInit {
     this.simuladoService.buscarQuestoesSimuladoId(this.idSimuladoSelecionado).pipe(first()).subscribe(
       simulado => {
         //Salva o id do simulado para usar posteriormente
-        sessionStorage.setItem('idSimulado',JSON.stringify(this.idSimuladoSelecionado));
+        sessionStorage.setItem('idSimulado', JSON.stringify(this.idSimuladoSelecionado));
         this.verificarTipoSimulado();
       },
       error => {
@@ -55,8 +53,8 @@ export class ListaSimuladosComponent implements OnInit {
         console.log(error);
       });
   }
-  
-  verificarTipoSimulado(){
+
+  verificarTipoSimulado() {
     if (this.tipoSimulado == 0) {
       sessionStorage.setItem('tipoSimulado', '0')
       //Converter tempo
