@@ -27,7 +27,8 @@
                         class="form-control form-control-sm"
                         [ngClass]="{ 'is-invalid': !f.instituicao.pristine && f.instituicao.errors, 'is-valid': !f.instituicao.pristine && !f.instituicao.errors}">
                         <option value="" selected disabled hidden>{{usuario.Instituicao.Nome}}</option>
-                        <option value={{i+1}} *ngFor="let item of instituicoes; let i = index">{{item.nome}}</option>
+                        <option *ngFor="let item of instituicoes; let i = index" value={{item.id}}>{{item.nome}}
+                        </option>
                     </select>
                     <div *ngIf="!f.instituicao.pristine && f.instituicao.errors" class="invalid-feedback">
                         <div *ngIf="f.instituicao.errors.required">Instituição é obrigatória.</div>
@@ -190,7 +191,7 @@
             <!--Botões do formulário-->
             <div class="text-center">
 
-                <button style="float: right;">
+                <button style="float: right;" [disabled]="formularioDeUsuario.invalid || formularioDeUsuario.pristine">
                     <span *ngIf="carregar" class="spinner-border spinner-border-sm mr-1"></span>Salvar</button>
 
             </div>

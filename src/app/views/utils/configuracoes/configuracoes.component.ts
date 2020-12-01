@@ -84,7 +84,7 @@ export class ConfiguracoesComponent implements OnInit {
   setValoresCampos() {
     this.formularioDeUsuario.get('matricula').setValue(this.usuario.Matricula);
     this.formularioDeUsuario.get('anoIngresso').setValue(this.usuario.AnoIngresso);
-    //this.formularioDeUsuario.get('instituicao').setValue(this.usuario.Instituicao.Id);
+    this.formularioDeUsuario.get('instituicao').setValue(this.usuario.Instituicao.Id);
     this.formularioDeUsuario.get('disciplinas').setValue("Escolha uma ou mais disciplinas");
     this.formularioDeUsuario.get('cpf').setValue(this.usuario.CPF);
     this.formularioDeUsuario.get('nome').setValue(this.usuario.Nome);
@@ -162,20 +162,12 @@ export class ConfiguracoesComponent implements OnInit {
   get f() { return this.formularioDeUsuario.controls; }
 
   alterar() {
-
-    const invalid = [];
-    const controls = this.formularioDeUsuario.controls;
-    for (const name in controls) {
-        if (controls[name].invalid) {
-            invalid.push(name);
-            console.log(invalid)
-        }
-    }
-    console.log(this.formularioDeUsuario.valid);
     this.carregar = true;
-    this.idIntituicao = this.convertStringParaNumero(this.formularioDeUsuario.get('instituicao').value);
-   // alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.formularioDeUsuario.value, null, 4));
-   if (this.usuario.TipoUsuario == 1) {
+    if (this.formularioDeUsuario.get('instituicao').value == "") {
+      this.idIntituicao = this.usuario.Instituicao.Id;
+    }
+
+    if (this.usuario.TipoUsuario == 1) {
       this.cadastroService.alterarAluno(
         this.usuario.IdUsuario,
         this.formularioDeUsuario.get('cpf').value,

@@ -31,7 +31,7 @@
                         class="form-control form-control-sm"
                         [ngClass]="{ 'is-invalid': !f.instituicao.pristine && f.instituicao.errors, 'is-valid': !f.instituicao.errors}">
                         <option value="" selected disabled hidden>Escolha uma opção</option>
-                        <option value={{i}} *ngFor="let item of intituicoes; let i = index">{{item.nome}}</option>
+                        <option value={{item.id}} *ngFor="let item of intituicoes; let i = index">{{item.nome}}</option>
                     </select>
                     <div *ngIf="!f.instituicao.pristine && f.instituicao.errors" class="invalid-feedback">
                         <div *ngIf="f.instituicao.errors.required">Instituição é obrigatória.</div>
