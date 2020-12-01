@@ -15,7 +15,7 @@
                 <tbody>
                     <tr (click)="simuladoSelecionado($event, simulado, i)"
                         *ngFor="let simulado of listaSimulados.slice().reverse(); let i= index"
-                        [ngClass]="{'data-selected': i == linhaSelecionada && !simulado.SimuladoRespondido}">
+                        [ngClass]="{'data-selected': i == linhaSelecionada && !simulado.SimuladoRespondido,'concluido': simulado.SimuladoRespondido }">
                         <td>{{simulado.Nome}}</td>
                         <td>{{simulado.Descricao}}</td>
                         <td style="text-align: center; vertical-align: middle;">{{simulado.QuantidadeQuestoes}}</td>

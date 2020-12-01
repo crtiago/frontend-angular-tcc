@@ -1,3 +1,7 @@
+import { EDisciplinaId } from './../../../_enuns/edisciplinasid';
+import { EArea } from './../../../_enuns/earea';
+import { EDisciplina } from './../../../_enuns/edisciplinas';
+import { MetodosEnuns } from './../../../_helpers/metodos-enuns';
 import { AutenticacaoService } from './../../../_servicos/login/autenticacao.service';
 import { first } from 'rxjs/operators';
 import { Resposta } from './../../../_modelos/resposta';
@@ -31,11 +35,12 @@ export class SimuladoGeradoComponent implements OnInit, OnDestroy, CanComponentD
   quantidadeQuestoes: number;
   listaRespostas = [];
   aluno: any;
-
+  area: string;
+  disciplina: string;
 
   constructor(private router: Router, private sanitizer: DomSanitizer,
     private confirmacaoDialogoService: ConfirmacaoDialogoService, private fb: FormBuilder,
-    private simuladoService: SimuladoService, private autenticacaoService: AutenticacaoService) {
+    private simuladoService: SimuladoService, private autenticacaoService: AutenticacaoService, private metodosDisciplinas: MetodosEnuns) {
 
     this.aluno = autenticacaoService.getUsuario;
 
@@ -45,11 +50,15 @@ export class SimuladoGeradoComponent implements OnInit, OnDestroy, CanComponentD
     });
     this.simulado = this.simuladoService.getSimuladoValor;
     this.index = Number(sessionStorage.getItem('index'));
+    this.listaRespostas = JSON.parse(sessionStorage.getItem('respostas'));
     this.quantidadeQuestoes = Object.keys(this.simulado).length;
+    
   }
 
   ngOnInit(): void {
     this.imagem = this.simulado[this.index].ImagemQuestao;
+    console.log(this.simulado[this.index].Area)
+    this.getDisciplinaEArea();
   }
 
   ngOnDestroy(): void {
@@ -57,6 +66,11 @@ export class SimuladoGeradoComponent implements OnInit, OnDestroy, CanComponentD
     sessionStorage.setItem("tipoSimulado", '');
     sessionStorage.setItem("progresso", '');
     sessionStorage.setItem("index", '0');
+  }
+
+  getDisciplinaEArea(){
+    this.area =  EArea[this.simulado[this.index].Area];
+    this.disciplina = EDisciplinaId[this.simulado[this.index].Disciplina];
   }
 
   canDeactivate() {
@@ -89,6 +103,7 @@ export class SimuladoGeradoComponent implements OnInit, OnDestroy, CanComponentD
     this.cronometro.pause();
     sessionStorage.setItem('progresso', JSON.stringify(this.progresso));
     sessionStorage.setItem('index', this.index.toString());
+    sessionStorage.setItem('respostas',  JSON.stringify(this.listaRespostas));
   }
 
   getTempoAtual($event) {

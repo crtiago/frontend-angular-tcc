@@ -51,6 +51,9 @@ ol, ul {
     .tempo{
         text-align: center;
     }   
+    .disciplina{
+        text-align: center;
+    }
 }
 
 /*Cores da progressbar*/
