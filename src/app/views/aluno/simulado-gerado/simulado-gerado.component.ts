@@ -50,13 +50,14 @@ export class SimuladoGeradoComponent implements OnInit, OnDestroy, CanComponentD
     });
     this.simulado = this.simuladoService.getSimuladoValor;
     this.index = Number(sessionStorage.getItem('index'));
-    if (!typeof(sessionStorage.getItem('respostas') === null)) {
-      this.listaRespostas = JSON.parse(sessionStorage.getItem('respostas'));
-    }
     this.quantidadeQuestoes = Object.keys(this.simulado).length;
   }
 
   ngOnInit(): void {
+
+    if (!(sessionStorage.getItem('respostas') == '[]')) {
+      this.listaRespostas = JSON.parse(sessionStorage.getItem('respostas'));
+    }
     this.imagem = this.simulado[this.index].ImagemQuestao;
     this.getDisciplinaEArea();
   }
@@ -67,7 +68,7 @@ export class SimuladoGeradoComponent implements OnInit, OnDestroy, CanComponentD
     sessionStorage.setItem("progresso", '');
     sessionStorage.setItem("index", '0');
     sessionStorage.setItem("idSimulado", '');
-    sessionStorage.setItem("respostas", '');
+    sessionStorage.setItem("respostas", '[]');
     sessionStorage.setItem("simulado", '');
   }
 
@@ -120,6 +121,8 @@ export class SimuladoGeradoComponent implements OnInit, OnDestroy, CanComponentD
 
     this.listaRespostas.push(new Resposta(this.simulado[this.index].Id, true, this.formulario.get('alternativas').value, this.simulado[this.index].TipoQuestao));
 
+    sessionStorage.setItem('respostas', JSON.stringify(this.listaRespostas));
+
     if (this.index == (this.quantidadeQuestoes - 2)) {
       this.textoBotao = "Finalizar Simulado"
     }
@@ -130,7 +133,6 @@ export class SimuladoGeradoComponent implements OnInit, OnDestroy, CanComponentD
 
       this.simuladoService.finalizarSimulado(idSimulado, this.aluno.IdUsuario, this.listaRespostas).pipe(first()).subscribe(
         simulado => {
-          console.log(simulado)
           this.router.navigateByUrl("aluno/dashboard");
           sessionStorage.setItem("tempo", '');
           sessionStorage.setItem("tipoSimulado", '');

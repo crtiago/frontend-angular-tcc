@@ -35,7 +35,7 @@ export class ListaSimuladosComponent implements OnInit {
       this.selecionado = true;
       this.idSimuladoSelecionado = item.Id;
       this.tipoSimulado = item.TipoSimulado;
-    }else{
+    } else {
       this.selecionado = false;
     }
   }
@@ -55,6 +55,7 @@ export class ListaSimuladosComponent implements OnInit {
   }
 
   verificarTipoSimulado() {
+    sessionStorage.setItem('respostas', '[]');
     if (this.tipoSimulado == 0) {
       sessionStorage.setItem('tipoSimulado', '0')
       //Converter tempo
