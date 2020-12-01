@@ -50,14 +50,14 @@ export class SimuladoGeradoComponent implements OnInit, OnDestroy, CanComponentD
     });
     this.simulado = this.simuladoService.getSimuladoValor;
     this.index = Number(sessionStorage.getItem('index'));
-    this.listaRespostas = JSON.parse(sessionStorage.getItem('respostas'));
+    if (!typeof(sessionStorage.getItem('respostas') === null)) {
+      this.listaRespostas = JSON.parse(sessionStorage.getItem('respostas'));
+    }
     this.quantidadeQuestoes = Object.keys(this.simulado).length;
-    
   }
 
   ngOnInit(): void {
     this.imagem = this.simulado[this.index].ImagemQuestao;
-    console.log(this.simulado[this.index].Area)
     this.getDisciplinaEArea();
   }
 
@@ -66,10 +66,13 @@ export class SimuladoGeradoComponent implements OnInit, OnDestroy, CanComponentD
     sessionStorage.setItem("tipoSimulado", '');
     sessionStorage.setItem("progresso", '');
     sessionStorage.setItem("index", '0');
+    sessionStorage.setItem("idSimulado", '');
+    sessionStorage.setItem("respostas", '');
+    sessionStorage.setItem("simulado", '');
   }
 
-  getDisciplinaEArea(){
-    this.area =  EArea[this.simulado[this.index].Area];
+  getDisciplinaEArea() {
+    this.area = EArea[this.simulado[this.index].Area];
     this.disciplina = EDisciplinaId[this.simulado[this.index].Disciplina];
   }
 
@@ -103,7 +106,7 @@ export class SimuladoGeradoComponent implements OnInit, OnDestroy, CanComponentD
     this.cronometro.pause();
     sessionStorage.setItem('progresso', JSON.stringify(this.progresso));
     sessionStorage.setItem('index', this.index.toString());
-    sessionStorage.setItem('respostas',  JSON.stringify(this.listaRespostas));
+    sessionStorage.setItem('respostas', JSON.stringify(this.listaRespostas));
   }
 
   getTempoAtual($event) {
@@ -133,6 +136,9 @@ export class SimuladoGeradoComponent implements OnInit, OnDestroy, CanComponentD
           sessionStorage.setItem("tipoSimulado", '');
           sessionStorage.setItem("progresso", '');
           sessionStorage.setItem("index", '');
+          sessionStorage.setItem("idSimulado", '');
+          sessionStorage.setItem("respostas", '');
+          sessionStorage.setItem("simulado", '');
         },
         error => {
           //this.carregar = false;
