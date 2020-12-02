@@ -2,16 +2,18 @@
 ol, ul {
     list-style: none;
     padding-left: 0px;
-    margin-top: 2%;
 }
 
 li {
-    padding: 3px 0;
+    padding: 0px;
+    margin: 0px;
+    border: 0px;
 }
 input {
     visibility:hidden;
 }
 label {
+    height: auto;
     display: block;
     padding: 6px;
     border-radius: 6px;
@@ -37,12 +39,12 @@ input:checked + label {
 
 .math{
     text-align: justify;
+    
 }
 
 .imagemPergunta{
-    margin-top: 10%;
-    margin-left: 10%;
-    width: 75%;
+    margin-left: 25%;
+    width: 50%;
 }
 
 .botoes{

@@ -161,4 +161,9 @@ export class SimuladoGeradoComponent implements OnInit, OnDestroy, CanComponentD
   converterMinutosEmSegundos(minutos: number) {
     return minutos * 60;
   }
+
+  //Modifica o texto para inserir as letras antes do enunciado da alternativas
+  getAlternativas(letra:string, alternativa:string){
+    return letra.concat(alternativa.toString());
+  }
 }

@@ -51,38 +51,38 @@
                         <li>
                             <input type="radio" formControlName="alternativas" name="alternativas" value="A"
                                 id="alternativaA">
-                            <label for='alternativaA'>a)
-                                <ng-katex-paragraph class="math" [paragraph]="simulado[index].AlternativasA">
+                            <label for='alternativaA'>
+                                <ng-katex-paragraph class="math" [paragraph]="getAlternativas('a) ',simulado[index].AlternativasA)">
                                 </ng-katex-paragraph>
                             </label>
                         </li>
                         <li>
                             <input type="radio" formControlName="alternativas" name="alternativas" value="B"
                                 id="alternativaB">
-                            <label for='alternativaB'>b)
-                                <ng-katex-paragraph class="math" [paragraph]="simulado[index].AlternativasB">
+                            <label for='alternativaB'>
+                                <ng-katex-paragraph class="math" [paragraph]="getAlternativas('b) ',simulado[index].AlternativasB)">
                                 </ng-katex-paragraph> </label>
                         </li>
                         <li>
                             <input type="radio" formControlName="alternativas" name="alternativas" value="C"
                                 id="alternativaC">
-                            <label for='alternativaC'>c)
-                                <ng-katex-paragraph class="math" [paragraph]="simulado[index].AlternativasC">
+                            <label for='alternativaC'>
+                                <ng-katex-paragraph class="math" [paragraph]="getAlternativas('c) ',simulado[index].AlternativasC)">
                                 </ng-katex-paragraph>
                             </label>
                         </li>
                         <li>
                             <input type="radio" formControlName="alternativas" name="alternativas" value="D"
                                 id="alternativaD">
-                            <label for='alternativaD'>d)
-                                <ng-katex-paragraph class="math" [paragraph]="simulado[index].AlternativasD">
+                            <label for='alternativaD'>
+                                <ng-katex-paragraph class="math" [paragraph]="getAlternativas('d) ',simulado[index].AlternativasD)">
                                 </ng-katex-paragraph></label>
                         </li>
                         <li>
                             <input type="radio" formControlName="alternativas" name="alternativas" value="E"
                                 id="alternativaE">
-                            <label for='alternativaE'>e)
-                                <ng-katex-paragraph class="math" [paragraph]="simulado[index].AlternativasE">
+                            <label for='alternativaE'>
+                                <ng-katex-paragraph class="math" [paragraph]="getAlternativas('e) ',simulado[index].AlternativasE)">
                                 </ng-katex-paragraph></label>
                         </li>
                     </ul>
