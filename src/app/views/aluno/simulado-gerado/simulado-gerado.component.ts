@@ -13,7 +13,7 @@ import { CanComponentDeactivate } from './../../../_servicos/rota/deactivate-gua
 import { ConfirmacaoDialogoService } from './../../utils/caixa-dialogo/confirmacao-dialogo.service';
 import { Router } from '@angular/router';
 import { Component, OnInit, ViewChild, ElementRef, HostListener, Input, OnDestroy } from '@angular/core';
-import { CountdownComponent } from 'ngx-countdown';
+import { CountdownComponent, CountdownEvent } from 'ngx-countdown';
 
 @Component({
   selector: 'app-simulado-gerado',
@@ -63,6 +63,12 @@ export class SimuladoGeradoComponent implements OnInit, OnDestroy, CanComponentD
     this.imagem = this.simulado[this.index].ImagemQuestao;
     this.getDisciplinaEArea();
   }
+
+  tempoAcabou(e:Event){
+    if (e["action"] == "done"){
+      console.log('Tempo acabou')
+     }
+   }
 
   ngOnDestroy(): void {
     sessionStorage.setItem("tempo", '');

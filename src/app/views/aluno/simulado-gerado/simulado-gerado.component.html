@@ -6,7 +6,7 @@
             </div>
             <div class="col-md mb-1">
                 <h5 class="tempo">
-                    <countdown #cd [config]="tempo" (event)="getTempoAtual($event)"></countdown>
+                    <countdown #cd [config]="tempo" (event)="getTempoAtual($event)" (event)="tempoAcabou($event)"></countdown>
                 </h5>
             </div>
         </div>
@@ -52,7 +52,8 @@
                             <input type="radio" formControlName="alternativas" name="alternativas" value="A"
                                 id="alternativaA">
                             <label for='alternativaA'>
-                                <ng-katex-paragraph class="math" [paragraph]="getAlternativas('a) ',simulado[index].AlternativasA)">
+                                <ng-katex-paragraph class="math"
+                                    [paragraph]="getAlternativas('a) ',simulado[index].AlternativasA)">
                                 </ng-katex-paragraph>
                             </label>
                         </li>
@@ -60,14 +61,17 @@
                             <input type="radio" formControlName="alternativas" name="alternativas" value="B"
                                 id="alternativaB">
                             <label for='alternativaB'>
-                                <ng-katex-paragraph class="math" [paragraph]="getAlternativas('b) ',simulado[index].AlternativasB)">
-                                </ng-katex-paragraph> </label>
+                                <ng-katex-paragraph class="math"
+                                    [paragraph]="getAlternativas('b) ',simulado[index].AlternativasB)">
+                                </ng-katex-paragraph>
+                            </label>
                         </li>
                         <li>
                             <input type="radio" formControlName="alternativas" name="alternativas" value="C"
                                 id="alternativaC">
                             <label for='alternativaC'>
-                                <ng-katex-paragraph class="math" [paragraph]="getAlternativas('c) ',simulado[index].AlternativasC)">
+                                <ng-katex-paragraph class="math"
+                                    [paragraph]="getAlternativas('c) ',simulado[index].AlternativasC)">
                                 </ng-katex-paragraph>
                             </label>
                         </li>
@@ -75,15 +79,19 @@
                             <input type="radio" formControlName="alternativas" name="alternativas" value="D"
                                 id="alternativaD">
                             <label for='alternativaD'>
-                                <ng-katex-paragraph class="math" [paragraph]="getAlternativas('d) ',simulado[index].AlternativasD)">
-                                </ng-katex-paragraph></label>
+                                <ng-katex-paragraph class="math"
+                                    [paragraph]="getAlternativas('d) ',simulado[index].AlternativasD)">
+                                </ng-katex-paragraph>
+                            </label>
                         </li>
                         <li>
                             <input type="radio" formControlName="alternativas" name="alternativas" value="E"
                                 id="alternativaE">
                             <label for='alternativaE'>
-                                <ng-katex-paragraph class="math" [paragraph]="getAlternativas('e) ',simulado[index].AlternativasE)">
-                                </ng-katex-paragraph></label>
+                                <ng-katex-paragraph class="math"
+                                    [paragraph]="getAlternativas('e) ',simulado[index].AlternativasE)">
+                                </ng-katex-paragraph>
+                            </label>
                         </li>
                     </ul>
                 </form>
