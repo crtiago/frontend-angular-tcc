@@ -1,3 +1,4 @@
+import { EProva } from './../../../_enuns/eprova';
 import { EDisciplinaId } from './../../../_enuns/edisciplinasid';
 import { EArea } from './../../../_enuns/earea';
 import { EDisciplina } from './../../../_enuns/edisciplinas';
@@ -37,6 +38,7 @@ export class SimuladoGeradoComponent implements OnInit, OnDestroy, CanComponentD
   aluno: any;
   area: string;
   disciplina: string;
+  prova: string;
   carregar = false;
 
   constructor(private router: Router, private sanitizer: DomSanitizer,
@@ -83,6 +85,7 @@ export class SimuladoGeradoComponent implements OnInit, OnDestroy, CanComponentD
   getDisciplinaEArea() {
     this.area = EArea[this.simulado[this.index].Area];
     this.disciplina = EDisciplinaId[this.simulado[this.index].Disciplina];
+    this.prova = EProva[this.simulado[this.index].Prova];
   }
 
   canDeactivate() {
@@ -166,6 +169,10 @@ export class SimuladoGeradoComponent implements OnInit, OnDestroy, CanComponentD
 
   converterMinutosEmSegundos(minutos: number) {
     return minutos * 60;
+  }
+
+  getDescricaoSimulado(descricao: string){
+    return this.prova.concat(descricao.toString());
   }
 
   //Modifica o texto para inserir as letras antes do enunciado da alternativas
