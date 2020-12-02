@@ -47,57 +47,56 @@
             <!--Alternativas-->
             <div class="col-md mb-1">
                 <form [formGroup]="formulario">
-                    <ul class="listaRespostas">
+                    <ul>
                         <li>
-                            <label>
-                                <input type="radio" formControlName="alternativas" name="alternativas" value="A"
-                                    id="alternativaA">
+                            <input type="radio" formControlName="alternativas" name="alternativas" value="A"
+                                id="alternativaA">
+                            <label for='alternativaA'>a)
                                 <ng-katex-paragraph class="math" [paragraph]="simulado[index].AlternativasA">
                                 </ng-katex-paragraph>
                             </label>
                         </li>
                         <li>
-                            <label>
-                                <input type="radio" formControlName="alternativas" name="alternativas" value="B"
-                                    id="alternativaB">
+                            <input type="radio" formControlName="alternativas" name="alternativas" value="B"
+                                id="alternativaB">
+                            <label for='alternativaB'>b)
                                 <ng-katex-paragraph class="math" [paragraph]="simulado[index].AlternativasB">
-                                </ng-katex-paragraph>
-                            </label>
+                                </ng-katex-paragraph> </label>
                         </li>
                         <li>
-                            <label>
-                                <input type="radio" formControlName="alternativas" name="alternativas" value="C"
-                                    id="alternativaC">
+                            <input type="radio" formControlName="alternativas" name="alternativas" value="C"
+                                id="alternativaC">
+                            <label for='alternativaC'>c)
                                 <ng-katex-paragraph class="math" [paragraph]="simulado[index].AlternativasC">
                                 </ng-katex-paragraph>
                             </label>
                         </li>
                         <li>
-                            <label>
-                                <input type="radio" formControlName="alternativas" name="alternativas" value="D"
-                                    id="alternativaD">
+                            <input type="radio" formControlName="alternativas" name="alternativas" value="D"
+                                id="alternativaD">
+                            <label for='alternativaD'>d)
                                 <ng-katex-paragraph class="math" [paragraph]="simulado[index].AlternativasD">
-                                </ng-katex-paragraph>
-                            </label>
+                                </ng-katex-paragraph></label>
                         </li>
                         <li>
-                            <label>
-                                <input type="radio" formControlName="alternativas" name="alternativas" value="E"
-                                    id="alternativaE">
+                            <input type="radio" formControlName="alternativas" name="alternativas" value="E"
+                                id="alternativaE">
+                            <label for='alternativaE'>e)
                                 <ng-katex-paragraph class="math" [paragraph]="simulado[index].AlternativasE">
-                                </ng-katex-paragraph>
-                            </label>
+                                </ng-katex-paragraph></label>
                         </li>
                     </ul>
                 </form>
             </div>
         </div>
 
+
+
         <!--Botões do formulário-->
         <div class="form-row">
             <div class="col-md mb-1">
-                <button (click)="proximaQuestao()" [disabled]="!formulario.valid"
-                    class="botoes">{{ textoBotao }}</button>
+                <button (click)="proximaQuestao()" [disabled]="!formulario.valid" class="botoes"><span *ngIf="carregar"
+                        class="spinner-border spinner-border-sm mr-1"></span> {{ textoBotao }}</button>
             </div>
         </div>
     </div>

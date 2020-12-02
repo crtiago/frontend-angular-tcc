@@ -5,11 +5,13 @@ ol, ul {
     margin-top: 2%;
 }
 
-.listaRespostas li {
+li {
     padding: 3px 0;
 }
-
-.listaRespostas label {
+input {
+    visibility:hidden;
+}
+label {
     display: block;
     padding: 6px;
     border-radius: 6px;
@@ -18,6 +20,10 @@ ol, ul {
     font-size: 13px;
     cursor: pointer;
     font-family: Arial, sans-serif;
+}
+input:checked + label {
+    background: rgb(47,158,64);
+    color: white;
 }
 
 .questaoheader{
@@ -31,7 +37,6 @@ ol, ul {
 
 .math{
     text-align: justify;
-   
 }
 
 .imagemPergunta{
@@ -68,3 +73,4 @@ ol, ul {
 ::ng-deep .mat-progress-bar {
     border-radius: 1px;
 }
+

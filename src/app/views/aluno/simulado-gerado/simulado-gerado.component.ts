@@ -37,6 +37,7 @@ export class SimuladoGeradoComponent implements OnInit, OnDestroy, CanComponentD
   aluno: any;
   area: string;
   disciplina: string;
+  carregar = false;
 
   constructor(private router: Router, private sanitizer: DomSanitizer,
     private confirmacaoDialogoService: ConfirmacaoDialogoService, private fb: FormBuilder,
@@ -54,6 +55,7 @@ export class SimuladoGeradoComponent implements OnInit, OnDestroy, CanComponentD
   }
 
   ngOnInit(): void {
+
 
     if (!(sessionStorage.getItem('respostas') == '[]')) {
       this.listaRespostas = JSON.parse(sessionStorage.getItem('respostas'));
@@ -128,11 +130,12 @@ export class SimuladoGeradoComponent implements OnInit, OnDestroy, CanComponentD
     }
 
     if (this.index > (this.quantidadeQuestoes - 2)) {
-
+      this.carregar = true;
       let idSimulado = Number(sessionStorage.getItem('idSimulado'));
 
       this.simuladoService.finalizarSimulado(idSimulado, this.aluno.IdUsuario, this.listaRespostas).pipe(first()).subscribe(
         simulado => {
+
           this.router.navigateByUrl("aluno/dashboard");
           sessionStorage.setItem("tempo", '');
           sessionStorage.setItem("tipoSimulado", '');
@@ -143,7 +146,7 @@ export class SimuladoGeradoComponent implements OnInit, OnDestroy, CanComponentD
           sessionStorage.setItem("simulado", '');
         },
         error => {
-          //this.carregar = false;
+          this.carregar = false;
           console.log(error);
         });
     } else {
