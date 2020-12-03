@@ -6,7 +6,8 @@
             </div>
             <div class="col-md mb-1">
                 <h5 class="tempo">
-                    <countdown #cd [config]="tempo" (event)="getTempoAtual($event)" (event)="tempoAcabou($event)"></countdown>
+                    <countdown #cd [config]="tempo" (event)="getTempoAtual($event)" (event)="tempoAcabou($event)">
+                    </countdown>
                 </h5>
             </div>
         </div>
@@ -33,7 +34,8 @@
         <div class="form-row">
             <!--Pergunta-->
             <div class="col-md mb-1">
-                <ng-katex-paragraph class="math" [paragraph]="getDescricaoSimulado(simulado[index].Descricao)"></ng-katex-paragraph>
+                <ng-katex-paragraph class="math" [paragraph]="getDescricaoSimulado(simulado[index].Descricao)">
+                </ng-katex-paragraph>
             </div>
         </div>
 
@@ -105,6 +107,31 @@
             <div class="col-md mb-1">
                 <button (click)="proximaQuestao()" [disabled]="!formulario.valid" class="botoes"><span *ngIf="carregar"
                         class="spinner-border spinner-border-sm mr-1"></span> {{ textoBotao }}</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Modal para acaba o tempo do usuário-->
+<div class="modal fade" style="text-align: center;" #modalTempo id="modalAlerta" tabindex="-1" role="dialog"
+    aria-labelledby="modalAlertaLabel" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+
+                <div class="alerta">
+                    <img loading="lazy" src="../../../../assets/img/cronometro.svg" alt="">
+                    <h1>Seu tempo acabou!</h1>
+                    <h4>Deseja enviar o simulado incompleto ou cancelar o envio?</h4>
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="cancelar" (click)="cancelarEnvio()"><span *ngIf="cancelar"
+                    class="spinner-border spinner-border-sm mr-1"></span> Cancelar</button>
+                <button type="button" (click)="enviarSimuladoIncompleto()"><span *ngIf="spinnerModal"
+                        class="spinner-border spinner-border-sm mr-1"></span> Enviar Simulado</button>
             </div>
         </div>
     </div>

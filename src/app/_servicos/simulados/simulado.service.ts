@@ -18,8 +18,14 @@ export class SimuladoService {
     public simulado: Observable<Simulado>;
 
     constructor(private router: Router, private http: HttpClient, private autenticacaoService: AutenticacaoService) {
-        this.simuladoSubject = new BehaviorSubject<Simulado>(JSON.parse(sessionStorage.getItem('simulado')));
-        this.simulado = this.simuladoSubject.asObservable();
+        if (!(sessionStorage.getItem('simulado') == '')) {
+            this.simuladoSubject = new BehaviorSubject<Simulado>(JSON.parse(sessionStorage.getItem('simulado')));
+            this.simulado = this.simuladoSubject.asObservable();
+        } else {
+            this.simuladoSubject = new BehaviorSubject<Simulado>(new Simulado());
+            this.simulado = this.simuladoSubject.asObservable();
+        }
+
     }
 
     public get getSimuladoValor(): Simulado {

@@ -51,6 +51,32 @@ input:checked + label {
     float: right;
 }
 
+/*Estilo do alerta*/
+.alerta{
+	width:100%;
+ 	padding:20px;
+	text-align:center;
+}
+
+.alerta img{
+	width:50%;
+	height:auto;
+	margin:0 auto;
+	display:block;
+	margin-bottom:25px;
+}
+
+.cancelar{
+    border: 2px solid #DC3545;
+    color: #DC3545;
+    float: right;
+}
+
+.cancelar:hover:enabled {
+    background: #DC3545;
+    color: rgb(238,241,236);
+}
+
 @media(max-width: 767px){
     .questaoheader{
         text-align: center;

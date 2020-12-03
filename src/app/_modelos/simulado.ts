@@ -11,17 +11,17 @@ export class Simulado {
     TipoSimulado: number;
     dataCriacao: Date;
 
-    constructor(DataFimSimulado: Date,
-        DataInicio: Date,
-        Descricao: string,
-        Id: number,
-        IdUsuario: number,
-        Nome: string,
-        QuantidadeQuestoes: number,
-        Questoes: {},
-        TempoMaximo: number,
-        TipoSimulado: number,
-        dataCriacao: Date) {
+    constructor(DataFimSimulado?: Date,
+        DataInicio?: Date,
+        Descricao?: string,
+        Id?: number,
+        IdUsuario?: number,
+        Nome?: string,
+        QuantidadeQuestoes?: number,
+        Questoes?: {},
+        TempoMaximo?: number,
+        TipoSimulado?: number,
+        dataCriacao?: Date) {
         this.DataFimSimulado = DataFimSimulado;
         this.DataInicio = DataInicio;
         this.Descricao = Descricao;

@@ -15,6 +15,10 @@ import { ConfirmacaoDialogoService } from './../../utils/caixa-dialogo/confirmac
 import { Router } from '@angular/router';
 import { Component, OnInit, ViewChild, ElementRef, HostListener, Input, OnDestroy } from '@angular/core';
 import { CountdownComponent, CountdownEvent } from 'ngx-countdown';
+import * as $ from "jquery";
+
+//Varivável para habilitar e usar o jquery
+declare var $: any;
 
 @Component({
   selector: 'app-simulado-gerado',
@@ -23,11 +27,12 @@ import { CountdownComponent, CountdownEvent } from 'ngx-countdown';
 })
 export class SimuladoGeradoComponent implements OnInit, OnDestroy, CanComponentDeactivate {
 
+  @ViewChild('modalTempo', { static: true }) modalTempo: ElementRef;
   @ViewChild('cd', { static: false }) private cronometro: CountdownComponent;
   progresso: number;
   tempo: any;
   tempoAtual: number;
-  habilitarBotao: boolean = true;
+  habilitarBotao = true;
   imagem: string;
   textoBotao: string = "Próxima Questão"
   formulario: FormGroup;
@@ -39,7 +44,9 @@ export class SimuladoGeradoComponent implements OnInit, OnDestroy, CanComponentD
   area: string;
   disciplina: string;
   prova: string;
-  carregar = false;
+  carregar = false
+  cancelar = false;
+  spinnerModal = false;
 
   constructor(private router: Router, private sanitizer: DomSanitizer,
     private confirmacaoDialogoService: ConfirmacaoDialogoService, private fb: FormBuilder,
@@ -66,11 +73,12 @@ export class SimuladoGeradoComponent implements OnInit, OnDestroy, CanComponentD
     this.getDisciplinaEArea();
   }
 
-  tempoAcabou(e:Event){
-    if (e["action"] == "done"){
+  tempoAcabou(e: Event) {
+    if (e["action"] == "done") {
+      $(this.modalTempo.nativeElement).modal('show');
       console.log('Tempo acabou')
-     }
-   }
+    }
+  }
 
   ngOnDestroy(): void {
     sessionStorage.setItem("tempo", '');
@@ -80,6 +88,7 @@ export class SimuladoGeradoComponent implements OnInit, OnDestroy, CanComponentD
     sessionStorage.setItem("idSimulado", '');
     sessionStorage.setItem("respostas", '[]');
     sessionStorage.setItem("simulado", '');
+    $(this.modalTempo.nativeElement).modal('hide');
   }
 
   getDisciplinaEArea() {
@@ -89,7 +98,7 @@ export class SimuladoGeradoComponent implements OnInit, OnDestroy, CanComponentD
   }
 
   canDeactivate() {
-    if ((this.index + 1) < this.quantidadeQuestoes) {
+    if (!this.cancelar && ((this.index + 1) < this.quantidadeQuestoes)) {
       let result: Promise<boolean> = this.confirmacaoDialogoService.confirm('Seu progresso será perdido! Tem certeza que deseja sair?')
         .then((confirmed) => confirmed).catch(function () {
           return false;
@@ -144,7 +153,6 @@ export class SimuladoGeradoComponent implements OnInit, OnDestroy, CanComponentD
 
       this.simuladoService.finalizarSimulado(idSimulado, this.aluno.IdUsuario, this.listaRespostas).pipe(first()).subscribe(
         simulado => {
-
           this.router.navigateByUrl("aluno/dashboard");
           sessionStorage.setItem("tempo", '');
           sessionStorage.setItem("tipoSimulado", '');
@@ -167,16 +175,47 @@ export class SimuladoGeradoComponent implements OnInit, OnDestroy, CanComponentD
     }
   }
 
+  cancelarEnvio() {
+    this.cancelar = true;
+    this.router.navigateByUrl("aluno/listasimulados");
+  }
+
+  enviarSimuladoIncompleto() {
+    this.cancelar = true;
+    this.spinnerModal = true;
+    for (let i = this.index; i < this.quantidadeQuestoes; i++) {
+      this.listaRespostas.push(new Resposta(this.simulado[i].Id, false, null, this.simulado[this.index].TipoQuestao));
+      sessionStorage.setItem('respostas', JSON.stringify(this.listaRespostas));
+    }
+    let idSimulado = Number(sessionStorage.getItem('idSimulado'));
+    this.simuladoService.finalizarSimulado(idSimulado, this.aluno.IdUsuario, this.listaRespostas).pipe(first()).subscribe(
+      simulado => {
+        $(this.modalTempo.nativeElement).modal('hide');
+        this.router.navigateByUrl("aluno/dashboard");
+        sessionStorage.setItem("tempo", '');
+        sessionStorage.setItem("tipoSimulado", '');
+        sessionStorage.setItem("progresso", '');
+        sessionStorage.setItem("index", '');
+        sessionStorage.setItem("idSimulado", '');
+        sessionStorage.setItem("respostas", '');
+        sessionStorage.setItem("simulado", '');
+      },
+      error => {
+        this.spinnerModal = true;
+        console.log(error);
+      });
+  }
+
   converterMinutosEmSegundos(minutos: number) {
     return minutos * 60;
   }
 
-  getDescricaoSimulado(descricao: string){
+  getDescricaoSimulado(descricao: string) {
     return this.prova.concat(descricao.toString());
   }
 
   //Modifica o texto para inserir as letras antes do enunciado da alternativas
-  getAlternativas(letra:string, alternativa:string){
+  getAlternativas(letra: string, alternativa: string) {
     return letra.concat(alternativa.toString());
   }
 }
