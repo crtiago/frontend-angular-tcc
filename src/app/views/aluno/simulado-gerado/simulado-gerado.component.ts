@@ -218,4 +218,9 @@ export class SimuladoGeradoComponent implements OnInit, OnDestroy, CanComponentD
   getAlternativas(letra: string, alternativa: string) {
     return letra.concat(alternativa.toString());
   }
+
+  getAlternativaImagem(imagem: string){
+    return this.sanitizer.bypassSecurityTrustResourceUrl('data:image/*;base64,' + imagem);
+  }
+
 }

@@ -35,5 +35,6 @@ export enum EDisciplinaId {
     //	FASE 8
     "Teoria da computação" = 24,
     "Informática e sociedade" = 25,
-    "Grafos" = 26
+    "Grafos" = 26,
+    "Cálculo Numérico" = 27,
 }

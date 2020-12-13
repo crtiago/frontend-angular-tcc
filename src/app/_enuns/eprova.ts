@@ -1,6 +1,6 @@
 export enum EProva{
     
-    "ENADE: " = 1,
-	"POSCOMP: " = 2,
+    "ENADE - " = 1,
+	"POSCOMP - " = 2,
 
 }

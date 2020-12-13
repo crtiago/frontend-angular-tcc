@@ -45,8 +45,8 @@
             </div>
         </div>
 
-        <div class="form-row">
-            <!--Alternativas-->
+        <!--Alternativas sem imagens-->
+        <div class="form-row" *ngIf="!simulado[index].AlternativaComImagem">
             <div class="col-md mb-1">
                 <form [formGroup]="formulario">
                     <ul>
@@ -100,7 +100,50 @@
             </div>
         </div>
 
-
+        <!--Alternativas com imagens-->
+        <div *ngIf="simulado[index].AlternativaComImagem" class="form-row">
+            <div class="col-md mb-1">
+                <form [formGroup]="formulario">
+                    <ul>
+                        <li>
+                            <input type="radio" formControlName="alternativas" name="alternativas" value="A"
+                                id="alternativaA">
+                            <label for='alternativaA'>a)
+                                <img class="imagemAlternativas" [src]="getAlternativaImagem(simulado[index].AlternativasA)">
+                            </label>
+                        </li>
+                        <li>
+                            <input type="radio" formControlName="alternativas" name="alternativas" value="B"
+                                id="alternativaB">
+                            <label for='alternativaB'>b)
+                                <img class="imagemAlternativas" [src]="getAlternativaImagem(simulado[index].AlternativasB)">
+                            </label>
+                        </li>
+                        <li>
+                            <input type="radio" formControlName="alternativas" name="alternativas" value="C"
+                                id="alternativaC">
+                            <label for='alternativaC'>c)
+                                <img class="imagemAlternativas" [src]="getAlternativaImagem(simulado[index].AlternativasC)">
+                            </label>
+                        </li>
+                        <li>
+                            <input type="radio" formControlName="alternativas" name="alternativas" value="D"
+                                id="alternativaD">
+                            <label for='alternativaD'>d)
+                                <img class="imagemAlternativas" [src]="getAlternativaImagem(simulado[index].AlternativasD)">
+                            </label>
+                        </li>
+                        <li>
+                            <input type="radio" formControlName="alternativas" name="alternativas" value="E"
+                                id="alternativaE">
+                            <label for='alternativaE'>e)
+                                <img class="imagemAlternativas" [src]="getAlternativaImagem(simulado[index].AlternativasE)">
+                            </label>
+                        </li>
+                    </ul>
+                </form>
+            </div>
+        </div>
 
         <!--Botões do formulário-->
         <div class="form-row">

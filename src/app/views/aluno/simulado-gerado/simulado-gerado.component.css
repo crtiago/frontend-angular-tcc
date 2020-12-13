@@ -47,6 +47,10 @@ input:checked + label {
     width: 50%;
 }
 
+.imagemAlternativas{
+    width: 15%;
+}
+
 .botoes{
     float: right;
 }
