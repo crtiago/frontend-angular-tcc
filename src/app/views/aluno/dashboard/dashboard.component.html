@@ -5,19 +5,18 @@
         <div class="card border-0 rounded-1">
           <div class="card-body">
             <div class="card-innerBody d-flex align-items-center">
-              <div class="card-icon text-light">
-                <i class="fas fa-dollar-sign" aria-hidden="true"></i>
-              </div>
               <div class="ml-auto">
                 <p class="card-label text-right text-muted">Desempenho Geral</p>
-                <h4 class="card-text text-success text-right">250</h4>
+                <h4 class="card-text text-success text-right" style="font-size: 20px;">Acertos: {{resultados.ResultadoGeral.Acertos}}</h4>
+                <h4 class="card-text text-danger text-right" style="font-size: 20px;">Erros: {{resultados.ResultadoGeral.Erros}}</h4>
+                <h4 class="card-text text-info text-right" style="font-size: 20px;">Não respondidas: {{resultados.ResultadoGeral.NaoRespondidas}}</h4>
               </div>
             </div>
           </div>
           <div class="card-footer d-flex ">
-            <small class="text-danger">Erros</small>
-            <small class="text-danger ml-auto">
-              50
+            <small class="text-info">Questões realizadas</small>
+            <small class="text-info ml-auto">
+              {{resultados.ResultadoGeral.TotalQuestao}}
             </small>
           </div>
         </div>
@@ -27,20 +26,18 @@
         <div class="card border-0 rounded-1">
           <div class="card-body">
             <div class="card-innerBody d-flex align-items-center">
-              <div class="card-icon text-light">
-                <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-              </div>
               <div class="ml-auto">
-                <p class="card-label text-right text-muted">Erros</p>
-                <h4 class="card-text text-right ">10</h4>
+                <p class="card-label text-right text-muted">Área de Matemática</p>
+                <h4 class="card-text text-success text-right" style="font-size: 20px;">Acertos: {{resultados.ResultadoMatematica.Acertos}}</h4>
+                <h4 class="card-text text-danger text-right" style="font-size: 20px;">Erros: {{resultados.ResultadoMatematica.Erros}}</h4>
+                <h4 class="card-text text-info text-right" style="font-size: 20px;">Não respondidas: {{resultados.ResultadoMatematica.NaoRespondidas}}</h4>
               </div>
             </div>
           </div>
           <div class="card-footer d-flex ">
-            <small class="text-muted">Since last month</small>
-            <small class="text-success ml-auto">
-              <i class="fa fa-caret-up" aria-hidden="true"></i>
-              8,66%
+            <small class="text-info">Questões realizadas</small>
+            <small class="text-info ml-auto">
+              {{resultados.ResultadoMatematica.TotalQuestao}}
             </small>
           </div>
         </div>
@@ -50,19 +47,18 @@
         <div class="card border-0 rounded-1">
           <div class="card-body">
             <div class="card-innerBody d-flex align-items-center">
-              <div class="card-icon text-light">
-                <i class="fa fa-users" aria-hidden="true"></i>
-              </div>
               <div class="ml-auto">
-                <p class="card-label text-right text-muted">ENADE</p>
-                <h4 class="card-text text-success text-right ">100</h4>
+                <p class="card-label text-right text-muted">Área de Fundamentos</p>
+                <h4 class="card-text text-success text-right" style="font-size: 20px;">Acertos: {{resultados.ResultadoFundamentos.Acertos}}</h4>
+                <h4 class="card-text text-danger text-right" style="font-size: 20px;">Erros: {{resultados.ResultadoFundamentos.Erros}}</h4>
+                <h4 class="card-text text-info text-right" style="font-size: 20px;">Não respondidas: {{resultados.ResultadoFundamentos.NaoRespondidas}}</h4>
               </div>
             </div>
           </div>
           <div class="card-footer d-flex ">
-            <small class="text-danger">Erros</small>
-            <small class="text-danger ml-auto">
-              20
+            <small class="text-info">Questões realizadas</small>
+            <small class="text-info ml-auto">
+              {{resultados.ResultadoFundamentos.TotalQuestao}}
             </small>
           </div>
         </div>
@@ -72,19 +68,18 @@
         <div class="card border-0 rounded-1">
           <div class="card-body">
             <div class="card-innerBody d-flex align-items-center">
-              <div class="card-icon text-light">
-                <i class="fa fa-heartbeat" aria-hidden="true"></i>
-              </div>
               <div class="ml-auto">
-                <p class="card-label text-right text-muted">POSCOMP</p>
-                <h4 class="card-text text-success text-right ">150</h4>
+                <p class="card-label text-right text-muted">Área de Tecnologia</p>
+                <h4 class="card-text text-success text-right" style="font-size: 20px;">Acertos: {{resultados.ResultadoTecnologia.Acertos}}</h4>
+                <h4 class="card-text text-danger text-right" style="font-size: 20px;">Erros: {{resultados.ResultadoTecnologia.Erros}}</h4>
+                <h4 class="card-text text-info text-right" style="font-size: 20px;">Não respondidas: {{resultados.ResultadoTecnologia.NaoRespondidas}}</h4>
               </div>
             </div>
           </div>
           <div class="card-footer d-flex ">
-            <small class="text-danger">Erros</small>
-            <small class="text-danger ml-auto">
-              30
+            <small class="text-info">Questões realizadas</small>
+            <small class="text-info ml-auto">
+              {{resultados.ResultadoTecnologia.TotalQuestao}}
             </small>
           </div>
         </div>

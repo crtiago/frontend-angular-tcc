@@ -1,4 +1,4 @@
-import { UtilMetodos } from './../../_helpers/util-metodos';
+import { RespostaCadastro } from './../../_helpers/resposta-cadastro';
 import { ConfiguracoesComponent } from './../utils/configuracoes/configuracoes.component';
 import { SuporteComponent } from './../utils/suporte/suporte.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -19,7 +19,7 @@ const routes: Routes = [
       {
         path: 'configuracoes', component: ConfiguracoesComponent,
         resolve: {
-          response: UtilMetodos
+          response: RespostaCadastro
         },
         data: { title: 'Configurações' }
       },

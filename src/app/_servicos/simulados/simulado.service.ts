@@ -32,7 +32,7 @@ export class SimuladoService {
         return this.simuladoSubject.value;
     }
 
-    criarSimulado(AnoProva: number, DataFimSimulado: Date, DataInicio: Date, Descricao: string, IdUsuario: number, Nome: string, QuantidadeQuestoes: number, TempoMaximo: number, TipoSimulado: number) {
+    criarSimuladoPadrao(AnoProva: number, DataFimSimulado: Date, DataInicio: Date, Descricao: string, IdUsuario: number, Nome: string, QuantidadeQuestoes: number, TempoMaximo: number, TipoSimulado: number) {
         return this.http.post<any>(`${environment.apiUrl}/GerarSimulado`, { AnoProva, DataFimSimulado, DataInicio, Descricao, IdUsuario, Nome, QuantidadeQuestoes, TempoMaximo, TipoSimulado })
             .pipe(
                 map(simulado => {

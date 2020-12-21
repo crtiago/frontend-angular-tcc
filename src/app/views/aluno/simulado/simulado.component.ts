@@ -56,8 +56,8 @@ export class SimuladoComponent implements OnInit {
   criarSimulado() {
     this.carregar = true;
 
-    this.simuladoService.criarSimulado(
-      2003,
+    this.simuladoService.criarSimuladoPadrao(
+      2009,
       new Date,
       new Date,
       this.formularioDeUsuario.get('descricao').value,

@@ -1,4 +1,5 @@
-import { UtilMetodos } from './_helpers/util-metodos';
+import { RespostaCadastro } from './_helpers/resposta-cadastro';
+
 import { CadastroComponent } from './views/utils/cadastro/cadastro.component';
 import { RouteGuardService } from './_servicos/rota/route-guard.service';
 import { LoginComponent } from './views/utils/login/login.component';
@@ -11,7 +12,7 @@ const routes: Routes = [
   {
     path: 'cadastro', component: CadastroComponent,
     resolve: {
-      response: UtilMetodos
+      response: RespostaCadastro
     }
   },
   {

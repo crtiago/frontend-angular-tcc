@@ -1,8 +1,9 @@
+import { RespostaResultados } from './../../_helpers/resposta-resultados';
+import { RespostaCadastro } from './../../_helpers/resposta-cadastro';
 import { RespostaListaSimulados } from './../../_helpers/resposta-lista-simulados';
 import { ListaSimuladosComponent } from './lista-simulados/lista-simulados.component';
 import { DeactivateGuardService } from './../../_servicos/rota/deactivate-guard.service';
 import { SimuladoGeradoComponent } from './simulado-gerado/simulado-gerado.component';
-import { UtilMetodos } from './../../_helpers/util-metodos';
 import { ConfiguracoesComponent } from './../utils/configuracoes/configuracoes.component';
 import { SuporteComponent } from './../utils/suporte/suporte.component';
 import { AlunoBaseComponent } from './aluno-base/aluno-base.component';
@@ -18,7 +19,11 @@ const routes: Routes = [
     path: '', component: AlunoBaseComponent,
     children: [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-      { path: 'dashboard', component: DashboardComponent, data: { title: 'Dashboard' } },
+      {
+        path: 'dashboard', component: DashboardComponent, resolve: {
+          response: RespostaResultados
+        }, data: { title: 'Dashboard' }
+      },
       { path: 'simulado', component: SimuladoComponent, data: { title: 'Simulado' } },
       {
         path: 'simuladogerado', component: SimuladoGeradoComponent, canDeactivate: [DeactivateGuardService], data: { title: 'Simulado Gerado' }
@@ -31,7 +36,7 @@ const routes: Routes = [
       { path: 'sala', component: SalaComponent, data: { title: 'Sala' } },
       {
         path: 'configuracoes', component: ConfiguracoesComponent, resolve: {
-          response: UtilMetodos
+          response: RespostaCadastro
         }, data: { title: 'Configurações' }
       },
       { path: 'suporte', component: SuporteComponent, data: { title: 'Suporte' } },

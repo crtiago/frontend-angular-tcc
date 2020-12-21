@@ -1,9 +1,11 @@
+import { RespostaResultados } from './_helpers/resposta-resultados';
+import { RespostaCadastro } from './_helpers/resposta-cadastro';
+import { DashboardService } from './_servicos/resultados/dashboard.service';
 import { RespostaListaSimulados } from './_helpers/resposta-lista-simulados';
 import { SimuladoService } from './_servicos/simulados/simulado.service';
 import { ConfirmacaoDialogoService } from './views/utils/caixa-dialogo/confirmacao-dialogo.service';
 import { DeactivateGuardService } from './_servicos/rota/deactivate-guard.service';
 import { CadastroComponent } from './views/utils/cadastro/cadastro.component';
-import { UtilMetodos } from './_helpers/util-metodos';
 import { TratamentoImagem } from './_helpers/tratamento-imagem';
 import { MetodosEnuns } from './_helpers/metodos-enuns';
 import { InterceptadorErros } from './_helpers/interceptador-erros';
@@ -51,11 +53,13 @@ const maskConfig: Partial<IConfig> = {
     MetodosEnuns,
     TratamentoImagem,
     { provide: HTTP_INTERCEPTORS, useClass: InterceptadorErros, multi: true },
-    UtilMetodos,
+    RespostaResultados,
+    RespostaCadastro,
     RespostaListaSimulados,
     DeactivateGuardService,
     ConfirmacaoDialogoService,
-    SimuladoService
+    SimuladoService,
+    DashboardService
   ],
   bootstrap: [AppComponent]
 })
