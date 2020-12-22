@@ -56,7 +56,8 @@ export class SimuladoGeradoComponent implements OnInit, OnDestroy, CanComponentD
 
     this.verificarSimulado();
     this.formulario = fb.group({
-      alternativas: ['', Validators.required]
+      alternativas: ['', Validators.required],
+      descritiva: ['', Validators.required],
     });
     this.simulado = this.simuladoService.getSimuladoValor;
     this.index = Number(sessionStorage.getItem('index'));
@@ -65,6 +66,15 @@ export class SimuladoGeradoComponent implements OnInit, OnDestroy, CanComponentD
 
   ngOnInit(): void {
 
+    if(this.simulado[this.index].TipoQuestao == '1'){
+      this.formulario.get('descritiva').disable();
+      this.formulario.get('alternativas').enable();
+    }else{
+      this.formulario.get('descritiva').reset();
+      this.formulario.get('alternativas').reset();
+      this.formulario.get('alternativas').disable();
+      this.formulario.get('descritiva').enable();
+    }
 
     if (!(sessionStorage.getItem('respostas') == '[]')) {
       this.listaRespostas = JSON.parse(sessionStorage.getItem('respostas'));
@@ -72,6 +82,8 @@ export class SimuladoGeradoComponent implements OnInit, OnDestroy, CanComponentD
     this.imagem = this.simulado[this.index].ImagemQuestao;
     this.getDisciplinaEArea();
   }
+
+  get f() { return this.formulario.controls; }
 
   tempoAcabou(e: Event) {
     if (e["action"] == "done") {
@@ -138,8 +150,12 @@ export class SimuladoGeradoComponent implements OnInit, OnDestroy, CanComponentD
   }
 
   proximaQuestao() {
-
-    this.listaRespostas.push(new Resposta(this.simulado[this.index].Id, true, this.formulario.get('alternativas').value, this.simulado[this.index].TipoQuestao));
+    
+    if(this.simulado[this.index].TipoQuestao == '1'){
+      this.listaRespostas.push(new Resposta(this.simulado[this.index].Id, true, this.formulario.get('alternativas').value, this.simulado[this.index].TipoQuestao));
+    }else{
+      this.listaRespostas.push(new Resposta(this.simulado[this.index].Id, true, this.formulario.get('descritiva').value, this.simulado[this.index].TipoQuestao));
+    }
 
     sessionStorage.setItem('respostas', JSON.stringify(this.listaRespostas));
 

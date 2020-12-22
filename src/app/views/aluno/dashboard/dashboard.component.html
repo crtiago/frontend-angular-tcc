@@ -1,4 +1,76 @@
 <div class="base">
+
+  <div class="row">
+    <div class="col-12 mb-4 align-items-stretch">
+      <div class="card h-100 border-0 rounded-0">
+        <div class="card-title mb-1 p-3 d-flex">
+          <h4>Desempenho nos últimos simulados</h4>          
+        </div>
+        <div class="card-body">
+          <div class="table-responsive-md">
+            <div class="table-responsive">
+              <table class="table ">
+                <thead>
+                  <tr>
+                    <th style="width:30%;">Nome</th>
+                    <th style="width:20%;" class="text-secondary text-center">Tipo do Simulado</th>
+                    <th class="number" class="text-success text-center">Acertos</th>
+                    <th style="width:20%;" class="text-danger text-center">Erros</th>
+                    <th style="width:20%;" class="text-info text-center">Não respondidas</th>                    
+                    <th class="actions" style="width:5%;"></th>
+                  </tr>
+                </thead>
+                <tbody class="no-border-x">
+                  <tr>
+                    <td>Sony Xperia M4</td>
+                    <td class="text-center">$149</td>
+                    <td class="text-center">$149</td>
+                    <td class="text-center">Aug 23, 2018</td>
+                    <td class="text-center">Completed</td>
+                    <td class="text-center"><a class="icon" href="#"><i class="mdi mdi-plus-circle-o"></i></a></td>
+                  </tr>
+                  <tr>
+                    <td>Apple iPhone 6</td>
+                    <td class="text-center">$149</td>
+                    <td class="number">$535</td>
+                    <td>Aug 20, 2018</td>
+                    <td class="text-success">Completed</td>
+                    <td class="actions"><a class="icon" href="#"><i class="mdi mdi-plus-circle-o"></i></a></td>
+                  </tr>
+                  <tr>
+                    <td>Samsung Galaxy S7</td>
+                    <td class="text-center">$149</td>
+                    <td class="number">$583</td>
+                    <td>Aug 18, 2018</td>
+                    <td class="text-warning">Pending</td>
+                    <td class="actions"><a class="icon" href="#"><i class="mdi mdi-plus-circle-o"></i></a></td>
+                  </tr>
+                  <tr>
+                    <td>HTC One M9</td>
+                    <td class="text-center">$149</td>
+                    <td class="number">$350</td>
+                    <td>Aug 15, 2018</td>
+                    <td class="text-warning">Pending</td>
+                    <td class="actions"><a class="icon" href="#"><i class="mdi mdi-plus-circle-o"></i></a></td>
+                  </tr>
+                  <tr>
+                    <td>Sony Xperia Z5</td>
+                    <td class="text-center">$149</td>
+                    <td class="number">$495</td>
+                    <td>Aug 13, 2018</td>
+                    <td class="text-danger">Cancelled</td>
+                    <td class="actions"><a class="icon" href="#"><i class="mdi mdi-plus-circle-o"></i></a></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
      <div class="row">
   
       <div class="col-md-6 col-lg-3 mb-4">
@@ -14,8 +86,8 @@
             </div>
           </div>
           <div class="card-footer d-flex ">
-            <small class="text-info">Questões realizadas</small>
-            <small class="text-info ml-auto">
+            <small class="text-text-secondary text-muted">Questões realizadas</small>
+            <small class="text-text-secondary ml-auto text-muted">
               {{resultados.ResultadoGeral.TotalQuestao}}
             </small>
           </div>
@@ -35,8 +107,8 @@
             </div>
           </div>
           <div class="card-footer d-flex ">
-            <small class="text-info">Questões realizadas</small>
-            <small class="text-info ml-auto">
+            <small class="text-text-secondary text-muted">Questões realizadas</small>
+            <small class="text-text-secondary ml-auto text-muted">
               {{resultados.ResultadoMatematica.TotalQuestao}}
             </small>
           </div>
@@ -56,8 +128,8 @@
             </div>
           </div>
           <div class="card-footer d-flex ">
-            <small class="text-info">Questões realizadas</small>
-            <small class="text-info ml-auto">
+            <small class="text-text-secondary text-muted">Questões realizadas</small>
+            <small class="text-text-secondary ml-auto text-muted">
               {{resultados.ResultadoFundamentos.TotalQuestao}}
             </small>
           </div>
@@ -77,8 +149,8 @@
             </div>
           </div>
           <div class="card-footer d-flex ">
-            <small class="text-info">Questões realizadas</small>
-            <small class="text-info ml-auto">
+            <small class="text-text-secondary text-muted">Questões realizadas</small>
+            <small class="text-text-secondary ml-auto text-muted">
               {{resultados.ResultadoTecnologia.TotalQuestao}}
             </small>
           </div>
@@ -87,7 +159,8 @@
   
     </div>
   
-  
+
+    
     <div class="row">
       <div class="col-12 col-xl-6 mb-4">
         <div class="card border-0 rounded-1">

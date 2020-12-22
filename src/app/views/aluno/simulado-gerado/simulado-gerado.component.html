@@ -46,7 +46,7 @@
         </div>
 
         <!--Alternativas sem imagens-->
-        <div class="form-row" *ngIf="!simulado[index].AlternativaComImagem">
+        <div class="form-row" *ngIf="!simulado[index].AlternativaComImagem && simulado[index].TipoQuestao == '1'">
             <div class="col-md mb-1">
                 <form [formGroup]="formulario">
                     <ul>
@@ -101,7 +101,7 @@
         </div>
 
         <!--Alternativas com imagens-->
-        <div *ngIf="simulado[index].AlternativaComImagem" class="form-row">
+        <div *ngIf="simulado[index].AlternativaComImagem && simulado[index].TipoQuestao == '1'" class="form-row">
             <div class="col-md mb-1">
                 <form [formGroup]="formulario">
                     <ul>
@@ -109,38 +109,54 @@
                             <input type="radio" formControlName="alternativas" name="alternativas" value="A"
                                 id="alternativaA">
                             <label for='alternativaA'>a)
-                                <img class="imagemAlternativas" [src]="getAlternativaImagem(simulado[index].AlternativasA)">
+                                <img class="imagemAlternativas"
+                                    [src]="getAlternativaImagem(simulado[index].AlternativasA)">
                             </label>
                         </li>
                         <li>
                             <input type="radio" formControlName="alternativas" name="alternativas" value="B"
                                 id="alternativaB">
                             <label for='alternativaB'>b)
-                                <img class="imagemAlternativas" [src]="getAlternativaImagem(simulado[index].AlternativasB)">
+                                <img class="imagemAlternativas"
+                                    [src]="getAlternativaImagem(simulado[index].AlternativasB)">
                             </label>
                         </li>
                         <li>
                             <input type="radio" formControlName="alternativas" name="alternativas" value="C"
                                 id="alternativaC">
                             <label for='alternativaC'>c)
-                                <img class="imagemAlternativas" [src]="getAlternativaImagem(simulado[index].AlternativasC)">
+                                <img class="imagemAlternativas"
+                                    [src]="getAlternativaImagem(simulado[index].AlternativasC)">
                             </label>
                         </li>
                         <li>
                             <input type="radio" formControlName="alternativas" name="alternativas" value="D"
                                 id="alternativaD">
                             <label for='alternativaD'>d)
-                                <img class="imagemAlternativas" [src]="getAlternativaImagem(simulado[index].AlternativasD)">
+                                <img class="imagemAlternativas"
+                                    [src]="getAlternativaImagem(simulado[index].AlternativasD)">
                             </label>
                         </li>
                         <li>
                             <input type="radio" formControlName="alternativas" name="alternativas" value="E"
                                 id="alternativaE">
                             <label for='alternativaE'>e)
-                                <img class="imagemAlternativas" [src]="getAlternativaImagem(simulado[index].AlternativasE)">
+                                <img class="imagemAlternativas"
+                                    [src]="getAlternativaImagem(simulado[index].AlternativasE)">
                             </label>
                         </li>
                     </ul>
+                </form>
+            </div>
+        </div>
+
+        <!--Alternativas sem imagens-->
+        <div class="form-row" *ngIf="simulado[index].TipoQuestao == '2'">
+            <div class="col-md mb-1">
+                <form [formGroup]="formulario">
+                    <textarea type="text" formControlName="descritiva" name="descritiva" placeholder="Descrição do assunto"
+                        class="form-control" id="exampleFormControlTextarea1" rows="13%"
+                        [ngClass]="{ 'is-invalid': !f.descritiva.pristine && f.descritiva.errors, 'is-valid': !f.descritiva.errors }"></textarea>
                 </form>
             </div>
         </div>
@@ -172,7 +188,7 @@
 
             <div class="modal-footer">
                 <button type="button" class="cancelar" (click)="cancelarEnvio()"><span *ngIf="cancelar"
-                    class="spinner-border spinner-border-sm mr-1"></span> Cancelar</button>
+                        class="spinner-border spinner-border-sm mr-1"></span> Cancelar</button>
                 <button type="button" (click)="enviarSimuladoIncompleto()"><span *ngIf="spinnerModal"
                         class="spinner-border spinner-border-sm mr-1"></span> Enviar Simulado</button>
             </div>
