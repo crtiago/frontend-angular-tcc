@@ -21,7 +21,7 @@ const routes: Routes = [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
       {
         path: 'dashboard', component: DashboardComponent, resolve: {
-          response: RespostaResultados
+          respostaResultados: RespostaResultados
         }, data: { title: 'Dashboard' }
       },
       { path: 'simulado', component: SimuladoComponent, data: { title: 'Simulado' } },

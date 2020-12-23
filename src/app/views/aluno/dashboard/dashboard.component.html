@@ -21,45 +21,13 @@
                   </tr>
                 </thead>
                 <tbody class="no-border-x">
-                  <tr>
-                    <td>Sony Xperia M4</td>
-                    <td class="text-center">$149</td>
-                    <td class="text-center">$149</td>
-                    <td class="text-center">Aug 23, 2018</td>
-                    <td class="text-center">Completed</td>
+                  <tr *ngFor="let ultimoresultado of ultimosResultados;">
+                    <td>{{ultimoresultado.Nome}}</td>
+                    <td class="text-center text-secondary">{{getSimuladoPorId(ultimoresultado.TipoSimulado)}}</td>
+                    <td class="text-center text-success">{{ultimoresultado.ResultadoGeral.Acertos}}</td>
+                    <td class="text-center text-danger">{{ultimoresultado.ResultadoGeral.Erros}}</td>
+                    <td class="text-center text-info">{{ultimoresultado.ResultadoGeral.NaoRespondidas}}</td>
                     <td class="text-center"><a class="icon" href="#"><i class="mdi mdi-plus-circle-o"></i></a></td>
-                  </tr>
-                  <tr>
-                    <td>Apple iPhone 6</td>
-                    <td class="text-center">$149</td>
-                    <td class="number">$535</td>
-                    <td>Aug 20, 2018</td>
-                    <td class="text-success">Completed</td>
-                    <td class="actions"><a class="icon" href="#"><i class="mdi mdi-plus-circle-o"></i></a></td>
-                  </tr>
-                  <tr>
-                    <td>Samsung Galaxy S7</td>
-                    <td class="text-center">$149</td>
-                    <td class="number">$583</td>
-                    <td>Aug 18, 2018</td>
-                    <td class="text-warning">Pending</td>
-                    <td class="actions"><a class="icon" href="#"><i class="mdi mdi-plus-circle-o"></i></a></td>
-                  </tr>
-                  <tr>
-                    <td>HTC One M9</td>
-                    <td class="text-center">$149</td>
-                    <td class="number">$350</td>
-                    <td>Aug 15, 2018</td>
-                    <td class="text-warning">Pending</td>
-                    <td class="actions"><a class="icon" href="#"><i class="mdi mdi-plus-circle-o"></i></a></td>
-                  </tr>
-                  <tr>
-                    <td>Sony Xperia Z5</td>
-                    <td class="text-center">$149</td>
-                    <td class="number">$495</td>
-                    <td>Aug 13, 2018</td>
-                    <td class="text-danger">Cancelled</td>
-                    <td class="actions"><a class="icon" href="#"><i class="mdi mdi-plus-circle-o"></i></a></td>
                   </tr>
                 </tbody>
               </table>
@@ -79,16 +47,16 @@
             <div class="card-innerBody d-flex align-items-center">
               <div class="ml-auto">
                 <p class="card-label text-right text-muted">Desempenho Geral</p>
-                <h4 class="card-text text-success text-right" style="font-size: 20px;">Acertos: {{resultados.ResultadoGeral.Acertos}}</h4>
-                <h4 class="card-text text-danger text-right" style="font-size: 20px;">Erros: {{resultados.ResultadoGeral.Erros}}</h4>
-                <h4 class="card-text text-info text-right" style="font-size: 20px;">Não respondidas: {{resultados.ResultadoGeral.NaoRespondidas}}</h4>
+                <h4 class="card-text text-success text-right" style="font-size: 20px;">Acertos: {{resultadosGerais.ResultadoGeral.Acertos}}</h4>
+                <h4 class="card-text text-danger text-right" style="font-size: 20px;">Erros: {{resultadosGerais.ResultadoGeral.Erros}}</h4>
+                <h4 class="card-text text-info text-right" style="font-size: 20px;">Não respondidas: {{resultadosGerais.ResultadoGeral.NaoRespondidas}}</h4>
               </div>
             </div>
           </div>
           <div class="card-footer d-flex ">
             <small class="text-text-secondary text-muted">Questões realizadas</small>
             <small class="text-text-secondary ml-auto text-muted">
-              {{resultados.ResultadoGeral.TotalQuestao}}
+              {{resultadosGerais.ResultadoGeral.TotalQuestao}}
             </small>
           </div>
         </div>
@@ -100,16 +68,16 @@
             <div class="card-innerBody d-flex align-items-center">
               <div class="ml-auto">
                 <p class="card-label text-right text-muted">Área de Matemática</p>
-                <h4 class="card-text text-success text-right" style="font-size: 20px;">Acertos: {{resultados.ResultadoMatematica.Acertos}}</h4>
-                <h4 class="card-text text-danger text-right" style="font-size: 20px;">Erros: {{resultados.ResultadoMatematica.Erros}}</h4>
-                <h4 class="card-text text-info text-right" style="font-size: 20px;">Não respondidas: {{resultados.ResultadoMatematica.NaoRespondidas}}</h4>
+                <h4 class="card-text text-success text-right" style="font-size: 20px;">Acertos: {{resultadosGerais.ResultadoMatematica.Acertos}}</h4>
+                <h4 class="card-text text-danger text-right" style="font-size: 20px;">Erros: {{resultadosGerais.ResultadoMatematica.Erros}}</h4>
+                <h4 class="card-text text-info text-right" style="font-size: 20px;">Não respondidas: {{resultadosGerais.ResultadoMatematica.NaoRespondidas}}</h4>
               </div>
             </div>
           </div>
           <div class="card-footer d-flex ">
             <small class="text-text-secondary text-muted">Questões realizadas</small>
             <small class="text-text-secondary ml-auto text-muted">
-              {{resultados.ResultadoMatematica.TotalQuestao}}
+              {{resultadosGerais.ResultadoMatematica.TotalQuestao}}
             </small>
           </div>
         </div>
@@ -121,16 +89,16 @@
             <div class="card-innerBody d-flex align-items-center">
               <div class="ml-auto">
                 <p class="card-label text-right text-muted">Área de Fundamentos</p>
-                <h4 class="card-text text-success text-right" style="font-size: 20px;">Acertos: {{resultados.ResultadoFundamentos.Acertos}}</h4>
-                <h4 class="card-text text-danger text-right" style="font-size: 20px;">Erros: {{resultados.ResultadoFundamentos.Erros}}</h4>
-                <h4 class="card-text text-info text-right" style="font-size: 20px;">Não respondidas: {{resultados.ResultadoFundamentos.NaoRespondidas}}</h4>
+                <h4 class="card-text text-success text-right" style="font-size: 20px;">Acertos: {{resultadosGerais.ResultadoFundamentos.Acertos}}</h4>
+                <h4 class="card-text text-danger text-right" style="font-size: 20px;">Erros: {{resultadosGerais.ResultadoFundamentos.Erros}}</h4>
+                <h4 class="card-text text-info text-right" style="font-size: 20px;">Não respondidas: {{resultadosGerais.ResultadoFundamentos.NaoRespondidas}}</h4>
               </div>
             </div>
           </div>
           <div class="card-footer d-flex ">
             <small class="text-text-secondary text-muted">Questões realizadas</small>
             <small class="text-text-secondary ml-auto text-muted">
-              {{resultados.ResultadoFundamentos.TotalQuestao}}
+              {{resultadosGerais.ResultadoFundamentos.TotalQuestao}}
             </small>
           </div>
         </div>
@@ -142,16 +110,16 @@
             <div class="card-innerBody d-flex align-items-center">
               <div class="ml-auto">
                 <p class="card-label text-right text-muted">Área de Tecnologia</p>
-                <h4 class="card-text text-success text-right" style="font-size: 20px;">Acertos: {{resultados.ResultadoTecnologia.Acertos}}</h4>
-                <h4 class="card-text text-danger text-right" style="font-size: 20px;">Erros: {{resultados.ResultadoTecnologia.Erros}}</h4>
-                <h4 class="card-text text-info text-right" style="font-size: 20px;">Não respondidas: {{resultados.ResultadoTecnologia.NaoRespondidas}}</h4>
+                <h4 class="card-text text-success text-right" style="font-size: 20px;">Acertos: {{resultadosGerais.ResultadoTecnologia.Acertos}}</h4>
+                <h4 class="card-text text-danger text-right" style="font-size: 20px;">Erros: {{resultadosGerais.ResultadoTecnologia.Erros}}</h4>
+                <h4 class="card-text text-info text-right" style="font-size: 20px;">Não respondidas: {{resultadosGerais.ResultadoTecnologia.NaoRespondidas}}</h4>
               </div>
             </div>
           </div>
           <div class="card-footer d-flex ">
             <small class="text-text-secondary text-muted">Questões realizadas</small>
             <small class="text-text-secondary ml-auto text-muted">
-              {{resultados.ResultadoTecnologia.TotalQuestao}}
+              {{resultadosGerais.ResultadoTecnologia.TotalQuestao}}
             </small>
           </div>
         </div>

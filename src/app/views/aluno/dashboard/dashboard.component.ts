@@ -1,3 +1,6 @@
+import { EProvaResultado } from './../../../_enuns/eprovaresultado';
+import { EProva } from './../../../_enuns/eprova';
+import { first } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 import { DashboardService } from './../../../_servicos/resultados/dashboard.service';
 import { Component, OnInit } from '@angular/core';
@@ -10,10 +13,16 @@ import { Chart } from 'chart.js';
 })
 export class DashboardComponent implements OnInit {
 
-  resultados: any;
+  resultadosGerais: any;
+  ultimosResultados: any[];
 
   constructor(private route: ActivatedRoute, private dashboardService: DashboardService) {
-    this.resultados = this.route.snapshot.data.response.Data;
+    this.ultimosResultados = this.route.snapshot.data['respostaResultados'][0].Data; 
+    this.resultadosGerais = this.route.snapshot.data['respostaResultados'][1].Data;
+  }
+
+  getSimuladoPorId(tipoSimulado: number){
+    return EProvaResultado[tipoSimulado];    
   }
 
   chart1 = {

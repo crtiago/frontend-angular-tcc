@@ -154,9 +154,9 @@
         <div class="form-row" *ngIf="simulado[index].TipoQuestao == '2'">
             <div class="col-md mb-1">
                 <form [formGroup]="formulario">
-                    <textarea type="text" formControlName="descritiva" name="descritiva" placeholder="Descrição do assunto"
-                        class="form-control" id="exampleFormControlTextarea1" rows="13%"
-                        [ngClass]="{ 'is-invalid': !f.descritiva.pristine && f.descritiva.errors, 'is-valid': !f.descritiva.errors }"></textarea>
+                    <textarea type="text" formControlName="descritiva" name="descritiva"
+                        placeholder="Descrição do assunto" class="form-control" id="exampleFormControlTextarea1"
+                        rows="13%"></textarea>
                 </form>
             </div>
         </div>

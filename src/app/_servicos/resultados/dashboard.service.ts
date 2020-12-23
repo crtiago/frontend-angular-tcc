@@ -25,4 +25,18 @@ export class DashboardService {
         )
       )
   };
+
+  buscarUltimosResultados() {
+    return this.http.get<any>(`${environment.apiUrl}/BuscarUltimosResultados?idUsuario=${this.autenticacaoService.getUsuario.IdUsuario}`)
+      .pipe(
+        map(ultimosResultados => {
+          if (ultimosResultados.Sucesso) {
+            return ultimosResultados;
+          } else {
+            throw new Error(ultimosResultados.Mensagem);
+          }
+        }
+        )
+      )
+  };
 }

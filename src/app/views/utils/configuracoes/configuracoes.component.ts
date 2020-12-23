@@ -163,7 +163,7 @@ export class ConfiguracoesComponent implements OnInit {
 
   alterar() {
     this.carregar = true;
-    if (this.formularioDeUsuario.get('instituicao').value == "") {
+    if (this.formularioDeUsuario.get('instituicao').value == "" || this.formularioDeUsuario.get('instituicao').value == undefined) {
       this.idIntituicao = this.usuario.Instituicao.Id;
     }
 
@@ -172,7 +172,7 @@ export class ConfiguracoesComponent implements OnInit {
         this.usuario.IdUsuario,
         this.formularioDeUsuario.get('cpf').value,
         this.formularioDeUsuario.get('email').value,
-        this.idIntituicao,
+        this.formularioDeUsuario.get('instituicao').value,
         this.formularioDeUsuario.get('nascimento').value,
         this.formularioDeUsuario.get('nome').value,
         this.formularioDeUsuario.get('telefone').value,
@@ -198,7 +198,7 @@ export class ConfiguracoesComponent implements OnInit {
         this.usuario.IdUsuario,
         this.formularioDeUsuario.get('cpf').value,
         this.formularioDeUsuario.get('email').value,
-        this.idIntituicao,
+        this.formularioDeUsuario.get('instituicao').value,
         this.formularioDeUsuario.get('nascimento').value,
         this.formularioDeUsuario.get('nome').value,
         this.formularioDeUsuario.get('telefone').value,
