@@ -17,146 +17,196 @@ export class DashboardComponent implements OnInit {
   ultimosResultados: any[];
 
   constructor(private route: ActivatedRoute, private dashboardService: DashboardService) {
-    this.ultimosResultados = this.route.snapshot.data['respostaResultados'][0].Data; 
+    this.ultimosResultados = this.route.snapshot.data['respostaResultados'][0].Data;
     this.resultadosGerais = this.route.snapshot.data['respostaResultados'][1].Data;
   }
 
-  getSimuladoPorId(tipoSimulado: number){
-    return EProvaResultado[tipoSimulado];    
+  ngOnInit() {
+    this.getGraficoBarraDesempenhoUltimos();
+    this.getGraficoCirculoDesempenhoGeral();
+    this.getGraficosAcertosArea();
+    this.getGraficosErrosArea();
+    this.getGraficoSetoresAcertosDisciplinas();
+    this.getGraficoSetoresErrosDisciplinas();
+  }
+
+  getGraficosAcertosArea() {
+    return new Chart("pie-area-acertos", {
+      type: 'pie',
+      data: {
+        labels: ["Fundamentos da Computação", "Matemática", "Tecnologia da Computação"],
+        datasets: [{
+          backgroundColor: ["#3cba9f", "#8e5ea2", "#c45850"],
+          data: [
+            this.resultadosGerais.ResultadoFundamentos.Acertos,
+            this.resultadosGerais.ResultadoMatematica.Acertos,
+            this.resultadosGerais.ResultadoTecnologia.Acertos,
+          ]
+        }]
+      },
+    });
+  }
+
+  getGraficosErrosArea() {
+    return new Chart("pie-area-erros", {
+      type: 'pie',
+      data: {
+        labels: ["Fundamentos da Computação", "Matemática", "Tecnologia da Computação"],
+        datasets: [{
+          backgroundColor: ["#3cba9f", "#8e5ea2", "#c45850"],
+          data: [
+            this.resultadosGerais.ResultadoFundamentos.Erros,
+            this.resultadosGerais.ResultadoMatematica.Erros,
+            this.resultadosGerais.ResultadoTecnologia.Erros,
+          ]
+        }]
+      },
+    });
+  }
+
+  getGraficoBarraDesempenhoUltimos() {
+    return new Chart('chart-bar', {
+      type: 'bar',
+      data: {
+        labels: [
+          this.formatDate(this.ultimosResultados[0].DataEnvio),
+          this.formatDate(this.ultimosResultados[1].DataEnvio),
+          this.formatDate(this.ultimosResultados[2].DataEnvio),
+          this.formatDate(this.ultimosResultados[3].DataEnvio),
+          this.formatDate(this.ultimosResultados[4].DataEnvio),
+        ],
+        datasets: [{
+          label: 'Acertos',
+          data: [
+            this.ultimosResultados[0].ResultadoGeral.Acertos,
+            this.ultimosResultados[1].ResultadoGeral.Acertos,
+            this.ultimosResultados[2].ResultadoGeral.Acertos,
+            this.ultimosResultados[3].ResultadoGeral.Acertos,
+            this.ultimosResultados[4].ResultadoGeral.Acertos],
+          backgroundColor: 'green',
+          borderColor: 'green',
+          borderWidth: 2
+        },
+        {
+          label: 'Erros',
+          data: [
+            this.ultimosResultados[0].ResultadoGeral.Erros,
+            this.ultimosResultados[1].ResultadoGeral.Erros,
+            this.ultimosResultados[2].ResultadoGeral.Erros,
+            this.ultimosResultados[3].ResultadoGeral.Erros,
+            this.ultimosResultados[4].ResultadoGeral.Erros
+          ],
+          backgroundColor: 'red',
+          borderColor: 'red',
+          borderWidth: 2
+        }
+        ]
+      },
+      options: {
+        barValueSpacing: 1,
+        scales: {
+          yAxes: [{
+            ticks: {
+              fontColor: 'rgba(0,0,0,.6)',
+              fontStyle: 'bold',
+              beginAtZero: true,
+              maxTicksLimit: 8,
+              padding: 10
+            }
+          }],
+          dataset: [{
+            barPercentage: 0.4
+          }]
+        },
+        responsive: true,
+        legend: {
+          position: 'bottom',
+          display: false
+        },
+      }
+    });
+  }
+
+  getGraficoCirculoDesempenhoGeral() {
+    return new Chart('chart-doughnut', {
+      type: 'doughnut',
+      data: {
+        datasets: [{
+          data: [this.resultadosGerais.ResultadoGeral.Acertos, this.resultadosGerais.ResultadoGeral.Erros, this.resultadosGerais.ResultadoGeral.NaoRespondidas],
+          backgroundColor: ["green", "red", "#36a2eb"],
+        }],
+        labels: [
+          'Acertos',
+          'Erros',
+          'Não respondidas'
+        ]
+      },
+      options: {
+        legend: {
+          position: 'bottom',
+          display: false
+        },
+        cutoutPercentage: 80
+      }
+    });
+  }
+
+  getGraficoSetoresAcertosDisciplinas() {
+    return new Chart("pie-acertos", {
+      type: 'pie',
+      data: {
+        labels: ["Africa", "Asia", "Europe", "Latin America", "North America"],
+        datasets: [{
+          label: "Population (millions)",
+          backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850"],
+          data: [2478, 5267, 734, 784, 433]
+        }]
+      },
+      options: {
+        title: {
+          display: true,
+          text: 'Predicted world population (millions) in 2050'
+        }
+      }
+    });
+  }
+
+  getGraficoSetoresErrosDisciplinas() {
+    return new Chart("pie-erros", {
+      type: 'pie',
+      data: {
+        labels: ["Africa", "Asia", "Europe", "Latin America", "North America"],
+        datasets: [{
+          label: "Population (millions)",
+          backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850"],
+          data: [2478, 5267, 734, 784, 433]
+        }]
+      },
+      options: {
+        title: {
+          display: true,
+          text: 'Predicted world population (millions) in 2050'
+        }
+      }
+    });
+  }
+
+  getSimuladoPorId(tipoSimulado: number) {
+    return EProvaResultado[tipoSimulado];
   }
 
   formatDate(date) {
     var d = new Date(date),
-        month = '' + (d.getMonth() + 1),
-        day = '' + d.getDate(),
-        year = d.getFullYear();
+      month = '' + (d.getMonth() + 1),
+      day = '' + d.getDate(),
+      year = d.getFullYear();
 
-    if (month.length < 2) 
-        month = '0' + month;
-    if (day.length < 2) 
-        day = '0' + day;
+    if (month.length < 2)
+      month = '0' + month;
+    if (day.length < 2)
+      day = '0' + day;
 
     return [day, month, year].join('/');
-}
-
-  chart1 = {
-    data: {
-      labels: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-      datasets: [{
-        label: 'Premium',
-        data: [50, 80, 60, 120, 80, 100, 60],
-        backgroundColor: 'transparent',
-        borderColor: '#5b6582',
-        borderWidth: 2
-      },
-      {
-        label: 'Free',
-        data: [100, 60, 80, 50, 140, 60, 100],
-        backgroundColor: 'transparent',
-        borderColor: '#36a2eb',
-        borderWidth: 2
-      }
-      ]
-    },
-    options: {
-      scales: {
-        yAxes: [{
-          ticks: {
-            fontColor: 'rgba(0,0,0,.6)',
-            fontStyle: 'bold',
-            beginAtZero: true,
-            maxTicksLimit: 8,
-            padding: 10
-          }
-        }]
-      },
-      responsive: true,
-      legend: {
-        position: 'bottom',
-        display: false
-      },
-    }
-  };
-  chart2 = {
-    data: {
-      labels: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-      datasets: [{
-        label: 'Premium',
-        data: [50, 80, 60, 120, 80, 100, 60],
-        backgroundColor: '#5b6582',
-        borderColor: '#5b6582',
-        borderWidth: 2
-      },
-      {
-        label: 'Free',
-        data: [100, 60, 80, 50, 140, 60, 100],
-        backgroundColor: '#36a2eb',
-        borderColor: '#36a2eb',
-        borderWidth: 2
-      }
-      ]
-    },
-    options: {
-      barValueSpacing: 1,
-      scales: {
-        yAxes: [{
-          ticks: {
-            fontColor: 'rgba(0,0,0,.6)',
-            fontStyle: 'bold',
-            beginAtZero: true,
-            maxTicksLimit: 8,
-            padding: 10
-          }
-        }],
-        dataset: [{
-          barPercentage: 0.4
-        }]
-      },
-      responsive: true,
-      legend: {
-        position: 'bottom',
-        display: false
-      },
-    }
-  };
-  chart3 = {
-    data: {
-      datasets: [{
-        data: [250, 50],
-        backgroundColor: ["green", "red"],
-      }],
-      labels: [
-        'Acertos',
-        'Erros',
-      ]
-
-    },
-    options: {
-      legend: {
-        position: 'bottom',
-        display: false
-      },
-      cutoutPercentage: 80
-    }
-  };
-
-  ngOnInit() {
-    new Chart('chart-line', {
-      type: 'line',
-      data: this.chart1.data,
-      options: this.chart1.options
-    });
-    new Chart('chart-bar', {
-      type: 'bar',
-      data: this.chart2.data,
-      options: this.chart2.options
-    });
-    new Chart('chart-doughnut', {
-      type: 'doughnut',
-      data: this.chart3.data,
-      options: this.chart3.options
-    });
-
   }
 
 }
