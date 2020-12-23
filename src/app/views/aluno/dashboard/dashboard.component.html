@@ -12,21 +12,23 @@
               <table class="table ">
                 <thead>
                   <tr>
-                    <th style="width:30%;">Nome</th>
+                    <th style="width:25%;">Nome</th>
                     <th style="width:20%;" class="text-secondary text-center">Tipo do Simulado</th>
                     <th class="number" class="text-success text-center">Acertos</th>
-                    <th style="width:20%;" class="text-danger text-center">Erros</th>
-                    <th style="width:20%;" class="text-info text-center">Não respondidas</th>
-                    <th class="actions" style="width:5%;"></th>
+                    <th style="width:15%;" class="text-danger text-center">Erros</th>
+                    <th style="width:15%;" class="text-info text-center">Não respondidas</th>
+                    <th style="width:15%;" class="text-secondary text-center">Data de Conclusão</th>
+                    <th class="actions" style="width:2%;"></th>
                   </tr>
                 </thead>
                 <tbody class="no-border-x">
-                  <tr *ngFor="let ultimoresultado of ultimosResultados;">
+                  <tr *ngFor="let ultimoresultado of ultimosResultados.slice().reverse();">
                     <td>{{ultimoresultado.Nome}}</td>
                     <td class="text-center text-secondary">{{getSimuladoPorId(ultimoresultado.TipoSimulado)}}</td>
                     <td class="text-center text-success">{{ultimoresultado.ResultadoGeral.Acertos}}</td>
                     <td class="text-center text-danger">{{ultimoresultado.ResultadoGeral.Erros}}</td>
                     <td class="text-center text-info">{{ultimoresultado.ResultadoGeral.NaoRespondidas}}</td>
+                    <td class="text-center text-secondary">{{formatDate(ultimoresultado.DataEnvio)}}</td>
                     <td class="text-center"><a class="icon" href="#"><i class="mdi mdi-plus-circle-o"></i></a></td>
                   </tr>
                 </tbody>
