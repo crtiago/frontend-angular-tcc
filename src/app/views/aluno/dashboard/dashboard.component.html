@@ -24,7 +24,7 @@
                   </tr>
                 </thead>
                 <tbody class="no-border-x" *ngIf="!nenhumResultado">
-                  <tr *ngFor="let ultimoresultado of ultimosResultados.slice().reverse();">
+                  <tr *ngFor="let ultimoresultado of ultimosResultados">
                     <td>{{ultimoresultado.Nome}}</td>
                     <td class="text-center text-secondary">{{getSimuladoPorId(ultimoresultado.TipoSimulado)}}</td>
                     <td class="text-center text-success">{{ultimoresultado.ResultadoGeral.Acertos}}</td>

@@ -54,7 +54,7 @@ export class DashboardComponent implements OnInit {
     return new Chart('chart-bar', {
       type: 'bar',
       data: {
-        labels: datasEnvio,
+        labels: datasEnvio.reverse(),
         datasets: [{
           label: 'Acertos',
           data: acertos,
