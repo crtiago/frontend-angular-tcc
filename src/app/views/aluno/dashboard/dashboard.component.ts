@@ -205,4 +205,12 @@ export class DashboardComponent implements OnInit {
     return [day, month, year].join('/');
   }
 
+  formatTime(date) {
+    var d = new Date(date);
+    let datetext = d.toTimeString();
+  
+    datetext = datetext.split(' ')[0];
+    return datetext;
+  }
+
 }

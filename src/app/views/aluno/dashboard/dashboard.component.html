@@ -14,12 +14,13 @@
               <table class="table ">
                 <thead>
                   <tr>
-                    <th style="width:25%;">Nome</th>
-                    <th style="width:20%;" class="text-secondary text-center">Tipo do Simulado</th>
-                    <th class="number" class="text-success text-center">Acertos</th>
-                    <th style="width:15%;" class="text-danger text-center">Erros</th>
-                    <th style="width:15%;" class="text-info text-center">Não respondidas</th>
-                    <th style="width:15%;" class="text-secondary text-center">Data de Conclusão</th>
+                    <th class="align-middle" style="width:25%;">Nome</th>
+                    <th style="width:20%;" class="text-secondary text-center align-middle">Tipo do Simulado</th>
+                    <th class="number" class="text-success text-center align-middle">Acertos</th>
+                    <th style="width:15%;" class="text-danger text-center align-middle">Erros</th>
+                    <th style="width:15%;" class="text-info text-center align-middle">Não respondidas</th>
+                    <th style="width:15%;" class="text-secondary text-center align-middle">Data de Conclusão</th>
+                    <th style="width:15%;" class="text-secondary text-center align-middle">Hora da Conclusão</th>
                     <th class="actions" style="width:2%;"></th>
                   </tr>
                 </thead>
@@ -31,6 +32,7 @@
                     <td class="text-center text-danger">{{ultimoresultado.ResultadoGeral.Erros}}</td>
                     <td class="text-center text-info">{{ultimoresultado.ResultadoGeral.NaoRespondidas}}</td>
                     <td class="text-center text-secondary">{{formatDate(ultimoresultado.DataEnvio)}}</td>
+                    <td class="text-center text-secondary">{{formatTime(ultimoresultado.DataEnvio)}}</td>
                     <td class="text-center"><a class="icon" href="#"><i class="mdi mdi-plus-circle-o"></i></a></td>
                   </tr>
                 </tbody>
