@@ -23,7 +23,7 @@
                     <th class="actions" style="width:2%;"></th>
                   </tr>
                 </thead>
-                <tbody class="no-border-x">
+                <tbody class="no-border-x" *ngIf="!nenhumResultado">
                   <tr *ngFor="let ultimoresultado of ultimosResultados.slice().reverse();">
                     <td>{{ultimoresultado.Nome}}</td>
                     <td class="text-center text-secondary">{{getSimuladoPorId(ultimoresultado.TipoSimulado)}}</td>
@@ -32,6 +32,11 @@
                     <td class="text-center text-info">{{ultimoresultado.ResultadoGeral.NaoRespondidas}}</td>
                     <td class="text-center text-secondary">{{formatDate(ultimoresultado.DataEnvio)}}</td>
                     <td class="text-center"><a class="icon" href="#"><i class="mdi mdi-plus-circle-o"></i></a></td>
+                  </tr>
+                </tbody>
+                <tbody class="no-border-x" *ngIf="nenhumResultado">
+                  <tr *ngIf="nenhumResultado">
+                    <td colspan="6" class="text-center text-muted">Nenhum simulado realizado</td>
                   </tr>
                 </tbody>
               </table>
@@ -44,7 +49,7 @@
   </div>
 
   <!--2º Linha-->
-  <div class="row">
+  <div class="row" *ngIf="!nenhumResultado">
     <!--Card menor do desempenho geral-->
     <div class="col-md-6 col-lg-3 mb-4">
       <div class="card border-0 rounded-1">
@@ -146,7 +151,7 @@
   <!--3º Linha-->
   <div class="row">
     <!--Gráfico de barras do Desempenho Geral dos últimos simulados-->
-    <div class="col-12 col-xl-7 mb-4">
+    <div class="col-12 col-xl-6 mb-4">
       <div class="card border-0 1">
         <div class="card-title mb-1 p-3 text-center">
           <h6>Desempenho Geral dos últimos simulados</h6>
@@ -155,11 +160,12 @@
           <div class="chart-container" style="position: relative;">
             <canvas id="chart-bar" width="2" height="1"></canvas>
           </div>
+          <div *ngIf="nenhumResultado" class="text-center text-muted">Nenhum simulado realizado</div>
         </div>
       </div>
     </div>
-    <!--Gráfico em circulo do Desempenho Geral-->
-    <div class="col-12 col-xl-5 mb-4 align-items-stretch">
+    <!--Gráfico em Setores do Desempenho Geral-->
+    <div class="col-12 col-xl-6 mb-4 align-items-stretch">
       <div class="card h-100 border-0 rounded-1">
         <div class="card-title mb-1 p-3 text-center">
           <h6>Desempenho Geral</h6>
@@ -167,19 +173,9 @@
         <div class="card-body">
           <div class="chart-container d-flex h-100 align-items-center justify-content-center"
             style="position: relative;">
-            <canvas id="chart-doughnut" style="height:100%"></canvas>
+            <canvas id="pie-desempenho-geral" style="height:100%"></canvas>
           </div>
-        </div>
-        <div class="card-footer">
-          <div class="legend d-flex just">
-            <div class="flex-fill text-center"><span class="d-inline-block rounded-circle mr-2"
-                style="background: green;"></span><small>Acertos</small></div>
-            <div class="flex-fill text-center"><span class="d-inline-block rounded-circle mr-2"
-                style="background: red;"></span><small>Erros</small></div>
-            <div class="flex-fill text-center"><span class="d-inline-block rounded-circle mr-2"
-                style="background: #36a2eb;"></span><small>Não respondidas</small></div>
-          </div>
-
+          <div *ngIf="nenhumResultado" class="text-center text-muted">Nenhum simulado realizado</div>
         </div>
       </div>
     </div>
@@ -194,6 +190,7 @@
             style="position: relative;">
             <canvas id="pie-area-acertos" style="height:100%"></canvas>
           </div>
+          <div *ngIf="nenhumResultado" class="text-center text-muted">Nenhum simulado realizado</div>
         </div>
       </div>
     </div>
@@ -208,6 +205,7 @@
             style="position: relative;">
             <canvas id="pie-area-erros" style="height:100%"></canvas>
           </div>
+          <div *ngIf="nenhumResultado" class="text-center text-muted">Nenhum simulado realizado</div>
         </div>
       </div>
     </div>
@@ -222,11 +220,12 @@
             style="position: relative;">
             <canvas id="pie-acertos" style="height:100%"></canvas>
           </div>
+          <div *ngIf="nenhumResultado" class="text-center text-muted">Nenhum simulado realizado</div>
         </div>
       </div>
     </div>
-     <!--Gráfico Setores Erros por Disciplinas-->
-     <div class="col-12 col-xl-6 mb-4 align-items-stretch">
+    <!--Gráfico Setores Erros por Disciplinas-->
+    <div class="col-12 col-xl-6 mb-4 align-items-stretch">
       <div class="card h-100 border-0 rounded-1">
         <div class="card-title mb-1 p-3 text-center">
           <h6>Quantidades de Erros por disciplinas</h6>
@@ -236,6 +235,7 @@
             style="position: relative;">
             <canvas id="pie-erros" style="height:100%"></canvas>
           </div>
+          <div *ngIf="nenhumResultado" class="text-center text-muted">Nenhum simulado realizado</div>
         </div>
       </div>
     </div>

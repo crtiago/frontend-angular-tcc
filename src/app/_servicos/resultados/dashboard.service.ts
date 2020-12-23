@@ -16,11 +16,7 @@ export class DashboardService {
     return this.http.get<any>(`${environment.apiUrl}/BuscarResultadoGeral?idUsuario=${this.autenticacaoService.getUsuario.IdUsuario}`)
       .pipe(
         map(resultados => {
-          if (resultados.Sucesso) {
-            return resultados;
-          } else {
-            throw new Error(resultados.Mensagem);
-          }
+            return resultados;        
         }
         )
       )
@@ -30,11 +26,7 @@ export class DashboardService {
     return this.http.get<any>(`${environment.apiUrl}/BuscarUltimosResultados?idUsuario=${this.autenticacaoService.getUsuario.IdUsuario}`)
       .pipe(
         map(ultimosResultados => {
-          if (ultimosResultados.Sucesso) {
-            return ultimosResultados;
-          } else {
-            throw new Error(ultimosResultados.Mensagem);
-          }
+          return ultimosResultados;
         }
         )
       )

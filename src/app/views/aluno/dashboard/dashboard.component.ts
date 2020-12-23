@@ -15,87 +15,56 @@ export class DashboardComponent implements OnInit {
 
   resultadosGerais: any;
   ultimosResultados: any[];
+  nenhumResultado: boolean = true;
+
 
   constructor(private route: ActivatedRoute, private dashboardService: DashboardService) {
-    this.ultimosResultados = this.route.snapshot.data['respostaResultados'][0].Data;
-    this.resultadosGerais = this.route.snapshot.data['respostaResultados'][1].Data;
+    if (this.route.snapshot.data['respostaResultados'][0].Sucesso && this.route.snapshot.data['respostaResultados'][1].Sucesso) {
+      this.ultimosResultados = this.route.snapshot.data['respostaResultados'][0].Data;
+      this.resultadosGerais = this.route.snapshot.data['respostaResultados'][1].Data;
+      this.nenhumResultado = false;
+    } else {
+      this.nenhumResultado = true;
+    }
+
   }
 
   ngOnInit() {
-    this.getGraficoBarraDesempenhoUltimos();
-    this.getGraficoCirculoDesempenhoGeral();
-    this.getGraficosAcertosArea();
-    this.getGraficosErrosArea();
-    this.getGraficoSetoresAcertosDisciplinas();
-    this.getGraficoSetoresErrosDisciplinas();
-  }
-
-  getGraficosAcertosArea() {
-    return new Chart("pie-area-acertos", {
-      type: 'pie',
-      data: {
-        labels: ["Fundamentos da Computação", "Matemática", "Tecnologia da Computação"],
-        datasets: [{
-          backgroundColor: ["#3cba9f", "#8e5ea2", "#c45850"],
-          data: [
-            this.resultadosGerais.ResultadoFundamentos.Acertos,
-            this.resultadosGerais.ResultadoMatematica.Acertos,
-            this.resultadosGerais.ResultadoTecnologia.Acertos,
-          ]
-        }]
-      },
-    });
-  }
-
-  getGraficosErrosArea() {
-    return new Chart("pie-area-erros", {
-      type: 'pie',
-      data: {
-        labels: ["Fundamentos da Computação", "Matemática", "Tecnologia da Computação"],
-        datasets: [{
-          backgroundColor: ["#3cba9f", "#8e5ea2", "#c45850"],
-          data: [
-            this.resultadosGerais.ResultadoFundamentos.Erros,
-            this.resultadosGerais.ResultadoMatematica.Erros,
-            this.resultadosGerais.ResultadoTecnologia.Erros,
-          ]
-        }]
-      },
-    });
+    if (this.route.snapshot.data['respostaResultados'][0].Sucesso && this.route.snapshot.data['respostaResultados'][1].Sucesso) {
+      this.getGraficoBarraDesempenhoUltimos();
+      this.getGraficoCirculoDesempenhoGeral();
+      this.getGraficosAcertosArea();
+      this.getGraficosErrosArea();
+      this.getGraficoSetoresAcertosDisciplinas();
+      this.getGraficoSetoresErrosDisciplinas();
+    }
   }
 
   getGraficoBarraDesempenhoUltimos() {
+    let datasEnvio = [];
+    let acertos = [];
+    let erros = [];
+
+    for (let i = 0; i < this.ultimosResultados.length; i++) {
+      datasEnvio.push(this.formatDate(this.ultimosResultados[i].DataEnvio));
+      acertos.push(this.ultimosResultados[i].ResultadoGeral.Acertos);
+      erros.push(this.ultimosResultados[i].ResultadoGeral.Erros);
+    }
+
     return new Chart('chart-bar', {
       type: 'bar',
       data: {
-        labels: [
-          this.formatDate(this.ultimosResultados[0].DataEnvio),
-          this.formatDate(this.ultimosResultados[1].DataEnvio),
-          this.formatDate(this.ultimosResultados[2].DataEnvio),
-          this.formatDate(this.ultimosResultados[3].DataEnvio),
-          this.formatDate(this.ultimosResultados[4].DataEnvio),
-        ],
+        labels: datasEnvio,
         datasets: [{
           label: 'Acertos',
-          data: [
-            this.ultimosResultados[0].ResultadoGeral.Acertos,
-            this.ultimosResultados[1].ResultadoGeral.Acertos,
-            this.ultimosResultados[2].ResultadoGeral.Acertos,
-            this.ultimosResultados[3].ResultadoGeral.Acertos,
-            this.ultimosResultados[4].ResultadoGeral.Acertos],
+          data: acertos,
           backgroundColor: 'green',
           borderColor: 'green',
           borderWidth: 2
         },
         {
           label: 'Erros',
-          data: [
-            this.ultimosResultados[0].ResultadoGeral.Erros,
-            this.ultimosResultados[1].ResultadoGeral.Erros,
-            this.ultimosResultados[2].ResultadoGeral.Erros,
-            this.ultimosResultados[3].ResultadoGeral.Erros,
-            this.ultimosResultados[4].ResultadoGeral.Erros
-          ],
+          data: erros,
           backgroundColor: 'red',
           borderColor: 'red',
           borderWidth: 2
@@ -128,26 +97,53 @@ export class DashboardComponent implements OnInit {
   }
 
   getGraficoCirculoDesempenhoGeral() {
-    return new Chart('chart-doughnut', {
-      type: 'doughnut',
+    return new Chart("pie-desempenho-geral", {
+      type: 'pie',
       data: {
+        labels: ["Acertos", "Erros", "Não Respondidas"],
         datasets: [{
-          data: [this.resultadosGerais.ResultadoGeral.Acertos, this.resultadosGerais.ResultadoGeral.Erros, this.resultadosGerais.ResultadoGeral.NaoRespondidas],
           backgroundColor: ["green", "red", "#36a2eb"],
-        }],
-        labels: [
-          'Acertos',
-          'Erros',
-          'Não respondidas'
-        ]
+          data: [
+            this.resultadosGerais.ResultadoGeral.Acertos,
+            this.resultadosGerais.ResultadoGeral.Erros,
+            this.resultadosGerais.ResultadoGeral.NaoRespondidas,
+          ]
+        }]
       },
-      options: {
-        legend: {
-          position: 'bottom',
-          display: false
-        },
-        cutoutPercentage: 80
-      }
+    });
+  }
+
+  getGraficosAcertosArea() {
+    return new Chart("pie-area-acertos", {
+      type: 'pie',
+      data: {
+        labels: ["Fundamentos da Computação", "Matemática", "Tecnologia da Computação"],
+        datasets: [{
+          backgroundColor: ["#ff953e", "#cbe034", "#00d3b4"],
+          data: [
+            this.resultadosGerais.ResultadoFundamentos.Acertos,
+            this.resultadosGerais.ResultadoMatematica.Acertos,
+            this.resultadosGerais.ResultadoTecnologia.Acertos,
+          ]
+        }]
+      },
+    });
+  }
+
+  getGraficosErrosArea() {
+    return new Chart("pie-area-erros", {
+      type: 'pie',
+      data: {
+        labels: ["Fundamentos da Computação", "Matemática", "Tecnologia da Computação"],
+        datasets: [{
+          backgroundColor: ["#ff953e", "#cbe034", "#00d3b4"],
+          data: [
+            this.resultadosGerais.ResultadoFundamentos.Erros,
+            this.resultadosGerais.ResultadoMatematica.Erros,
+            this.resultadosGerais.ResultadoTecnologia.Erros,
+          ]
+        }]
+      },
     });
   }
 
