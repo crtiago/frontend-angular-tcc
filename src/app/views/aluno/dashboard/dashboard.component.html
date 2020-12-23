@@ -3,8 +3,8 @@
   <div class="row">
     <div class="col-12 mb-4 align-items-stretch">
       <div class="card h-100 border-0 rounded-0">
-        <div class="card-title mb-1 p-3 d-flex">
-          <h4>Desempenho nos últimos simulados</h4>          
+        <div class="card-title mb-1 p-3" style="text-align: center;">
+          <h4 style="text-align: center;">Desempenho nos últimos simulados</h4>
         </div>
         <div class="card-body">
           <div class="table-responsive-md">
@@ -16,7 +16,7 @@
                     <th style="width:20%;" class="text-secondary text-center">Tipo do Simulado</th>
                     <th class="number" class="text-success text-center">Acertos</th>
                     <th style="width:20%;" class="text-danger text-center">Erros</th>
-                    <th style="width:20%;" class="text-info text-center">Não respondidas</th>                    
+                    <th style="width:20%;" class="text-info text-center">Não respondidas</th>
                     <th class="actions" style="width:5%;"></th>
                   </tr>
                 </thead>
@@ -39,211 +39,224 @@
     </div>
   </div>
 
-     <div class="row">
-  
-      <div class="col-md-6 col-lg-3 mb-4">
-        <div class="card border-0 rounded-1">
-          <div class="card-body">
-            <div class="card-innerBody d-flex align-items-center">
-              <div class="ml-auto">
-                <p class="card-label text-right text-muted">Desempenho Geral</p>
-                <h4 class="card-text text-success text-right" style="font-size: 20px;">Acertos: {{resultadosGerais.ResultadoGeral.Acertos}}</h4>
-                <h4 class="card-text text-danger text-right" style="font-size: 20px;">Erros: {{resultadosGerais.ResultadoGeral.Erros}}</h4>
-                <h4 class="card-text text-info text-right" style="font-size: 20px;">Não respondidas: {{resultadosGerais.ResultadoGeral.NaoRespondidas}}</h4>
-              </div>
-            </div>
-          </div>
-          <div class="card-footer d-flex ">
-            <small class="text-text-secondary text-muted">Questões realizadas</small>
-            <small class="text-text-secondary ml-auto text-muted">
-              {{resultadosGerais.ResultadoGeral.TotalQuestao}}
-            </small>
-          </div>
-        </div>
-      </div>
-  
-      <div class="col-md-6 col-lg-3 mb-4">
-        <div class="card border-0 rounded-1">
-          <div class="card-body">
-            <div class="card-innerBody d-flex align-items-center">
-              <div class="ml-auto">
-                <p class="card-label text-right text-muted">Área de Matemática</p>
-                <h4 class="card-text text-success text-right" style="font-size: 20px;">Acertos: {{resultadosGerais.ResultadoMatematica.Acertos}}</h4>
-                <h4 class="card-text text-danger text-right" style="font-size: 20px;">Erros: {{resultadosGerais.ResultadoMatematica.Erros}}</h4>
-                <h4 class="card-text text-info text-right" style="font-size: 20px;">Não respondidas: {{resultadosGerais.ResultadoMatematica.NaoRespondidas}}</h4>
-              </div>
-            </div>
-          </div>
-          <div class="card-footer d-flex ">
-            <small class="text-text-secondary text-muted">Questões realizadas</small>
-            <small class="text-text-secondary ml-auto text-muted">
-              {{resultadosGerais.ResultadoMatematica.TotalQuestao}}
-            </small>
-          </div>
-        </div>
-      </div>
-  
-      <div class="col-md-6 col-lg-3 mb-4">
-        <div class="card border-0 rounded-1">
-          <div class="card-body">
-            <div class="card-innerBody d-flex align-items-center">
-              <div class="ml-auto">
-                <p class="card-label text-right text-muted">Área de Fundamentos</p>
-                <h4 class="card-text text-success text-right" style="font-size: 20px;">Acertos: {{resultadosGerais.ResultadoFundamentos.Acertos}}</h4>
-                <h4 class="card-text text-danger text-right" style="font-size: 20px;">Erros: {{resultadosGerais.ResultadoFundamentos.Erros}}</h4>
-                <h4 class="card-text text-info text-right" style="font-size: 20px;">Não respondidas: {{resultadosGerais.ResultadoFundamentos.NaoRespondidas}}</h4>
-              </div>
-            </div>
-          </div>
-          <div class="card-footer d-flex ">
-            <small class="text-text-secondary text-muted">Questões realizadas</small>
-            <small class="text-text-secondary ml-auto text-muted">
-              {{resultadosGerais.ResultadoFundamentos.TotalQuestao}}
-            </small>
-          </div>
-        </div>
-      </div>
-  
-      <div class="col-md-6 col-lg-3 mb-4">
-        <div class="card border-0 rounded-1">
-          <div class="card-body">
-            <div class="card-innerBody d-flex align-items-center">
-              <div class="ml-auto">
-                <p class="card-label text-right text-muted">Área de Tecnologia</p>
-                <h4 class="card-text text-success text-right" style="font-size: 20px;">Acertos: {{resultadosGerais.ResultadoTecnologia.Acertos}}</h4>
-                <h4 class="card-text text-danger text-right" style="font-size: 20px;">Erros: {{resultadosGerais.ResultadoTecnologia.Erros}}</h4>
-                <h4 class="card-text text-info text-right" style="font-size: 20px;">Não respondidas: {{resultadosGerais.ResultadoTecnologia.NaoRespondidas}}</h4>
-              </div>
-            </div>
-          </div>
-          <div class="card-footer d-flex ">
-            <small class="text-text-secondary text-muted">Questões realizadas</small>
-            <small class="text-text-secondary ml-auto text-muted">
-              {{resultadosGerais.ResultadoTecnologia.TotalQuestao}}
-            </small>
-          </div>
-        </div>
-      </div>
-  
-    </div>
-  
+  <div class="row">
 
-    
-    <div class="row">
-      <div class="col-12 col-xl-6 mb-4">
-        <div class="card border-0 rounded-1">
-          <div class="card-title mb-1 p-3 d-flex">
-            <h6>ENADE</h6>
-            <a class="btn ml-auto p-0 text-lightning"> <i class="fas fa-ellipsis-h"></i> </a>
-          </div>
-          <div class="card-body">
-            <div class="chart-container" style="position: relative;">
-              <canvas id="chart-line" width="2" height="1"></canvas>
+    <div class="col-md-6 col-lg-3 mb-4">
+      <div class="card border-0 rounded-1">
+        <div class="card-body">
+          <div class="card-innerBody d-flex align-items-center">
+            <div class="ml-auto">
+              <p class="card-label text-right text-muted">Desempenho Geral</p>
+              <h4 class="card-text text-success text-right" style="font-size: 20px;">Acertos:
+                {{resultadosGerais.ResultadoGeral.Acertos}}</h4>
+              <h4 class="card-text text-danger text-right" style="font-size: 20px;">Erros:
+                {{resultadosGerais.ResultadoGeral.Erros}}</h4>
+              <h4 class="card-text text-info text-right" style="font-size: 20px;">Não respondidas:
+                {{resultadosGerais.ResultadoGeral.NaoRespondidas}}</h4>
             </div>
           </div>
         </div>
-      </div>
-  
-      <div class="col-12 col-xl-6 mb-4">
-        <div class="card border-0 rounded-0">
-          <div class="card-title mb-1 p-3 d-flex">
-            <h6>POSCOMP</h6>
-            <a class="btn ml-auto p-0 text-lightning"> <i class="fas fa-ellipsis-h"></i> </a>
-          </div>
-          <div class="card-body">
-            <div class="chart-container" style="position: relative;">
-              <canvas id="chart-bar" width="2" height="1"></canvas>
-            </div>
-          </div>
+        <div class="card-footer d-flex ">
+          <small class="text-text-secondary text-muted">Questões realizadas</small>
+          <small class="text-text-secondary ml-auto text-muted">
+            {{resultadosGerais.ResultadoGeral.TotalQuestao}}
+          </small>
         </div>
       </div>
-      <div class="col-12 col-xl-4 mb-4 align-items-stretch">
-        <div class="card h-100 border-0 rounded-0">
-          <div class="card-title mb-1 p-3 d-flex">
-            <h6>Desempenho Geral</h6>
-            <a class="btn ml-auto p-0 text-lightning"> <i class="fas fa-ellipsis-h"></i> </a>
-          </div>
-          <div class="card-body">
-            <div class="chart-container d-flex h-100 align-items-center justify-content-center" style="position: relative;">
-              <canvas id="chart-doughnut" style="height:100%"></canvas>
-            </div>
-          </div>
-          <div class="card-footer">
-            <div class="legend d-flex just">
-              <div class="flex-fill text-center"><span class="d-inline-block rounded-circle mr-2"
-                  style="background: green;"></span><small>Acertos</small></div>
-              <div class="flex-fill text-center"><span class="d-inline-block rounded-circle mr-2"
-                  style="background: red;"></span><small>Erros</small></div>
-            </div>
-  
-          </div>
-        </div>
-      </div>
-  
-      <div class="col-12 col-xl-8 mb-4 align-items-stretch">
-        <div class="card h-100 border-0 rounded-0">
-          <div class="card-title mb-1 p-3 d-flex">
-            <h6>Purchases</h6>
-            <a class="btn ml-auto p-0 text-lightning"> <i class="fas fa-ellipsis-h"></i> </a>
-          </div>
-          <div class="card-body">
-            <div class="table-responsive-md">
-              <div class="table-responsive">
-                <table class="table ">
-                  <thead>
-                    <tr>
-                      <th style="width:40%;">Product</th>
-                      <th class="number">Price</th>
-                      <th style="width:20%;">Date</th>
-                      <th style="width:20%;">State</th>
-                      <th class="actions" style="width:5%;"></th>
-                    </tr>
-                  </thead>
-                  <tbody class="no-border-x">
-                    <tr>
-                      <td>Sony Xperia M4</td>
-                      <td class="number">$149</td>
-                      <td>Aug 23, 2018</td>
-                      <td class="text-success">Completed</td>
-                      <td class="actions"><a class="icon" href="#"><i class="mdi mdi-plus-circle-o"></i></a></td>
-                    </tr>
-                    <tr>
-                      <td>Apple iPhone 6</td>
-                      <td class="number">$535</td>
-                      <td>Aug 20, 2018</td>
-                      <td class="text-success">Completed</td>
-                      <td class="actions"><a class="icon" href="#"><i class="mdi mdi-plus-circle-o"></i></a></td>
-                    </tr>
-                    <tr>
-                      <td>Samsung Galaxy S7</td>
-                      <td class="number">$583</td>
-                      <td>Aug 18, 2018</td>
-                      <td class="text-warning">Pending</td>
-                      <td class="actions"><a class="icon" href="#"><i class="mdi mdi-plus-circle-o"></i></a></td>
-                    </tr>
-                    <tr>
-                      <td>HTC One M9</td>
-                      <td class="number">$350</td>
-                      <td>Aug 15, 2018</td>
-                      <td class="text-warning">Pending</td>
-                      <td class="actions"><a class="icon" href="#"><i class="mdi mdi-plus-circle-o"></i></a></td>
-                    </tr>
-                    <tr>
-                      <td>Sony Xperia Z5</td>
-                      <td class="number">$495</td>
-                      <td>Aug 13, 2018</td>
-                      <td class="text-danger">Cancelled</td>
-                      <td class="actions"><a class="icon" href="#"><i class="mdi mdi-plus-circle-o"></i></a></td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-  
-        </div>
-      </div>
-  
     </div>
-  
+
+    <div class="col-md-6 col-lg-3 mb-4">
+      <div class="card border-0 rounded-1">
+        <div class="card-body">
+          <div class="card-innerBody d-flex align-items-center">
+            <div class="ml-auto">
+              <p class="card-label text-right text-muted">Área de Matemática</p>
+              <h4 class="card-text text-success text-right" style="font-size: 20px;">Acertos:
+                {{resultadosGerais.ResultadoMatematica.Acertos}}</h4>
+              <h4 class="card-text text-danger text-right" style="font-size: 20px;">Erros:
+                {{resultadosGerais.ResultadoMatematica.Erros}}</h4>
+              <h4 class="card-text text-info text-right" style="font-size: 20px;">Não respondidas:
+                {{resultadosGerais.ResultadoMatematica.NaoRespondidas}}</h4>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer d-flex ">
+          <small class="text-text-secondary text-muted">Questões realizadas</small>
+          <small class="text-text-secondary ml-auto text-muted">
+            {{resultadosGerais.ResultadoMatematica.TotalQuestao}}
+          </small>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6 col-lg-3 mb-4">
+      <div class="card border-0 rounded-1">
+        <div class="card-body">
+          <div class="card-innerBody d-flex align-items-center">
+            <div class="ml-auto">
+              <p class="card-label text-right text-muted">Área de Fundamentos</p>
+              <h4 class="card-text text-success text-right" style="font-size: 20px;">Acertos:
+                {{resultadosGerais.ResultadoFundamentos.Acertos}}</h4>
+              <h4 class="card-text text-danger text-right" style="font-size: 20px;">Erros:
+                {{resultadosGerais.ResultadoFundamentos.Erros}}</h4>
+              <h4 class="card-text text-info text-right" style="font-size: 20px;">Não respondidas:
+                {{resultadosGerais.ResultadoFundamentos.NaoRespondidas}}</h4>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer d-flex ">
+          <small class="text-text-secondary text-muted">Questões realizadas</small>
+          <small class="text-text-secondary ml-auto text-muted">
+            {{resultadosGerais.ResultadoFundamentos.TotalQuestao}}
+          </small>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6 col-lg-3 mb-4">
+      <div class="card border-0 rounded-1">
+        <div class="card-body">
+          <div class="card-innerBody d-flex align-items-center">
+            <div class="ml-auto">
+              <p class="card-label text-right text-muted">Área de Tecnologia</p>
+              <h4 class="card-text text-success text-right" style="font-size: 20px;">Acertos:
+                {{resultadosGerais.ResultadoTecnologia.Acertos}}</h4>
+              <h4 class="card-text text-danger text-right" style="font-size: 20px;">Erros:
+                {{resultadosGerais.ResultadoTecnologia.Erros}}</h4>
+              <h4 class="card-text text-info text-right" style="font-size: 20px;">Não respondidas:
+                {{resultadosGerais.ResultadoTecnologia.NaoRespondidas}}</h4>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer d-flex ">
+          <small class="text-text-secondary text-muted">Questões realizadas</small>
+          <small class="text-text-secondary ml-auto text-muted">
+            {{resultadosGerais.ResultadoTecnologia.TotalQuestao}}
+          </small>
+        </div>
+      </div>
+    </div>
+
   </div>
+
+
+
+  <div class="row">
+    <div class="col-12 col-xl-6 mb-4">
+      <div class="card border-0 rounded-1">
+        <div class="card-title mb-1 p-3 d-flex">
+          <h6>ENADE</h6>
+          <a class="btn ml-auto p-0 text-lightning"> <i class="fas fa-ellipsis-h"></i> </a>
+        </div>
+        <div class="card-body">
+          <div class="chart-container" style="position: relative;">
+            <canvas id="chart-line" width="2" height="1"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 col-xl-6 mb-4">
+      <div class="card border-0 rounded-0">
+        <div class="card-title mb-1 p-3 d-flex">
+          <h6>POSCOMP</h6>
+          <a class="btn ml-auto p-0 text-lightning"> <i class="fas fa-ellipsis-h"></i> </a>
+        </div>
+        <div class="card-body">
+          <div class="chart-container" style="position: relative;">
+            <canvas id="chart-bar" width="2" height="1"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-xl-4 mb-4 align-items-stretch">
+      <div class="card h-100 border-0 rounded-0">
+        <div class="card-title mb-1 p-3 d-flex">
+          <h6>Desempenho Geral</h6>
+          <a class="btn ml-auto p-0 text-lightning"> <i class="fas fa-ellipsis-h"></i> </a>
+        </div>
+        <div class="card-body">
+          <div class="chart-container d-flex h-100 align-items-center justify-content-center"
+            style="position: relative;">
+            <canvas id="chart-doughnut" style="height:100%"></canvas>
+          </div>
+        </div>
+        <div class="card-footer">
+          <div class="legend d-flex just">
+            <div class="flex-fill text-center"><span class="d-inline-block rounded-circle mr-2"
+                style="background: green;"></span><small>Acertos</small></div>
+            <div class="flex-fill text-center"><span class="d-inline-block rounded-circle mr-2"
+                style="background: red;"></span><small>Erros</small></div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 col-xl-8 mb-4 align-items-stretch">
+      <div class="card h-100 border-0 rounded-0">
+        <div class="card-title mb-1 p-3 d-flex">
+          <h6>Purchases</h6>
+          <a class="btn ml-auto p-0 text-lightning"> <i class="fas fa-ellipsis-h"></i> </a>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive-md">
+            <div class="table-responsive">
+              <table class="table ">
+                <thead>
+                  <tr>
+                    <th style="width:40%;">Product</th>
+                    <th class="number">Price</th>
+                    <th style="width:20%;">Date</th>
+                    <th style="width:20%;">State</th>
+                    <th class="actions" style="width:5%;"></th>
+                  </tr>
+                </thead>
+                <tbody class="no-border-x">
+                  <tr>
+                    <td>Sony Xperia M4</td>
+                    <td class="number">$149</td>
+                    <td>Aug 23, 2018</td>
+                    <td class="text-success">Completed</td>
+                    <td class="actions"><a class="icon" href="#"><i class="mdi mdi-plus-circle-o"></i></a></td>
+                  </tr>
+                  <tr>
+                    <td>Apple iPhone 6</td>
+                    <td class="number">$535</td>
+                    <td>Aug 20, 2018</td>
+                    <td class="text-success">Completed</td>
+                    <td class="actions"><a class="icon" href="#"><i class="mdi mdi-plus-circle-o"></i></a></td>
+                  </tr>
+                  <tr>
+                    <td>Samsung Galaxy S7</td>
+                    <td class="number">$583</td>
+                    <td>Aug 18, 2018</td>
+                    <td class="text-warning">Pending</td>
+                    <td class="actions"><a class="icon" href="#"><i class="mdi mdi-plus-circle-o"></i></a></td>
+                  </tr>
+                  <tr>
+                    <td>HTC One M9</td>
+                    <td class="number">$350</td>
+                    <td>Aug 15, 2018</td>
+                    <td class="text-warning">Pending</td>
+                    <td class="actions"><a class="icon" href="#"><i class="mdi mdi-plus-circle-o"></i></a></td>
+                  </tr>
+                  <tr>
+                    <td>Sony Xperia Z5</td>
+                    <td class="number">$495</td>
+                    <td>Aug 13, 2018</td>
+                    <td class="text-danger">Cancelled</td>
+                    <td class="actions"><a class="icon" href="#"><i class="mdi mdi-plus-circle-o"></i></a></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+</div>
