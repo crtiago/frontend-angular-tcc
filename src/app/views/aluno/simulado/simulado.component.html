@@ -22,8 +22,9 @@
                                 <!--Input da Descrição-->
                                 <div class="col-md mb-1">
                                         <label>Descrição do Simulado</label>
-                                        <textarea formControlName="descricao" type="text" style="resize: none;" class="form-control"
-                                                id="exampleFormControlTextarea1" rows="3"></textarea>
+                                        <textarea formControlName="descricao" type="text" style="resize: none;"
+                                                class="form-control" id="exampleFormControlTextarea1"
+                                                rows="3"></textarea>
                                 </div>
                         </div>
 
@@ -31,7 +32,8 @@
                                 <!--Input da Tipo Simulado-->
                                 <div class="col-md mb-1">
                                         <label>Tipo do Simulado<span class="asterisco">*</span></label>
-                                        <select (change)="getTipo($event)" formControlName="tipoSimulado" class="form-control form-control-sm"
+                                        <select (change)="getTipo($event)" formControlName="tipoSimulado"
+                                                class="form-control form-control-sm"
                                                 [ngClass]="{ 'is-invalid': !f.tipoSimulado.pristine && f.tipoSimulado.errors, 'is-valid': !f.tipoSimulado.errors }">
                                                 <option value="" selected disabled hidden>Escolha uma opção</option>
                                                 <option value="0">Personalizado</option>
@@ -51,23 +53,25 @@
                                 </div>
                         </div>
 
-                        <!--FIXME ver a melhor forma que fica posicionado os proximos dois inputs-->
                         <div *ngIf="f.tipoSimulado.value == '0'" class="form-row">
-                                <!--Input da Quantidade de Questões-->
-                                <div class="col-md mb-1">
-                                        <label>Número de Questões<span class="asterisco">*</span></label>
-                                        <!--TODO ver se tem como não deixar digitar o numero maior-->
-                                        <input type="number" style="width: 100px;" formControlName="quantidadeQuestoes"
-                                                class="form-control form-control-sm" id="quantity"
-                                                name="quantidadeQuestoes" min="10" max="100"
-                                                [ngClass]="{ 'is-invalid': !f.quantidadeQuestoes.pristine && f.quantidadeQuestoes.errors, 'is-valid': !f.quantidadeQuestoes.errors }" />
-                                        <div *ngIf="!f.quantidadeQuestoes.pristine && f.quantidadeQuestoes.errors"
+                                <div class="col-md mb">
+                                        <label>Selecione a quantidade de questões de cada simulado</label>
+                                </div>
+                        </div>
+                        <!--Input de quantidade de questões do POSCOMP-->
+                        <div *ngIf="f.tipoSimulado.value == '0'" class="form-row">
+                                <div class="col-md-2 mb-2">
+                                        <label>Questões do POSCOMP<span class="asterisco">*</span></label>
+                                        <input type="number" formControlName="quantidadePoscomp" min="10" max="100"
+                                                class="form-control form-control-sm"
+                                                [ngClass]="{ 'is-invalid': !f.quantidadePoscomp.pristine && f.quantidadePoscomp.errors, 'is-valid': !f.quantidadePoscomp.errors }" />
+                                        <div *ngIf="!f.quantidadePoscomp.pristine && f.quantidadePoscomp.errors"
                                                 class="invalid-feedback">
-                                                <div *ngIf="f.quantidadeQuestoes.errors.required">Quantidade de questões
+                                                <div *ngIf="f.quantidadePoscomp.errors.required">Quantidade de questões
                                                         é obrigatória.</div>
-                                                <div *ngIf="f.quantidadeQuestoes.errors.minimo">Deve ser no mínimo 10
-                                                        questões</div>
-                                                <div *ngIf="f.quantidadeQuestoes.errors.maximo">Deve ser no máximo 100
+                                                <div *ngIf="f.quantidadePoscomp.errors.minimo">Deve ser no mínimo 1
+                                                        questão</div>
+                                                <div *ngIf="f.quantidadePoscomp.errors.maximo">Deve ser no máximo 50
                                                         questões</div>
                                         </div>
                                         <div class="valid-feedback">
@@ -76,12 +80,35 @@
                                 </div>
                         </div>
 
-                        <div *ngIf="f.tipoSimulado.value == '0'"class="form-row">
+                        <!--Input de quantidade de questões do ENADE-->
+                        <div *ngIf="f.tipoSimulado.value == '0'" class="form-row">
+                                <div class="col-md-2 mb-2">
+                                        <label>Questões do ENADE<span class="asterisco">*</span></label>
+                                        <input type="number" formControlName="quantidadeEnade" min="10" max="100"
+                                                class="form-control form-control-sm"
+                                                [ngClass]="{ 'is-invalid': !f.quantidadeEnade.pristine && f.quantidadeEnade.errors, 'is-valid': !f.quantidadeEnade.errors }" />
+                                        <div *ngIf="!f.quantidadeEnade.pristine && f.quantidadeEnade.errors"
+                                                class="invalid-feedback">
+                                                <div *ngIf="f.quantidadeEnade.errors.required">Quantidade de questões
+                                                        é obrigatória.</div>
+                                                <div *ngIf="f.quantidadeEnade.errors.minimo">Deve ser no mínimo 1
+                                                        questão</div>
+                                                <div *ngIf="f.quantidadeEnade.errors.maximo">Deve ser no máximo 50
+                                                        questões</div>
+                                        </div>
+                                        <div class="valid-feedback">
+                                                Tudo certo!
+                                        </div>
+                                </div>
+                        </div>
+
+                        <div *ngIf="f.tipoSimulado.value == '0'" class="form-row">
+
                                 <!--Input da Tempo do Simulado-->
-                                <div class="col-md mb-1">
-                                        <label>Tempo do Simulado (minutos)<span class="asterisco">*</span></label>
+                                <div class="col-md-2 mb-2">
+                                        <label>Tempo (minutos)<span class="asterisco">*</span></label>
                                         <!--TODO ver se tem como não deixar digitar o numero maior-->
-                                        <input type="number" style="width: 100px;" formControlName="tempoSimulado"
+                                        <input type="number"  formControlName="tempoSimulado"
                                                 class="form-control form-control-sm" id="quantity" name="tempoSimulado"
                                                 min="10" max="240"
                                                 [ngClass]="{ 'is-invalid': !f.tempoSimulado.pristine && f.tempoSimulado.errors, 'is-valid': !f.tempoSimulado.errors }" />
@@ -105,7 +132,8 @@
                                         <span *ngIf="carregar"
                                                 class="spinner-border spinner-border-sm mr-1"></span>Gerar
                                         Simulado</button>
-                                        <button style="float: right;" type="button" routerLink="/aluno/listasimulados">Cancelar</button>
+                                <button style="float: right;" type="button"
+                                        routerLink="/aluno/listasimulados">Cancelar</button>
                         </div>
                 </form>
         </div>

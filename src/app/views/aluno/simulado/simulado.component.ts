@@ -27,11 +27,13 @@ export class SimuladoComponent implements OnInit {
       nome: ['', Validators.required],
       descricao: [''],
       tipoSimulado: ['', Validators.required],
-      quantidadeQuestoes: [{ value: '', disabled: true }, Validators.required],
+      quantidadeEnade: [{ value: '', disabled: true }, Validators.required],
+      quantidadePoscomp: [{ value: '', disabled: true }, Validators.required],
       tempoSimulado: [{ value: '', disabled: true }, Validators.required],
     }, {
       validators:
-        [Validacoes.validarQuantidadeQuestoes('quantidadeQuestoes'),
+        [Validacoes.validarQuantidadeQuestoes('quantidadeEnade'),
+        Validacoes.validarQuantidadeQuestoes('quantidadePoscomp'),
         Validacoes.validarTempoSimulado('tempoSimulado')]
     }
     );
@@ -42,13 +44,16 @@ export class SimuladoComponent implements OnInit {
   getTipo(e) {
     if (this.formularioDeUsuario.get('tipoSimulado').value == 0) {
 
-      this.formularioDeUsuario.get('quantidadeQuestoes').enable();
+      this.formularioDeUsuario.get('quantidadeEnade').enable();
+      this.formularioDeUsuario.get('quantidadePoscomp').enable();
       this.formularioDeUsuario.get('tempoSimulado').enable();
 
     } else {
-      this.formularioDeUsuario.get('quantidadeQuestoes').disable();
+      this.formularioDeUsuario.get('quantidadeEnade').disable();
+      this.formularioDeUsuario.get('quantidadePoscomp').disable();
       this.formularioDeUsuario.get('tempoSimulado').disable();
-      this.formularioDeUsuario.get('quantidadeQuestoes').reset();
+      this.formularioDeUsuario.get('quantidadeEnade').reset();
+      this.formularioDeUsuario.get('quantidadePoscomp').reset();
       this.formularioDeUsuario.get('tempoSimulado').reset();
     }
   }

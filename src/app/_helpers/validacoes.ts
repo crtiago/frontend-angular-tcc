@@ -113,9 +113,9 @@ export class Validacoes {
                 return;
             }
 
-            if (_quantidade.value < 10) {
+            if (_quantidade.value < 1) {
                 _quantidade.setErrors({ minimo: true });
-            } else if(_quantidade.value > 100) {
+            } else if(_quantidade.value > 50) {
                 _quantidade.setErrors({ maximo: true });
             }else{
                 _quantidade.setErrors(null);
