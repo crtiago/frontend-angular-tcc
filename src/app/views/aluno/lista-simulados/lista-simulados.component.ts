@@ -27,6 +27,7 @@ export class ListaSimuladosComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log(this.listaSimulados[0].ResultadoSimulado.ResultadoGeral.Erros)
   }
 
   simuladoSelecionado(event: any, item: any, index: any) {

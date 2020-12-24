@@ -9,6 +9,10 @@
                         <th style="vertical-align: middle;" scope="col"
                             style="text-align: center; vertical-align: middle;">Quantidade de Questões</th>
                         <th style="vertical-align: middle;" scope="col"
+                            style="text-align: center; vertical-align: middle;">Acertos</th>
+                        <th style="vertical-align: middle;" scope="col"
+                            style="text-align: center; vertical-align: middle;">Erros</th>
+                        <th style="vertical-align: middle;" scope="col"
                             style="text-align: center; vertical-align: middle;">Concluído</th>
                     </tr>
                 </thead>
@@ -16,9 +20,13 @@
                     <tr (click)="simuladoSelecionado($event, simulado, i)"
                         *ngFor="let simulado of listaSimulados.slice().reverse(); let i= index"
                         [ngClass]="{'data-selected': i == linhaSelecionada && !simulado.SimuladoRespondido,'concluido': simulado.SimuladoRespondido }">
-                        <td>{{simulado.Nome}}</td>
-                        <td>{{simulado.Descricao}}</td>
+                        <td style="vertical-align: middle;">{{simulado.Nome}}</td>
+                        <td style="vertical-align: middle;">{{simulado.Descricao}}</td>
                         <td style="text-align: center; vertical-align: middle;">{{simulado.QuantidadeQuestoes}}</td>
+                        <td *ngIf="simulado.SimuladoRespondido" style="text-align: center; vertical-align: middle;">{{simulado.ResultadoSimulado.ResultadoGeral.Acertos}}</td>
+                        <td *ngIf="simulado.SimuladoRespondido" style="text-align: center; vertical-align: middle;">{{simulado.ResultadoSimulado.ResultadoGeral.Erros}}</td>
+                        <td *ngIf="!simulado.SimuladoRespondido" style="text-align: center; vertical-align: middle;">-</td>
+                        <td *ngIf="!simulado.SimuladoRespondido" style="text-align: center; vertical-align: middle;">-</td>
                         <td style="text-align: center; vertical-align: middle;">
                             <i *ngIf="simulado.SimuladoRespondido" class="fas fa-check" style="color: rgb(47,158,64);"
                                 [ngClass]="{'data-selected': i == linhaSelecionada && !simulado.SimuladoRespondido}"></i>
