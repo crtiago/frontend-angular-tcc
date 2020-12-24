@@ -31,13 +31,63 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     if (this.route.snapshot.data['respostaResultados'][0].Sucesso && this.route.snapshot.data['respostaResultados'][1].Sucesso) {
+      this.getGraficoLinha();
       this.getGraficoBarraDesempenhoUltimos();
       this.getGraficoCirculoDesempenhoGeral();
-      this.getGraficosAcertosArea();
-      this.getGraficosErrosArea();
+      this.getGraficoAcertosArea();
+      this.getGraficoErrosArea();
       this.getGraficoSetoresAcertosDisciplinas();
       this.getGraficoSetoresErrosDisciplinas();
     }
+  }
+
+  getGraficoLinha() {
+    let datasEnvio = [];
+    let acertos = [];
+    let erros = [];
+
+    for (let i = 0; i < this.ultimosResultados.length; i++) {
+      datasEnvio.push(this.formatDate(this.ultimosResultados[i].DataEnvio));
+      acertos.push(this.ultimosResultados[i].ResultadoGeral.Acertos);
+      erros.push(this.ultimosResultados[i].ResultadoGeral.Erros);
+    }
+
+    let errosReverso = erros.reverse();
+    let acertosReverso = acertos.reverse();
+
+    return new Chart(document.getElementById("mixed-chart"), {
+      type: 'bar',
+      data: {
+        labels: datasEnvio.reverse(),
+        datasets: [{
+          label: "Acertos",
+          type: "line",
+          borderColor: "green",
+          data: acertosReverso,
+          fill: false
+        }, {
+          label: "Erros",
+          type: "line",
+          borderColor: "red",
+          data: errosReverso,
+          fill: false
+        }, {
+          label: "Acertos",
+          type: "bar",
+          backgroundColor: "rgba(0,0,0,0.2)",
+          data: acertosReverso,
+        }, {
+          label: "Erros",
+          type: "bar",
+          backgroundColor: "rgba(0,0,0,0.2)",
+          data: errosReverso
+        }
+        ]
+      },
+      options: {
+        legend: { display: false }
+      }
+    });
   }
 
   getGraficoBarraDesempenhoUltimos() {
@@ -57,14 +107,14 @@ export class DashboardComponent implements OnInit {
         labels: datasEnvio.reverse(),
         datasets: [{
           label: 'Acertos',
-          data: acertos,
+          data: acertos.reverse(),
           backgroundColor: 'green',
           borderColor: 'green',
           borderWidth: 2
         },
         {
           label: 'Erros',
-          data: erros,
+          data: erros.reverse(),
           backgroundColor: 'red',
           borderColor: 'red',
           borderWidth: 2
@@ -113,7 +163,7 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  getGraficosAcertosArea() {
+  getGraficoAcertosArea() {
     return new Chart("pie-area-acertos", {
       type: 'pie',
       data: {
@@ -130,7 +180,7 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  getGraficosErrosArea() {
+  getGraficoErrosArea() {
     return new Chart("pie-area-erros", {
       type: 'pie',
       data: {
@@ -208,7 +258,7 @@ export class DashboardComponent implements OnInit {
   formatTime(date) {
     var d = new Date(date);
     let datetext = d.toTimeString();
-  
+
     datetext = datetext.split(' ')[0];
     return datetext;
   }

@@ -153,19 +153,38 @@
   <!--3º Linha-->
   <div class="row">
     <!--Gráfico de barras do Desempenho Geral dos últimos simulados-->
-    <div class="col-12 col-xl-6 mb-4">
+    <div class="col-12 col-xl-6 mb-4 align-items-stretch">
       <div class="card border-0 1">
         <div class="card-title mb-1 p-3 text-center">
           <h6>Desempenho Geral dos últimos simulados</h6>
         </div>
         <div class="card-body">
           <div class="chart-container" style="position: relative;">
-            <canvas id="chart-bar" width="2" height="1"></canvas>
+            <canvas id="chart-bar" style="height:100%"></canvas>
           </div>
           <div *ngIf="nenhumResultado" class="text-center text-muted">Nenhum simulado realizado</div>
         </div>
       </div>
     </div>
+    <!--Gráfico Misto do Desempenho Geral dos últimos simulados-->
+    <div class="col-12 col-xl-6 mb-4 align-items-stretch">
+      <div class="card h-100 border-0 rounded-1">
+        <div class="card-title mb-1 p-3 text-center">
+          <h6>Desempenho Geral dos últimos simulados</h6>
+        </div>
+        <div class="card-body">
+          <div class="chart-container d-flex h-100 align-items-center justify-content-center"
+            style="position: relative;">
+            <canvas id="mixed-chart" style="height:100%"></canvas>
+          </div>
+          <div *ngIf="nenhumResultado" class="text-center text-muted">Nenhum simulado realizado</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    
     <!--Gráfico em Setores do Desempenho Geral-->
     <div class="col-12 col-xl-6 mb-4 align-items-stretch">
       <div class="card h-100 border-0 rounded-1">
@@ -181,6 +200,10 @@
         </div>
       </div>
     </div>
+  </div>
+
+  <!--4º Linha-->
+  <div class="row">
     <!--Gráfico Setores Acertos por Área-->
     <div class="col-12 col-xl-6 mb-4 align-items-stretch">
       <div class="card h-100 border-0 rounded-1">
@@ -211,6 +234,11 @@
         </div>
       </div>
     </div>
+  </div>
+
+  <!--5º Linha-->
+  <div class="row">
+
     <!--Gráfico Setores Acertos por Disciplinas-->
     <div class="col-12 col-xl-6 mb-4 align-items-stretch">
       <div class="card h-100 border-0 rounded-1">
@@ -242,5 +270,7 @@
       </div>
     </div>
   </div>
+
+ 
 
 </div>
