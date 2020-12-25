@@ -8,6 +8,10 @@
     color: gray;
 }
 
+td{
+  cursor: pointer;
+}
+
 /* Configurações para dispositivos móveis no modo retrato*/
 @media only screen and (hover: none) and (pointer: coarse) and (orientation:portrait){
     .table-overflow {

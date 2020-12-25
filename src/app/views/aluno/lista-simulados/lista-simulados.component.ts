@@ -1,3 +1,4 @@
+import { AutenticacaoService } from './../../../_servicos/login/autenticacao.service';
 import { first } from 'rxjs/operators';
 import { SimuladoService } from './../../../_servicos/simulados/simulado.service';
 import { Component, OnInit, Pipe, PipeTransform } from '@angular/core';
@@ -16,27 +17,32 @@ export class ListaSimuladosComponent implements OnInit {
 
   linhaSelecionada: number;
   selecionado: boolean = false;
+  respondido: boolean = false;
   listaSimulados = [];
   idSimuladoSelecionado: number;
   carregar: boolean = false;
+  carregarGabarito: boolean = false;
   tipoSimulado: number;
 
-  constructor(private simuladoService: SimuladoService, private router: Router, private route: ActivatedRoute) {
+  constructor(private autenticacaoService: AutenticacaoService,private simuladoService: SimuladoService, private router: Router, private route: ActivatedRoute) {
 
     this.listaSimulados = this.route.snapshot.data.response.Data;
   }
 
   ngOnInit(): void {
-    console.log(this.listaSimulados[0].ResultadoSimulado.ResultadoGeral.Erros)
+    
   }
 
   simuladoSelecionado(event: any, item: any, index: any) {
     this.linhaSelecionada = index;
     if (!item.SimuladoRespondido) {
+      this.respondido = false;
       this.selecionado = true;
       this.idSimuladoSelecionado = item.Id;
       this.tipoSimulado = item.TipoSimulado;
     } else {
+      this.idSimuladoSelecionado = item.Id;
+      this.respondido = true;
       this.selecionado = false;
     }
   }
@@ -80,6 +86,19 @@ export class ListaSimuladosComponent implements OnInit {
       sessionStorage.setItem('progresso', '0');
       this.router.navigateByUrl("/aluno/simuladogerado");
     }
+  }
+
+  buscarGabarito(){
+    this.carregarGabarito = true;   
+    this.simuladoService.buscarGabarito(this.idSimuladoSelecionado,this.autenticacaoService.getUsuario.IdUsuario).pipe(first()).subscribe(
+      gabarito => {
+        sessionStorage.setItem('gabarito', JSON.stringify(gabarito));
+        this.router.navigateByUrl("/aluno/gabarito");
+      },
+      error => {
+        this.carregarGabarito = false;
+        console.log(error);
+      });
   }
 
   converterMinutosEmSegundos(minutos: number) {

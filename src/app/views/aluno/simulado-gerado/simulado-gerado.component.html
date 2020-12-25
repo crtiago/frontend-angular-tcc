@@ -150,12 +150,12 @@
             </div>
         </div>
 
-        <!--Alternativas sem imagens-->
+        <!--Alternativas Descritiva-->
         <div class="form-row" *ngIf="simulado[index].TipoQuestao == '2'">
             <div class="col-md mb-1">
                 <form [formGroup]="formulario">
                     <textarea type="text" formControlName="descritiva" name="descritiva"
-                        placeholder="Descrição do assunto" class="form-control" id="exampleFormControlTextarea1"
+                       class="form-control" id="exampleFormControlTextarea1"
                         rows="13%"></textarea>
                 </form>
             </div>

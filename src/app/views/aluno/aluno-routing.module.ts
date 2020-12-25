@@ -1,3 +1,4 @@
+import { GabaritoComponent } from './gabarito/gabarito.component';
 import { RespostaResultados } from './../../_helpers/resposta-resultados';
 import { RespostaCadastro } from './../../_helpers/resposta-cadastro';
 import { RespostaListaSimulados } from './../../_helpers/resposta-lista-simulados';
@@ -32,6 +33,9 @@ const routes: Routes = [
         path: 'listasimulados', component: ListaSimuladosComponent, resolve: {
           response: RespostaListaSimulados
         }, data: { title: 'Simulados' }
+      },
+      {
+        path: 'gabarito', component: GabaritoComponent, data: { title: 'Gabarito' }
       },
       { path: 'sala', component: SalaComponent, data: { title: 'Sala' } },
       {

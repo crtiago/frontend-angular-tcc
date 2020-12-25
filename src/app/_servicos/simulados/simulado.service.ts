@@ -90,5 +90,19 @@ export class SimuladoService {
             )
     };
 
+    buscarGabarito(IdSimulado: number, IdUsuario: number) {
+        return this.http.post<any>(`${environment.apiUrl}/BuscarGabaritoPorSimulado`, { IdSimulado, IdUsuario })
+            .pipe(
+                map(retorno => {
+                    if (retorno.Sucesso) {
+                        return retorno.Data;
+                    } else {
+                        throw new Error(retorno.Mensagem);
+                    }
+                }
+                )
+            )
+    }
+
 
 }

@@ -19,7 +19,7 @@
                 <tbody>
                     <tr (click)="simuladoSelecionado($event, simulado, i)"
                         *ngFor="let simulado of listaSimulados.slice().reverse(); let i= index"
-                        [ngClass]="{'data-selected': i == linhaSelecionada && !simulado.SimuladoRespondido,'concluido': simulado.SimuladoRespondido }">
+                        [ngClass]="{'data-selected': i == linhaSelecionada }">
                         <td style="vertical-align: middle;">{{simulado.Nome}}</td>
                         <td style="vertical-align: middle;">{{simulado.Descricao}}</td>
                         <td style="text-align: center; vertical-align: middle;">{{simulado.QuantidadeQuestoes}}</td>
@@ -42,5 +42,7 @@
         <button style="float: right;" (click)="iniciarSimuladoSelecionado()" [disabled]="!selecionado"> <span
                 *ngIf="carregar" class="spinner-border spinner-border-sm mr-1"></span>Iniciar Simulado</button>
         <button style="float: right;" routerLink="/aluno/simulado">Criar novo simulado</button>
+        <button style="float: right;" [disabled]="!respondido" (click)="buscarGabarito()"><span
+            *ngIf="carregarGabarito" class="spinner-border spinner-border-sm mr-1"></span>Conferir Gabarito</button>
     </div>
 </div>
