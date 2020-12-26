@@ -200,6 +200,22 @@
         </div>
       </div>
     </div>
+
+      <!--Gráfico em Barras Horizontal-->
+      <div class="col-12 col-xl-6 mb-4 align-items-stretch">
+        <div class="card h-100 border-0 rounded-1">
+          <div class="card-title mb-1 p-3 text-center">
+            <h6>Quantidade de Acertos por Área</h6>
+          </div>
+          <div class="card-body">
+            <div class="chart-container d-flex h-100 align-items-center justify-content-center"
+              style="position: relative;">
+              <canvas id="bar-chart-horizontal" style="height:100%"></canvas>
+            </div>
+            <div *ngIf="nenhumResultado" class="text-center text-muted">Nenhum simulado realizado</div>
+          </div>
+        </div>
+      </div>
   </div>
 
   <!--4º Linha-->

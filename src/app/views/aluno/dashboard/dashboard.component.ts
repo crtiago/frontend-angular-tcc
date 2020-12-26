@@ -34,6 +34,7 @@ export class DashboardComponent implements OnInit {
       this.getGraficoLinha();
       this.getGraficoBarraDesempenhoUltimos();
       this.getGraficoCirculoDesempenhoGeral();
+      this.getGraficoBarraHorizontal();
       this.getGraficoAcertosArea();
       this.getGraficoErrosArea();
       this.getGraficoSetoresAcertosDisciplinas();
@@ -160,6 +161,29 @@ export class DashboardComponent implements OnInit {
           ]
         }]
       },
+    });
+  }
+
+  getGraficoBarraHorizontal() {
+    return new Chart("bar-chart-horizontal", {
+      type: 'horizontalBar',
+      data: {
+        labels: ["Fundamentos da Computação", "Matemática", "Tecnologia da Computação",],
+        datasets: [
+          {
+            label: "Acertos",
+            backgroundColor: ["#ff953e", "#cbe034", "#00d3b4"],
+            data: [
+              this.resultadosGerais.ResultadoFundamentos.Acertos,
+              this.resultadosGerais.ResultadoMatematica.Acertos,
+              this.resultadosGerais.ResultadoTecnologia.Acertos,
+            ]
+          }
+        ]
+      },
+      options: {
+        legend: { display: false },
+      }
     });
   }
 
