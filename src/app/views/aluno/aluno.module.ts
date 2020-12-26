@@ -17,10 +17,11 @@ import { CountdownModule } from 'ngx-countdown';
 import { KatexModule } from 'ng-katex';
 import { LazyLoadImageModule } from 'ng-lazyload-image';
 import { GabaritoComponent } from './gabarito/gabarito.component';
+import { SimuladoConcluidoComponent } from './simulado-concluido/simulado-concluido.component';
 
 
 @NgModule({
-  declarations: [DashboardComponent, SimuladoComponent, SalaComponent, AlunoBaseComponent, SimuladoGeradoComponent, ListaSimuladosComponent, GabaritoComponent],
+  declarations: [DashboardComponent, SimuladoComponent, SalaComponent, AlunoBaseComponent, SimuladoGeradoComponent, ListaSimuladosComponent, GabaritoComponent, SimuladoConcluidoComponent],
   imports: [
     CommonModule,
     FormsModule,

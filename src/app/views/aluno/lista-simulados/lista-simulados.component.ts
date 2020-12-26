@@ -92,6 +92,7 @@ export class ListaSimuladosComponent implements OnInit {
     this.carregarGabarito = true;   
     this.simuladoService.buscarGabarito(this.idSimuladoSelecionado,this.autenticacaoService.getUsuario.IdUsuario).pipe(first()).subscribe(
       gabarito => {
+        sessionStorage.setItem("idSimuladoGabarito", JSON.stringify(0));
         sessionStorage.setItem('gabarito', JSON.stringify(gabarito));
         this.router.navigateByUrl("/aluno/gabarito");
       },

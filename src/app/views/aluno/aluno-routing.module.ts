@@ -1,3 +1,4 @@
+import { SimuladoConcluidoComponent } from './simulado-concluido/simulado-concluido.component';
 import { GabaritoComponent } from './gabarito/gabarito.component';
 import { RespostaResultados } from './../../_helpers/resposta-resultados';
 import { RespostaCadastro } from './../../_helpers/resposta-cadastro';
@@ -28,6 +29,9 @@ const routes: Routes = [
       { path: 'simulado', component: SimuladoComponent, data: { title: 'Simulado' } },
       {
         path: 'simuladogerado', component: SimuladoGeradoComponent, canDeactivate: [DeactivateGuardService], data: { title: 'Simulado Gerado' }
+      },
+      {
+        path: 'simuladoconcluido', component: SimuladoConcluidoComponent, data: { title: 'Simulado Concluído' }
       },
       {
         path: 'listasimulados', component: ListaSimuladosComponent, resolve: {

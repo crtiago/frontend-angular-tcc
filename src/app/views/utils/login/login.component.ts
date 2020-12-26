@@ -74,6 +74,7 @@ export class LoginComponent implements OnInit, OnDestroy {
           this.spinnerLogin = true;
           //Direciona para a home do usuário conforme o tipo que ele for
           if (data.TipoUsuario == 1) {
+            sessionStorage.setItem("idSimuladoGabarito", JSON.stringify(0));
             this.router.navigate(['aluno']);
           } else if (data.TipoUsuario == 2) {
             this.router.navigate(['prof']);

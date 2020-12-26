@@ -1,21 +1,18 @@
-import { EProva } from './../../../_enuns/eprova';
-import { EDisciplinaId } from './../../../_enuns/edisciplinasid';
-import { EArea } from './../../../_enuns/earea';
-import { EDisciplina } from './../../../_enuns/edisciplinas';
-import { MetodosEnuns } from './../../../_helpers/metodos-enuns';
-import { AutenticacaoService } from './../../../_servicos/login/autenticacao.service';
-import { first } from 'rxjs/operators';
-import { Resposta } from './../../../_modelos/resposta';
+import { Component, ElementRef, HostListener, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
-import { SimuladoService } from './../../../_servicos/simulados/simulado.service';
-import { Simulado } from './../../../_modelos/simulado';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { CanComponentDeactivate } from './../../../_servicos/rota/deactivate-guard.service';
-import { ConfirmacaoDialogoService } from './../../utils/caixa-dialogo/confirmacao-dialogo.service';
 import { Router } from '@angular/router';
-import { Component, OnInit, ViewChild, ElementRef, HostListener, Input, OnDestroy } from '@angular/core';
-import { CountdownComponent, CountdownEvent } from 'ngx-countdown';
 import * as $ from "jquery";
+import { CountdownComponent } from 'ngx-countdown';
+import { first } from 'rxjs/operators';
+import { EArea } from './../../../_enuns/earea';
+import { EDisciplinaId } from './../../../_enuns/edisciplinasid';
+import { EProva } from './../../../_enuns/eprova';
+import { Resposta } from './../../../_modelos/resposta';
+import { AutenticacaoService } from './../../../_servicos/login/autenticacao.service';
+import { CanComponentDeactivate } from './../../../_servicos/rota/deactivate-guard.service';
+import { SimuladoService } from './../../../_servicos/simulados/simulado.service';
+import { ConfirmacaoDialogoService } from './../../utils/caixa-dialogo/confirmacao-dialogo.service';
 
 //Varivável para habilitar e usar o jquery
 declare var $: any;
@@ -50,8 +47,8 @@ export class SimuladoGeradoComponent implements OnInit, OnDestroy, CanComponentD
   acabouTempo = false;
 
   constructor(private router: Router, private sanitizer: DomSanitizer,
-    private confirmacaoDialogoService: ConfirmacaoDialogoService, private fb: FormBuilder,
-    private simuladoService: SimuladoService, private autenticacaoService: AutenticacaoService, private metodosDisciplinas: MetodosEnuns) {
+    private confirmacaoDialogoService: ConfirmacaoDialogoService, fb: FormBuilder,
+    private simuladoService: SimuladoService, autenticacaoService: AutenticacaoService) {
 
     this.aluno = autenticacaoService.getUsuario;
 
@@ -169,8 +166,9 @@ export class SimuladoGeradoComponent implements OnInit, OnDestroy, CanComponentD
       let idSimulado = Number(sessionStorage.getItem('idSimulado'));
 
       this.simuladoService.finalizarSimulado(idSimulado, this.aluno.IdUsuario, this.listaRespostas).pipe(first()).subscribe(
-        simulado => {
-          this.router.navigateByUrl("aluno/dashboard");
+        () => {
+          this.router.navigateByUrl("aluno/simuladoconcluido");
+          sessionStorage.setItem("idSimuladoGabarito", JSON.stringify(idSimulado));
           sessionStorage.setItem("tempo", '');
           sessionStorage.setItem("tipoSimulado", '');
           sessionStorage.setItem("progresso", '');
@@ -178,10 +176,11 @@ export class SimuladoGeradoComponent implements OnInit, OnDestroy, CanComponentD
           sessionStorage.setItem("idSimulado", '');
           sessionStorage.setItem("respostas", '');
           sessionStorage.setItem("simulado", '');
-          location.reload();
         },
         error => {
           this.carregar = false;
+          sessionStorage.setItem("idSimuladoGabarito", JSON.stringify(0));
+          this.router.navigateByUrl("aluno/simuladoconcluido");
           console.log(error);
         });
     } else {
@@ -206,10 +205,11 @@ export class SimuladoGeradoComponent implements OnInit, OnDestroy, CanComponentD
     }
     let idSimulado = Number(sessionStorage.getItem('idSimulado'));
     this.simuladoService.finalizarSimulado(idSimulado, this.aluno.IdUsuario, this.listaRespostas).pipe(first()).subscribe(
-      simulado => {
+      () => {
         $(this.modalTempo.nativeElement).modal('hide');
-        
-        this.router.navigateByUrl("aluno/dashboard");
+
+        this.router.navigateByUrl("aluno/simuladoconcluido");
+        sessionStorage.setItem("idSimuladoGabarito", JSON.stringify(idSimulado));
         sessionStorage.setItem("tempo", '');
         sessionStorage.setItem("tipoSimulado", '');
         sessionStorage.setItem("progresso", '');
@@ -217,10 +217,11 @@ export class SimuladoGeradoComponent implements OnInit, OnDestroy, CanComponentD
         sessionStorage.setItem("idSimulado", '');
         sessionStorage.setItem("respostas", '');
         sessionStorage.setItem("simulado", '');
-        location.reload();
       },
       error => {
         this.spinnerModal = false;
+        sessionStorage.setItem("idSimuladoGabarito", JSON.stringify(0));
+        this.router.navigateByUrl("aluno/simuladoconcluido");
         console.log(error);
       });
   }
