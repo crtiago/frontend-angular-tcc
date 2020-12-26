@@ -178,6 +178,7 @@ export class SimuladoGeradoComponent implements OnInit, OnDestroy, CanComponentD
           sessionStorage.setItem("idSimulado", '');
           sessionStorage.setItem("respostas", '');
           sessionStorage.setItem("simulado", '');
+          location.reload();
         },
         error => {
           this.carregar = false;
