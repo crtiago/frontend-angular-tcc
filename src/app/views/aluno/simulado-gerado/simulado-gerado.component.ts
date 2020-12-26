@@ -47,6 +47,7 @@ export class SimuladoGeradoComponent implements OnInit, OnDestroy, CanComponentD
   carregar = false
   cancelar = false;
   spinnerModal = false;
+  acabouTempo = false;
 
   constructor(private router: Router, private sanitizer: DomSanitizer,
     private confirmacaoDialogoService: ConfirmacaoDialogoService, private fb: FormBuilder,
@@ -66,10 +67,10 @@ export class SimuladoGeradoComponent implements OnInit, OnDestroy, CanComponentD
 
   ngOnInit(): void {
 
-    if(this.simulado[this.index].TipoQuestao == '1'){
+    if (this.simulado[this.index].TipoQuestao == '1') {
       this.formulario.get('descritiva').disable();
       this.formulario.get('alternativas').enable();
-    }else{
+    } else {
       this.formulario.get('descritiva').reset();
       this.formulario.get('alternativas').reset();
       this.formulario.get('alternativas').disable();
@@ -87,8 +88,8 @@ export class SimuladoGeradoComponent implements OnInit, OnDestroy, CanComponentD
 
   tempoAcabou(e: Event) {
     if (e["action"] == "done") {
+      this.acabouTempo = true;
       $(this.modalTempo.nativeElement).modal('show');
-      console.log('Tempo acabou')
     }
   }
 
@@ -110,7 +111,7 @@ export class SimuladoGeradoComponent implements OnInit, OnDestroy, CanComponentD
   }
 
   canDeactivate() {
-    if (!this.cancelar && ((this.index + 1) < this.quantidadeQuestoes)) {
+    if (!this.cancelar && ((this.index + 1) < this.quantidadeQuestoes) && !this.acabouTempo) {
       let result: Promise<boolean> = this.confirmacaoDialogoService.confirm('Seu progresso será perdido! Tem certeza que deseja sair?')
         .then((confirmed) => confirmed).catch(function () {
           return false;
@@ -150,10 +151,10 @@ export class SimuladoGeradoComponent implements OnInit, OnDestroy, CanComponentD
   }
 
   proximaQuestao() {
-    
-    if(this.simulado[this.index].TipoQuestao == '1'){
+
+    if (this.simulado[this.index].TipoQuestao == '1') {
       this.listaRespostas.push(new Resposta(this.simulado[this.index].Id, true, this.formulario.get('alternativas').value, this.simulado[this.index].TipoQuestao));
-    }else{
+    } else {
       this.listaRespostas.push(new Resposta(this.simulado[this.index].Id, true, this.formulario.get('descritiva').value, this.simulado[this.index].TipoQuestao));
     }
 
@@ -197,7 +198,6 @@ export class SimuladoGeradoComponent implements OnInit, OnDestroy, CanComponentD
   }
 
   enviarSimuladoIncompleto() {
-    this.cancelar = true;
     this.spinnerModal = true;
     for (let i = this.index; i < this.quantidadeQuestoes; i++) {
       this.listaRespostas.push(new Resposta(this.simulado[i].Id, false, null, this.simulado[this.index].TipoQuestao));
@@ -207,6 +207,7 @@ export class SimuladoGeradoComponent implements OnInit, OnDestroy, CanComponentD
     this.simuladoService.finalizarSimulado(idSimulado, this.aluno.IdUsuario, this.listaRespostas).pipe(first()).subscribe(
       simulado => {
         $(this.modalTempo.nativeElement).modal('hide');
+        
         this.router.navigateByUrl("aluno/dashboard");
         sessionStorage.setItem("tempo", '');
         sessionStorage.setItem("tipoSimulado", '');
@@ -215,9 +216,10 @@ export class SimuladoGeradoComponent implements OnInit, OnDestroy, CanComponentD
         sessionStorage.setItem("idSimulado", '');
         sessionStorage.setItem("respostas", '');
         sessionStorage.setItem("simulado", '');
+        location.reload();
       },
       error => {
-        this.spinnerModal = true;
+        this.spinnerModal = false;
         console.log(error);
       });
   }
@@ -235,7 +237,7 @@ export class SimuladoGeradoComponent implements OnInit, OnDestroy, CanComponentD
     return letra.concat(alternativa.toString());
   }
 
-  getAlternativaImagem(imagem: string){
+  getAlternativaImagem(imagem: string) {
     return this.sanitizer.bypassSecurityTrustResourceUrl('data:image/*;base64,' + imagem);
   }
 
