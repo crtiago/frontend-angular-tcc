@@ -23,10 +23,14 @@
                         <td style="vertical-align: middle;">{{simulado.Nome}}</td>
                         <td style="vertical-align: middle;">{{simulado.Descricao}}</td>
                         <td style="text-align: center; vertical-align: middle;">{{simulado.QuantidadeQuestoes}}</td>
-                        <td *ngIf="simulado.SimuladoRespondido" style="text-align: center; vertical-align: middle;">{{simulado.ResultadoSimulado.ResultadoGeral.Acertos}}</td>
-                        <td *ngIf="simulado.SimuladoRespondido" style="text-align: center; vertical-align: middle;">{{simulado.ResultadoSimulado.ResultadoGeral.Erros}}</td>
-                        <td *ngIf="!simulado.SimuladoRespondido" style="text-align: center; vertical-align: middle;">-</td>
-                        <td *ngIf="!simulado.SimuladoRespondido" style="text-align: center; vertical-align: middle;">-</td>
+                        <td *ngIf="simulado.SimuladoRespondido" style="text-align: center; vertical-align: middle;">
+                            {{simulado.ResultadoSimulado.ResultadoGeral.Acertos}}</td>
+                        <td *ngIf="simulado.SimuladoRespondido" style="text-align: center; vertical-align: middle;">
+                            {{simulado.ResultadoSimulado.ResultadoGeral.Erros}}</td>
+                        <td *ngIf="!simulado.SimuladoRespondido" style="text-align: center; vertical-align: middle;">-
+                        </td>
+                        <td *ngIf="!simulado.SimuladoRespondido" style="text-align: center; vertical-align: middle;">-
+                        </td>
                         <td style="text-align: center; vertical-align: middle;">
                             <i *ngIf="simulado.SimuladoRespondido" class="fas fa-check" style="color: rgb(47,158,64);"
                                 [ngClass]="{'data-selected': i == linhaSelecionada && !simulado.SimuladoRespondido}"></i>
@@ -41,8 +45,9 @@
     <div class="card-footer">
         <button style="float: right;" (click)="iniciarSimuladoSelecionado()" [disabled]="!selecionado"> <span
                 *ngIf="carregar" class="spinner-border spinner-border-sm mr-1"></span>Iniciar Simulado</button>
+        <button style="float: right;" [disabled]="!respondido" (click)="buscarGabarito()"><span *ngIf="carregarGabarito"
+                class="spinner-border spinner-border-sm mr-1"></span>Conferir Gabarito</button>
         <button style="float: right;" routerLink="/aluno/simulado">Criar novo simulado</button>
-        <button style="float: right;" [disabled]="!respondido" (click)="buscarGabarito()"><span
-            *ngIf="carregarGabarito" class="spinner-border spinner-border-sm mr-1"></span>Conferir Gabarito</button>
+
     </div>
 </div>
