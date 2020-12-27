@@ -31,4 +31,14 @@ export class DashboardService {
         )
       )
   };
+
+  buscarResultadosDisciplina() {
+    return this.http.get<any>(`${environment.apiUrl}/BuscarDesemepnhoDisciplinas?idUsuario=${this.autenticacaoService.getUsuario.IdUsuario}`)
+      .pipe(
+        map(desempenhoDisciplina => {
+          return desempenhoDisciplina;
+        }
+        )
+      )
+  };
 }

@@ -12,17 +12,11 @@ import { EProva } from './../../../_enuns/eprova';
 })
 export class GabaritoComponent implements OnInit {
 
-  imagem: string;
-
-  quantidadeQuestoes: number;
-  area: string;
-  disciplina: string;
   prova: string;
   gabarito: [];
 
   constructor(private sanitizer: DomSanitizer) {
     this.gabarito = JSON.parse(sessionStorage.getItem('gabarito'));
-    console.log(this.gabarito)
   }
 
   ngOnInit() {

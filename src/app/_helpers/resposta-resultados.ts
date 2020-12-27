@@ -13,7 +13,8 @@ export class RespostaResultados implements Resolve<[any]> {
 
     return this.dashboardService.buscarUltimosResultados().pipe(
       withLatestFrom(
-        this.dashboardService.buscarResultadoGeral()
+        this.dashboardService.buscarResultadoGeral(),
+        this.dashboardService.buscarResultadosDisciplina(),
       )
     );
   }

@@ -6,7 +6,7 @@
     <div class="col-12 mb-4 align-items-stretch">
       <div class="card h-100 border-0 rounded-1">
         <div class="card-title mb-1 p-3 text-center">
-          <h4>Desempenho Geral dos últimos simulados</h4>
+          <h4>Desempenho geral dos últimos simulados</h4>
         </div>
         <div class="card-body">
           <div class="table-responsive-md">
@@ -156,7 +156,7 @@
     <div class="col-12 col-xl-6 mb-4 align-items-stretch">
       <div class="card border-0 1">
         <div class="card-title mb-1 p-3 text-center">
-          <h6>Desempenho Geral dos últimos simulados</h6>
+          <h6>Desempenho geral dos últimos simulados</h6>
         </div>
         <div class="card-body">
           <div class="chart-container" style="position: relative;">
@@ -170,7 +170,7 @@
     <div class="col-12 col-xl-6 mb-4 align-items-stretch">
       <div class="card h-100 border-0 rounded-1">
         <div class="card-title mb-1 p-3 text-center">
-          <h6>Desempenho Geral dos últimos simulados</h6>
+          <h6>Desempenho geral dos últimos simulados</h6>
         </div>
         <div class="card-body">
           <div class="chart-container" style="position: relative;">
@@ -189,7 +189,7 @@
     <div class="col-12 col-xl-6 mb-4 align-items-stretch">
       <div class="card h-100 border-0 rounded-1">
         <div class="card-title mb-1 p-3 text-center">
-          <h6>Desempenho Geral</h6>
+          <h6>Desempenho geral</h6>
         </div>
         <div class="card-body">
           <div class="chart-container" style="position: relative;">
@@ -204,15 +204,14 @@
     <div class="col-12 col-xl-6 mb-4 align-items-stretch">
       <div class="card h-100 border-0 rounded-1">
         <div class="card-title mb-1 p-3 text-center">
-          <h6>Quantidade de Acertos por Área</h6>
+          <h6>Desempenho por área</h6>
         </div>
         <div class="card-body">
-          <div class="chart-container"
-            style="position: relative;">
-            <canvas id="bar-chart-horizontal" style="height:100%"></canvas>
+          <div class="chart-container" style="position: relative;">
+            <canvas id="bar-chart-desempenho-area" style="height:100%"></canvas>
             <div *ngIf="nenhumResultado" class="text-center text-muted">Nenhum simulado realizado</div>
           </div>
-          
+
         </div>
       </div>
     </div>
@@ -224,15 +223,14 @@
     <div class="col-12 col-xl-6 mb-4 align-items-stretch">
       <div class="card h-100 border-0 rounded-1">
         <div class="card-title mb-1 p-3 text-center">
-          <h6>Quantidade de Acertos por Área</h6>
+          <h6>Quantidade de acertos por área</h6>
         </div>
         <div class="card-body">
-          <div class="chart-container"
-            style="position: relative;">
+          <div class="chart-container" style="position: relative;">
             <canvas id="pie-area-acertos" style="height:100%"></canvas>
             <div *ngIf="nenhumResultado" class="text-center text-muted">Nenhum simulado realizado</div>
           </div>
-          
+
         </div>
       </div>
     </div>
@@ -240,15 +238,14 @@
     <div class="col-12 col-xl-6 mb-4 align-items-stretch">
       <div class="card h-100 border-0 rounded-1">
         <div class="card-title mb-1 p-3 text-center">
-          <h6>Quantidade de Erros por Área</h6>
+          <h6>Quantidade de erros por área</h6>
         </div>
         <div class="card-body">
-          <div class="chart-container"
-            style="position: relative;">
+          <div class="chart-container" style="position: relative;">
             <canvas id="pie-area-erros" style="height:100%"></canvas>
             <div *ngIf="nenhumResultado" class="text-center text-muted">Nenhum simulado realizado</div>
           </div>
-          
+
         </div>
       </div>
     </div>
@@ -257,35 +254,53 @@
   <!--5º Linha-->
   <div class="row">
 
-    <!--Gráfico Setores Acertos por Disciplinas-->
+    <!--Gráfico Barra Horizontal Desempenho por disciplinas na área de Area de Fundamentos-->
     <div class="col-12 col-xl-6 mb-4 align-items-stretch">
       <div class="card h-100 border-0 rounded-1">
         <div class="card-title mb-1 p-3 text-center">
-          <h6>Quantidades de Acertos por disciplinas</h6>
+          <h6>Desempenho por disciplinas na área de Fundamentos da Computação</h6>
         </div>
         <div class="card-body">
-          <div class="chart-container"
-            style="position: relative;">
-            <canvas id="pie-acertos" style="height:100%"></canvas>
+          <div class="chart-container" style="position: relative;">
+            <canvas id="bar-chart-desempenho-disciplina-fundamentos" style="height:100%"></canvas>
             <div *ngIf="nenhumResultado" class="text-center text-muted">Nenhum simulado realizado</div>
           </div>
-          
+
         </div>
       </div>
     </div>
-    <!--Gráfico Setores Erros por Disciplinas-->
+
+    <!--Gráfico Barra Horizontal Desempenho por disciplinas na área de Area de Matematica-->
     <div class="col-12 col-xl-6 mb-4 align-items-stretch">
       <div class="card h-100 border-0 rounded-1">
         <div class="card-title mb-1 p-3 text-center">
-          <h6>Quantidades de Erros por disciplinas</h6>
+          <h6>Desempenho por disciplinas na área de Matemática</h6>
         </div>
         <div class="card-body">
-          <div class="chart-container"
-            style="position: relative;">
-            <canvas id="pie-erros" style="height:100%"></canvas>
+          <div class="chart-container" style="position: relative;">
+            <canvas id="bar-chart-desempenho-disciplina-matematica" style="height:100%"></canvas>
             <div *ngIf="nenhumResultado" class="text-center text-muted">Nenhum simulado realizado</div>
           </div>
-          
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--7º Linha-->
+  <div class="row">
+    <!--Gráfico Barra Horizontal Desempenho por disciplinas na área de Area de Tecnologia-->
+    <div class="col-12 col-xl-6 mb-4 align-items-stretch">
+      <div class="card h-100 border-0 rounded-1">
+        <div class="card-title mb-1 p-3 text-center">
+          <h6>Desempenho por disciplinas na área de Tecnologia</h6>
+        </div>
+        <div class="card-body">
+          <div class="chart-container" style="position: relative;">
+            <canvas id="bar-chart-desempenho-disciplina-tecnologia" style="height:100%"></canvas>
+            <div *ngIf="nenhumResultado" class="text-center text-muted">Nenhum simulado realizado</div>
+          </div>
+
         </div>
       </div>
     </div>

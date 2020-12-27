@@ -15,14 +15,21 @@ export class DashboardComponent implements OnInit {
 
   resultadosGerais: any;
   ultimosResultados: any[];
+  desempenhoDisciplinas: any;
+
   nenhumResultado: boolean = true;
 
 
   constructor(private route: ActivatedRoute, private dashboardService: DashboardService) {
-    if (this.route.snapshot.data['respostaResultados'][0].Sucesso && this.route.snapshot.data['respostaResultados'][1].Sucesso) {
+    if (this.route.snapshot.data['respostaResultados'][0].Sucesso &&
+      this.route.snapshot.data['respostaResultados'][1].Sucesso &&
+      this.route.snapshot.data['respostaResultados'][2].Sucesso) {
+
       this.ultimosResultados = this.route.snapshot.data['respostaResultados'][0].Data;
       this.resultadosGerais = this.route.snapshot.data['respostaResultados'][1].Data;
+      this.desempenhoDisciplinas = this.route.snapshot.data['respostaResultados'][2].Data;
       this.nenhumResultado = false;
+
     } else {
       this.nenhumResultado = true;
     }
@@ -31,14 +38,15 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     if (this.route.snapshot.data['respostaResultados'][0].Sucesso && this.route.snapshot.data['respostaResultados'][1].Sucesso) {
-      this.getGraficoLinha();
       this.getGraficoBarraDesempenhoUltimos();
+      this.getGraficoLinha();
       this.getGraficoCirculoDesempenhoGeral();
-      this.getGraficoBarraHorizontal();
+      this.getGraficoBarraHorizontalDesempenhoArea();
       this.getGraficoAcertosArea();
       this.getGraficoErrosArea();
-      this.getGraficoSetoresAcertosDisciplinas();
-      this.getGraficoSetoresErrosDisciplinas();
+      this.getGraficoHorizontalDesempenhoDisciplinaAreaFundamentos();
+      this.getGraficoHorizontalDesempenhoDisciplinaAreaMatematica();
+      this.getGraficoHorizontalDesempenhoDisciplinaAreaTecnologia();
     }
   }
 
@@ -164,25 +172,34 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  getGraficoBarraHorizontal() {
-    return new Chart("bar-chart-horizontal", {
+  getGraficoBarraHorizontalDesempenhoArea() {
+    return new Chart("bar-chart-desempenho-area", {
       type: 'horizontalBar',
       data: {
         labels: ["Fundamentos da Computação", "Matemática", "Tecnologia da Computação",],
         datasets: [
           {
             label: "Acertos",
-            backgroundColor: ["#ff953e", "#cbe034", "#00d3b4"],
+            backgroundColor: ["green", "green", "green"],
             data: [
               this.resultadosGerais.ResultadoFundamentos.Acertos,
               this.resultadosGerais.ResultadoMatematica.Acertos,
               this.resultadosGerais.ResultadoTecnologia.Acertos,
             ]
+          },
+          {
+            label: "Erros",
+            backgroundColor: ["red", "red", "red"],
+            data: [
+              this.resultadosGerais.ResultadoFundamentos.Erros,
+              this.resultadosGerais.ResultadoMatematica.Erros,
+              this.resultadosGerais.ResultadoTecnologia.Erros,
+            ]
           }
         ]
       },
       options: {
-        legend: { display: false },
+        legend: { display: true },
       }
     });
   }
@@ -221,42 +238,143 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  getGraficoSetoresAcertosDisciplinas() {
-    return new Chart("pie-acertos", {
-      type: 'pie',
+  getGraficoHorizontalDesempenhoDisciplinaAreaFundamentos() {
+    return new Chart("bar-chart-desempenho-disciplina-fundamentos", {
+      type: 'horizontalBar',
       data: {
-        labels: ["Africa", "Asia", "Europe", "Latin America", "North America"],
-        datasets: [{
-          label: "Population (millions)",
-          backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850"],
-          data: [2478, 5267, 734, 784, 433]
-        }]
+        labels: [
+          ["Arquitetura e", "Organização de Computadores"],
+          "Eletrônica Digital",
+          "Estruturas de Dados",
+          "Grafos",
+          ["Linguagens e", "Paradigmas de Programação"],          
+          "Programação",
+          "Sistemas Operacionais",
+          "Teoria da Computação"],
+        datasets: [
+          {
+            label: "Acertos",
+            backgroundColor: ["green", "green", "green", "green", "green", "green", "green", "green",],
+            data: [
+              this.desempenhoDisciplinas[4].Acertos,
+              this.desempenhoDisciplinas[1].Acertos,
+              this.desempenhoDisciplinas[6].Acertos,
+              this.desempenhoDisciplinas[19].Acertos,
+              this.desempenhoDisciplinas[5].Acertos,
+              this.desempenhoDisciplinas[0].Acertos,
+              this.desempenhoDisciplinas[7].Acertos,
+              this.desempenhoDisciplinas[18].Acertos,
+            ]
+          },
+          {
+            label: "Erros",
+            backgroundColor: ["red", "red", "red", "red", "red", "red", "red", "red",],
+            data: [
+              this.desempenhoDisciplinas[4].Erros,
+              this.desempenhoDisciplinas[1].Erros,
+              this.desempenhoDisciplinas[6].Erros,
+              this.desempenhoDisciplinas[19].Erros,
+              this.desempenhoDisciplinas[5].Erros,
+              this.desempenhoDisciplinas[0].Erros,
+              this.desempenhoDisciplinas[7].Erros,
+              this.desempenhoDisciplinas[18].Erros,
+            ]
+          }
+        ]
       },
       options: {
-        title: {
-          display: true,
-          text: 'Predicted world population (millions) in 2050'
-        }
+        legend: { display: true },
       }
     });
   }
 
-  getGraficoSetoresErrosDisciplinas() {
-    return new Chart("pie-erros", {
-      type: 'pie',
+  getGraficoHorizontalDesempenhoDisciplinaAreaMatematica() {
+    return new Chart("bar-chart-desempenho-disciplina-matematica", {
+      type: 'horizontalBar',
       data: {
-        labels: ["Africa", "Asia", "Europe", "Latin America", "North America"],
-        datasets: [{
-          label: "Population (millions)",
-          backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850"],
-          data: [2478, 5267, 734, 784, 433]
-        }]
+        labels: [
+          ["Álgebra Linear e", "Geometria Analítica"],
+          "Cálculo Numérico",
+          "Cálculo",
+          ["Estatística e", "Probabilidade"],          
+          "Matemática Discreta",],
+        datasets: [
+          {
+            label: "Acertos",
+            backgroundColor: ["green", "green", "green", "green", "green"],
+            data: [
+              this.desempenhoDisciplinas[3].Acertos,
+              this.desempenhoDisciplinas[20].Acertos,
+              this.desempenhoDisciplinas[9].Acertos,
+              this.desempenhoDisciplinas[13].Acertos,
+              this.desempenhoDisciplinas[2].Acertos,
+            ]
+          },
+          {
+            label: "Erros",
+            backgroundColor: ["red", "red", "red", "red", "red"],
+            data: [
+              this.desempenhoDisciplinas[3].Erros,
+              this.desempenhoDisciplinas[20].Erros,
+              this.desempenhoDisciplinas[9].Erros,
+              this.desempenhoDisciplinas[13].Erros,
+              this.desempenhoDisciplinas[2].Erros,
+            ]
+          }
+        ]
       },
       options: {
-        title: {
-          display: true,
-          text: 'Predicted world population (millions) in 2050'
-        }
+        legend: { display: true },
+      }
+    });
+  }
+
+  getGraficoHorizontalDesempenhoDisciplinaAreaTecnologia() {
+    return new Chart("bar-chart-desempenho-disciplina-tecnologia", {
+      type: 'horizontalBar',
+      data: {
+        labels: [
+          "Banco de Dados",
+          "Compiladores",
+          "Computação Gráfica",
+          "Engenharia de Software",
+          "Inteligência Artificial",
+          "Redes de Computadores",
+          "Segurança Computacional",
+          "Sistemas Distribuídos",],
+        datasets: [
+          {
+            label: "Acertos",
+            backgroundColor: ["green", "green", "green", "green", "green", "green", "green", "green"],
+            data: [
+              this.desempenhoDisciplinas[10].Acertos,
+              this.desempenhoDisciplinas[11].Acertos,
+              this.desempenhoDisciplinas[14].Acertos,
+              this.desempenhoDisciplinas[12].Acertos,
+              this.desempenhoDisciplinas[16].Acertos,
+              this.desempenhoDisciplinas[7].Acertos,
+              this.desempenhoDisciplinas[15].Acertos,
+              this.desempenhoDisciplinas[17].Acertos,
+            ]
+          },
+          {
+            label: "Erros",
+            backgroundColor: ["red", "red", "red", "red", "red", "red", "red", "red"],
+            data: [
+              this.desempenhoDisciplinas[10].Erros,
+              this.desempenhoDisciplinas[11].Erros,
+              this.desempenhoDisciplinas[14].Erros,
+              this.desempenhoDisciplinas[12].Erros,
+              this.desempenhoDisciplinas[16].Erros,
+              this.desempenhoDisciplinas[7].Erros,
+              this.desempenhoDisciplinas[15].Erros,
+              this.desempenhoDisciplinas[17].Erros,
+            ]
+          }
+        ]
+      },
+      options: {
+        legend: { display: true },
       }
     });
   }
