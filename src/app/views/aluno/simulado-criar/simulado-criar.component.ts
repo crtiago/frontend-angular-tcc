@@ -1,17 +1,17 @@
 import { first } from 'rxjs/operators';
-import { AutenticacaoService } from './../../../_servicos/login/autenticacao.service';
-import { SimuladoService } from './../../../_servicos/simulados/simulado.service';
-import { Validacoes } from './../../../_helpers/validacoes';
+import { AutenticacaoService } from '../../../_servicos/login/autenticacao.service';
+import { SimuladoService } from '../../../_servicos/simulados/simulado.service';
+import { Validacoes } from '../../../_helpers/validacoes';
 import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-simulado',
-  templateUrl: './simulado.component.html',
-  styleUrls: ['./simulado.component.css']
+  templateUrl: './simulado-criar.component.html',
+  styleUrls: ['./simulado-criar.component.css']
 })
-export class SimuladoComponent implements OnInit {
+export class SimuladoCriarComponent implements OnInit {
 
   carregar = false;
   formularioDeUsuario: FormGroup;

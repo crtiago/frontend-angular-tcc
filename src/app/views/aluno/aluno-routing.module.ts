@@ -1,3 +1,4 @@
+import { SimuladoCriarComponent } from './simulado-criar/simulado-criar.component';
 import { SimuladoConcluidoComponent } from './simulado-concluido/simulado-concluido.component';
 import { GabaritoComponent } from './gabarito/gabarito.component';
 import { RespostaResultados } from './../../_helpers/resposta-resultados';
@@ -10,7 +11,6 @@ import { ConfiguracoesComponent } from './../utils/configuracoes/configuracoes.c
 import { SuporteComponent } from './../utils/suporte/suporte.component';
 import { AlunoBaseComponent } from './aluno-base/aluno-base.component';
 import { SalaComponent } from './sala/sala.component';
-import { SimuladoComponent } from './simulado/simulado.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
@@ -26,7 +26,7 @@ const routes: Routes = [
           respostaResultados: RespostaResultados
         }, data: { title: 'Dashboard' }
       },
-      { path: 'simulado', component: SimuladoComponent, data: { title: 'Simulado' } },
+      { path: 'simulado', component: SimuladoCriarComponent, data: { title: 'Simulado' } },
       {
         path: 'simuladogerado', component: SimuladoGeradoComponent, canDeactivate: [DeactivateGuardService], data: { title: 'Simulado Gerado' }
       },

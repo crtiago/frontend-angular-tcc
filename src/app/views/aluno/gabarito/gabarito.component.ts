@@ -22,6 +22,7 @@ export class GabaritoComponent implements OnInit {
 
   constructor(private sanitizer: DomSanitizer) {
     this.gabarito = JSON.parse(sessionStorage.getItem('gabarito'));
+    console.log(this.gabarito)
   }
 
   ngOnInit() {
