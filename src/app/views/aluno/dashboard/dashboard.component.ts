@@ -3,8 +3,14 @@ import { EProva } from './../../../_enuns/eprova';
 import { first } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 import { DashboardService } from './../../../_servicos/resultados/dashboard.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Chart } from 'chart.js';
+import { jsPDF } from "jspdf";
+import html2canvas from 'html2canvas';
+import * as $ from "jquery";
+
+//Varivável para habilitar e usar o jquery
+declare var $: any;
 
 @Component({
   selector: 'dashboard',
@@ -16,9 +22,8 @@ export class DashboardComponent implements OnInit {
   resultadosGerais: any;
   ultimosResultados: any[];
   desempenhoDisciplinas: any;
-
+  imagem: any;
   nenhumResultado: boolean = true;
-
 
   constructor(private route: ActivatedRoute, private dashboardService: DashboardService) {
     if (this.route.snapshot.data['respostaResultados'][0].Sucesso &&
@@ -148,8 +153,8 @@ export class DashboardComponent implements OnInit {
         },
         responsive: true,
         legend: {
-          position: 'bottom',
-          display: false
+          position: 'top',
+          display: true
         },
       }
     });
@@ -176,7 +181,7 @@ export class DashboardComponent implements OnInit {
     return new Chart("bar-chart-desempenho-area", {
       type: 'horizontalBar',
       data: {
-        labels: [["Fundamentos"," da Computação"], "Matemática", ["Tecnologia"," da Computação"]],
+        labels: [["Fundamentos", " da Computação"], "Matemática", ["Tecnologia", " da Computação"]],
         datasets: [
           {
             label: "Acertos",
@@ -247,7 +252,7 @@ export class DashboardComponent implements OnInit {
           "Eletrônica Digital",
           "Estruturas de Dados",
           "Grafos",
-          ["Linguagens e", "Paradigmas de Programação"],          
+          ["Linguagens e", "Paradigmas de Programação"],
           "Programação",
           "Sistemas Operacionais",
           "Teoria da Computação"],
@@ -296,7 +301,7 @@ export class DashboardComponent implements OnInit {
           ["Álgebra Linear e", "Geometria Analítica"],
           "Cálculo Numérico",
           "Cálculo",
-          ["Estatística e", "Probabilidade"],          
+          ["Estatística e", "Probabilidade"],
           "Matemática Discreta",],
         datasets: [
           {
@@ -371,6 +376,7 @@ export class DashboardComponent implements OnInit {
               this.desempenhoDisciplinas[17].Erros,
             ]
           }
+
         ]
       },
       options: {
@@ -382,6 +388,58 @@ export class DashboardComponent implements OnInit {
   getSimuladoPorId(tipoSimulado: number) {
     return EProvaResultado[tipoSimulado];
   }
+
+  getPdfEspecifico(grafico: string, nome: string) {
+
+    var canvas = document.getElementById(grafico) as HTMLCanvasElement;
+    var imagem = canvas.toDataURL("image/jpg");
+    var doc = new jsPDF('landscape');
+
+    doc.setFontSize(20);
+    doc.addImage(imagem, 'jpg', 10, 10, 280, 150);
+    doc.save(nome + '.pdf');
+
+    /*let canvas = document.getElementById(grafico) as HTMLCanvasElement;
+
+    var a = document.createElement('a');
+    a.href = canvas.toDataURL("image/jpg");
+    a.download = nome;
+
+    // Trigger the download
+    a.click();*/
+  }
+
+  getPdfGeral() {
+
+    var HTML_Width = $(".canvas_div_pdf").width();
+    var HTML_Height = $(".canvas_div_pdf").height();
+    var top_left_margin = 15;
+    var PDF_Width = HTML_Width + (top_left_margin * 2);
+    var PDF_Height = (PDF_Width * 1.5) + (top_left_margin * 2);
+    var canvas_image_width = HTML_Width;
+    var canvas_image_height = HTML_Height;
+
+    var totalPDFPages = Math.ceil(HTML_Height / PDF_Height) - 1;
+
+
+    html2canvas($(".canvas_div_pdf")[0], { allowTaint: true }).then(function (canvas) {
+      canvas.getContext('2d');
+
+      console.log(canvas.height + "  " + canvas.width);
+
+      var imgData = canvas.toDataURL("image/PNG", 1.0);
+      var pdf = new jsPDF('p', 'pt', [PDF_Width, PDF_Height]);
+      pdf.addImage(imgData, 'PNG', top_left_margin, top_left_margin, canvas_image_width, canvas_image_height);
+
+
+      for (var i = 1; i <= totalPDFPages; i++) {
+        pdf.addPage();
+        pdf.addImage(imgData, 'PNG', top_left_margin, -(PDF_Height * i) + (top_left_margin * 4), canvas_image_width, canvas_image_height);
+      }
+
+      pdf.save("Desempenho do Usuario.pdf");
+    });
+  };
 
   formatDate(date) {
     var d = new Date(date),
