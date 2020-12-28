@@ -39,7 +39,7 @@ export class SimuladoCriarComponent implements OnInit {
         Validacoes.validarQuantidadeQuestoes('quantidadeMatematica'),
         Validacoes.validarQuantidadeQuestoes('quantidadeTecnologia'),
         Validacoes.validarQuantidadeQuestoes('quantidadeEspecifica'),
-        Validacoes.validarQuantidadeQuestoes('quantidadeGeral'),    
+        Validacoes.validarQuantidadeQuestoes('quantidadeGeral'),
         Validacoes.validarTempoSimulado('tempoSimulado')]
     }
     );
@@ -72,12 +72,51 @@ export class SimuladoCriarComponent implements OnInit {
       this.formularioDeUsuario.get('tempoSimulado').reset();
     }
   }
- 
+
   criarSimulado() {
     this.carregar = true;
+    if (this.formularioDeUsuario.get('tipoSimulado').value == '0') {
+      this.simuladoPersonalizado();
+    } else {
+      this.simuladoPadrao();
+    }
 
+  }
+  simuladoPersonalizado() {
+
+    var QtdFormacaoEspecifica = this.formularioDeUsuario.get('quantidadeEspecifica').value;
+    var QtdFormacaoGeral = this.formularioDeUsuario.get('quantidadeGeral').value;
+
+    var ConfiguracaoEnade = { QtdFormacaoEspecifica, QtdFormacaoGeral };
+
+    var QtdFundamentos = this.formularioDeUsuario.get('quantidadeFundamentos').value;
+    var QtdMatematica = this.formularioDeUsuario.get('quantidadeMatematica').value;
+    var QtdTecnologia = this.formularioDeUsuario.get('quantidadeTecnologia').value;
+
+    var ConfiguracaoPoscomp = { QtdFundamentos, QtdMatematica, QtdTecnologia };
+
+    this.simuladoService.criarSimuladoPersonalizado(
+      ConfiguracaoEnade,
+      ConfiguracaoPoscomp,
+      new Date,
+      new Date,
+      this.formularioDeUsuario.get('descricao').value,
+      this.autenticacaoService.getUsuario.IdUsuario,
+      this.formularioDeUsuario.get('nome').value,
+      this.formularioDeUsuario.get('tempoSimulado').value,
+      this.formularioDeUsuario.get('tipoSimulado').value,
+    ).pipe(first()).subscribe(
+      resposta => {
+        this.router.navigateByUrl('/aluno/listasimulados');
+      },
+      error => {
+        console.log(error);
+        this.carregar = false;
+      });
+  }
+
+  simuladoPadrao() {
     this.simuladoService.criarSimuladoPadrao(
-      2005,
       new Date,
       new Date,
       this.formularioDeUsuario.get('descricao').value,
@@ -94,7 +133,6 @@ export class SimuladoCriarComponent implements OnInit {
         console.log(error);
         this.carregar = false;
       });
-
   }
 
 }

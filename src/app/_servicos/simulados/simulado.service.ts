@@ -32,8 +32,22 @@ export class SimuladoService {
         return this.simuladoSubject.value;
     }
 
-    criarSimuladoPadrao(AnoProva: number, DataFimSimulado: Date, DataInicio: Date, Descricao: string, IdUsuario: number, Nome: string, QuantidadeQuestoes: number, TempoMaximo: number, TipoSimulado: number) {
-        return this.http.post<any>(`${environment.apiUrl}/GerarSimulado`, { AnoProva, DataFimSimulado, DataInicio, Descricao, IdUsuario, Nome, QuantidadeQuestoes, TempoMaximo, TipoSimulado })
+    criarSimuladoPadrao(DataFimSimulado: Date, DataInicio: Date, Descricao: string, IdUsuario: number, Nome: string, QuantidadeQuestoes: number, TempoMaximo: number, TipoSimulado: number) {
+        return this.http.post<any>(`${environment.apiUrl}/GerarSimulado`, { DataFimSimulado, DataInicio, Descricao, IdUsuario, Nome, QuantidadeQuestoes, TempoMaximo, TipoSimulado })
+            .pipe(
+                map(simulado => {
+                    if (simulado.Sucesso) {
+                        return simulado;
+                    } else {
+                        throw new Error(simulado.Mensagem);
+                    }
+                }
+                )
+            )
+    };
+
+    criarSimuladoPersonalizado(ConfiguracaoEnade: {}, ConfiguracaoPoscomp: {}, DataFimSimulado: Date, DataInicio: Date, Descricao: string, IdUsuario: number, Nome: string, TempoMaximo: number, TipoSimulado: number) {
+        return this.http.post<any>(`${environment.apiUrl}/GerarSimulado`, { ConfiguracaoEnade, ConfiguracaoPoscomp, DataFimSimulado, DataInicio, Descricao, IdUsuario, Nome, TempoMaximo, TipoSimulado })
             .pipe(
                 map(simulado => {
                     if (simulado.Sucesso) {

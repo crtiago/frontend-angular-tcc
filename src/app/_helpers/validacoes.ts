@@ -115,7 +115,7 @@ export class Validacoes {
 
             if (_quantidade.value < 1) {
                 _quantidade.setErrors({ minimo: true });
-            } else if(_quantidade.value > 50) {
+            } else if(_quantidade.value > 30) {
                 _quantidade.setErrors({ maximo: true });
             }else{
                 _quantidade.setErrors(null);
