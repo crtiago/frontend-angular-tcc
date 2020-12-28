@@ -176,7 +176,7 @@ export class DashboardComponent implements OnInit {
     return new Chart("bar-chart-desempenho-area", {
       type: 'horizontalBar',
       data: {
-        labels: ["Fundamentos da Computação", "Matemática", "Tecnologia da Computação",],
+        labels: [["Fundamentos"," da Computação"], "Matemática", ["Tecnologia"," da Computação"]],
         datasets: [
           {
             label: "Acertos",
