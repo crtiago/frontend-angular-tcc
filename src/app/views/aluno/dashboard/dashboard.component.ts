@@ -35,7 +35,6 @@ export class DashboardComponent implements OnInit {
       this.resultadosGerais = this.route.snapshot.data['respostaResultados'][1].Data;
       this.desempenhoDisciplinas = this.route.snapshot.data['respostaResultados'][2].Data;
       this.nenhumResultado = false;
-
     } else {
       this.nenhumResultado = true;
     }
@@ -245,46 +244,39 @@ export class DashboardComponent implements OnInit {
   }
 
   getGraficoHorizontalDesempenhoDisciplinaAreaFundamentos() {
+
+    let disciplinasFundamentos = [];
+    let acertos = [];
+    let erros = [];
+    let colorAcertos = [];
+    let colorErros = [];
+
+
+    for (let i = 0; i < this.desempenhoDisciplinas.length; i++) {
+      if (this.organizaDisciplinasPorArea(this.desempenhoDisciplinas[i].DisciplinaNome) == 0) {
+        disciplinasFundamentos.push(this.desempenhoDisciplinas[i].DisciplinaNome)
+        acertos.push(this.desempenhoDisciplinas[i].Acertos);
+        erros.push(this.desempenhoDisciplinas[i].Erros);
+        colorAcertos.push("green");
+        colorErros.push("red");
+      }
+    }
+
+
     return new Chart("bar-chart-desempenho-disciplina-fundamentos", {
       type: 'horizontalBar',
       data: {
-        labels: [
-          ["Arquitetura e", "Organização de Computadores"],
-          "Eletrônica Digital",
-          "Estruturas de Dados",
-          "Grafos",
-          ["Linguagens e", "Paradigmas de Programação"],
-          "Programação",
-          "Sistemas Operacionais",
-          "Teoria da Computação"],
+        labels: disciplinasFundamentos,
         datasets: [
           {
             label: "Acertos",
-            backgroundColor: ["green", "green", "green", "green", "green", "green", "green", "green",],
-            data: [
-              this.desempenhoDisciplinas[4].Acertos,
-              this.desempenhoDisciplinas[1].Acertos,
-              this.desempenhoDisciplinas[6].Acertos,
-              this.desempenhoDisciplinas[19].Acertos,
-              this.desempenhoDisciplinas[5].Acertos,
-              this.desempenhoDisciplinas[0].Acertos,
-              this.desempenhoDisciplinas[7].Acertos,
-              this.desempenhoDisciplinas[18].Acertos,
-            ]
+            backgroundColor: colorAcertos,
+            data: acertos
           },
           {
             label: "Erros",
-            backgroundColor: ["red", "red", "red", "red", "red", "red", "red", "red",],
-            data: [
-              this.desempenhoDisciplinas[4].Erros,
-              this.desempenhoDisciplinas[1].Erros,
-              this.desempenhoDisciplinas[6].Erros,
-              this.desempenhoDisciplinas[19].Erros,
-              this.desempenhoDisciplinas[5].Erros,
-              this.desempenhoDisciplinas[0].Erros,
-              this.desempenhoDisciplinas[7].Erros,
-              this.desempenhoDisciplinas[18].Erros,
-            ]
+            backgroundColor: colorErros,
+            data: erros
           }
         ]
       },
@@ -295,37 +287,38 @@ export class DashboardComponent implements OnInit {
   }
 
   getGraficoHorizontalDesempenhoDisciplinaAreaMatematica() {
+
+    let disciplinasMatematica = [];
+    let acertos = [];
+    let erros = [];
+    let colorAcertos = [];
+    let colorErros = [];
+
+
+    for (let i = 0; i < this.desempenhoDisciplinas.length; i++) {
+      if (this.organizaDisciplinasPorArea(this.desempenhoDisciplinas[i].DisciplinaNome) == 1) {
+        disciplinasMatematica.push(this.desempenhoDisciplinas[i].DisciplinaNome)
+        acertos.push(this.desempenhoDisciplinas[i].Acertos);
+        erros.push(this.desempenhoDisciplinas[i].Erros);
+        colorAcertos.push("green");
+        colorErros.push("red");
+      }
+    }
+
     return new Chart("bar-chart-desempenho-disciplina-matematica", {
       type: 'horizontalBar',
       data: {
-        labels: [
-          ["Álgebra Linear e", "Geometria Analítica"],
-          "Cálculo Numérico",
-          "Cálculo",
-          ["Estatística e", "Probabilidade"],
-          "Matemática Discreta",],
+        labels: disciplinasMatematica,
         datasets: [
           {
             label: "Acertos",
-            backgroundColor: ["green", "green", "green", "green", "green"],
-            data: [
-              this.desempenhoDisciplinas[3].Acertos,
-              this.desempenhoDisciplinas[20].Acertos,
-              this.desempenhoDisciplinas[9].Acertos,
-              this.desempenhoDisciplinas[13].Acertos,
-              this.desempenhoDisciplinas[2].Acertos,
-            ]
+            backgroundColor: colorAcertos,
+            data: acertos,
           },
           {
             label: "Erros",
-            backgroundColor: ["red", "red", "red", "red", "red"],
-            data: [
-              this.desempenhoDisciplinas[3].Erros,
-              this.desempenhoDisciplinas[20].Erros,
-              this.desempenhoDisciplinas[9].Erros,
-              this.desempenhoDisciplinas[13].Erros,
-              this.desempenhoDisciplinas[2].Erros,
-            ]
+            backgroundColor: colorErros,
+            data: erros,
           }
         ]
       },
@@ -336,46 +329,38 @@ export class DashboardComponent implements OnInit {
   }
 
   getGraficoHorizontalDesempenhoDisciplinaAreaTecnologia() {
+
+    let disciplinasTecnologia = [];
+    let acertos = [];
+    let erros = [];
+    let colorAcertos = [];
+    let colorErros = [];
+
+
+    for (let i = 0; i < this.desempenhoDisciplinas.length; i++) {
+      if (this.organizaDisciplinasPorArea(this.desempenhoDisciplinas[i].DisciplinaNome) == 2) {
+        disciplinasTecnologia.push(this.desempenhoDisciplinas[i].DisciplinaNome)
+        acertos.push(this.desempenhoDisciplinas[i].Acertos);
+        erros.push(this.desempenhoDisciplinas[i].Erros);
+        colorAcertos.push("green");
+        colorErros.push("red");
+      }
+    }
+
     return new Chart("bar-chart-desempenho-disciplina-tecnologia", {
       type: 'horizontalBar',
       data: {
-        labels: [
-          "Banco de Dados",
-          "Compiladores",
-          "Computação Gráfica",
-          "Engenharia de Software",
-          "Inteligência Artificial",
-          "Redes de Computadores",
-          "Segurança Computacional",
-          "Sistemas Distribuídos",],
+        labels: disciplinasTecnologia,
         datasets: [
           {
             label: "Acertos",
-            backgroundColor: ["green", "green", "green", "green", "green", "green", "green", "green"],
-            data: [
-              this.desempenhoDisciplinas[10].Acertos,
-              this.desempenhoDisciplinas[11].Acertos,
-              this.desempenhoDisciplinas[14].Acertos,
-              this.desempenhoDisciplinas[12].Acertos,
-              this.desempenhoDisciplinas[16].Acertos,
-              this.desempenhoDisciplinas[7].Acertos,
-              this.desempenhoDisciplinas[15].Acertos,
-              this.desempenhoDisciplinas[17].Acertos,
-            ]
+            backgroundColor: colorAcertos,
+            data: acertos,
           },
           {
             label: "Erros",
-            backgroundColor: ["red", "red", "red", "red", "red", "red", "red", "red"],
-            data: [
-              this.desempenhoDisciplinas[10].Erros,
-              this.desempenhoDisciplinas[11].Erros,
-              this.desempenhoDisciplinas[14].Erros,
-              this.desempenhoDisciplinas[12].Erros,
-              this.desempenhoDisciplinas[16].Erros,
-              this.desempenhoDisciplinas[7].Erros,
-              this.desempenhoDisciplinas[15].Erros,
-              this.desempenhoDisciplinas[17].Erros,
-            ]
+            backgroundColor: colorErros,
+            data: erros
           }
 
         ]
@@ -479,6 +464,46 @@ export class DashboardComponent implements OnInit {
 
     datetext = datetext.split(' ')[0];
     return datetext;
+  }
+
+  organizaDisciplinasPorArea(disciplina: String) {
+    switch (disciplina) {
+      case "PROGRAMAÇÃO":
+      case "ELETRÔNICA DIGITAL":
+      case "ARQUITETURA E ORGANIZAÇÃO DE COMPUTADORES":
+      case "LINGUAGENS E PARADIGMAS DE PROGRAMAÇÃO":
+      case "ESTRUTURAS DE DADOS":
+      case "SISTEMAS DISTRIBUÍDOS":
+      case "TEORIA DA COMPUTAÇÃO":
+      case "GRAFOS":
+      case "SISTEMAS OPERACIONAIS": {
+        //Disciplinas de Fundamentos
+        return 0;
+      }
+      case "MATEMÁTICA DISCRETA":
+      case "ÁLGEBRA LINEAR E GEOMETRIA ANALÍTICA":
+      case "ESTATÍSTICA E PROBABILIDADE":
+      case "CÁLCULO":
+      case "CÁLCULO NUMÉRICO": {
+        //Disciplinas de Matemática
+        return 1;
+      }
+      case "BANCO DE DADOS":
+      case "COMPILADORES":
+      case "COMPUTAÇÃO GRÁFICA":
+      case "ENGENHARIA DE SOFTWARE":
+      case "INTELIGÊNCIA ARTIFICIAL":
+      case "REDES DE COMPUTADORES":
+      case "SEGURANÇA COMPUTACIONAL":
+      case "SISTEMAS DISTRIBUÍDOS": {
+        //Disciplinas de Tecnologia
+        return 2;
+      }
+      default: {
+        console.log(disciplina + "não existe");
+        return -1;
+      }
+    }
   }
 
 }
