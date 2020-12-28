@@ -55,23 +55,61 @@
 
                         <div *ngIf="f.tipoSimulado.value == '0'" class="form-row">
                                 <div class="col-md mb">
-                                        <label>Selecione a quantidade de questões de cada simulado</label>
+                                        <label>Selecione a quantidade de questões de cada área do POSCOMP</label>
                                 </div>
                         </div>
-                        <!--Input de quantidade de questões do POSCOMP-->
+                        <!--Inputs de quantidade de questões nas areas do POSCOMP-->
                         <div *ngIf="f.tipoSimulado.value == '0'" class="form-row">
                                 <div class="col-md-2 mb-2">
-                                        <label>Questões do POSCOMP<span class="asterisco">*</span></label>
-                                        <input type="number" formControlName="quantidadePoscomp" min="10" max="100"
+                                        <label>Fundamentos<span class="asterisco">*</span></label>
+                                        <input type="number" formControlName="quantidadeFundamentos" min="1" max="100"
                                                 class="form-control form-control-sm"
-                                                [ngClass]="{ 'is-invalid': !f.quantidadePoscomp.pristine && f.quantidadePoscomp.errors, 'is-valid': !f.quantidadePoscomp.errors }" />
-                                        <div *ngIf="!f.quantidadePoscomp.pristine && f.quantidadePoscomp.errors"
+                                                [ngClass]="{ 'is-invalid': !f.quantidadeFundamentos.pristine && f.quantidadeFundamentos.errors, 'is-valid': !f.quantidadeFundamentos.errors }" />
+                                        <div *ngIf="!f.quantidadeFundamentos.pristine && f.quantidadeFundamentos.errors"
                                                 class="invalid-feedback">
-                                                <div *ngIf="f.quantidadePoscomp.errors.required">Quantidade de questões
+                                                <div *ngIf="f.quantidadeFundamentos.errors.required">Quantidade de questões
                                                         é obrigatória.</div>
-                                                <div *ngIf="f.quantidadePoscomp.errors.minimo">Deve ser no mínimo 1
+                                                <div *ngIf="f.quantidadeFundamentos.errors.minimo">Deve ser no mínimo 1
                                                         questão</div>
-                                                <div *ngIf="f.quantidadePoscomp.errors.maximo">Deve ser no máximo 50
+                                                <div *ngIf="f.quantidadeFundamentos.errors.maximo">Deve ser no máximo 50
+                                                        questões</div>
+                                        </div>
+                                        <div class="valid-feedback">
+                                                Tudo certo!
+                                        </div>
+                                </div>
+
+                                <div class="col-md-2 mb-2">
+                                        <label>Matemática<span class="asterisco">*</span></label>
+                                        <input type="number" formControlName="quantidadeMatematica" min="1" max="100"
+                                                class="form-control form-control-sm"
+                                                [ngClass]="{ 'is-invalid': !f.quantidadeMatematica.pristine && f.quantidadeMatematica.errors, 'is-valid': !f.quantidadeMatematica.errors }" />
+                                        <div *ngIf="!f.quantidadeMatematica.pristine && f.quantidadeMatematica.errors"
+                                                class="invalid-feedback">
+                                                <div *ngIf="f.quantidadeMatematica.errors.required">Quantidade de questões
+                                                        é obrigatória.</div>
+                                                <div *ngIf="f.quantidadeMatematica.errors.minimo">Deve ser no mínimo 1
+                                                        questão</div>
+                                                <div *ngIf="f.quantidadeMatematica.errors.maximo">Deve ser no máximo 50
+                                                        questões</div>
+                                        </div>
+                                        <div class="valid-feedback">
+                                                Tudo certo!
+                                        </div>
+                                </div>
+
+                                <div class="col-md-2 mb-2">
+                                        <label>Tecnologia<span class="asterisco">*</span></label>
+                                        <input type="number" formControlName="quantidadeTecnologia" min="1" max="100"
+                                                class="form-control form-control-sm"
+                                                [ngClass]="{ 'is-invalid': !f.quantidadeTecnologia.pristine && f.quantidadeTecnologia.errors, 'is-valid': !f.quantidadeTecnologia.errors }" />
+                                        <div *ngIf="!f.quantidadeTecnologia.pristine && f.quantidadeTecnologia.errors"
+                                                class="invalid-feedback">
+                                                <div *ngIf="f.quantidadeTecnologia.errors.required">Quantidade de questões
+                                                        é obrigatória.</div>
+                                                <div *ngIf="f.quantidadeTecnologia.errors.minimo">Deve ser no mínimo 1
+                                                        questão</div>
+                                                <div *ngIf="f.quantidadeTecnologia.errors.maximo">Deve ser no máximo 50
                                                         questões</div>
                                         </div>
                                         <div class="valid-feedback">
@@ -80,20 +118,46 @@
                                 </div>
                         </div>
 
+                        <div *ngIf="f.tipoSimulado.value == '0'" class="form-row">
+                                <div class="col-md mb">
+                                        <label>Selecione a quantidade de questões de cada área do ENADE</label>
+                                </div>
+                        </div>
+                        
+
                         <!--Input de quantidade de questões do ENADE-->
                         <div *ngIf="f.tipoSimulado.value == '0'" class="form-row">
                                 <div class="col-md-2 mb-2">
-                                        <label>Questões do ENADE<span class="asterisco">*</span></label>
-                                        <input type="number" formControlName="quantidadeEnade" min="10" max="100"
+                                        <label>Formação Específica<span class="asterisco">*</span></label>
+                                        <input type="number" formControlName="quantidadeEspecifica" min="1" max="100"
                                                 class="form-control form-control-sm"
-                                                [ngClass]="{ 'is-invalid': !f.quantidadeEnade.pristine && f.quantidadeEnade.errors, 'is-valid': !f.quantidadeEnade.errors }" />
-                                        <div *ngIf="!f.quantidadeEnade.pristine && f.quantidadeEnade.errors"
+                                                [ngClass]="{ 'is-invalid': !f.quantidadeEspecifica.pristine && f.quantidadeEspecifica.errors, 'is-valid': !f.quantidadeEspecifica.errors }" />
+                                        <div *ngIf="!f.quantidadeEspecifica.pristine && f.quantidadeEspecifica.errors"
                                                 class="invalid-feedback">
-                                                <div *ngIf="f.quantidadeEnade.errors.required">Quantidade de questões
+                                                <div *ngIf="f.quantidadeEspecifica.errors.required">Quantidade de questões
                                                         é obrigatória.</div>
-                                                <div *ngIf="f.quantidadeEnade.errors.minimo">Deve ser no mínimo 1
+                                                <div *ngIf="f.quantidadeEspecifica.errors.minimo">Deve ser no mínimo 1
                                                         questão</div>
-                                                <div *ngIf="f.quantidadeEnade.errors.maximo">Deve ser no máximo 50
+                                                <div *ngIf="f.quantidadeEspecifica.errors.maximo">Deve ser no máximo 50
+                                                        questões</div>
+                                        </div>
+                                        <div class="valid-feedback">
+                                                Tudo certo!
+                                        </div>
+                                </div>
+
+                                <div class="col-md-2 mb-2">
+                                        <label>Formação Geral<span class="asterisco">*</span></label>
+                                        <input type="number" formControlName="quantidadeGeral" min="1" max="100"
+                                                class="form-control form-control-sm"
+                                                [ngClass]="{ 'is-invalid': !f.quantidadeGeral.pristine && f.quantidadeGeral.errors, 'is-valid': !f.quantidadeGeral.errors }" />
+                                        <div *ngIf="!f.quantidadeGeral.pristine && f.quantidadeGeral.errors"
+                                                class="invalid-feedback">
+                                                <div *ngIf="f.quantidadeGeral.errors.required">Quantidade de questões
+                                                        é obrigatória.</div>
+                                                <div *ngIf="f.quantidadeGeral.errors.minimo">Deve ser no mínimo 1
+                                                        questão</div>
+                                                <div *ngIf="f.quantidadeGeral.errors.maximo">Deve ser no máximo 50
                                                         questões</div>
                                         </div>
                                         <div class="valid-feedback">

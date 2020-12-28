@@ -27,13 +27,19 @@ export class SimuladoCriarComponent implements OnInit {
       nome: ['', Validators.required],
       descricao: [''],
       tipoSimulado: ['', Validators.required],
-      quantidadeEnade: [{ value: '', disabled: true }, Validators.required],
-      quantidadePoscomp: [{ value: '', disabled: true }, Validators.required],
+      quantidadeFundamentos: [{ value: '', disabled: true }, Validators.required],
+      quantidadeMatematica: [{ value: '', disabled: true }, Validators.required],
+      quantidadeTecnologia: [{ value: '', disabled: true }, Validators.required],
+      quantidadeEspecifica: [{ value: '', disabled: true }, Validators.required],
+      quantidadeGeral: [{ value: '', disabled: true }, Validators.required],
       tempoSimulado: [{ value: '', disabled: true }, Validators.required],
     }, {
       validators:
-        [Validacoes.validarQuantidadeQuestoes('quantidadeEnade'),
-        Validacoes.validarQuantidadeQuestoes('quantidadePoscomp'),
+        [Validacoes.validarQuantidadeQuestoes('quantidadeFundamentos'),
+        Validacoes.validarQuantidadeQuestoes('quantidadeMatematica'),
+        Validacoes.validarQuantidadeQuestoes('quantidadeTecnologia'),
+        Validacoes.validarQuantidadeQuestoes('quantidadeEspecifica'),
+        Validacoes.validarQuantidadeQuestoes('quantidadeGeral'),    
         Validacoes.validarTempoSimulado('tempoSimulado')]
     }
     );
@@ -44,16 +50,25 @@ export class SimuladoCriarComponent implements OnInit {
   getTipo(e) {
     if (this.formularioDeUsuario.get('tipoSimulado').value == 0) {
 
-      this.formularioDeUsuario.get('quantidadeEnade').enable();
-      this.formularioDeUsuario.get('quantidadePoscomp').enable();
+      this.formularioDeUsuario.get('quantidadeFundamentos').enable();
+      this.formularioDeUsuario.get('quantidadeMatematica').enable();
+      this.formularioDeUsuario.get('quantidadeTecnologia').enable();
+      this.formularioDeUsuario.get('quantidadeEspecifica').enable();
+      this.formularioDeUsuario.get('quantidadeGeral').enable();
       this.formularioDeUsuario.get('tempoSimulado').enable();
 
     } else {
-      this.formularioDeUsuario.get('quantidadeEnade').disable();
-      this.formularioDeUsuario.get('quantidadePoscomp').disable();
+      this.formularioDeUsuario.get('quantidadeFundamentos').disable();
+      this.formularioDeUsuario.get('quantidadeMatematica').disable();
+      this.formularioDeUsuario.get('quantidadeTecnologia').disable();
+      this.formularioDeUsuario.get('quantidadeEspecifica').disable();
+      this.formularioDeUsuario.get('quantidadeGeral').disable();
       this.formularioDeUsuario.get('tempoSimulado').disable();
-      this.formularioDeUsuario.get('quantidadeEnade').reset();
-      this.formularioDeUsuario.get('quantidadePoscomp').reset();
+      this.formularioDeUsuario.get('quantidadeFundamentos').reset();
+      this.formularioDeUsuario.get('quantidadeMatematica').reset();
+      this.formularioDeUsuario.get('quantidadeTecnologia').reset();
+      this.formularioDeUsuario.get('quantidadeEspecifica').reset();
+      this.formularioDeUsuario.get('quantidadeGeral').disable();
       this.formularioDeUsuario.get('tempoSimulado').reset();
     }
   }
