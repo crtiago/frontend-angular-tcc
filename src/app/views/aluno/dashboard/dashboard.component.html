@@ -38,11 +38,11 @@
                   </tbody>
                   <tbody class="no-border-x" *ngIf="nenhumResultado">
                     <tr *ngIf="nenhumResultado">
-                      <td colspan="6" class="text-center text-muted">Nenhum simulado realizado</td>
+                      <td colspan="7" class="text-center text-muted">Nenhum simulado realizado</td>
                     </tr>
                   </tbody>
                 </table>
-                <button (click)="getPdfGeral()" class="float-right btn-sm" >Baixar relatórios</button>
+                <button *ngIf="!nenhumResultado" (click)="captureScreen()" class="float-right btn-sm" >Baixar relatórios</button>
               </div>
             </div>
           </div>

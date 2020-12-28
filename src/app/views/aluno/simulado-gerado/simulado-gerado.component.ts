@@ -59,12 +59,12 @@ export class SimuladoGeradoComponent implements OnInit, OnDestroy, CanComponentD
     });
     this.simulado = this.simuladoService.getSimuladoValor;
     this.index = Number(sessionStorage.getItem('index'));
-    this.quantidadeQuestoes = Object.keys(this.simulado).length;
+    this.quantidadeQuestoes = Object.keys(this.simulado.Questoes).length;
   }
 
   ngOnInit(): void {
 
-    if (this.simulado[this.index].TipoQuestao == '1') {
+    if (this.simulado.Questoes[this.index].TipoQuestao == '1') {
       this.formulario.get('descritiva').disable();
       this.formulario.get('alternativas').enable();
     } else {
@@ -77,7 +77,7 @@ export class SimuladoGeradoComponent implements OnInit, OnDestroy, CanComponentD
     if (!(sessionStorage.getItem('respostas') == '[]')) {
       this.listaRespostas = JSON.parse(sessionStorage.getItem('respostas'));
     }
-    this.imagem = this.simulado[this.index].ImagemQuestao;
+    this.imagem = this.simulado.Questoes[this.index].ImagemQuestao;
     this.getDisciplinaEArea();
   }
 
@@ -102,9 +102,9 @@ export class SimuladoGeradoComponent implements OnInit, OnDestroy, CanComponentD
   }
 
   getDisciplinaEArea() {
-    this.area = EArea[this.simulado[this.index].Area];
-    this.disciplina = EDisciplinaId[this.simulado[this.index].Disciplina];
-    this.prova = EProva[this.simulado[this.index].Prova];
+    this.area = EArea[this.simulado.Questoes[this.index].Area];
+    this.disciplina = EDisciplinaId[this.simulado.Questoes[this.index].Disciplina];
+    this.prova = EProva[this.simulado.Questoes[this.index].Prova];
   }
 
   canDeactivate() {
@@ -149,10 +149,10 @@ export class SimuladoGeradoComponent implements OnInit, OnDestroy, CanComponentD
 
   proximaQuestao() {
 
-    if (this.simulado[this.index].TipoQuestao == '1') {
-      this.listaRespostas.push(new Resposta(this.simulado[this.index].Id, true, this.formulario.get('alternativas').value, this.simulado[this.index].TipoQuestao));
+    if (this.simulado.Questoes[this.index].TipoQuestao == '1') {
+      this.listaRespostas.push(new Resposta(this.simulado.Questoes[this.index].Id, true, this.formulario.get('alternativas').value, this.simulado.Questoes[this.index].TipoQuestao));
     } else {
-      this.listaRespostas.push(new Resposta(this.simulado[this.index].Id, true, this.formulario.get('descritiva').value, this.simulado[this.index].TipoQuestao));
+      this.listaRespostas.push(new Resposta(this.simulado.Questoes[this.index].Id, true, this.formulario.get('descritiva').value, this.simulado.Questoes[this.index].TipoQuestao));
     }
 
     sessionStorage.setItem('respostas', JSON.stringify(this.listaRespostas));
@@ -200,7 +200,7 @@ export class SimuladoGeradoComponent implements OnInit, OnDestroy, CanComponentD
   enviarSimuladoIncompleto() {
     this.spinnerModal = true;
     for (let i = this.index; i < this.quantidadeQuestoes; i++) {
-      this.listaRespostas.push(new Resposta(this.simulado[i].Id, false, null, this.simulado[this.index].TipoQuestao));
+      this.listaRespostas.push(new Resposta(this.simulado[i].Id, false, null, this.simulado.Questoes[this.index].TipoQuestao));
       sessionStorage.setItem('respostas', JSON.stringify(this.listaRespostas));
     }
     let idSimulado = Number(sessionStorage.getItem('idSimulado'));

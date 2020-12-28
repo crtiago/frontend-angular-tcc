@@ -21,7 +21,7 @@
                 <h5 class="questaoheader">Área: {{ area }}</h5>
             </div>
             <div class="col-md mb-1">
-                <h5 class="tempo">Ano: {{ simulado[index].Ano }}</h5>
+                <h5 class="tempo">Ano: {{ simulado.Questoes[index].Ano }}</h5>
             </div>
         </div>
 
@@ -34,7 +34,7 @@
         <div class="form-row">
             <!--Pergunta-->
             <div class="col-md mb-1">
-                <ng-katex-paragraph class="math" [paragraph]="getDescricaoSimulado(simulado[index].Descricao)">
+                <ng-katex-paragraph class="math" [paragraph]="getDescricaoSimulado(simulado.Questoes[index].Descricao)">
                 </ng-katex-paragraph>
             </div>
         </div>
@@ -46,7 +46,7 @@
         </div>
 
         <!--Alternativas sem imagens-->
-        <div class="form-row" *ngIf="!simulado[index].AlternativaComImagem && simulado[index].TipoQuestao == '1'">
+        <div class="form-row" *ngIf="!simulado.Questoes[index].AlternativaComImagem && simulado.Questoes[index].TipoQuestao == '1'">
             <div class="col-md mb-1">
                 <form [formGroup]="formulario">
                     <ul>
@@ -55,7 +55,7 @@
                                 id="alternativaA">
                             <label for='alternativaA'>
                                 <ng-katex-paragraph class="math"
-                                    [paragraph]="getAlternativas('a) ',simulado[index].AlternativasA)">
+                                    [paragraph]="getAlternativas('a) ',simulado.Questoes[index].AlternativasA)">
                                 </ng-katex-paragraph>
                             </label>
                         </li>
@@ -64,7 +64,7 @@
                                 id="alternativaB">
                             <label for='alternativaB'>
                                 <ng-katex-paragraph class="math"
-                                    [paragraph]="getAlternativas('b) ',simulado[index].AlternativasB)">
+                                    [paragraph]="getAlternativas('b) ',simulado.Questoes[index].AlternativasB)">
                                 </ng-katex-paragraph>
                             </label>
                         </li>
@@ -73,7 +73,7 @@
                                 id="alternativaC">
                             <label for='alternativaC'>
                                 <ng-katex-paragraph class="math"
-                                    [paragraph]="getAlternativas('c) ',simulado[index].AlternativasC)">
+                                    [paragraph]="getAlternativas('c) ',simulado.Questoes[index].AlternativasC)">
                                 </ng-katex-paragraph>
                             </label>
                         </li>
@@ -82,7 +82,7 @@
                                 id="alternativaD">
                             <label for='alternativaD'>
                                 <ng-katex-paragraph class="math"
-                                    [paragraph]="getAlternativas('d) ',simulado[index].AlternativasD)">
+                                    [paragraph]="getAlternativas('d) ',simulado.Questoes[index].AlternativasD)">
                                 </ng-katex-paragraph>
                             </label>
                         </li>
@@ -91,7 +91,7 @@
                                 id="alternativaE">
                             <label for='alternativaE'>
                                 <ng-katex-paragraph class="math"
-                                    [paragraph]="getAlternativas('e) ',simulado[index].AlternativasE)">
+                                    [paragraph]="getAlternativas('e) ',simulado.Questoes[index].AlternativasE)">
                                 </ng-katex-paragraph>
                             </label>
                         </li>
@@ -101,7 +101,7 @@
         </div>
 
         <!--Alternativas com imagens-->
-        <div *ngIf="simulado[index].AlternativaComImagem && simulado[index].TipoQuestao == '1'" class="form-row">
+        <div *ngIf="simulado.Questoes[index].AlternativaComImagem && simulado.Questoes[index].TipoQuestao == '1'" class="form-row">
             <div class="col-md mb-1">
                 <form [formGroup]="formulario">
                     <ul>
@@ -110,7 +110,7 @@
                                 id="alternativaA">
                             <label for='alternativaA'>a)
                                 <img class="imagemAlternativas"
-                                    [src]="getAlternativaImagem(simulado[index].AlternativasA)">
+                                    [src]="getAlternativaImagem(simulado.Questoes[index].AlternativasA)">
                             </label>
                         </li>
                         <li>
@@ -118,7 +118,7 @@
                                 id="alternativaB">
                             <label for='alternativaB'>b)
                                 <img class="imagemAlternativas"
-                                    [src]="getAlternativaImagem(simulado[index].AlternativasB)">
+                                    [src]="getAlternativaImagem(simulado.Questoes[index].AlternativasB)">
                             </label>
                         </li>
                         <li>
@@ -126,7 +126,7 @@
                                 id="alternativaC">
                             <label for='alternativaC'>c)
                                 <img class="imagemAlternativas"
-                                    [src]="getAlternativaImagem(simulado[index].AlternativasC)">
+                                    [src]="getAlternativaImagem(simulado.Questoes[index].AlternativasC)">
                             </label>
                         </li>
                         <li>
@@ -134,7 +134,7 @@
                                 id="alternativaD">
                             <label for='alternativaD'>d)
                                 <img class="imagemAlternativas"
-                                    [src]="getAlternativaImagem(simulado[index].AlternativasD)">
+                                    [src]="getAlternativaImagem(simulado.Questoes[index].AlternativasD)">
                             </label>
                         </li>
                         <li>
@@ -142,7 +142,7 @@
                                 id="alternativaE">
                             <label for='alternativaE'>e)
                                 <img class="imagemAlternativas"
-                                    [src]="getAlternativaImagem(simulado[index].AlternativasE)">
+                                    [src]="getAlternativaImagem(simulado.Questoes[index].AlternativasE)">
                             </label>
                         </li>
                     </ul>
@@ -151,7 +151,7 @@
         </div>
 
         <!--Alternativas Descritiva-->
-        <div class="form-row" *ngIf="simulado[index].TipoQuestao == '2'">
+        <div class="form-row" *ngIf="simulado.Questoes[index].TipoQuestao == '2'">
             <div class="col-md mb-1">
                 <form [formGroup]="formulario">
                     <textarea type="text" formControlName="descritiva" name="descritiva"

@@ -24,13 +24,12 @@ export class ListaSimuladosComponent implements OnInit {
   carregarGabarito: boolean = false;
   tipoSimulado: number;
 
-  constructor(private autenticacaoService: AutenticacaoService,private simuladoService: SimuladoService, private router: Router, private route: ActivatedRoute) {
+  constructor(private autenticacaoService: AutenticacaoService, private simuladoService: SimuladoService, private router: Router, private route: ActivatedRoute) {
 
     this.listaSimulados = this.route.snapshot.data.response.Data;
   }
 
   ngOnInit(): void {
-    
   }
 
   simuladoSelecionado(event: any, item: any, index: any) {
@@ -64,12 +63,12 @@ export class ListaSimuladosComponent implements OnInit {
   verificarTipoSimulado() {
     sessionStorage.setItem('respostas', '[]');
     if (this.tipoSimulado == 0) {
+      let simulado = this.simuladoService.getSimuladoValor;
+      sessionStorage.setItem('tempo', JSON.stringify(simulado.TempoMaximo))
       sessionStorage.setItem('tipoSimulado', '0')
-      //Converter tempo
-      //let tempo = this.converterMinutosEmSegundos(this.formularioDeUsuario.get('tempoSimulado').value);
-      //sessionStorage.setItem('tempo', JSON.stringify(tempo));
       //Setando o progresso do usuário para 0, pois ele está iniciando
       sessionStorage.setItem('progresso', '0');
+      this.router.navigateByUrl('/aluno/simuladogerado');
     } else if (this.tipoSimulado == 1) {
       //Tempo Padrão - 4 horas
       sessionStorage.setItem('tempo', '14400')
@@ -88,9 +87,9 @@ export class ListaSimuladosComponent implements OnInit {
     }
   }
 
-  buscarGabarito(){
-    this.carregarGabarito = true;   
-    this.simuladoService.buscarGabarito(this.idSimuladoSelecionado,this.autenticacaoService.getUsuario.IdUsuario).pipe(first()).subscribe(
+  buscarGabarito() {
+    this.carregarGabarito = true;
+    this.simuladoService.buscarGabarito(this.idSimuladoSelecionado, this.autenticacaoService.getUsuario.IdUsuario).pipe(first()).subscribe(
       gabarito => {
         sessionStorage.setItem("idSimuladoGabarito", JSON.stringify(0));
         sessionStorage.setItem('gabarito', JSON.stringify(gabarito));

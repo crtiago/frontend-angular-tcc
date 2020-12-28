@@ -95,6 +95,8 @@ export class SimuladoCriarComponent implements OnInit {
 
     var ConfiguracaoPoscomp = { QtdFundamentos, QtdMatematica, QtdTecnologia };
 
+    var tempoMinutos = this.formularioDeUsuario.get('tempoSimulado').value * 60;
+
     this.simuladoService.criarSimuladoPersonalizado(
       ConfiguracaoEnade,
       ConfiguracaoPoscomp,
@@ -103,7 +105,7 @@ export class SimuladoCriarComponent implements OnInit {
       this.formularioDeUsuario.get('descricao').value,
       this.autenticacaoService.getUsuario.IdUsuario,
       this.formularioDeUsuario.get('nome').value,
-      this.formularioDeUsuario.get('tempoSimulado').value,
+      tempoMinutos,
       this.formularioDeUsuario.get('tipoSimulado').value,
     ).pipe(first()).subscribe(
       resposta => {
