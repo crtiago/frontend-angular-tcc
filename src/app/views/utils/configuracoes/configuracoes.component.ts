@@ -78,7 +78,7 @@ export class ConfiguracoesComponent implements OnInit {
     this.disciplinasInteresse.splice(index, 1);
     if (this.disciplinasInteresse.length == 0) {
       this.formularioDeUsuario.get('disciplinas').setValue("");
-    }
+    }    
   }
 
   setValoresCampos() {
@@ -184,7 +184,7 @@ export class ConfiguracoesComponent implements OnInit {
         data => {
           this.carregar = false;
           this.mensagem = data.Mensagem;
-          localStorage.setItem('usuario', JSON.stringify(data.Data));
+          sessionStorage.setItem('usuario', JSON.stringify(data.Data));
           $(this.modalSucesso.nativeElement).modal('show');
         },
         error => {
@@ -209,7 +209,7 @@ export class ConfiguracoesComponent implements OnInit {
         data => {
           this.carregar = false;
           this.mensagem = data.Mensagem;
-          localStorage.setItem('usuario', JSON.stringify(data.Data));
+          sessionStorage.setItem('usuario', JSON.stringify(data.Data));
           $(this.modalSucesso.nativeElement).modal('show');
         },
         error => {
