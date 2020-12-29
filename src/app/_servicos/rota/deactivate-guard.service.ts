@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { CanDeactivate } from '@angular/router';
+import { CanDeactivate, ActivatedRouteSnapshot, Router, CanActivate, RouterStateSnapshot, UrlTree } from '@angular/router';
 
 /*Classe responsável para evitar que o usuário saia do simulado*/
 export interface CanComponentDeactivate {
@@ -8,9 +8,21 @@ export interface CanComponentDeactivate {
 }
 
 @Injectable()
-export class DeactivateGuardService implements CanDeactivate<CanComponentDeactivate>{
+export class DeactivateGuardService implements CanDeactivate<CanComponentDeactivate>, CanActivate {
 
-  canDeactivate(component: CanComponentDeactivate) {
+  constructor(private router: Router) { }
+
+  canActivate(): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
+    const idSimulado = sessionStorage.getItem('idSimulado');
+    if (idSimulado != null && idSimulado != '') {
+      return true;
+    }
+
+    this.router.navigate(['aluno/listasimulados']);
+    return false;
+  }
+
+  canDeactivate(component: CanComponentDeactivate, route: ActivatedRouteSnapshot) {
     return component.canDeactivate ? component.canDeactivate() : true;
   }
 }

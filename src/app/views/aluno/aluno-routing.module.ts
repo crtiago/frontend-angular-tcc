@@ -28,7 +28,7 @@ const routes: Routes = [
       },
       { path: 'simulado', component: SimuladoCriarComponent, data: { title: 'Simulado' } },
       {
-        path: 'simuladogerado', component: SimuladoGeradoComponent, canDeactivate: [DeactivateGuardService], data: { title: 'Simulado Gerado' }
+        path: 'simuladogerado', component: SimuladoGeradoComponent, canActivate: [DeactivateGuardService], canDeactivate: [DeactivateGuardService], data: { title: 'Simulado Gerado' }
       },
       {
         path: 'simuladoconcluido', component: SimuladoConcluidoComponent, data: { title: 'Simulado Concluído' }

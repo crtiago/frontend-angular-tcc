@@ -200,7 +200,7 @@ export class SimuladoGeradoComponent implements OnInit, OnDestroy, CanComponentD
   enviarSimuladoIncompleto() {
     this.spinnerModal = true;
     for (let i = this.index; i < this.quantidadeQuestoes; i++) {
-      this.listaRespostas.push(new Resposta(this.simulado[i].Id, false, null, this.simulado.Questoes[this.index].TipoQuestao));
+      this.listaRespostas.push(new Resposta(this.simulado.Questoes[i].Id, false, null, this.simulado.Questoes[this.index].TipoQuestao));
       sessionStorage.setItem('respostas', JSON.stringify(this.listaRespostas));
     }
     let idSimulado = Number(sessionStorage.getItem('idSimulado'));

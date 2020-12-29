@@ -1,5 +1,5 @@
 import { BehaviorSubject, Observable } from 'rxjs';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { EArea } from './../../../_enuns/earea';
 import { EDisciplinaId } from './../../../_enuns/edisciplinasid';
@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
   templateUrl: './gabarito.component.html',
   styleUrls: ['./gabarito.component.css']
 })
-export class GabaritoComponent implements OnInit {
+export class GabaritoComponent implements OnInit, OnDestroy {
 
   prova: string;
   gabarito: [];
@@ -22,6 +22,10 @@ export class GabaritoComponent implements OnInit {
     if (this.gabarito == null || this.gabarito == [""]) {
       this.router.navigate(['aluno/listasimulados']);
     }
+  }
+  
+  ngOnDestroy(): void {
+    sessionStorage.setItem('gabarito', null);
   }
 
   ngOnInit() {
