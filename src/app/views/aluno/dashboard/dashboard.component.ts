@@ -1,3 +1,4 @@
+import { AutenticacaoService } from './../../../_servicos/login/autenticacao.service';
 import { EProvaResultado } from './../../../_enuns/eprovaresultado';
 import { EProva } from './../../../_enuns/eprova';
 import { first } from 'rxjs/operators';
@@ -7,7 +8,6 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Chart } from 'chart.js';
 import { jsPDF } from "jspdf";
 import html2canvas from 'html2canvas';
-import * as jspdf from 'jspdf';
 import * as $ from "jquery";
 
 //Varivável para habilitar e usar o jquery
@@ -25,8 +25,11 @@ export class DashboardComponent implements OnInit {
   desempenhoDisciplinas: any;
   imagem: any;
   nenhumResultado: boolean = true;
+  carregar: boolean = false;
+  usuario: any;
+  textoBotao = "Gerar relatórios";
 
-  constructor(private route: ActivatedRoute, private dashboardService: DashboardService) {
+  constructor(private route: ActivatedRoute, private dashboardService: DashboardService, private autenticacaoService: AutenticacaoService) {
     if (this.route.snapshot.data['respostaResultados'][0].Sucesso &&
       this.route.snapshot.data['respostaResultados'][1].Sucesso &&
       this.route.snapshot.data['respostaResultados'][2].Sucesso) {
@@ -34,6 +37,7 @@ export class DashboardComponent implements OnInit {
       this.ultimosResultados = this.route.snapshot.data['respostaResultados'][0].Data;
       this.resultadosGerais = this.route.snapshot.data['respostaResultados'][1].Data;
       this.desempenhoDisciplinas = this.route.snapshot.data['respostaResultados'][2].Data;
+      this.usuario = this.autenticacaoService.getUsuario;
       this.nenhumResultado = false;
     } else {
       this.nenhumResultado = true;
@@ -181,7 +185,7 @@ export class DashboardComponent implements OnInit {
     return new Chart("bar-chart-desempenho-area", {
       type: 'horizontalBar',
       data: {
-        labels: [["Fundamentos", " da Computação"], "Matemática", ["Tecnologia", " da Computação"]],
+        labels: ["Fundamentos", "Matemática", "Tecnologia"],
         datasets: [
           {
             label: "Acertos",
@@ -213,7 +217,7 @@ export class DashboardComponent implements OnInit {
     return new Chart("pie-area-acertos", {
       type: 'pie',
       data: {
-        labels: ["Fundamentos da Computação", "Matemática", "Tecnologia da Computação"],
+        labels: ["Fundamentos", "Matemática", "Tecnologia"],
         datasets: [{
           backgroundColor: ["#ff953e", "#cbe034", "#00d3b4"],
           data: [
@@ -230,7 +234,7 @@ export class DashboardComponent implements OnInit {
     return new Chart("pie-area-erros", {
       type: 'pie',
       data: {
-        labels: ["Fundamentos da Computação", "Matemática", "Tecnologia da Computação"],
+        labels: ["Fundamentos", "Matemática", "Tecnologia"],
         datasets: [{
           backgroundColor: ["#ff953e", "#cbe034", "#00d3b4"],
           data: [
@@ -384,64 +388,156 @@ export class DashboardComponent implements OnInit {
     doc.setFontSize(20);
     doc.addImage(imagem, 'jpg', 10, 10, 280, 150);
     doc.save(nome + '.pdf');
-
-    /*let canvas = document.getElementById(grafico) as HTMLCanvasElement;
-
-    var a = document.createElement('a');
-    a.href = canvas.toDataURL("image/jpg");
-    a.download = nome;
-
-    // Trigger the download
-    a.click();*/
   }
 
-  captureScreen() {
-    var data = document.getElementById('canvas_div_pdf');
-    html2canvas($(".canvas_div_pdf")[0], { allowTaint: true }).then(canvas => {
-      // Few necessary setting options  
-      var imgWidth = 208;
-      var pageHeight = 295;
-      var imgHeight = canvas.height * imgWidth / canvas.width;
-      var heightLeft = imgHeight;
+  getPdfGraficoEspecifico(grafico: string, nome: string) {
+    const doc = new jsPDF('l', 'mm', 'a4');
 
-      const contentDataURL = canvas.toDataURL('image/png')
-      let pdf = new jsPDF('p', 'mm', 'a4'); // A4 size page of PDF  
-      var position = 0;
-      pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight)
-      pdf.save('MYPdf.pdf'); // Generated PDF   
+    //Titulo
+    doc.setFontSize(50);
+    doc.setFont("Courier");
+    doc.setFont("bold");
+    doc.setTextColor('rgb(47,158,64)')
+    var text = "Relatório Específico"
+    var textWidth = doc.getStringUnitWidth(text) * 50 / doc.internal.scaleFactor;
+    var textOffset = (doc.internal.pageSize.width - textWidth) / 2;
+    doc.text(text, textOffset, 80);
+
+    //Tabela
+    doc.setFillColor(50, 50, 50);
+    doc.rect(textOffset, 120, 30, 8);
+    doc.rect(textOffset, 128, 30, 8);
+    doc.rect(textOffset, 136, 30, 8);
+    doc.rect(textOffset, 144, 30, 8);
+    doc.rect(textOffset, 152, 30, 8);
+    doc.rect(textOffset, 120, 160, 8);
+    doc.rect(textOffset, 128, 160, 8);
+    doc.rect(textOffset, 136, 160, 8);
+    doc.rect(textOffset, 144, 160, 8);
+    doc.rect(textOffset, 152, 160, 8);
+
+    //Atributos
+    doc.setFontSize(12);
+    doc.setTextColor(0, 0, 0);
+    doc.text("Nome", textOffset + 1, 125);
+    doc.text("Email", textOffset + 1, 133);
+    doc.text("Matrícula", textOffset + 1, 141);
+    doc.text("Data de geração", textOffset + 1, 149);
+    doc.text("Hora de geração", textOffset + 1, 157);
+
+    doc.setTextColor(0, 0, 0);
+    doc.text(this.usuario.Nome, textOffset + 32, 125);
+    doc.text(this.usuario.Email, textOffset + 32, 133);
+    doc.text(this.usuario.Matricula.toString(), textOffset + 32, 141);
+    doc.text(this.formatDate(new Date()).toString(), textOffset + 32, 149);
+    doc.text(this.formatTime(new Date()).toString(), textOffset + 32, 157);
+    doc.addPage();
+
+    html2canvas($(grafico)[0], {
+      useCORS: true,
+      allowTaint: true,
+      scrollY: -window.scrollY,
+    }).then(canvas => {
+      const image = canvas.toDataURL('image/png', 1.0);
+      const pageWidth = doc.internal.pageSize.getWidth();
+      const pageHeight = doc.internal.pageSize.getHeight();
+
+      const widthRatio = pageWidth / canvas.width;
+      const heightRatio = pageHeight / canvas.height;
+      const ratio = widthRatio > heightRatio ? heightRatio : widthRatio;
+
+      const canvasWidth = canvas.width * ratio;
+      const canvasHeight = canvas.height * ratio;
+
+      const marginX = (pageWidth - canvasWidth) / 2;
+      const marginY = (pageHeight - canvasHeight) / 2;
+
+      doc.addImage(image, 'PNG', marginX, marginY, canvasWidth, canvasHeight);
+      doc.save(nome)
     });
   }
 
   getPdfGeral() {
 
-    var HTML_Width = $(".canvas_div_pdf").width();
-    var HTML_Height = $(".canvas_div_pdf").height();
-    var top_left_margin = 15;
-    var PDF_Width = HTML_Width + (top_left_margin * 2);
-    var PDF_Height = (PDF_Width * 1.5) + (top_left_margin * 2);
-    var canvas_image_width = HTML_Width;
-    var canvas_image_height = HTML_Height;
+    this.textoBotao = "Gerando relatórios...";
 
-    var totalPDFPages = Math.ceil(HTML_Height / PDF_Height) - 1;
+    this.carregar = true;
+    const doc = new jsPDF('l', 'mm', 'a4');
 
+    //Titulo
+    doc.setFontSize(50);
+    doc.setFont("Courier");
+    doc.setFont("bold");
+    doc.setTextColor('rgb(47,158,64)')
+    var text = "Relatório de Desempenho"
+    var textWidth = doc.getStringUnitWidth(text) * 50 / doc.internal.scaleFactor;
+    var textOffset = (doc.internal.pageSize.width - textWidth) / 2;
+    doc.text(text, textOffset, 80);
 
-    html2canvas($(".canvas_div_pdf")[0], { allowTaint: true }).then(function (canvas) {
-      canvas.getContext('2d');
+    //Tabela
+    doc.setFillColor(50, 50, 50);
+    doc.rect(textOffset + 10, 120, 30, 8);
+    doc.rect(textOffset + 10, 128, 30, 8);
+    doc.rect(textOffset + 10, 136, 30, 8);
+    doc.rect(textOffset + 10, 144, 30, 8);
+    doc.rect(textOffset + 10, 152, 30, 8);
+    doc.rect(textOffset + 10, 120, 160, 8);
+    doc.rect(textOffset + 10, 128, 160, 8);
+    doc.rect(textOffset + 10, 136, 160, 8);
+    doc.rect(textOffset + 10, 144, 160, 8);
+    doc.rect(textOffset + 10, 152, 160, 8);
 
-      console.log(canvas.height + "  " + canvas.width);
+    //Atributos
+    doc.setFontSize(12);
+    doc.setTextColor(0, 0, 0);
+    doc.text("Nome", textOffset + 12, 125);
+    doc.text("Email", textOffset + 12, 133);
+    doc.text("Matrícula", textOffset + 12, 141);
+    doc.text("Data de geração", textOffset + 12, 149);
+    doc.text("Hora de geração", textOffset + 12, 157);
 
-      var imgData = canvas.toDataURL("image/PNG", 1.0);
-      var pdf = new jsPDF('p', 'pt', [PDF_Width, PDF_Height]);
-      pdf.addImage(imgData, 'PNG', top_left_margin, top_left_margin, canvas_image_width, canvas_image_height);
+    doc.setTextColor(0, 0, 0);
+    doc.text(this.usuario.Nome, textOffset + 42, 125);
+    doc.text(this.usuario.Email, textOffset + 42, 133);
+    doc.text(this.usuario.Matricula.toString(), textOffset + 42, 141);
+    doc.text(this.formatDate(new Date()).toString(), textOffset + 42, 149);
+    doc.text(this.formatTime(new Date()).toString(), textOffset + 42, 157);
+    doc.addPage();
 
+    let size = 10;
+    for (let i = 0; i < size; i++) {
+      let grafico = '.grafico' + (1 + i);
+      html2canvas($(grafico)[0], {
+        useCORS: true,
+        allowTaint: true,
+        scrollY: -window.scrollY,
+      }).then(canvas => {
+        const image = canvas.toDataURL('image/png', 1.0);
 
-      for (var i = 1; i <= totalPDFPages; i++) {
-        pdf.addPage();
-        pdf.addImage(imgData, 'PNG', top_left_margin, -(PDF_Height * i) + (top_left_margin * 4), canvas_image_width, canvas_image_height);
-      }
+        const pageWidth = doc.internal.pageSize.getWidth();
+        const pageHeight = doc.internal.pageSize.getHeight();
 
-      pdf.save("Desempenho do Usuario.pdf");
-    });
+        const widthRatio = pageWidth / canvas.width;
+        const heightRatio = pageHeight / canvas.height;
+        const ratio = widthRatio > heightRatio ? heightRatio : widthRatio;
+
+        const canvasWidth = canvas.width * ratio;
+        const canvasHeight = canvas.height * ratio;
+
+        const marginX = (pageWidth - canvasWidth) / 2;
+        const marginY = (pageHeight - canvasHeight) / 2;
+
+        doc.addImage(image, 'PNG', marginX, marginY, canvasWidth, canvasHeight);
+
+        if (grafico == '.grafico10') {
+          this.textoBotao = 'Gerar relatórios';
+          doc.save('Relatório Completo')
+          this.carregar = false;
+        }
+        doc.addPage();
+      });
+    }
+
   };
 
   formatDate(date) {

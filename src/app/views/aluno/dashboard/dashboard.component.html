@@ -1,56 +1,57 @@
-<div class="canvas_div_pdf">
-  <div class="base">
-    <!--1º Linha-->
-    <!--Lista dos últimos 5 simulados-->
-    <div class="row">
-      <div class="col-12 mb-4 align-items-stretch">
-        <div class="card h-100 border-0 rounded-1">
-          <div class="card-title mb-1 p-3 text-center">
-            <h4>Desempenho geral dos últimos simulados</h4>
-          </div>
-          <div class="card-body">
-            <div class="table-responsive-md">
-              <div class="table-responsive">
-                <table class="table ">
-                  <thead>
-                    <tr>
-                      <th class="align-middle" style="width:25%;">Nome</th>
-                      <th style="width:20%;" class="text-secondary text-center align-middle">Tipo do Simulado</th>
-                      <th class="number" class="text-success text-center align-middle">Acertos</th>
-                      <th style="width:15%;" class="text-danger text-center align-middle">Erros</th>
-                      <th style="width:15%;" class="text-info text-center align-middle">Não respondidas</th>
-                      <th style="width:15%;" class="text-secondary text-center align-middle">Data de Conclusão</th>
-                      <th style="width:15%;" class="text-secondary text-center align-middle">Hora da Conclusão</th>
-                      <th class="actions" style="width:2%;"></th>
-                    </tr>
-                  </thead>
-                  <tbody class="no-border-x" *ngIf="!nenhumResultado">
-                    <tr *ngFor="let ultimoresultado of ultimosResultados">
-                      <td>{{ultimoresultado.Nome}}</td>
-                      <td class="text-center text-secondary">{{getSimuladoPorId(ultimoresultado.TipoSimulado)}}</td>
-                      <td class="text-center text-success">{{ultimoresultado.ResultadoGeral.Acertos}}</td>
-                      <td class="text-center text-danger">{{ultimoresultado.ResultadoGeral.Erros}}</td>
-                      <td class="text-center text-info">{{ultimoresultado.ResultadoGeral.NaoRespondidas}}</td>
-                      <td class="text-center text-secondary">{{formatDate(ultimoresultado.DataEnvio)}}</td>
-                      <td class="text-center text-secondary">{{formatTime(ultimoresultado.DataEnvio)}}</td>
-                      <td class="text-center"><a class="icon" href="#"><i class="mdi mdi-plus-circle-o"></i></a></td>
-                    </tr>
-                  </tbody>
-                  <tbody class="no-border-x" *ngIf="nenhumResultado">
-                    <tr *ngIf="nenhumResultado">
-                      <td colspan="7" class="text-center text-muted">Nenhum simulado realizado</td>
-                    </tr>
-                  </tbody>
-                </table>
-                <button *ngIf="!nenhumResultado" (click)="captureScreen()" class="float-right btn-sm" >Baixar relatórios</button>
-              </div>
+<div class="base">
+  <!--1º Linha-->
+  <!--Lista dos últimos 5 simulados-->
+  <div class="row">
+    <div class="col-12 mb-4 align-items-stretch">
+      <div class="card h-100 border-0 rounded-1">
+        <div class="card-title mb-1 p-3 text-center">
+          <h4>Desempenho geral dos últimos simulados</h4>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive-md">
+            <div class="table-responsive">
+              <table class="table ">
+                <thead>
+                  <tr>
+                    <th class="align-middle" style="width:25%;">Nome</th>
+                    <th style="width:20%;" class="text-secondary text-center align-middle">Tipo do Simulado</th>
+                    <th class="number" class="text-success text-center align-middle">Acertos</th>
+                    <th style="width:15%;" class="text-danger text-center align-middle">Erros</th>
+                    <th style="width:15%;" class="text-info text-center align-middle">Não respondidas</th>
+                    <th style="width:15%;" class="text-secondary text-center align-middle">Data de Conclusão</th>
+                    <th style="width:15%;" class="text-secondary text-center align-middle">Hora da Conclusão</th>
+                    <th class="actions" style="width:2%;"></th>
+                  </tr>
+                </thead>
+                <tbody class="no-border-x" *ngIf="!nenhumResultado">
+                  <tr *ngFor="let ultimoresultado of ultimosResultados">
+                    <td>{{ultimoresultado.Nome}}</td>
+                    <td class="text-center text-secondary">{{getSimuladoPorId(ultimoresultado.TipoSimulado)}}</td>
+                    <td class="text-center text-success">{{ultimoresultado.ResultadoGeral.Acertos}}</td>
+                    <td class="text-center text-danger">{{ultimoresultado.ResultadoGeral.Erros}}</td>
+                    <td class="text-center text-info">{{ultimoresultado.ResultadoGeral.NaoRespondidas}}</td>
+                    <td class="text-center text-secondary">{{formatDate(ultimoresultado.DataEnvio)}}</td>
+                    <td class="text-center text-secondary">{{formatTime(ultimoresultado.DataEnvio)}}</td>
+                    <td class="text-center"><a class="icon" href="#"><i class="mdi mdi-plus-circle-o"></i></a></td>
+                  </tr>
+                </tbody>
+                <tbody class="no-border-x" *ngIf="nenhumResultado">
+                  <tr *ngIf="nenhumResultado">
+                    <td colspan="7" class="text-center text-muted">Nenhum simulado realizado</td>
+                  </tr>
+                </tbody>
+              </table>
+              <button *ngIf="!nenhumResultado" (click)="getPdfGeral()" class="float-right btn-sm"> <span
+                  *ngIf="carregar" class="spinner-border spinner-border-sm mr-1"></span>{{ textoBotao }}</button>
             </div>
           </div>
-
         </div>
+
       </div>
     </div>
+  </div>
 
+  <div class="canvas_div_pdf">
     <!--2º Linha-->
     <div class="row" *ngIf="!nenhumResultado">
       <!--Card menor do desempenho geral-->
@@ -158,7 +159,7 @@
     <!--3º Linha-->
     <div class="row">
       <!--Gráfico de barras do Desempenho Geral dos últimos simulados-->
-      <div class="col-12 col-xl-6 mb-4 align-items-stretch">
+      <div class="col-12 col-xl-6 mb-4 align-items-stretch grafico1">
         <div class="card border-0 1">
           <div class="card-title mb-1 p-3 text-center">
             <h6>Desempenho geral dos últimos simulados</h6>
@@ -169,13 +170,14 @@
               <div *ngIf="nenhumResultado" class="text-center text-muted">Nenhum simulado realizado</div>
             </div>
             <button class="float-right btn-sm" *ngIf="!nenhumResultado"
-              (click)="getPdfEspecifico('chart-bar', 'Desempenho geral dos últimos simulados - Barra')"> <i
+              (click)="getPdfGraficoEspecifico('.grafico1', 'Desempenho geral dos últimos simulados - Barra')"> <i
                 class="fa fa-download"></i> </button>
           </div>
         </div>
       </div>
+
       <!--Gráfico Misto do Desempenho Geral dos últimos simulados-->
-      <div class="col-12 col-xl-6 mb-4 align-items-stretch">
+      <div class="col-12 col-xl-6 mb-4 align-items-stretch grafico2">
         <div class="card h-100 border-0 rounded-1">
           <div class="card-title mb-1 p-3 text-center">
             <h6>Desempenho geral dos últimos simulados</h6>
@@ -186,7 +188,7 @@
               <div *ngIf="nenhumResultado" class="text-center text-muted">Nenhum simulado realizado</div>
             </div>
             <button class="float-right btn-sm" *ngIf="!nenhumResultado"
-              (click)="getPdfEspecifico('mixed-chart', 'Desempenho geral dos últimos simulados - Misto')"> <i
+              (click)="getPdfGraficoEspecifico('.grafico2', 'Desempenho geral dos últimos simulados - Misto')"> <i
                 class="fa fa-download"></i> </button>
           </div>
         </div>
@@ -196,7 +198,7 @@
     <div class="row">
 
       <!--Gráfico em Setores do Desempenho Geral-->
-      <div class="col-12 col-xl-6 mb-4 align-items-stretch">
+      <div class="col-12 col-xl-6 mb-4 align-items-stretch grafico3">
         <div class="card h-100 border-0 rounded-1">
           <div class="card-title mb-1 p-3 text-center">
             <h6>Desempenho geral</h6>
@@ -207,14 +209,14 @@
               <div *ngIf="nenhumResultado" class="text-center text-muted">Nenhum simulado realizado</div>
             </div>
             <button class="float-right btn-sm" *ngIf="!nenhumResultado"
-              (click)="getPdfEspecifico('pie-desempenho-geral', 'Desempenho geral')"> <i class="fa fa-download"></i>
+              (click)="getPdfGraficoEspecifico('.grafico3', 'Desempenho geral')"> <i class="fa fa-download"></i>
             </button>
           </div>
         </div>
       </div>
 
       <!--Gráfico em Barras Horizontal-->
-      <div class="col-12 col-xl-6 mb-4 align-items-stretch">
+      <div class="col-12 col-xl-6 mb-4 align-items-stretch grafico4">
         <div class="card h-100 border-0 rounded-1">
           <div class="card-title mb-1 p-3 text-center">
             <h6>Desempenho por área</h6>
@@ -225,8 +227,7 @@
               <div *ngIf="nenhumResultado" class="text-center text-muted">Nenhum simulado realizado</div>
             </div>
             <button class="float-right btn-sm" *ngIf="!nenhumResultado"
-              (click)="getPdfEspecifico('bar-chart-desempenho-area', 'Desempenho por área')"> <i
-                class="fa fa-download"></i>
+              (click)="getPdfGraficoEspecifico('.grafico4', 'Desempenho por área')"> <i class="fa fa-download"></i>
             </button>
           </div>
         </div>
@@ -236,7 +237,7 @@
     <!--4º Linha-->
     <div class="row">
       <!--Gráfico Setores Acertos por Área-->
-      <div class="col-12 col-xl-6 mb-4 align-items-stretch">
+      <div class="col-12 col-xl-6 mb-4 align-items-stretch grafico5">
         <div class="card h-100 border-0 rounded-1">
           <div class="card-title mb-1 p-3 text-center">
             <h6>Quantidade de acertos por área</h6>
@@ -247,13 +248,14 @@
               <div *ngIf="nenhumResultado" class="text-center text-muted">Nenhum simulado realizado</div>
             </div>
             <button class="float-right btn-sm" *ngIf="!nenhumResultado"
-              (click)="getPdfEspecifico('pie-area-acertos', 'Quantidade de acertos por área')"> <i
-                class="fa fa-download"></i> </button>
+              (click)="getPdfGraficoEspecifico('.grafico5', 'Quantidade de acertos por área')"> <i
+                class="fa fa-download"></i>
+            </button>
           </div>
         </div>
       </div>
       <!--Gráfico Setores Erros por Área-->
-      <div class="col-12 col-xl-6 mb-4 align-items-stretch">
+      <div class="col-12 col-xl-6 mb-4 align-items-stretch grafico6">
         <div class="card h-100 border-0 rounded-1">
           <div class="card-title mb-1 p-3 text-center">
             <h6>Quantidade de erros por área</h6>
@@ -264,7 +266,7 @@
               <div *ngIf="nenhumResultado" class="text-center text-muted">Nenhum simulado realizado</div>
             </div>
             <button class="float-right btn-sm" *ngIf="!nenhumResultado"
-              (click)="getPdfEspecifico('pie-area-erros', 'Quantidade de erros por área')"> <i
+              (click)="getPdfGraficoEspecifico('.grafico6', 'Quantidade de erros por área')"> <i
                 class="fa fa-download"></i>
             </button>
           </div>
@@ -276,10 +278,10 @@
     <div class="row">
 
       <!--Gráfico Barra Horizontal Desempenho por disciplinas na área de Area de Fundamentos-->
-      <div class="col-12 col-xl-6 mb-4 align-items-stretch">
+      <div class="col-12 col-xl-6 mb-4 align-items-stretch grafico7">
         <div class="card h-100 border-0 rounded-1">
           <div class="card-title mb-1 p-3 text-center">
-            <h6>Desempenho por disciplinas na área de Fundamentos da Computação</h6>
+            <h6>Desempenho por disciplinas na área de Fundamentos</h6>
           </div>
           <div class="card-body">
             <div class="chart-container" style="position: relative;">
@@ -287,14 +289,15 @@
               <div *ngIf="nenhumResultado" class="text-center text-muted">Nenhum simulado realizado</div>
             </div>
             <button class="float-right btn-sm" *ngIf="!nenhumResultado"
-              (click)="getPdfEspecifico('bar-chart-desempenho-disciplina-fundamentos', 'Desempenho por disciplinas na área de Fundamentos da Computação')">
-              <i class="fa fa-download"></i> </button>
+              (click)="getPdfGraficoEspecifico('.grafico7', 'Desempenho por disciplinas na área de Fundamentos')"> <i
+                class="fa fa-download"></i>
+            </button>
           </div>
         </div>
       </div>
 
       <!--Gráfico Barra Horizontal Desempenho por disciplinas na área de Area de Matematica-->
-      <div class="col-12 col-xl-6 mb-4 align-items-stretch">
+      <div class="col-12 col-xl-6 mb-4 align-items-stretch grafico8">
         <div class="card h-100 border-0 rounded-1">
           <div class="card-title mb-1 p-3 text-center">
             <h6>Desempenho por disciplinas na área de Matemática</h6>
@@ -305,8 +308,9 @@
               <div *ngIf="nenhumResultado" class="text-center text-muted">Nenhum simulado realizado</div>
             </div>
             <button class="float-right btn-sm" *ngIf="!nenhumResultado"
-              (click)="getPdfEspecifico('bar-chart-desempenho-disciplina-matematica', 'Desempenho por disciplinas na área de Matemática')">
-              <i class="fa fa-download"></i> </button>
+              (click)="getPdfGraficoEspecifico('.grafico8', 'Desempenho por disciplinas na área de Matemática')"> <i
+                class="fa fa-download"></i>
+            </button>
           </div>
         </div>
       </div>
@@ -315,7 +319,7 @@
     <!--7º Linha-->
     <div class="row">
       <!--Gráfico Barra Horizontal Desempenho por disciplinas na área de Area de Tecnologia-->
-      <div class="col-12 col-xl-6 mb-4 align-items-stretch">
+      <div class="col-12 col-xl-6 mb-4 align-items-stretch grafico9">
         <div class="card h-100 border-0 rounded-1">
           <div class="card-title mb-1 p-3 text-center">
             <h6>Desempenho por disciplinas na área de Tecnologia</h6>
@@ -326,14 +330,15 @@
               <div *ngIf="nenhumResultado" class="text-center text-muted">Nenhum simulado realizado</div>
             </div>
             <button class="float-right btn-sm" *ngIf="!nenhumResultado"
-              (click)="getPdfEspecifico('bar-chart-desempenho-disciplina-tecnologia', 'Desempenho por disciplinas na área de Tecnologia')">
-              <i class="fa fa-download"></i> </button>
+              (click)="getPdfGraficoEspecifico('.grafico9', 'Desempenho por disciplinas na área de Tecnologia')"> <i
+                class="fa fa-download"></i>
+            </button>
           </div>
         </div>
       </div>
 
       <!--Informações sobre o sistema-->
-      <div class="col-12 col-xl-6 mb-4 align-items-stretch">
+      <div class="col-12 col-xl-6 mb-4 align-items-stretch grafico10">
         <div class="card h-100 border-0 rounded-1" style="padding-top: 10%;">
           <div class="card-title mb-1 p-3 text-center">
             <h2>Sobre</h2>
@@ -345,7 +350,7 @@
                 <p class="card-label text-center text-muted">
                   Sistema de simulados desenvolvido no Instituto Federal de Santa Catatina - Campus Lages
                   <br>Desenvolvedores: Tiago Correia Ribeiro e Wilson Fernandes Córdova Junior
-                  <br>Orientador: Wilson Castello Branco Neto            
+                  <br>Orientador: Wilson Castello Branco Neto
                 </p>
               </div>
             </div>
