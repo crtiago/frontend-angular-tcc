@@ -18,7 +18,7 @@ export class AutenticacaoService {
   public usuario: Observable<Usuario>;
 
   constructor(private router: Router, private http: HttpClient) {
-    this.usuarioSubject = new BehaviorSubject<Usuario>(JSON.parse(localStorage.getItem('usuario')));
+    this.usuarioSubject = new BehaviorSubject<Usuario>(JSON.parse(sessionStorage.getItem('usuario')));
     this.usuario = this.usuarioSubject.asObservable();
   }
 
@@ -39,7 +39,7 @@ export class AutenticacaoService {
         map(usuario => {
           if (usuario.Sucesso) {
             // Armazena o usuário no armazenamento local para manter conectado entre as atualizações da página
-            localStorage.setItem('usuario', JSON.stringify(usuario.Data));
+            sessionStorage.setItem('usuario', JSON.stringify(usuario.Data));
             this.usuarioSubject.next(usuario.Data);
             return usuario.Data;
           } else {
