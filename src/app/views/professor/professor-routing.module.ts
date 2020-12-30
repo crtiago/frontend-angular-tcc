@@ -1,8 +1,10 @@
+import { RespostaListaSalas } from './../../_helpers/resposta-lista-salas';
+import { CriarSalaComponent } from './criar-sala/criar-sala.component';
 import { RespostaCadastro } from './../../_helpers/resposta-cadastro';
 import { ConfiguracoesComponent } from './../utils/configuracoes/configuracoes.component';
 import { SuporteComponent } from './../utils/suporte/suporte.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { SalasComponent } from './salas/salas.component';
+import { ListaSalasComponent } from './lista-salas/lista-salas.component';
 import { ProfBaseComponent } from './prof-base/prof-base.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
@@ -14,8 +16,13 @@ const routes: Routes = [
     path: '', component: ProfBaseComponent,
     children: [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-      { path: 'dashboard', component: DashboardComponent,data: { title: 'Dashboard' } },
-      { path: 'salas', component: SalasComponent, data: { title: 'Salas' }},
+      { path: 'dashboard', component: DashboardComponent, data: { title: 'Dashboard' } },
+      {
+        path: 'salas', resolve: {
+          response: RespostaListaSalas
+        }, component: ListaSalasComponent, data: { title: 'Salas' }
+      },
+      { path: 'criarsala', component: CriarSalaComponent, data: { title: 'Salas' } },
       {
         path: 'configuracoes', component: ConfiguracoesComponent,
         resolve: {

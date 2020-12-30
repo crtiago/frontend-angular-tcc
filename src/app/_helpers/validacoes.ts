@@ -123,6 +123,25 @@ export class Validacoes {
         }
     }
 
+    static validarQuantidadeParticipantesSala(quantidade: string) {
+        return (formGroup: FormGroup) => {
+            const _quantidade = formGroup.controls[quantidade];
+
+            if (_quantidade.errors) {
+                // Retorna se outro validador já encontrou um erro
+                return;
+            }
+
+            if (_quantidade.value < 1) {
+                _quantidade.setErrors({ minimo: true });
+            } else if(_quantidade.value > 50) {
+                _quantidade.setErrors({ maximo: true });
+            }else{
+                _quantidade.setErrors(null);
+            }
+        }
+    }
+
     /**
      * Método que verifica o max e o min do campo tempo de simulado
      */

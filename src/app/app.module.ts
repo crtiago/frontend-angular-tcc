@@ -1,3 +1,5 @@
+import { RespostaListaSalas } from './_helpers/resposta-lista-salas';
+import { SalasService } from './_servicos/salas/salas.service';
 import { RespostaResultados } from './_helpers/resposta-resultados';
 import { RespostaCadastro } from './_helpers/resposta-cadastro';
 import { DashboardService } from './_servicos/resultados/dashboard.service';
@@ -56,10 +58,12 @@ const maskConfig: Partial<IConfig> = {
     RespostaResultados,
     RespostaCadastro,
     RespostaListaSimulados,
+    RespostaListaSalas,
     DeactivateGuardService,
     ConfirmacaoDialogoService,
     SimuladoService,
-    DashboardService
+    DashboardService,
+    SalasService
   ],
   bootstrap: [AppComponent]
 })

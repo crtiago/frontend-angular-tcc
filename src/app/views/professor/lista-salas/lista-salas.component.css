@@ -1,0 +1,49 @@
+/*Estilo da tabela*/
+.data-selected{
+    background-color: #B3AAAA;
+    color: white !important;
+}
+
+.concluido{
+    color: gray;
+}
+
+td{
+  cursor: pointer;
+}
+
+/* Configurações para dispositivos móveis no modo retrato*/
+@media only screen and (hover: none) and (pointer: coarse) and (orientation:portrait){
+    .table-overflow {
+        max-height: 60vh;
+        overflow-x:auto;
+    }
+}
+
+@media(max-width:600px){
+    /*Estilo da sidebar*/
+    .table-overflow {
+        max-height: 60vh;
+        overflow-x:auto;
+    }
+}
+
+@media(min-width:600px){
+    /*Estilo da sidebar*/
+    div.table {
+        overflow-x: scroll;
+    }
+    
+    /*Barra de rolagem da tabela*/
+    tbody {
+        display:block;
+        height:60vh;
+        overflow:auto;
+    }
+    thead, tbody tr {
+        display:table;
+        width:100%;
+        table-layout:fixed;
+    }
+}
+

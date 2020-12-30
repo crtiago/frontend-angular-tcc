@@ -7,15 +7,16 @@ import { CommonModule } from '@angular/common';
 
 import { ProfessorRoutingModule } from './professor-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { SalasComponent } from './salas/salas.component';
+import { ListaSalasComponent } from './lista-salas/lista-salas.component';
 import { CountdownModule } from 'ngx-countdown';
 import { KatexModule } from 'ng-katex';
 import { LazyLoadImageModule } from 'ng-lazyload-image';
+import { CriarSalaComponent } from './criar-sala/criar-sala.component';
 
 
 
 @NgModule({
-  declarations: [ ProfBaseComponent,DashboardComponent, SalasComponent],
+  declarations: [ ProfBaseComponent,DashboardComponent, ListaSalasComponent, CriarSalaComponent],
   imports: [
     CommonModule,
     FormsModule,

@@ -1,0 +1,89 @@
+<div class="card m-4">
+    <h5 class="card-header" style="text-align: center;">Gerar Sala</h5>
+    <div class="card-body">
+        <form [formGroup]="formularioDeUsuario" (ngSubmit)="criarSala()">
+
+            <div class="form-row">
+                <!--Input Nome-->
+                <div class="col-md mb-1">
+                    <label>Nome da Sala<span class="asterisco">*</span></label>
+                    <input type="text" formControlName="nome" class="form-control form-control-sm"
+                        [ngClass]="{ 'is-invalid':!f.nome.pristine && f.nome.errors, 'is-valid': !f.nome.pristine && !f.nome.errors}" />
+                    <div *ngIf="!f.nome.pristine && f.nome.errors" class="invalid-feedback">
+                        <div *ngIf="f.nome.errors.required">Nome é obrigatório.</div>
+                    </div>
+                    <div class="valid-feedback">
+                        Tudo certo!
+                    </div>
+                </div>
+
+                <!--Inputs de quantidade de participantes da sala-->
+                <div class="col-md-4 mb-1">
+                    <label>Quantidade de Participantes<span class="asterisco">*</span></label>
+                    <input type="number" formControlName="maxParticipantes" min="1" max="50"
+                        class="form-control form-control-sm"
+                        [ngClass]="{ 'is-invalid': !f.maxParticipantes.pristine && f.maxParticipantes.errors, 'is-valid': !f.maxParticipantes.errors }" />
+                    <div *ngIf="!f.maxParticipantes.pristine && f.maxParticipantes.errors" class="invalid-feedback">
+                        <div *ngIf="f.maxParticipantes.errors.required">Número de participantes
+                            é obrigatória.</div>
+                        <div *ngIf="f.maxParticipantes.errors.minimo">Deve ser no mínimo 1
+                            participante</div>
+                        <div *ngIf="f.maxParticipantes.errors.maximo">Deve ser no máximo 50
+                            participantes</div>
+                    </div>
+                    <div class="valid-feedback">
+                        Tudo certo!
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <!--Input da Descrição-->
+                <div class="col-md mb-1">
+                    <label>Descrição da Sala</label>
+                    <textarea formControlName="descricao" type="text" style="resize: none;" class="form-control"
+                        id="exampleFormControlTextarea1" rows="5"></textarea>
+                </div>
+            </div>
+            <div class="form-row">
+
+                <!--Input Senha-->
+                <div class="col-md mb-1">
+                    <label>Senha <span class="asterisco">*</span></label>
+                    <input type="password" formControlName="senha" class="form-control form-control-sm"
+                        [ngClass]="{ 'is-invalid':!f.senha.pristine && f.senha.errors, 'is-valid': !f.senha.errors }" />
+                    <div *ngIf="!f.senha.pristine && f.senha.errors" class="invalid-feedback">
+                        <div *ngIf="f.senha.errors.required">Senha é obrigatória.</div>
+                        <div *ngIf="f.senha.errors.minlength">A senha deve ter pelo menos 6 caracteres.</div>
+                    </div>
+                    <div class="valid-feedback">
+                        Tudo certo!
+                    </div>
+                </div>
+
+                <!--Input Confirmar Senha-->
+                <div class="col-md mb-1">
+                    <label>Confirmar Senha <span class="asterisco">*</span></label>
+                    <input type="password" formControlName="confirmarSenha" class="form-control form-control-sm"
+                        [ngClass]="{ 'is-invalid': !f.confirmarSenha.pristine && f.confirmarSenha.errors, 'is-valid': !f.confirmarSenha.errors }" />
+                    <div *ngIf="!f.confirmarSenha.pristine && f.confirmarSenha.errors" class="invalid-feedback">
+                        <div *ngIf="f.confirmarSenha.errors.required">Confirmar senha é obrigatório.</div>
+                        <div *ngIf="f.confirmarSenha.errors.naoConferem">Senhas não conferem.</div>
+                    </div>
+                    <div class="valid-feedback">
+                        Tudo certo!
+                    </div>
+                </div>
+
+            </div>
+
+            <!--Botões do formulário-->
+            <div class="text-center">
+                <button style="float: right;" [disabled]="!formularioDeUsuario.valid">
+                    <span *ngIf="carregar" class="spinner-border spinner-border-sm mr-1"></span>Gerar
+                    Sala</button>
+                <button style="float: right;" type="button" routerLink="/prof/salas">Cancelar</button>
+            </div>
+        </form>
+    </div>
+</div>
