@@ -4,6 +4,7 @@ import { SalasService } from './../../../_servicos/salas/salas.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import * as $ from "jquery";
+import { ToastrService } from 'ngx-toastr';
 
 
 //Varivável para habilitar e usar o jquery
@@ -27,7 +28,7 @@ export class ListaSalasComponent implements OnInit {
   participar: boolean = false;
   erro = '';
 
-  constructor(private router: Router, private fb: FormBuilder, private route: ActivatedRoute, private salasService: SalasService) {
+  constructor(private toastr: ToastrService,private router: Router, private fb: FormBuilder, private route: ActivatedRoute, private salasService: SalasService) {
     this.listaSalas = this.route.snapshot.data.response.Data;
     if (this.listaSalas.length == 0) {
       this.nenhumaSala = true;
@@ -66,7 +67,8 @@ export class ListaSalasComponent implements OnInit {
         },
         error => {
           this.carregar = false;
-          this.erro = error.toString().replace("Error:","");
+          error = error.toString().replace("Error:", "");
+          this.toastr.error(error, 'Erro');
         });
     } else {
       this.carregar = false;

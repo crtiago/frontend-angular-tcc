@@ -3,6 +3,7 @@ import { first } from 'rxjs/operators';
 import { SimuladoService } from './../../../_servicos/simulados/simulado.service';
 import { Component, OnInit, Pipe, PipeTransform } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 
 
@@ -25,7 +26,7 @@ export class ListaSimuladosComponent implements OnInit {
   tipoSimulado: number;
   nenhumSimulado: boolean = false;
 
-  constructor(private autenticacaoService: AutenticacaoService, private simuladoService: SimuladoService, private router: Router, private route: ActivatedRoute) {
+  constructor(private toastr: ToastrService, private autenticacaoService: AutenticacaoService, private simuladoService: SimuladoService, private router: Router, private route: ActivatedRoute) {
     this.listaSimulados = this.route.snapshot.data.response.Data;
     if (this.listaSimulados.length == 0) {
       this.nenhumSimulado = true;
@@ -33,6 +34,7 @@ export class ListaSimuladosComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
   }
 
   simuladoSelecionado(event: any, item: any, index: any) {
@@ -100,7 +102,8 @@ export class ListaSimuladosComponent implements OnInit {
       },
       error => {
         this.carregarGabarito = false;
-        console.log(error);
+        error = error.toString().replace("Error:", "");
+        this.toastr.error(error, 'Erro');
       });
   }
 

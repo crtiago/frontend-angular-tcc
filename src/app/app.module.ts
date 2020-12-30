@@ -26,6 +26,7 @@ import { CountdownModule } from 'ngx-countdown';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { KatexModule } from 'ng-katex';
 import { LazyLoadImageModule } from 'ng-lazyload-image';
+import { ToastrModule } from 'ngx-toastr';
 
 
 const maskConfig: Partial<IConfig> = {
@@ -49,7 +50,9 @@ const maskConfig: Partial<IConfig> = {
     CountdownModule,
     NgbModule,
     KatexModule,
-    LazyLoadImageModule
+    LazyLoadImageModule,
+    BrowserAnimationsModule, 
+    ToastrModule.forRoot(),
   ],
   providers: [
     MetodosEnuns,
