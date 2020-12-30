@@ -61,7 +61,8 @@ export class ListaSimuladosComponent implements OnInit {
       },
       error => {
         this.carregar = false;
-        console.log(error);
+        error = error.toString().replace("Error:", "");
+        this.toastr.error(error);
       });
   }
 
@@ -103,7 +104,7 @@ export class ListaSimuladosComponent implements OnInit {
       error => {
         this.carregarGabarito = false;
         error = error.toString().replace("Error:", "");
-        this.toastr.error(error, 'Erro');
+        this.toastr.error(error);
       });
   }
 

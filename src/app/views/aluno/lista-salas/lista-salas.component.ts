@@ -68,7 +68,7 @@ export class ListaSalasComponent implements OnInit {
         error => {
           this.carregar = false;
           error = error.toString().replace("Error:", "");
-          this.toastr.error(error, 'Erro');
+          this.toastr.error(error);
         });
     } else {
       this.carregar = false;
