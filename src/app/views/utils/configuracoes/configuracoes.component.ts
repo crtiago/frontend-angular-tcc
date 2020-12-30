@@ -61,7 +61,10 @@ export class ConfiguracoesComponent implements OnInit {
   getDisciplinasInteresseNaoSelecionadas() {
     for (let index = 0; index < this.usuario.DisciplinasInteressadas.length; index++) {
       this.disciplinasInteresse.push(this.usuario.DisciplinasInteressadas[index].Nome);
-      this.todasDisciplinas.splice(this.usuario.DisciplinasInteressadas[index].Nome, 1);
+      const i = this.todasDisciplinas.indexOf(this.usuario.DisciplinasInteressadas[index].Nome, 0);
+      if (i > -1) {
+        this.todasDisciplinas.splice(i, 1);
+      }
     }
   }
 
@@ -78,7 +81,7 @@ export class ConfiguracoesComponent implements OnInit {
     this.disciplinasInteresse.splice(index, 1);
     if (this.disciplinasInteresse.length == 0) {
       this.formularioDeUsuario.get('disciplinas').setValue("");
-    }    
+    }
   }
 
   setValoresCampos() {
