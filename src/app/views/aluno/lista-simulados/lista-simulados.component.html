@@ -16,7 +16,7 @@
                             style="text-align: center; vertical-align: middle;">Concluído</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody *ngIf="!nenhumSimulado">
                     <tr (click)="simuladoSelecionado($event, simulado, i)"
                         *ngFor="let simulado of listaSimulados; let i= index"
                         [ngClass]="{'data-selected': i == linhaSelecionada }">
@@ -33,12 +33,17 @@
                         </td>
                         <td style="text-align: center; vertical-align: middle;">
                             <i *ngIf="simulado.SimuladoRespondido" class="fas fa-check" style="color: rgb(47,158,64);"
-                                [ngClass]="{'data-selected': i == linhaSelecionada && !simulado.SimuladoRespondido}"></i>
+                                [ngClass]="{'data-selected': i == linhaSelecionada && simulado.SimuladoRespondido}"></i>
                             <i *ngIf="!simulado.SimuladoRespondido" class="fas fa-times" style="color: red;"
                                 [ngClass]="{'data-selected': i == linhaSelecionada && !simulado.SimuladoRespondido}"></i>
                         </td>
                     </tr>
                 </tbody>
+                <tbody class="no-border-x" *ngIf="nenhumSimulado">
+                    <tr *ngIf="nenhumSimulado">
+                      <td colspan="6" class="text-center text-muted">Nenhum simulado criado</td>
+                    </tr>
+                  </tbody>
             </table>
         </div>
     </div>

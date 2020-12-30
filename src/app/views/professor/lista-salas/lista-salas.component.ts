@@ -13,9 +13,13 @@ export class ListaSalasComponent implements OnInit {
   selecionado: boolean = false;
   idSalaSelecionada: number;
   carregar: boolean = false;
+  nenhumaSala: boolean = false;
 
   constructor(private route: ActivatedRoute) {
     this.listaSalas = this.route.snapshot.data.response.Data;
+    if (this.listaSalas.length == 0) {
+      this.nenhumaSala = true;
+    }
   }
 
   ngOnInit(): void {

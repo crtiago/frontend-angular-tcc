@@ -12,7 +12,7 @@
                             style="text-align: center; vertical-align: middle;">Senha</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody *ngIf="!nenhumaSala">
                     <tr (click)="salaSelecionada($event, sala, i)" *ngFor="let sala of listaSalas; let i= index"
                         [ngClass]="{'data-selected': i == linhaSelecionada }">
                         <td style="vertical-align: middle;">{{sala.Nome}}</td>
@@ -27,6 +27,11 @@
                             </div>
 
                         </td>
+                    </tr>
+                </tbody>
+                <tbody class="no-border-x" *ngIf="nenhumaSala">
+                    <tr *ngIf="nenhumaSala">
+                        <td colspan="4" class="text-center text-muted">Nenhuma sala criada</td>
                     </tr>
                 </tbody>
             </table>

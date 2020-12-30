@@ -23,10 +23,13 @@ export class ListaSimuladosComponent implements OnInit {
   carregar: boolean = false;
   carregarGabarito: boolean = false;
   tipoSimulado: number;
+  nenhumSimulado: boolean = false;
 
   constructor(private autenticacaoService: AutenticacaoService, private simuladoService: SimuladoService, private router: Router, private route: ActivatedRoute) {
-
     this.listaSimulados = this.route.snapshot.data.response.Data;
+    if (this.listaSimulados.length == 0) {
+      this.nenhumSimulado = true;
+    }
   }
 
   ngOnInit(): void {

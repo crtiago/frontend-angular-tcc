@@ -9,7 +9,7 @@ import { CommonModule } from '@angular/common';
 import { AlunoRoutingModule } from './aluno-routing.module';
 
 import { SidebarModule } from 'ng-sidebar';
-import { SalaComponent } from './sala/sala.component';
+import { ListaSalasComponent } from './lista-salas/lista-salas.component';
 import { AlunoBaseComponent } from './aluno-base/aluno-base.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SimuladoGeradoComponent } from './simulado-gerado/simulado-gerado.component';
@@ -18,10 +18,11 @@ import { KatexModule } from 'ng-katex';
 import { LazyLoadImageModule } from 'ng-lazyload-image';
 import { GabaritoComponent } from './gabarito/gabarito.component';
 import { SimuladoConcluidoComponent } from './simulado-concluido/simulado-concluido.component';
+import { ListaSimuladosSalaComponent } from './lista-simulados-sala/lista-simulados-sala.component';
 
 
 @NgModule({
-  declarations: [DashboardComponent, SimuladoCriarComponent, SalaComponent, AlunoBaseComponent, SimuladoGeradoComponent, ListaSimuladosComponent, GabaritoComponent, SimuladoConcluidoComponent],
+  declarations: [DashboardComponent, SimuladoCriarComponent, ListaSalasComponent, AlunoBaseComponent, SimuladoGeradoComponent, ListaSimuladosComponent, GabaritoComponent, SimuladoConcluidoComponent, ListaSimuladosSalaComponent],
   imports: [
     CommonModule,
     FormsModule,

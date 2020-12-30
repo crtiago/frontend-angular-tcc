@@ -63,7 +63,7 @@ export class SimuladoService {
     buscarListaSimulados() {
         return this.http.get<any>(`${environment.apiUrl}/BuscarSimuladosUsuario?idUsuario=${this.autenticacaoService.getUsuario.IdUsuario}`)
             .pipe(
-                map(listaSimulados => {
+                map(listaSimulados => {                    
                     if (listaSimulados.Sucesso) {
                         return listaSimulados;
                     } else {

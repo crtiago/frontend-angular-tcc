@@ -33,6 +33,21 @@ export class SalasService {
             )
     };
 
+    participarSala(IdSala: number, Senha: string) {
+        let IdUsuario: number = this.autenticacaoService.getUsuario.IdUsuario;
+        return this.http.post<any>(`${environment.apiUrl}/ParticiparSalaSimulado`, { IdSala, IdUsuario, Senha })
+            .pipe(
+                map(resposta => {
+                    if (resposta.Sucesso) {
+                        return resposta;
+                    } else {
+                        throw new Error(resposta.Mensagem);
+                    }
+                }
+                )
+            )
+    };
+
     buscarListaSalas() {
         return this.http.get<any>(`${environment.apiUrl}/BuscarSalasSimulado?idUsuario=${this.autenticacaoService.getUsuario.IdUsuario}`)
             .pipe(
@@ -46,5 +61,22 @@ export class SalasService {
                 )
             )
     };
+
+
+    buscarSimuladosPorSala(IdSala: number) {
+        let IdUsuario: number = this.autenticacaoService.getUsuario.IdUsuario;
+        return this.http.post<any>(`${environment.apiUrl}/BuscarSimuladosPorSala`, { IdSala, IdUsuario })
+            .pipe(
+                map(resposta => {
+                    if (resposta.Sucesso) {
+                        return resposta;
+                    } else {
+                        throw new Error(resposta.Mensagem);
+                    }
+                }
+                )
+            )
+
+    }
 
 }
