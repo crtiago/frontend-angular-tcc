@@ -3,6 +3,7 @@ import { AutenticacaoService } from './../../../_servicos/login/autenticacao.ser
 import { SimuladoService } from './../../../_servicos/simulados/simulado.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-simulado-concluido',
@@ -15,7 +16,7 @@ export class SimuladoConcluidoComponent implements OnInit, OnDestroy {
   carregarGabarito: boolean = false;
   desabilitar = false;
 
-  constructor(private simuladoService: SimuladoService, private router: Router, private autenticacaoService: AutenticacaoService) {
+  constructor(private toastr: ToastrService, private simuladoService: SimuladoService, private router: Router, private autenticacaoService: AutenticacaoService) {
     if (Number(sessionStorage.getItem('idSimuladoGabarito')) == 0 || sessionStorage.getItem('idSimuladoGabarito') == null) {
       this.desabilitar = true;
       this.router.navigate(['aluno/listasimulados']);
@@ -37,10 +38,19 @@ export class SimuladoConcluidoComponent implements OnInit, OnDestroy {
       gabarito => {
         sessionStorage.setItem('gabarito', JSON.stringify(gabarito));
         this.router.navigateByUrl("/aluno/gabarito");
+        this.toastr.success('Gabarito gerado', '', {
+          timeOut: 2000,
+          progressBar: true,
+          progressAnimation: 'decreasing',
+        });
       },
       error => {
         this.carregarGabarito = false;
-        console.log(error);
+        this.toastr.error(error, '', {
+          timeOut: 2000,
+          progressBar: true,
+          progressAnimation: 'decreasing',
+        });
       });
   }
 

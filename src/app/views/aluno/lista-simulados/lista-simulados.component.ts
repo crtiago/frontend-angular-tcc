@@ -1,12 +1,9 @@
 import { AutenticacaoService } from './../../../_servicos/login/autenticacao.service';
 import { first } from 'rxjs/operators';
 import { SimuladoService } from './../../../_servicos/simulados/simulado.service';
-import { Component, OnInit, Pipe, PipeTransform } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-
-
-
 
 @Component({
   selector: 'app-lista-simulados',
@@ -62,7 +59,11 @@ export class ListaSimuladosComponent implements OnInit {
       error => {
         this.carregar = false;
         error = error.toString().replace("Error:", "");
-        this.toastr.error(error);
+        this.toastr.error(error, '', {
+          timeOut: 2000,
+          progressBar: true,
+          progressAnimation: 'decreasing',          
+        });
       });
   }
 
@@ -75,6 +76,11 @@ export class ListaSimuladosComponent implements OnInit {
       //Setando o progresso do usuário para 0, pois ele está iniciando
       sessionStorage.setItem('progresso', '0');
       this.router.navigateByUrl('/aluno/simuladogerado');
+      this.toastr.success('Simulado gerado', '', {
+        timeOut: 2000,
+        progressBar: true,
+        progressAnimation: 'decreasing',          
+      });
     } else if (this.tipoSimulado == 1) {
       //Tempo Padrão - 4 horas
       sessionStorage.setItem('tempo', '14400')
@@ -82,6 +88,11 @@ export class ListaSimuladosComponent implements OnInit {
       //Setando o progresso do usuário para 0, pois ele está iniciando
       sessionStorage.setItem('progresso', '0');
       this.router.navigateByUrl('/aluno/simuladogerado');
+      this.toastr.success('Simulado gerado', '', {
+        timeOut: 2000,
+        progressBar: true,
+        progressAnimation: 'decreasing',          
+      });
     } else {
       sessionStorage.setItem('index', JSON.stringify(0));
       //Tempo Padrão - 4 horas
@@ -90,21 +101,35 @@ export class ListaSimuladosComponent implements OnInit {
       //Setando o progresso do usuário para 0, pois ele está iniciando
       sessionStorage.setItem('progresso', '0');
       this.router.navigateByUrl("/aluno/simuladogerado");
+      this.toastr.success('Simulado gerado', '', {
+        timeOut: 2000,
+        progressBar: true,
+        progressAnimation: 'decreasing',          
+      });
     }
   }
 
   buscarGabarito() {
-    this.carregarGabarito = true;
+    this.carregarGabarito = true;   
     this.simuladoService.buscarGabarito(this.idSimuladoSelecionado, this.autenticacaoService.getUsuario.IdUsuario).pipe(first()).subscribe(
       gabarito => {
         sessionStorage.setItem("idSimuladoGabarito", JSON.stringify(0));
-        sessionStorage.setItem('gabarito', JSON.stringify(gabarito));
+        sessionStorage.setItem('gabarito', JSON.stringify(gabarito));  
         this.router.navigateByUrl("/aluno/gabarito");
+        this.toastr.success('Gabarito gerado', '', {
+          timeOut: 2000,
+          progressBar: true,
+          progressAnimation: 'decreasing',          
+        });
       },
       error => {
         this.carregarGabarito = false;
         error = error.toString().replace("Error:", "");
-        this.toastr.error(error);
+        this.toastr.error(error, '', {
+          timeOut: 2000,
+          progressBar: true,
+          progressAnimation: 'decreasing',          
+        });
       });
   }
 

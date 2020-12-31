@@ -52,7 +52,7 @@ const maskConfig: Partial<IConfig> = {
     KatexModule,
     LazyLoadImageModule,
     BrowserAnimationsModule, 
-    ToastrModule.forRoot(),
+    ToastrModule.forRoot({preventDuplicates: true}),
   ],
   providers: [
     MetodosEnuns,

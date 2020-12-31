@@ -28,7 +28,7 @@ export class ListaSalasComponent implements OnInit {
   participar: boolean = false;
   erro = '';
 
-  constructor(private toastr: ToastrService,private router: Router, private fb: FormBuilder, private route: ActivatedRoute, private salasService: SalasService) {
+  constructor(private toastr: ToastrService, private router: Router, private fb: FormBuilder, private route: ActivatedRoute, private salasService: SalasService) {
     this.listaSalas = this.route.snapshot.data.response.Data;
     if (this.listaSalas.length == 0) {
       this.nenhumaSala = true;
@@ -64,11 +64,20 @@ export class ListaSalasComponent implements OnInit {
         resposta => {
           this.carregar = false;
           this.router.navigate(['aluno/listasimuladossala']);
+          this.toastr.success('Lista de simulados da sala', '', {
+            timeOut: 2000,
+            progressBar: true,
+            progressAnimation: 'decreasing',          
+          });
         },
         error => {
           this.carregar = false;
           error = error.toString().replace("Error:", "");
-          this.toastr.error(error);
+          this.toastr.error(error, '', {
+            timeOut: 2000,
+            progressBar: true,
+            progressAnimation: 'decreasing',
+          });
         });
     } else {
       this.carregar = false;
@@ -84,10 +93,15 @@ export class ListaSalasComponent implements OnInit {
           this.participar = false;
           this.router.navigate(['aluno/listasimuladossala']);
           $(this.modalSenha.nativeElement).modal('hide');
+          this.toastr.success('Lista de simulados da sala', '', {
+            timeOut: 2000,
+            progressBar: true,
+            progressAnimation: 'decreasing',          
+          });
         },
         error => {
           this.participar = false;
-          this.erro = error.toString().replace("Error:","");
+          this.erro = error.toString().replace("Error:", "");
         });
   }
 

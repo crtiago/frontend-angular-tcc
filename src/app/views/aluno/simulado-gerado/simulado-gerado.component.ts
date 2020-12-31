@@ -4,6 +4,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import * as $ from "jquery";
 import { CountdownComponent } from 'ngx-countdown';
+import { ToastrService } from 'ngx-toastr';
 import { first } from 'rxjs/operators';
 import { EArea } from './../../../_enuns/earea';
 import { EDisciplinaId } from './../../../_enuns/edisciplinasid';
@@ -46,7 +47,7 @@ export class SimuladoGeradoComponent implements OnInit, OnDestroy, CanComponentD
   spinnerModal = false;
   acabouTempo = false;
 
-  constructor(private router: Router, private sanitizer: DomSanitizer,
+  constructor(private toastr: ToastrService,private router: Router, private sanitizer: DomSanitizer,
     private confirmacaoDialogoService: ConfirmacaoDialogoService, fb: FormBuilder,
     private simuladoService: SimuladoService, autenticacaoService: AutenticacaoService) {
 
@@ -176,12 +177,21 @@ export class SimuladoGeradoComponent implements OnInit, OnDestroy, CanComponentD
           sessionStorage.setItem("idSimulado", '');
           sessionStorage.setItem("respostas", '');
           sessionStorage.setItem("simulado", '');
+          this.toastr.success('Simulado concluído', '', {
+            timeOut: 2000,
+            progressBar: true,
+            progressAnimation: 'decreasing',          
+          });
         },
         error => {
           this.carregar = false;
           sessionStorage.setItem("idSimuladoGabarito", JSON.stringify(0));
           this.router.navigateByUrl("aluno/simuladoconcluido");
-          console.log(error);
+          this.toastr.error(error, '', {
+            timeOut: 2000,
+            progressBar: true,
+            progressAnimation: 'decreasing',          
+          });
         });
     } else {
       this.imagem = "";
@@ -217,12 +227,21 @@ export class SimuladoGeradoComponent implements OnInit, OnDestroy, CanComponentD
         sessionStorage.setItem("idSimulado", '');
         sessionStorage.setItem("respostas", '');
         sessionStorage.setItem("simulado", '');
+        this.toastr.success('Simulado concluído', '', {
+          timeOut: 2000,
+          progressBar: true,
+          progressAnimation: 'decreasing',          
+        });
       },
       error => {
         this.spinnerModal = false;
         sessionStorage.setItem("idSimuladoGabarito", JSON.stringify(0));
         this.router.navigateByUrl("aluno/simuladoconcluido");
-        console.log(error);
+        this.toastr.error(error, '', {
+          timeOut: 2000,
+          progressBar: true,
+          progressAnimation: 'decreasing',          
+        });
       });
   }
 

@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import { Component, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-criar-sala',
@@ -18,7 +19,7 @@ export class CriarSalaComponent implements OnInit {
   carregar = false;
   formularioDeUsuario: FormGroup;
 
-  constructor(private fb: FormBuilder, private router: Router, private salasService: SalasService) { }
+  constructor(private toastr: ToastrService,private fb: FormBuilder, private router: Router, private salasService: SalasService) { }
 
   ngOnInit(): void {
     this.criarFormularioDeUsuario();
@@ -51,9 +52,18 @@ export class CriarSalaComponent implements OnInit {
     ).pipe(first()).subscribe(
       resposta => {
         this.router.navigateByUrl('/prof/salas');
+        this.toastr.success('Sala criada', '', {
+          timeOut: 2000,
+          progressBar: true,
+          progressAnimation: 'decreasing',          
+        });
       },
       error => {
-        console.log(error);
+        this.toastr.error(error, '', {
+          timeOut: 2000,
+          progressBar: true,
+          progressAnimation: 'decreasing',          
+        });
         this.carregar = false;
       });
 

@@ -5,6 +5,7 @@ import { Validacoes } from '../../../_helpers/validacoes';
 import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-simulado',
@@ -16,7 +17,7 @@ export class SimuladoCriarComponent implements OnInit {
   carregar = false;
   formularioDeUsuario: FormGroup;
 
-  constructor(private fb: FormBuilder, private router: Router, private simuladoService: SimuladoService, private autenticacaoService: AutenticacaoService) { }
+  constructor(private toastr: ToastrService, private fb: FormBuilder, private router: Router, private simuladoService: SimuladoService, private autenticacaoService: AutenticacaoService) { }
 
   ngOnInit(): void {
     this.criarFormularioDeUsuario();
@@ -110,9 +111,19 @@ export class SimuladoCriarComponent implements OnInit {
     ).pipe(first()).subscribe(
       resposta => {
         this.router.navigateByUrl('/aluno/listasimulados');
+        this.toastr.success('Simulado criado', '', {
+          timeOut: 2000,
+          progressBar: true,
+          progressAnimation: 'decreasing',
+        });
+        this.carregar = false;
       },
       error => {
-        console.log(error);
+        this.toastr.error(error, '', {
+          timeOut: 2000,
+          progressBar: true,
+          progressAnimation: 'decreasing',
+        });
         this.carregar = false;
       });
   }
@@ -130,9 +141,18 @@ export class SimuladoCriarComponent implements OnInit {
     ).pipe(first()).subscribe(
       resposta => {
         this.router.navigateByUrl('/aluno/listasimulados');
+        this.toastr.success('Simulado criado', '', {
+          timeOut: 2000,
+          progressBar: true,
+          progressAnimation: 'decreasing',
+        });
       },
       error => {
-        console.log(error);
+        this.toastr.error(error, '', {
+          timeOut: 2000,
+          progressBar: true,
+          progressAnimation: 'decreasing',
+        });
         this.carregar = false;
       });
   }
