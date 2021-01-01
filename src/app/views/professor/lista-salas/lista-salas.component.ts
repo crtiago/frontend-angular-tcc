@@ -1,5 +1,8 @@
-import { ActivatedRoute } from '@angular/router';
+import { SalasService } from './../../../_servicos/salas/salas.service';
+import { first } from 'rxjs/operators';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-salas',
@@ -15,7 +18,7 @@ export class ListaSalasComponent implements OnInit {
   carregar: boolean = false;
   nenhumaSala: boolean = false;
 
-  constructor(private route: ActivatedRoute) {
+  constructor(private route: ActivatedRoute, private toastr: ToastrService, private router: Router, private salasService: SalasService) {
     this.listaSalas = this.route.snapshot.data.response.Data;
     if (this.listaSalas.length == 0) {
       this.nenhumaSala = true;
@@ -33,6 +36,27 @@ export class ListaSalasComponent implements OnInit {
 
   entrarSala() {
     this.carregar = true;
+    this.salasService.buscarSimuladosPorSala(this.idSalaSelecionada).pipe(first()).subscribe(
+      resposta => {
+        this.carregar = false;
+        this.router.navigate(['prof/listasimuladossala']);
+        sessionStorage.setItem('simuladosSalaProfessor', JSON.stringify(resposta.Data));
+        sessionStorage.setItem('idSala', JSON.stringify(this.idSalaSelecionada));
+        this.toastr.success('Lista de simulados da sala', '', {
+          timeOut: 2000,
+          progressBar: true,
+          progressAnimation: 'decreasing',
+        });
+      },
+      error => {
+        this.carregar = false;
+        error = error.toString().replace("Error:", "");
+        this.toastr.error(error, '', {
+          timeOut: 2000,
+          progressBar: true,
+          progressAnimation: 'decreasing',
+        });
+      });
   }
 
 

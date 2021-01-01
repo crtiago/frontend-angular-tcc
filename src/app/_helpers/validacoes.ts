@@ -68,15 +68,28 @@ export class Validacoes {
      * Método para validar o ano, não permitindo ano posterior ao que está, e inferior
      * ao atual menos 80 anos
      */
-    static validarAno(controle: AbstractControl){
+    static validarAno(controle: AbstractControl) {
         const ano = controle.value;
         const anoAtual = new Date();
         const anoLimiteInferior = anoAtual.getFullYear() - 80;
 
-        if((ano > anoAtual.getFullYear()) || (ano < anoLimiteInferior)){
-            return { anoInvalido: true};    
+        if ((ano > anoAtual.getFullYear()) || (ano < anoLimiteInferior)) {
+            return { anoInvalido: true };
         }
-        return null;        
+        return null;
+    }
+
+    static restringirData(controle: AbstractControl) {
+        const prazo = controle.value;
+        const [ano, mes, dia] = prazo.split('-');
+        const hoje = new Date();
+
+        if (ano < hoje.getFullYear()) {
+            return { dataInvalida: true };
+        } else if (mes < hoje.getMonth() && dia < hoje.getDay()) {
+            return { dataInvalida: true };
+        }
+        return null;
     }
 
     /**
@@ -113,11 +126,11 @@ export class Validacoes {
                 return;
             }
 
-            if (_quantidade.value < 1) {
+            if (_quantidade.value < 0) {
                 _quantidade.setErrors({ minimo: true });
-            } else if(_quantidade.value > 30) {
+            } else if (_quantidade.value > 30) {
                 _quantidade.setErrors({ maximo: true });
-            }else{
+            } else {
                 _quantidade.setErrors(null);
             }
         }
@@ -134,9 +147,9 @@ export class Validacoes {
 
             if (_quantidade.value < 1) {
                 _quantidade.setErrors({ minimo: true });
-            } else if(_quantidade.value > 50) {
+            } else if (_quantidade.value > 50) {
                 _quantidade.setErrors({ maximo: true });
-            }else{
+            } else {
                 _quantidade.setErrors(null);
             }
         }
@@ -156,9 +169,9 @@ export class Validacoes {
 
             if (_tempoSimulado.value < 10) {
                 _tempoSimulado.setErrors({ minimo: true });
-            } else if(_tempoSimulado.value > 480) {
+            } else if (_tempoSimulado.value > 480) {
                 _tempoSimulado.setErrors({ maximo: true });
-            }else{
+            } else {
                 _tempoSimulado.setErrors(null);
             }
         }

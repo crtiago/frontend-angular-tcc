@@ -1,0 +1,155 @@
+<div class="card-body" style="border-radius: 10px;">
+    <div id="accordion" class="accordion shadow">
+      <div class="card" *ngFor="let item of gabarito; let i = index">
+        <div class="card-header bg-white shadow-sm border-0" [attr.id]="'headingOne_' + i">
+          <h6 class="mb-0 font-weight-bold">
+            <a data-toggle="collapse" [attr.aria-controls]="'collapseOne' + i" [attr.data-target]="'#collapseOne_' + i"
+              aria-expanded="false" [attr.href]="'#collapseOne_' + i"
+              class="d-block position-relative text-dark collapsible-link py-2">
+              Questão {{i + 1}}</a>
+          </h6>
+        </div>
+  
+        <div [attr.id]="'collapseOne_' + i" class="collapse" [attr.aria-labelledby]="'headingOne_' + i"
+          data-parent="#accordion">
+          <div class="card-body">
+  
+            <div class="form-row">
+              <div class="col-md mb-1">
+                <h5 class="questaoheader">Área: {{ getArea(item.Area) }}</h5>
+              </div>
+              <div class="col-md mb-1">
+                <h5 class="tempo">Ano: {{ item.Ano }}</h5>
+              </div>
+            </div>
+  
+            <div class="form-row">
+              <div class="col-md mb-1">
+                <h6 class="disciplina">Disciplina: {{ getDisciplina(item.Disciplina) }}</h6>
+              </div>
+            </div>
+  
+            <div class="form-row">
+              <!--Pergunta-->
+              <div class="col-md mb-1">
+                <ng-katex-paragraph class="math" [paragraph]="getDescricaoSimulado(item.Descricao,  item.Prova)">
+                </ng-katex-paragraph>
+              </div>
+            </div>
+  
+            <!--Caso a pergunta tenha imagem-->
+            <div *ngIf="item.ComImagem" class="form-row">
+              <div class="col-md mb-1">
+                <img class="imagemPergunta" [src]="getImagem(item.ImagemQuestao)">
+              </div>
+            </div>
+  
+            <!--Alternativas sem imagens-->
+            <div class="form-row" *ngIf="!item.AlternativaComImagem && item.TipoQuestao == '1'">
+              <div class="col-md mb-1">
+                <form>
+                  <ul>
+                    <li>
+                      <label
+                        [ngClass]="{'correta': item.RespostaCorreta == 'A' }"
+                        for='alternativaA'>
+                        <ng-katex-paragraph class="math" [paragraph]="getAlternativas('a) ',item.AlternativasA)">
+                        </ng-katex-paragraph>
+                      </label>
+                    </li>
+                    <li>
+                      <label
+                        [ngClass]="{'correta': item.RespostaCorreta == 'B'}"
+                        for='alternativaB'>
+                        <ng-katex-paragraph class="math" [paragraph]="getAlternativas('b) ',item.AlternativasB)">
+                        </ng-katex-paragraph>
+                      </label>
+                    </li>
+                    <li>
+                      <label
+                        [ngClass]="{'correta': item.RespostaCorreta == 'C' }"
+                        for='alternativaC'>
+                        <ng-katex-paragraph class="math" [paragraph]="getAlternativas('c) ',item.AlternativasC)">
+                        </ng-katex-paragraph>
+                      </label>
+                    </li>
+                    <li>
+                      <label
+                        [ngClass]="{'correta': item.RespostaCorreta == 'D' }"
+                        for='alternativaD'>
+                        <ng-katex-paragraph class="math" [paragraph]="getAlternativas('d) ',item.AlternativasD)">
+                        </ng-katex-paragraph>
+                      </label>
+                    </li>
+                    <li>
+                      <label
+                        [ngClass]="{'correta': item.RespostaCorreta == 'E' }"
+                        for='alternativaE'>
+                        <ng-katex-paragraph class="math" [paragraph]="getAlternativas('e) ',item.AlternativasE)">
+                        </ng-katex-paragraph>
+                      </label>
+                    </li>
+                  </ul>
+                </form>
+              </div>
+            </div>
+  
+            <!--Alternativas com imagens-->
+            <div *ngIf="item.AlternativaComImagem && item.TipoQuestao == '1'" class="form-row">
+              <div class="col-md mb-1">
+                <form>
+                  <ul>
+                    <li>
+                      <label
+                        [ngClass]="{'correta': item.RespostaCorreta == 'A' }"
+                        for='alternativaA'>a)
+                        <img class="imagemAlternativas" [src]="getAlternativaImagem(item.AlternativasA)">
+                      </label>
+                    </li>
+                    <li>
+                      <label
+                        [ngClass]="{'correta': item.RespostaCorreta == 'B' }"
+                        for='alternativaB'>b)
+                        <img class="imagemAlternativas" [src]="getAlternativaImagem(item.AlternativasB)">
+                      </label>
+                    </li>
+                    <li>
+                      <label
+                        [ngClass]="{'correta': item.RespostaCorreta == 'C' }"
+                        for='alternativaC'>c)
+                        <img class="imagemAlternativas" [src]="getAlternativaImagem(item.AlternativasC)">
+                      </label>
+                    </li>
+                    <li>
+                      <label
+                        [ngClass]="{'correta': item.RespostaCorreta == 'D' }"
+                        for='alternativaD'>d)
+                        <img class="imagemAlternativas" [src]="getAlternativaImagem(item.AlternativasD)">
+                      </label>
+                    </li>
+                    <li>
+                      <label
+                        [ngClass]="{'correta': item.RespostaCorreta == 'E'}"
+                        for='alternativaE'>e)
+                        <img class="imagemAlternativas" [src]="getAlternativaImagem(item.AlternativasE)">
+                      </label>
+                    </li>
+                  </ul>
+                </form>
+              </div>
+            </div>
+  
+            <!--Alternativas Descritiva-->
+            <div class="form-row" *ngIf="item.TipoQuestao == '2'">
+              <div class="col-md mb-1">
+                <form>
+                  Resposta Correta: Colocar a correta aqui
+                </form>
+              </div>
+            </div>  
+           
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

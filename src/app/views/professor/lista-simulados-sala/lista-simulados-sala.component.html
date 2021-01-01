@@ -1,0 +1,47 @@
+<div class="card m-4" style="border-radius: 10px;">
+    <div class="card-body">
+        <div class="table-overflow">
+            <table class="table">
+                <thead>
+                    <tr style="background-color:  rgb(47,158,64);color: white;">
+                        <th style="vertical-align: middle;" scope="col">Nome</th>
+                        <th style="vertical-align: middle;" scope="col">Descrição</th>
+                        <th style="vertical-align: middle;" scope="col"
+                            style="text-align: center; vertical-align: middle;">Quantidade de Questões</th>
+                        <th style="vertical-align: middle;" scope="col"
+                            style="text-align: center; vertical-align: middle;">Número de envios</th>
+                        <th style="vertical-align: middle;" scope="col"
+                            style="text-align: center; vertical-align: middle;">Data de criação</th>
+                        <th style="vertical-align: middle;" scope="col"
+                            style="text-align: center; vertical-align: middle;">Prazo de entrega</th>
+                    </tr>
+                </thead>
+                <tbody *ngIf="!nenhumSimulado">
+                    <tr (click)="simuladoSelecionado($event, simulado, i)"
+                        *ngFor="let simulado of listaSimulados; let i= index"
+                        [ngClass]="{'data-selected': i == linhaSelecionada }">
+                        <td style="vertical-align: middle;">{{simulado.Nome}}</td>
+                        <td style="vertical-align: middle;">{{simulado.Descricao}}</td>
+                        <td style="text-align: center; vertical-align: middle;">{{simulado.QuantidadeQuestoes}}</td>
+                        <td style="text-align: center; vertical-align: middle;">{{simulado.QuantidadeResposta}}</td>
+                        <td style="text-align: center; vertical-align: middle;">{{ formatDate(simulado.DataInicio) }}</td>
+                        <td style="text-align: center; vertical-align: middle;">{{formatDate(simulado.DataFimSimulado)}}</td>
+                    </tr>
+                </tbody>
+                <tbody class="no-border-x" *ngIf="nenhumSimulado">
+                    <tr *ngIf="nenhumSimulado">
+                        <td colspan="6" class="text-center text-muted">Nenhum simulado criado</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="card-footer">
+        <button style="float: right;" [disabled]="!enviosMaiorQueZero" (click)="buscarGabarito()"><span *ngIf="carregar"
+            class="spinner-border spinner-border-sm mr-1"></span>Conferir desempenho</button>
+        <button style="float: right;" [disabled]="!selecionado" (click)="buscarGabarito()"><span *ngIf="carregarGabarito"
+                class="spinner-border spinner-border-sm mr-1"></span>Conferir Gabarito</button>
+        <button style="float: right;" routerLink="/prof/criarsimulado">Criar novo simulado</button>
+
+    </div>
+</div>

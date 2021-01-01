@@ -60,10 +60,39 @@ export class SimuladoService {
             )
     };
 
+    criarSimuladoPadraoProf(IdSala: number, DataFimSimulado: Date, DataInicio: Date, Descricao: string, IdUsuario: number, Nome: string, QuantidadeQuestoes: number, TempoMaximo: number, TipoSimulado: number) {
+        return this.http.post<any>(`${environment.apiUrl}/GerarSimulado`, { IdSala, DataFimSimulado, DataInicio, Descricao, IdUsuario, Nome, QuantidadeQuestoes, TempoMaximo, TipoSimulado })
+            .pipe(
+                map(simulado => {
+                    if (simulado.Sucesso) {
+                        return simulado;
+                    } else {
+                        throw new Error(simulado.Mensagem);
+                    }
+                }
+                )
+            )
+    };
+
+    criarSimuladoPersonalizadoProf(IdSala: number, ConfiguracaoEnade: {}, ConfiguracaoPoscomp: {}, DataFimSimulado: Date, DataInicio: Date, Descricao: string, IdUsuario: number, Nome: string, TempoMaximo: number, TipoSimulado: number) {
+        return this.http.post<any>(`${environment.apiUrl}/GerarSimulado`, { IdSala, ConfiguracaoEnade, ConfiguracaoPoscomp, DataFimSimulado, DataInicio, Descricao, IdUsuario, Nome, TempoMaximo, TipoSimulado })
+            .pipe(
+                map(simulado => {
+                    if (simulado.Sucesso) {
+                        return simulado;
+                    } else {
+                        throw new Error(simulado.Mensagem);
+                    }
+                }
+                )
+            )
+    };
+
+
     buscarListaSimulados() {
         return this.http.get<any>(`${environment.apiUrl}/BuscarSimuladosUsuario?idUsuario=${this.autenticacaoService.getUsuario.IdUsuario}`)
             .pipe(
-                map(listaSimulados => {                    
+                map(listaSimulados => {
                     if (listaSimulados.Sucesso) {
                         return listaSimulados;
                     } else {
@@ -106,6 +135,20 @@ export class SimuladoService {
 
     buscarGabarito(IdSimulado: number, IdUsuario: number) {
         return this.http.post<any>(`${environment.apiUrl}/BuscarGabaritoPorSimulado`, { IdSimulado, IdUsuario })
+            .pipe(
+                map(retorno => {
+                    if (retorno.Sucesso) {
+                        return retorno.Data;
+                    } else {
+                        throw new Error(retorno.Mensagem);
+                    }
+                }
+                )
+            )
+    }
+
+    buscarGabaritoProf(IdSimulado: number, IdUsuario: number) {
+        return this.http.post<any>(`${environment.apiUrl}/BuscarGabaritoSemResposta`, { IdSimulado, IdUsuario })
             .pipe(
                 map(retorno => {
                     if (retorno.Sucesso) {

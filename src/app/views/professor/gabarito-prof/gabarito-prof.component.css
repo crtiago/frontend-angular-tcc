@@ -1,0 +1,107 @@
+/*Estilo acordion*/
+/* Horizontal line */
+.collapsible-link::before {
+    content: '';
+    width: 14px;
+    height: 2px;
+    background: #333;
+    position: absolute;
+    top: calc(50% - 1px);
+    right: 1rem;
+    display: block;
+    transition: all 0.3s;
+  }
+  
+  /* Vertical line */
+  .collapsible-link::after {
+    content: '';
+    width: 2px;
+    height: 14px;
+    background: #333;
+    position: absolute;
+    top: calc(50% - 7px);
+    right: calc(1rem + 6px);
+    display: block;
+    transition: all 0.3s;
+  }
+  
+  .collapsible-link[aria-expanded='true']::after {
+    transform: rotate(90deg) translateX(-1px);
+  }
+  
+  .collapsible-link[aria-expanded='true']::before {
+    transform: rotate(180deg);
+  }
+  
+/*Estilo Conteudo acordion*/
+ol, ul {
+    list-style: none;
+    padding-left: 0px;
+}
+
+li {
+    padding: 0px;
+    margin: 0px;
+    border: 0px;
+}
+
+label {
+    height: auto;
+    display: block;
+    padding: 6px;
+    border-radius: 6px;
+    border: solid 1px #dde7e8;
+    font-weight: 400;
+    font-size: 13px;
+    font-family: Arial, sans-serif;
+}
+
+.questaoheader{
+    text-align: left;
+}
+
+.tempo{
+    text-align: right;
+    
+}
+
+.math{
+    text-align: justify;
+    
+}
+
+.imagemPergunta{
+    margin-left: 25%;
+    width: 50%;
+}
+
+.imagemAlternativas{
+    width: 15%;
+}
+
+.botoes{
+    float: right;
+}
+
+/*Estilo da tabela*/
+.correta{
+    background-color: rgb(47,158,64);
+    color: white !important;
+}
+
+.errou{
+    background-color: #FF3B3B;
+    color: white !important;
+}
+
+@media(max-width: 767px){
+    .questaoheader{
+        text-align: center;
+    }
+    .tempo{
+        text-align: center;
+    }   
+    .disciplina{
+        text-align: center;
+    }
+}

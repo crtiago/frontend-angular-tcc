@@ -12,11 +12,14 @@ import { CountdownModule } from 'ngx-countdown';
 import { KatexModule } from 'ng-katex';
 import { LazyLoadImageModule } from 'ng-lazyload-image';
 import { CriarSalaComponent } from './criar-sala/criar-sala.component';
+import { ListaSimuladosSalaComponent } from './lista-simulados-sala/lista-simulados-sala.component';
+import { CriarSimuladoSalaComponent } from './criar-simulado-sala/criar-simulado-sala.component';
+import { GabaritoProfComponent } from './gabarito-prof/gabarito-prof.component';
 
 
 
 @NgModule({
-  declarations: [ ProfBaseComponent,DashboardComponent, ListaSalasComponent, CriarSalaComponent],
+  declarations: [ ProfBaseComponent,DashboardComponent, ListaSalasComponent, CriarSalaComponent, ListaSimuladosSalaComponent, CriarSimuladoSalaComponent, GabaritoProfComponent],
   imports: [
     CommonModule,
     FormsModule,

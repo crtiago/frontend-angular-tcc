@@ -1,0 +1,228 @@
+<div class="card m-4">
+        <h5 class="card-header" style="text-align: center;">Gerar Simulado</h5>
+        <div class="card-body">
+                <form [formGroup]="formularioDeUsuario" (ngSubmit)="criarSimulado()">
+
+                        <div class="form-row">
+                                <!--Input Nome-->
+                                <div class="col-md mb-1">
+                                        <label>Nome do Simulado<span class="asterisco">*</span></label>
+                                        <input type="text" formControlName="nome" class="form-control form-control-sm"
+                                                [ngClass]="{ 'is-invalid':!f.nome.pristine && f.nome.errors, 'is-valid': !f.nome.pristine && !f.nome.errors}" />
+                                        <div *ngIf="!f.nome.pristine && f.nome.errors" class="invalid-feedback">
+                                                <div *ngIf="f.nome.errors.required">Nome é obrigatório.</div>
+                                        </div>
+                                        <div class="valid-feedback">
+                                                Tudo certo!
+                                        </div>
+                                </div>
+                                <div class="col-md-3 mb-1">
+                                        <label>Prazo de entrega <span class="asterisco">*</span></label>
+                                        <input type="date" formControlName="prazoEntrega"
+                                                class="form-control form-control-sm"
+                                                [ngClass]="{ 'is-invalid':!f.prazoEntrega.pristine && f.prazoEntrega.errors, 'is-valid': !f.prazoEntrega.errors }" />
+                                        <div *ngIf="!f.prazoEntrega.pristine && f.prazoEntrega.errors"
+                                                class="invalid-feedback">
+                                                <div
+                                                        *ngIf="!f.prazoEntrega.errors.required && !f.prazoEntrega.errors.pattern && f.prazoEntrega.errors.dataInvalida">
+                                                        Insira uma data válida.
+                                                </div>
+                                                <div *ngIf="f.prazoEntrega.errors.required">Prazo de entrega é
+                                                        obrigatório.</div>
+                                                <div *ngIf="f.prazoEntrega.errors.pattern">
+                                                        A data está incorreta.
+                                                </div>
+                                        </div>
+                                        <div class="valid-feedback">
+                                                Tudo certo!
+                                        </div>
+                                </div>
+                        </div>
+
+                        <div class="form-row">
+                                <!--Input da Descrição-->
+                                <div class="col-md mb-1">
+                                        <label>Descrição do Simulado</label>
+                                        <textarea formControlName="descricao" type="text" style="resize: none;"
+                                                class="form-control" id="exampleFormControlTextarea1"
+                                                rows="3"></textarea>
+                                </div>
+                        </div>
+
+                        <div class="form-row">
+                                <!--Input da Tipo Simulado-->
+                                <div class="col-md mb-1">
+                                        <label>Tipo do Simulado<span class="asterisco">*</span></label>
+                                        <select (change)="getTipo($event)" formControlName="tipoSimulado"
+                                                class="form-control form-control-sm"
+                                                [ngClass]="{ 'is-invalid': !f.tipoSimulado.pristine && f.tipoSimulado.errors, 'is-valid': !f.tipoSimulado.errors }">
+                                                <option value="" selected disabled hidden>Escolha uma opção</option>
+                                                <option value="0">Personalizado</option>
+                                                <option value="1">Exame Nacional de Desempenho dos Estudantes (ENADE)
+                                                </option>
+                                                <option value="2">Exame Nacional para ingresso no Mestrado e Doutorado
+                                                        em Computação (POSCOMP)</option>
+                                        </select>
+                                        <div *ngIf="!f.tipoSimulado.pristine && f.tipoSimulado.errors"
+                                                class="invalid-feedback">
+                                                <div *ngIf="f.tipoSimulado.errors.required">Tipo de Simulado é
+                                                        obrigatório.</div>
+                                        </div>
+                                        <div class="valid-feedback">
+                                                Tudo certo!
+                                        </div>
+                                </div>
+                        </div>
+
+                        <div *ngIf="f.tipoSimulado.value == '0'" class="form-row">
+                                <div class="col-md mb">
+                                        <label>Selecione a quantidade de questões de cada área do POSCOMP</label>
+                                </div>
+                        </div>
+                        <!--Inputs de quantidade de questões nas areas do POSCOMP-->
+                        <div *ngIf="f.tipoSimulado.value == '0'" class="form-row">
+                                <div class="col-md-2 mb-2">
+                                        <label>Fundamentos<span class="asterisco">*</span></label>
+                                        <input type="number" formControlName="quantidadeFundamentos" min="1" max="30"
+                                                class="form-control form-control-sm"
+                                                [ngClass]="{ 'is-invalid': !f.quantidadeFundamentos.pristine && f.quantidadeFundamentos.errors, 'is-valid': !f.quantidadeFundamentos.errors }" />
+                                        <div *ngIf="!f.quantidadeFundamentos.pristine && f.quantidadeFundamentos.errors"
+                                                class="invalid-feedback">
+                                                <div *ngIf="f.quantidadeFundamentos.errors.required">Quantidade de
+                                                        questões
+                                                        é obrigatória.</div>
+                                                <div *ngIf="f.quantidadeFundamentos.errors.minimo">Quantidade de
+                                                        questões inválida</div>
+                                                <div *ngIf="f.quantidadeFundamentos.errors.maximo">Deve ser no máximo 30
+                                                        questões</div>
+                                        </div>
+                                        <div class="valid-feedback">
+                                                Tudo certo!
+                                        </div>
+                                </div>
+
+                                <div class="col-md-2 mb-2">
+                                        <label>Matemática<span class="asterisco">*</span></label>
+                                        <input type="number" formControlName="quantidadeMatematica" min="1" max="30"
+                                                class="form-control form-control-sm"
+                                                [ngClass]="{ 'is-invalid': !f.quantidadeMatematica.pristine && f.quantidadeMatematica.errors, 'is-valid': !f.quantidadeMatematica.errors }" />
+                                        <div *ngIf="!f.quantidadeMatematica.pristine && f.quantidadeMatematica.errors"
+                                                class="invalid-feedback">
+                                                <div *ngIf="f.quantidadeMatematica.errors.required">Quantidade de
+                                                        questões
+                                                        é obrigatória.</div>
+                                                <div *ngIf="f.quantidadeMatematica.errors.minimo">Quantidade de questões
+                                                        inválida</div>
+                                                <div *ngIf="f.quantidadeMatematica.errors.maximo">Deve ser no máximo 30
+                                                        questões</div>
+                                        </div>
+                                        <div class="valid-feedback">
+                                                Tudo certo!
+                                        </div>
+                                </div>
+
+                                <div class="col-md-2 mb-2">
+                                        <label>Tecnologia<span class="asterisco">*</span></label>
+                                        <input type="number" formControlName="quantidadeTecnologia" min="1" max="30"
+                                                class="form-control form-control-sm"
+                                                [ngClass]="{ 'is-invalid': !f.quantidadeTecnologia.pristine && f.quantidadeTecnologia.errors, 'is-valid': !f.quantidadeTecnologia.errors }" />
+                                        <div *ngIf="!f.quantidadeTecnologia.pristine && f.quantidadeTecnologia.errors"
+                                                class="invalid-feedback">
+                                                <div *ngIf="f.quantidadeTecnologia.errors.required">Quantidade de
+                                                        questões
+                                                        é obrigatória.</div>
+                                                <div *ngIf="f.quantidadeTecnologia.errors.minimo">Quantidade de questões
+                                                        inválida</div>
+                                                <div *ngIf="f.quantidadeTecnologia.errors.maximo">Deve ser no máximo 30
+                                                        questões</div>
+                                        </div>
+                                        <div class="valid-feedback">
+                                                Tudo certo!
+                                        </div>
+                                </div>
+                        </div>
+
+                        <div *ngIf="f.tipoSimulado.value == '0'" class="form-row">
+                                <div class="col-md mb">
+                                        <label>Selecione a quantidade de questões de cada área do ENADE</label>
+                                </div>
+                        </div>
+
+
+                        <!--Input de quantidade de questões do ENADE-->
+                        <div *ngIf="f.tipoSimulado.value == '0'" class="form-row">
+                                <div class="col-md-2 mb-2">
+                                        <label>Formação Específica<span class="asterisco">*</span></label>
+                                        <input type="number" formControlName="quantidadeEspecifica" min="1" max="30"
+                                                class="form-control form-control-sm"
+                                                [ngClass]="{ 'is-invalid': !f.quantidadeEspecifica.pristine && f.quantidadeEspecifica.errors, 'is-valid': !f.quantidadeEspecifica.errors }" />
+                                        <div *ngIf="!f.quantidadeEspecifica.pristine && f.quantidadeEspecifica.errors"
+                                                class="invalid-feedback">
+                                                <div *ngIf="f.quantidadeEspecifica.errors.required">Quantidade de
+                                                        questões
+                                                        é obrigatória.</div>
+                                                <div *ngIf="f.quantidadeEspecifica.errors.minimo">Quantidade de questões
+                                                        inválida</div>
+                                                <div *ngIf="f.quantidadeEspecifica.errors.maximo">Deve ser no máximo 30
+                                                        questões</div>
+                                        </div>
+                                        <div class="valid-feedback">
+                                                Tudo certo!
+                                        </div>
+                                </div>
+
+                                <div class="col-md-2 mb-2">
+                                        <label>Formação Geral<span class="asterisco">*</span></label>
+                                        <input type="number" formControlName="quantidadeGeral" min="1" max="30"
+                                                class="form-control form-control-sm"
+                                                [ngClass]="{ 'is-invalid': !f.quantidadeGeral.pristine && f.quantidadeGeral.errors, 'is-valid': !f.quantidadeGeral.errors }" />
+                                        <div *ngIf="!f.quantidadeGeral.pristine && f.quantidadeGeral.errors"
+                                                class="invalid-feedback">
+                                                <div *ngIf="f.quantidadeGeral.errors.required">Quantidade de questões
+                                                        é obrigatória.</div>
+                                                <div *ngIf="f.quantidadeGeral.errors.minimo">Quantidade de questões
+                                                        inválida</div>
+                                                <div *ngIf="f.quantidadeGeral.errors.maximo">Deve ser no máximo 30
+                                                        questões</div>
+                                        </div>
+                                        <div class="valid-feedback">
+                                                Tudo certo!
+                                        </div>
+                                </div>
+                        </div>
+
+                        <div *ngIf="f.tipoSimulado.value == '0'" class="form-row">
+
+                                <!--Input da Tempo do Simulado-->
+                                <div class="col-md-2 mb-2">
+                                        <label>Tempo (minutos)<span class="asterisco">*</span></label>
+                                        <input type="number" formControlName="tempoSimulado"
+                                                class="form-control form-control-sm" id="quantity" name="tempoSimulado"
+                                                min="10" max="240"
+                                                [ngClass]="{ 'is-invalid': !f.tempoSimulado.pristine && f.tempoSimulado.errors, 'is-valid': !f.tempoSimulado.errors }" />
+                                        <div *ngIf="!f.tempoSimulado.pristine && f.tempoSimulado.errors"
+                                                class="invalid-feedback">
+                                                <div *ngIf="f.tempoSimulado.errors.required">Tempo de simulado é
+                                                        obrigatório.</div>
+                                                <div *ngIf="f.tempoSimulado.errors.minimo">Deve ser no mínimo 10 minutos
+                                                </div>
+                                                <div *ngIf="f.tempoSimulado.errors.maximo">Deve ser no máximo 480
+                                                        minutos</div>
+                                        </div>
+                                        <div class="valid-feedback">
+                                                Tudo certo!
+                                        </div>
+                                </div>
+                        </div>
+                        <!--Botões do formulário-->
+                        <div class="text-center">
+                                <button style="float: right;" [disabled]="!formularioDeUsuario.valid">
+                                        <span *ngIf="carregar"
+                                                class="spinner-border spinner-border-sm mr-1"></span>Gerar
+                                        Simulado</button>
+                                <button style="float: right;" type="button"
+                                        routerLink="/prof/listasimuladossala">Cancelar</button>
+                        </div>
+                </form>
+        </div>
+</div>

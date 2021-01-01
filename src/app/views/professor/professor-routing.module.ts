@@ -1,3 +1,6 @@
+import { GabaritoProfComponent } from './gabarito-prof/gabarito-prof.component';
+import { CriarSimuladoSalaComponent } from './criar-simulado-sala/criar-simulado-sala.component';
+import { ListaSimuladosSalaComponent } from './lista-simulados-sala/lista-simulados-sala.component';
 import { RespostaListaSalas } from './../../_helpers/resposta-lista-salas';
 import { CriarSalaComponent } from './criar-sala/criar-sala.component';
 import { RespostaCadastro } from './../../_helpers/resposta-cadastro';
@@ -22,7 +25,10 @@ const routes: Routes = [
           response: RespostaListaSalas
         }, component: ListaSalasComponent, data: { title: 'Salas' }
       },
+      { path: 'listasimuladossala', component: ListaSimuladosSalaComponent, data: { title: 'Simulados da Sala' } },
       { path: 'criarsala', component: CriarSalaComponent, data: { title: 'Salas' } },
+      { path: 'criarsimulado', component: CriarSimuladoSalaComponent, data: { title: 'Criar Simulado' } },
+      { path: 'gabarito', component: GabaritoProfComponent, data: { title: 'Gabarito' } },
       {
         path: 'configuracoes', component: ConfiguracoesComponent,
         resolve: {
