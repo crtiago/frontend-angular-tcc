@@ -64,10 +64,12 @@ export class ListaSalasComponent implements OnInit {
         resposta => {
           this.carregar = false;
           this.router.navigate(['aluno/listasimuladossala']);
+          sessionStorage.setItem('simuladosSalaAluno', JSON.stringify(resposta.Data));
+          sessionStorage.setItem('idSala', JSON.stringify(this.idSalaSelecionada));
           this.toastr.success('Lista de simulados da sala', '', {
             timeOut: 2000,
             progressBar: true,
-            progressAnimation: 'decreasing',          
+            progressAnimation: 'decreasing',
           });
         },
         error => {
@@ -90,14 +92,28 @@ export class ListaSalasComponent implements OnInit {
     this.salasService.participarSala(
       this.idSalaSelecionada, this.formularioDeUsuario.get('senha').value).pipe(first()).subscribe(
         resposta => {
-          this.participar = false;
-          this.router.navigate(['aluno/listasimuladossala']);
-          $(this.modalSenha.nativeElement).modal('hide');
-          this.toastr.success('Lista de simulados da sala', '', {
-            timeOut: 2000,
-            progressBar: true,
-            progressAnimation: 'decreasing',          
-          });
+          this.salasService.buscarSimuladosPorSala(this.idSalaSelecionada).pipe(first()).subscribe(
+            resposta => {
+              this.participar = false;
+              sessionStorage.setItem('simuladosSalaAluno', JSON.stringify(resposta.Data));
+              sessionStorage.setItem('idSala', JSON.stringify(this.idSalaSelecionada));
+              this.router.navigate(['aluno/listasimuladossala']);
+              $(this.modalSenha.nativeElement).modal('hide');
+              this.toastr.success('Lista de simulados da sala', '', {
+                timeOut: 2000,
+                progressBar: true,
+                progressAnimation: 'decreasing',
+              });
+            },
+            error => {
+              this.participar = false;
+              error = error.toString().replace("Error:", "");
+              this.toastr.error(error, '', {
+                timeOut: 2000,
+                progressBar: true,
+                progressAnimation: 'decreasing',
+              });
+            });
         },
         error => {
           this.participar = false;

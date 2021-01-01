@@ -1,1 +1,61 @@
-<p>lista-simulados-sala works!</p>
+<div class="card m-4" style="border-radius: 10px;">
+    <div class="card-body">
+        <div class="table-overflow">
+            <table class="table">
+                <thead>
+                    <tr style="background-color:  rgb(47,158,64);color: white;">
+                        <th style="vertical-align: middle;" scope="col">Nome</th>
+                        <th style="vertical-align: middle;" scope="col">Descrição</th>
+                        <th style="vertical-align: middle;" scope="col"
+                            style="text-align: center; vertical-align: middle;">Quantidade de Questões</th>
+                        <th style="vertical-align: middle;" scope="col"
+                            style="text-align: center; vertical-align: middle;">Acertos</th>
+                        <th style="vertical-align: middle;" scope="col"
+                            style="text-align: center; vertical-align: middle;">Erros</th>
+                        <th style="vertical-align: middle;" scope="col"
+                            style="text-align: center; vertical-align: middle;">Prazo de entrega</th>
+                        <th style="vertical-align: middle;" scope="col"
+                            style="text-align: center; vertical-align: middle;">Concluído</th>
+                    </tr>
+                </thead>
+                <tbody *ngIf="!nenhumSimulado">
+                    <tr (click)="simuladoSelecionado($event, simulado, i)"
+                        *ngFor="let simulado of listaSimulados; let i= index"
+                        [ngClass]="{'data-selected': i == linhaSelecionada }">
+                        <td style="vertical-align: middle;">{{simulado.Nome}}</td>
+                        <td style="vertical-align: middle;">{{simulado.Descricao}}</td>
+                        <td style="text-align: center; vertical-align: middle;">{{simulado.QuantidadeQuestoes}}</td>
+                        <td *ngIf="simulado.SimuladoRespondido" style="text-align: center; vertical-align: middle;">
+                            {{simulado.ResultadoSimulado.ResultadoGeral.Acertos}}</td>
+                        <td *ngIf="simulado.SimuladoRespondido" style="text-align: center; vertical-align: middle;">
+                            {{simulado.ResultadoSimulado.ResultadoGeral.Erros}}</td>
+                        <td *ngIf="!simulado.SimuladoRespondido" style="text-align: center; vertical-align: middle;">-
+                        </td>
+                        <td *ngIf="!simulado.SimuladoRespondido" style="text-align: center; vertical-align: middle;">-
+                        </td>
+                        <td style="text-align: center; vertical-align: middle;">{{formatDate(simulado.DataFimSimulado)}}</td>
+                        <td style="text-align: center; vertical-align: middle;">
+                            <i *ngIf="simulado.SimuladoRespondido" class="fas fa-check" style="color: rgb(47,158,64);"
+                                [ngClass]="{'data-selected': i == linhaSelecionada && simulado.SimuladoRespondido}"></i>
+                            <i *ngIf="!simulado.SimuladoRespondido" class="fas fa-times" style="color: red;"
+                                [ngClass]="{'data-selected': i == linhaSelecionada && !simulado.SimuladoRespondido}"></i>
+                        </td>
+                    </tr>
+                </tbody>
+                <tbody class="no-border-x" *ngIf="nenhumSimulado">
+                    <tr *ngIf="nenhumSimulado">
+                        <td colspan="7" class="text-center text-muted">Nenhum simulado criado</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="card-footer">
+        <button style="float: right;" (click)="iniciarSimuladoSelecionado()" [disabled]="!selecionado"> <span
+                *ngIf="carregar" class="spinner-border spinner-border-sm mr-1"></span>Iniciar Simulado</button>
+        <button style="float: right;" [disabled]="!respondido" (click)="buscarGabarito()"><span *ngIf="carregarGabarito"
+                class="spinner-border spinner-border-sm mr-1"></span>Conferir Gabarito</button>
+        <button style="float: right;" routerLink="/aluno/simulado">Criar novo simulado</button>
+
+    </div>
+</div>
