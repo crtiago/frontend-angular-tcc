@@ -15,11 +15,12 @@ import { CriarSalaComponent } from './criar-sala/criar-sala.component';
 import { ListaSimuladosSalaComponent } from './lista-simulados-sala/lista-simulados-sala.component';
 import { CriarSimuladoSalaComponent } from './criar-simulado-sala/criar-simulado-sala.component';
 import { GabaritoProfComponent } from './gabarito-prof/gabarito-prof.component';
+import { ListaAlunosSalaComponent } from './lista-alunos-sala/lista-alunos-sala.component';
 
 
 
 @NgModule({
-  declarations: [ ProfBaseComponent,DashboardComponent, ListaSalasComponent, CriarSalaComponent, ListaSimuladosSalaComponent, CriarSimuladoSalaComponent, GabaritoProfComponent],
+  declarations: [ ProfBaseComponent,DashboardComponent, ListaSalasComponent, CriarSalaComponent, ListaSimuladosSalaComponent, CriarSimuladoSalaComponent, GabaritoProfComponent, ListaAlunosSalaComponent],
   imports: [
     CommonModule,
     FormsModule,

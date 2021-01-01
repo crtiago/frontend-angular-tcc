@@ -2,7 +2,7 @@ import { first } from 'rxjs/operators';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SimuladoService } from './../../../_servicos/simulados/simulado.service';
 import { AutenticacaoService } from './../../../_servicos/login/autenticacao.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -10,7 +10,7 @@ import { ToastrService } from 'ngx-toastr';
   templateUrl: './lista-simulados-sala.component.html',
   styleUrls: ['./lista-simulados-sala.component.css']
 })
-export class ListaSimuladosSalaComponent implements OnInit {
+export class ListaSimuladosSalaComponent implements OnInit, OnDestroy {
 
   linhaSelecionada: number;
   selecionado: boolean = false;
@@ -23,10 +23,19 @@ export class ListaSimuladosSalaComponent implements OnInit {
   nenhumSimulado: boolean = false;
 
   constructor(private toastr: ToastrService, private autenticacaoService: AutenticacaoService, private simuladoService: SimuladoService, private router: Router, private route: ActivatedRoute) {
-    this.listaSimulados = JSON.parse(sessionStorage.getItem("simuladosSalaAluno"));
-    if (this.listaSimulados.length == 0) {
-      this.nenhumSimulado = true;
+    if (sessionStorage.getItem("idSala") == '' || sessionStorage.getItem("idSala") == 'null') {
+      this.router.navigateByUrl('/aluno/salas');
+    } else {
+      this.listaSimulados = JSON.parse(sessionStorage.getItem("simuladosSalaAluno"));
+      if (this.listaSimulados.length == 0) {
+        this.nenhumSimulado = true;
+      }
     }
+  }
+
+  ngOnDestroy(): void {
+    sessionStorage.setItem("idSala", '');
+    sessionStorage.setItem("simuladosSalaAluno", '');
   }
 
   ngOnInit(): void {
@@ -61,7 +70,7 @@ export class ListaSimuladosSalaComponent implements OnInit {
         this.toastr.error(error, '', {
           timeOut: 2000,
           progressBar: true,
-          progressAnimation: 'decreasing',          
+          progressAnimation: 'decreasing',
         });
       });
   }
@@ -78,7 +87,7 @@ export class ListaSimuladosSalaComponent implements OnInit {
       this.toastr.success('Simulado gerado', '', {
         timeOut: 2000,
         progressBar: true,
-        progressAnimation: 'decreasing',          
+        progressAnimation: 'decreasing',
       });
     } else if (this.tipoSimulado == 1) {
       //Tempo Padrão - 4 horas
@@ -90,7 +99,7 @@ export class ListaSimuladosSalaComponent implements OnInit {
       this.toastr.success('Simulado gerado', '', {
         timeOut: 2000,
         progressBar: true,
-        progressAnimation: 'decreasing',          
+        progressAnimation: 'decreasing',
       });
     } else {
       sessionStorage.setItem('index', JSON.stringify(0));
@@ -103,22 +112,22 @@ export class ListaSimuladosSalaComponent implements OnInit {
       this.toastr.success('Simulado gerado', '', {
         timeOut: 2000,
         progressBar: true,
-        progressAnimation: 'decreasing',          
+        progressAnimation: 'decreasing',
       });
     }
   }
 
   buscarGabarito() {
-    this.carregarGabarito = true;   
+    this.carregarGabarito = true;
     this.simuladoService.buscarGabarito(this.idSimuladoSelecionado, this.autenticacaoService.getUsuario.IdUsuario).pipe(first()).subscribe(
       gabarito => {
         sessionStorage.setItem("idSimuladoGabarito", JSON.stringify(0));
-        sessionStorage.setItem('gabarito', JSON.stringify(gabarito));  
+        sessionStorage.setItem('gabarito', JSON.stringify(gabarito));
         this.router.navigateByUrl("/aluno/gabarito");
         this.toastr.success('Gabarito gerado', '', {
           timeOut: 2000,
           progressBar: true,
-          progressAnimation: 'decreasing',          
+          progressAnimation: 'decreasing',
         });
       },
       error => {
@@ -127,7 +136,7 @@ export class ListaSimuladosSalaComponent implements OnInit {
         this.toastr.error(error, '', {
           timeOut: 2000,
           progressBar: true,
-          progressAnimation: 'decreasing',          
+          progressAnimation: 'decreasing',
         });
       });
   }

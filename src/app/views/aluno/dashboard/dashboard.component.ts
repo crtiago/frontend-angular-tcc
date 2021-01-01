@@ -30,6 +30,10 @@ export class DashboardComponent implements OnInit {
   textoBotao = "Gerar relatórios";
 
   constructor(private route: ActivatedRoute, private dashboardService: DashboardService, private autenticacaoService: AutenticacaoService) {
+    console.log(this.route.snapshot.data['respostaResultados'][0])
+    console.log(this.route.snapshot.data['respostaResultados'][1])
+    console.log(this.route.snapshot.data['respostaResultados'][2])
+   
     if (this.route.snapshot.data['respostaResultados'][0].Sucesso &&
       this.route.snapshot.data['respostaResultados'][1].Sucesso &&
       this.route.snapshot.data['respostaResultados'][2].Sucesso) {

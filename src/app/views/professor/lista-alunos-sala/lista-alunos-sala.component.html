@@ -1,0 +1,136 @@
+<div class="card-body" style="border-radius: 10px;">
+    <div id="accordion" class="accordion shadow">
+        <div class="card" *ngFor="let item of listaAlunos; let i = index">
+            <div class="card-header bg-white shadow-sm border-0" [attr.id]="'headingOne_' + i">
+                <h6 class="mb-0 font-weight-bold">
+                    <a data-toggle="collapse" [attr.aria-controls]="'collapseOne' + i"
+                        [attr.data-target]="'#collapseOne_' + i" aria-expanded="false" [attr.href]="'#collapseOne_' + i"
+                        class="d-block position-relative text-dark collapsible-link py-2">
+                        {{ item.Nome }}</a>
+                </h6>
+            </div>
+
+            <div [attr.id]="'collapseOne_' + i" class="collapse" [attr.aria-labelledby]="'headingOne_' + i"
+                data-parent="#accordion">
+                <div class="card-body" style="background-color: #d8ecdb;">
+
+                    <div class="row">
+                        <!--Card menor do desempenho geral-->
+                        <div class="col-md-6 col-lg-3 mb-4">
+                            <div class="card border-0 rounded-1">
+                                <div class="card-body">
+                                    <div class="card-innerBody d-flex align-items-center">
+                                        <i class="fas fa-chart-bar fa-3x" style="color: gray;"></i>
+                                        <div class="ml-auto">
+                                            <p class="card-label text-right text-muted">Desempenho Geral</p>
+                                            <h4 class="card-text text-success text-right" style="font-size: 20px;">
+                                                Acertos:
+                                                {{item.ResultadoGeral.Acertos}}</h4>
+                                            <h4 class="card-text text-danger text-right" style="font-size: 20px;">Erros:
+                                                {{item.ResultadoGeral.Erros}}</h4>
+                                            <h4 class="card-text text-info text-right" style="font-size: 20px;">Não
+                                                respondidas:
+                                                {{item.ResultadoGeral.NaoRespondidas}}</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-footer d-flex ">
+                                    <small class="text-text-secondary text-muted">Questões realizadas</small>
+                                    <small class="text-text-secondary ml-auto text-muted">
+                                        {{item.ResultadoGeral.TotalQuestao}}
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Card menor da Área de Fundamentos-->
+                        <div class="col-md-6 col-lg-3 mb-4">
+                            <div class="card border-0 rounded-1">
+                                <div class="card-body">
+                                    <div class="card-innerBody d-flex align-items-center">
+                                        <i class="fas fa-shapes fa-3x" style="color: gray;"></i>
+                                        <div class="ml-auto">
+                                            <p class="card-label text-right text-muted">Área de Fundamentos</p>
+                                            <h4 class="card-text text-success text-right" style="font-size: 20px;">
+                                                Acertos:
+                                                {{item.ResultadoFundamentos.Acertos}}</h4>
+                                            <h4 class="card-text text-danger text-right" style="font-size: 20px;">Erros:
+                                                {{item.ResultadoFundamentos.Erros}}</h4>
+                                            <h4 class="card-text text-info text-right" style="font-size: 20px;">Não
+                                                respondidas:
+                                                {{item.ResultadoFundamentos.NaoRespondidas}}</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-footer d-flex ">
+                                    <small class="text-text-secondary text-muted">Questões realizadas</small>
+                                    <small class="text-text-secondary ml-auto text-muted">
+                                        {{item.ResultadoFundamentos.TotalQuestao}}
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Card menor da Área de Matemática-->
+                        <div class="col-md-6 col-lg-3 mb-4">
+                            <div class="card border-0 rounded-1">
+                                <div class="card-body">
+                                    <div class="card-innerBody d-flex align-items-center">
+                                        <i class="fas fa-calculator fa-3x" style="color: gray;"></i>
+                                        <div class="ml-auto">
+                                            <p class="card-label text-right text-muted">Área de Matemática</p>
+                                            <h4 class="card-text text-success text-right" style="font-size: 20px;">
+                                                Acertos:
+                                                {{item.ResultadoMatematica.Acertos}}</h4>
+                                            <h4 class="card-text text-danger text-right" style="font-size: 20px;">Erros:
+                                                {{item.ResultadoMatematica.Erros}}</h4>
+                                            <h4 class="card-text text-info text-right" style="font-size: 20px;">Não
+                                                respondidas:
+                                                {{item.ResultadoMatematica.NaoRespondidas}}</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-footer d-flex ">
+                                    <small class="text-text-secondary text-muted">Questões realizadas</small>
+                                    <small class="text-text-secondary ml-auto text-muted">
+                                        {{item.ResultadoMatematica.TotalQuestao}}
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Card menor da Área de Tecnologia-->
+                        <div class="col-md-6 col-lg-3 mb-4">
+                            <div class="card border-0 rounded-1">
+                                <div class="card-body">
+                                    <div class="card-innerBody d-flex align-items-center">
+                                        <i class="fas fa-microchip fa-3x" style="color: gray;"></i>
+                                        <div class="ml-auto">
+                                            <p class="card-label text-right text-muted">Área de Tecnologia</p>
+                                            <h4 class="card-text text-success text-right" style="font-size: 20px;">
+                                                Acertos:
+                                                {{item.ResultadoTecnologia.Acertos}}</h4>
+                                            <h4 class="card-text text-danger text-right" style="font-size: 20px;">Erros:
+                                                {{item.ResultadoTecnologia.Erros}}</h4>
+                                            <h4 class="card-text text-info text-right" style="font-size: 20px;">Não
+                                                respondidas:
+                                                {{item.ResultadoTecnologia.NaoRespondidas}}</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-footer d-flex ">
+                                    <small class="text-text-secondary text-muted">Questões realizadas</small>
+                                    <small class="text-text-secondary ml-auto text-muted">
+                                        {{item.ResultadoTecnologia.TotalQuestao}}
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
