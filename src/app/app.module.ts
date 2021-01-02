@@ -1,3 +1,4 @@
+import { RespostaDashboardProfessor } from './_helpers/resposta-dashboard-professor';
 import { RespostaListaSalas } from './_helpers/resposta-lista-salas';
 import { SalasService } from './_servicos/salas/salas.service';
 import { RespostaResultados } from './_helpers/resposta-resultados';
@@ -58,6 +59,7 @@ const maskConfig: Partial<IConfig> = {
     MetodosEnuns,
     TratamentoImagem,
     { provide: HTTP_INTERCEPTORS, useClass: InterceptadorErros, multi: true },
+    RespostaDashboardProfessor,
     RespostaResultados,
     RespostaCadastro,
     RespostaListaSimulados,

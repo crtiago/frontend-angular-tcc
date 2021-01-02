@@ -1,3 +1,4 @@
+import { RespostaDashboardProfessor } from './../../_helpers/resposta-dashboard-professor';
 import { ListaAlunosSalaComponent } from './lista-alunos-sala/lista-alunos-sala.component';
 import { GabaritoProfComponent } from './gabarito-prof/gabarito-prof.component';
 import { CriarSimuladoSalaComponent } from './criar-simulado-sala/criar-simulado-sala.component';
@@ -20,7 +21,11 @@ const routes: Routes = [
     path: '', component: ProfBaseComponent,
     children: [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-      { path: 'dashboard', component: DashboardComponent, data: { title: 'Dashboard' } },
+      {
+        path: 'dashboard', component: DashboardComponent, data: { title: 'Dashboard' }, resolve: {
+          response: RespostaDashboardProfessor
+        },
+      },
       {
         path: 'salas', resolve: {
           response: RespostaListaSalas
@@ -29,7 +34,7 @@ const routes: Routes = [
       { path: 'listasimuladossala', component: ListaSimuladosSalaComponent, data: { title: 'Simulados da Sala' } },
       { path: 'criarsala', component: CriarSalaComponent, data: { title: 'Salas' } },
       { path: 'criarsimulado', component: CriarSimuladoSalaComponent, data: { title: 'Criar Simulado' } },
-      { path: 'alunossimulado', component: ListaAlunosSalaComponent, data: { title: 'Alunos do Simulado' } },
+      { path: 'alunossimulado', component: ListaAlunosSalaComponent, data: { title: 'Alunos' } },
       { path: 'gabarito', component: GabaritoProfComponent, data: { title: 'Gabarito' } },
       {
         path: 'configuracoes', component: ConfiguracoesComponent,
