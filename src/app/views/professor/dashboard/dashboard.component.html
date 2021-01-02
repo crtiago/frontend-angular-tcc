@@ -21,18 +21,19 @@
   </div>
 
   <div class="card-body">
-    <div *ngIf="simuladoSelecionadoBoolean" class="card-body" style="border-radius: 10px;">
-      Colocar o desempenho geral da sala aqui
+    <div *ngIf="simuladoSelecionadoBoolean && quantidadeResposta != 0" class="card-body" style="border-radius: 10px;">
+      Colocar o desempenho geral da simulado aqui
     </div>
     <div class="align-items-center d-flex justify-content-center text-muted" style="height: 60vh; text-align: center;"
       *ngIf="!salaSelecionadaBoolean">Selecione uma sala para poder ver a lista de simulados</div>
     <div class="align-items-center d-flex justify-content-center text-muted" style="height: 60vh; text-align: center;"
       *ngIf="!simuladoSelecionadoBoolean && salaSelecionadaBoolean">Selecione um simulado para ver o desempenho</div>
+    <div class="align-items-center d-flex justify-content-center text-muted" style="height: 60vh; text-align: center;"
+      *ngIf="simuladoSelecionadoBoolean && quantidadeResposta == 0">Nenhum envio foi realizado para esse simulado.</div>
   </div>
 
   <div class="card-footer">
-    <button style="float: right;" [disabled]="!simuladoSelecionadoBoolean"
-      (click)="buscarDesempenhoAlunos()"><span *ngIf="carregar"
-        class="spinner-border spinner-border-sm mr-1"></span>Conferir desempenho individual</button>
+    <button style="float: right;" [disabled]="!simuladoSelecionadoBoolean || quantidadeResposta == 0" (click)="buscarDesempenhoAlunos()"><span
+        *ngIf="carregar" class="spinner-border spinner-border-sm mr-1"></span>Conferir desempenho individual</button>
   </div>
 </div>
