@@ -95,37 +95,46 @@ export class SimuladoCriarComponent implements OnInit {
     var QtdTecnologia = this.formularioDeUsuario.get('quantidadeTecnologia').value;
 
     var ConfiguracaoPoscomp = { QtdFundamentos, QtdMatematica, QtdTecnologia };
-
     var tempoMinutos = this.formularioDeUsuario.get('tempoSimulado').value * 60;
 
-    this.simuladoService.criarSimuladoPersonalizado(
-      ConfiguracaoEnade,
-      ConfiguracaoPoscomp,
-      new Date,
-      new Date,
-      this.formularioDeUsuario.get('descricao').value,
-      this.autenticacaoService.getUsuario.IdUsuario,
-      this.formularioDeUsuario.get('nome').value,
-      tempoMinutos,
-      this.formularioDeUsuario.get('tipoSimulado').value,
-    ).pipe(first()).subscribe(
-      resposta => {
-        this.router.navigateByUrl('/aluno/listasimulados');
-        this.toastr.success('Simulado criado', '', {
-          timeOut: 2000,
-          progressBar: true,
-          progressAnimation: 'decreasing',
-        });
-        this.carregar = false;
-      },
-      error => {
-        this.toastr.error(error, '', {
-          timeOut: 2000,
-          progressBar: true,
-          progressAnimation: 'decreasing',
-        });
-        this.carregar = false;
+    if (QtdFormacaoEspecifica == 0 && QtdFormacaoGeral == 0
+      && QtdFundamentos == 0 && QtdMatematica == 0 && QtdTecnologia == 0) {
+      this.carregar = false;
+      this.toastr.error('Não pode criar um simulado com nenhuma questão', '', {
+        timeOut: 2000,
+        progressBar: true,
+        progressAnimation: 'decreasing',
       });
+    } else {
+      this.simuladoService.criarSimuladoPersonalizado(
+        ConfiguracaoEnade,
+        ConfiguracaoPoscomp,
+        new Date,
+        new Date,
+        this.formularioDeUsuario.get('descricao').value,
+        this.autenticacaoService.getUsuario.IdUsuario,
+        this.formularioDeUsuario.get('nome').value,
+        tempoMinutos,
+        this.formularioDeUsuario.get('tipoSimulado').value,
+      ).pipe(first()).subscribe(
+        resposta => {
+          this.router.navigateByUrl('/aluno/listasimulados');
+          this.toastr.success('Simulado criado', '', {
+            timeOut: 2000,
+            progressBar: true,
+            progressAnimation: 'decreasing',
+          });
+          this.carregar = false;
+        },
+        error => {
+          this.toastr.error(error, '', {
+            timeOut: 2000,
+            progressBar: true,
+            progressAnimation: 'decreasing',
+          });
+          this.carregar = false;
+        });
+    }
   }
 
   simuladoPadrao() {

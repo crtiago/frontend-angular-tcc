@@ -17,7 +17,11 @@ export class CriarSimuladoSalaComponent implements OnInit {
   carregar = false;
   formularioDeUsuario: FormGroup;
 
-  constructor(private salasService: SalasService,private toastr: ToastrService, private fb: FormBuilder, private router: Router, private simuladoService: SimuladoService, private autenticacaoService: AutenticacaoService) { }
+  constructor(private salasService: SalasService, private toastr: ToastrService, private fb: FormBuilder, private router: Router, private simuladoService: SimuladoService, private autenticacaoService: AutenticacaoService) {
+    if (sessionStorage.getItem("idSala") == '' || sessionStorage.getItem("idSala") == 'null' || sessionStorage.getItem("idSala") == null) {
+      this.router.navigateByUrl('/prof/salas');
+    }
+  }
 
   ngOnInit(): void {
     this.criarFormularioDeUsuario();
@@ -28,7 +32,7 @@ export class CriarSimuladoSalaComponent implements OnInit {
       nome: ['', Validators.required],
       prazoEntrega: ['', [Validacoes.restringirData, Validators.required, Validators.pattern(/^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$/)]],
       descricao: [''],
-      tipoSimulado: ['', Validators.required],     
+      tipoSimulado: ['', Validators.required],
       quantidadeFundamentos: [{ value: '', disabled: true }, Validators.required],
       quantidadeMatematica: [{ value: '', disabled: true }, Validators.required],
       quantidadeTecnologia: [{ value: '', disabled: true }, Validators.required],
@@ -99,50 +103,61 @@ export class CriarSimuladoSalaComponent implements OnInit {
 
     var tempoMinutos = this.formularioDeUsuario.get('tempoSimulado').value * 60;
 
-    this.simuladoService.criarSimuladoPersonalizadoProf(
-      IdSala,
-      ConfiguracaoEnade,
-      ConfiguracaoPoscomp,
-      this.formularioDeUsuario.get('prazoEntrega').value,
-      new Date,
-      this.formularioDeUsuario.get('descricao').value,
-      this.autenticacaoService.getUsuario.IdUsuario,
-      this.formularioDeUsuario.get('nome').value,
-      tempoMinutos,
-      this.formularioDeUsuario.get('tipoSimulado').value,
-    ).pipe(first()).subscribe(
-      resposta => {
-        //Busca a lista de sala
-        this.salasService.buscarSimuladosPorSala(IdSala).pipe(first()).subscribe(
-          resposta => {
-            sessionStorage.setItem('simuladosSalaProfessor', JSON.stringify(resposta.Data));
-            this.carregar = false;
-            this.router.navigate(['prof/listasimuladossala']);        
-            this.toastr.success('Simulado criado', '', {
-              timeOut: 2000,
-              progressBar: true,
-              progressAnimation: 'decreasing',
-            });
-          },
-          error => {
-            this.carregar = false;
-            error = error.toString().replace("Error:", "");
-            this.toastr.error(error, '', {
-              timeOut: 2000,
-              progressBar: true,
-              progressAnimation: 'decreasing',
-            });
-          });   
-          //Fim da busca a lista de sala
-      },
-      error => {
-        this.toastr.error(error, '', {
-          timeOut: 2000,
-          progressBar: true,
-          progressAnimation: 'decreasing',
-        });
-        this.carregar = false;
+
+    if (QtdFormacaoEspecifica == 0 && QtdFormacaoGeral == 0
+      && QtdFundamentos == 0 && QtdMatematica == 0 && QtdTecnologia == 0) {
+      this.carregar = false;
+      this.toastr.error('Não pode criar um simulado com nenhuma questão', '', {
+        timeOut: 2000,
+        progressBar: true,
+        progressAnimation: 'decreasing',
       });
+    } else {
+      this.simuladoService.criarSimuladoPersonalizadoProf(
+        IdSala,
+        ConfiguracaoEnade,
+        ConfiguracaoPoscomp,
+        this.formularioDeUsuario.get('prazoEntrega').value,
+        new Date,
+        this.formularioDeUsuario.get('descricao').value,
+        this.autenticacaoService.getUsuario.IdUsuario,
+        this.formularioDeUsuario.get('nome').value,
+        tempoMinutos,
+        this.formularioDeUsuario.get('tipoSimulado').value,
+      ).pipe(first()).subscribe(
+        resposta => {
+          //Busca a lista de simulados da sala
+          this.salasService.buscarSimuladosPorSala(IdSala).pipe(first()).subscribe(
+            resposta => {
+              sessionStorage.setItem('simuladosSalaProfessor', JSON.stringify(resposta.Data));
+              this.carregar = false;
+              this.router.navigate(['prof/listasimuladossala']);
+              this.toastr.success('Simulado criado', '', {
+                timeOut: 2000,
+                progressBar: true,
+                progressAnimation: 'decreasing',
+              });
+            },
+            error => {
+              this.carregar = false;
+              error = error.toString().replace("Error:", "");
+              this.toastr.error(error, '', {
+                timeOut: 2000,
+                progressBar: true,
+                progressAnimation: 'decreasing',
+              });
+            });
+          //Fim da busca a lista simulados da sala
+        },
+        error => {
+          this.toastr.error(error, '', {
+            timeOut: 2000,
+            progressBar: true,
+            progressAnimation: 'decreasing',
+          });
+          this.carregar = false;
+        });
+    }
   }
 
   simuladoPadrao() {
@@ -159,27 +174,27 @@ export class CriarSimuladoSalaComponent implements OnInit {
       this.formularioDeUsuario.get('tipoSimulado').value,
     ).pipe(first()).subscribe(
       resposta => {
-       //Busca a lista de sala
-       this.salasService.buscarSimuladosPorSala(IdSala).pipe(first()).subscribe(
-        resposta => {
-          sessionStorage.setItem('simuladosSalaProfessor', JSON.stringify(resposta.Data));
-          this.carregar = false;
-          this.router.navigate(['prof/listasimuladossala']);        
-          this.toastr.success('Simulado criado', '', {
-            timeOut: 2000,
-            progressBar: true,
-            progressAnimation: 'decreasing',
+        //Busca a lista de sala
+        this.salasService.buscarSimuladosPorSala(IdSala).pipe(first()).subscribe(
+          resposta => {
+            sessionStorage.setItem('simuladosSalaProfessor', JSON.stringify(resposta.Data));
+            this.carregar = false;
+            this.router.navigate(['prof/listasimuladossala']);
+            this.toastr.success('Simulado criado', '', {
+              timeOut: 2000,
+              progressBar: true,
+              progressAnimation: 'decreasing',
+            });
+          },
+          error => {
+            this.carregar = false;
+            error = error.toString().replace("Error:", "");
+            this.toastr.error(error, '', {
+              timeOut: 2000,
+              progressBar: true,
+              progressAnimation: 'decreasing',
+            });
           });
-        },
-        error => {
-          this.carregar = false;
-          error = error.toString().replace("Error:", "");
-          this.toastr.error(error, '', {
-            timeOut: 2000,
-            progressBar: true,
-            progressAnimation: 'decreasing',
-          });
-        });   
         //Fim da busca a lista de sala
       },
       error => {

@@ -23,7 +23,7 @@ export class ListaSimuladosSalaComponent implements OnInit, OnDestroy {
   enviosMaiorQueZero: boolean = false;
 
   constructor(private salasService: SalasService, private toastr: ToastrService, private autenticacaoService: AutenticacaoService, private simuladoService: SimuladoService, private router: Router, private route: ActivatedRoute) {
-    if (sessionStorage.getItem("idSala") == '' || sessionStorage.getItem("idSala") == 'null') {
+    if (sessionStorage.getItem("idSala") == '' || sessionStorage.getItem("idSala") == 'null' || sessionStorage.getItem("idSala") == null) {
       this.router.navigateByUrl('/prof/salas');
     } else {
       this.listaSimulados = JSON.parse(sessionStorage.getItem("simuladosSalaProfessor"));
@@ -33,8 +33,6 @@ export class ListaSimuladosSalaComponent implements OnInit, OnDestroy {
     }
   }
   ngOnDestroy(): void {
-    sessionStorage.setItem("idSala", '');
-    sessionStorage.setItem("simuladosSalaProfessor", '');
   }
 
   ngOnInit(): void {
