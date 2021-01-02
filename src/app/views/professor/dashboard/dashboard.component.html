@@ -9,46 +9,30 @@
         </select>
       </div>
 
-      <div *ngIf="salaSelecionadaBoolean" class="col-md-4 mb-1">        
-          <h5>Simulado</h5>
-          <select class="form-control form-control" [(ngModel)]="simuladoSelecionado"
-            (change)="buscarResultadoSimulado()">
-            <option [ngValue]="undefined" selected disabled hidden>Selecione um simulado</option>
-            <option *ngFor="let item of listaSimulados; let i = index" [ngValue]="item">{{item.Nome}}</option>
-          </select>       
+      <div *ngIf="salaSelecionadaBoolean" class="col-md-4 mb-1">
+        <h5>Simulado</h5>
+        <select class="form-control form-control" [(ngModel)]="simuladoSelecionado"
+          (change)="buscarResultadoSimulado()">
+          <option [ngValue]="undefined" selected disabled hidden>Selecione um simulado</option>
+          <option *ngFor="let item of listaSimulados; let i = index" [ngValue]="item">{{item.Nome}}</option>
+        </select>
       </div>
     </div>
   </div>
 
   <div class="card-body">
     <div *ngIf="simuladoSelecionadoBoolean" class="card-body" style="border-radius: 10px;">
-      <div id="accordion" class="accordion shadow">
-        <div class="card" *ngFor="let item of listaSimulados; let i = index">
-          <div class="card-header bg-white shadow-sm border-0" [attr.id]="'headingOne_' + i">
-            <h6 class="mb-0 font-weight-bold">
-              <a data-toggle="collapse" (click)="buscarResultadoSimulado(item)" [attr.aria-controls]="'collapseOne' + i"
-                [attr.data-target]="'#collapseOne_' + i" aria-expanded="false" [attr.href]="'#collapseOne_' + i"
-                class="d-block position-relative text-dark collapsible-link py-2">
-                {{ item.Nome }}</a>
-            </h6>
-          </div>
-
-          <div [attr.id]="'collapseOne_' + i" class="collapse" [attr.aria-labelledby]="'headingOne_' + i"
-            data-parent="#accordion">
-            <div class="card-body" style="background-color: #d8ecdb;">
-
-              <div class="row" *ngIf="item.QuantidadeResposta == 0">
-                <h6 style="padding-left:15px;">Nenhum envio foi realizado para esse simulado.</h6>
-              </div>
-
-            </div>
-          </div>
-        </div>
-      </div>
+      Colocar o desempenho geral da sala aqui
     </div>
     <div class="align-items-center d-flex justify-content-center text-muted" style="height: 60vh; text-align: center;"
       *ngIf="!salaSelecionadaBoolean">Selecione uma sala para poder ver a lista de simulados</div>
-      <div class="align-items-center d-flex justify-content-center text-muted" style="height: 60vh; text-align: center;"
+    <div class="align-items-center d-flex justify-content-center text-muted" style="height: 60vh; text-align: center;"
       *ngIf="!simuladoSelecionadoBoolean && salaSelecionadaBoolean">Selecione um simulado para ver o desempenho</div>
+  </div>
+
+  <div class="card-footer">
+    <button style="float: right;" [disabled]="!simuladoSelecionadoBoolean"
+      (click)="buscarDesempenhoAlunos()"><span *ngIf="carregar"
+        class="spinner-border spinner-border-sm mr-1"></span>Conferir desempenho individual</button>
   </div>
 </div>

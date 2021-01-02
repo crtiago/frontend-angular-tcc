@@ -1,6 +1,6 @@
 import { first } from 'rxjs/operators';
 import { SalasService } from 'src/app/_servicos/salas/salas.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { Chart } from 'chart.js';
 import { ToastrService } from 'ngx-toastr';
@@ -16,10 +16,12 @@ export class DashboardComponent implements OnInit {
   listaSimulados = [];
   salaSelecionadaBoolean: boolean = false;
   simuladoSelecionadoBoolean: boolean = false;
+  idSimuladoSelecionado: number;
+  carregar: boolean = false;
   salaSelecionada: any;
   simuladoSelecionado: any;
 
-  constructor(private toastr: ToastrService, private route: ActivatedRoute, private salasService: SalasService) {
+  constructor(private router: Router, private toastr: ToastrService, private route: ActivatedRoute, private salasService: SalasService) {
     this.listaSalas = this.route.snapshot.data.response.Data;
   }
 
@@ -45,6 +47,40 @@ export class DashboardComponent implements OnInit {
   buscarResultadoSimulado() {
     console.log(this.simuladoSelecionado)
     this.simuladoSelecionadoBoolean = true;
+  }
+
+  buscarDesempenhoAlunos() {
+    this.carregar = true;
+    if (this.simuladoSelecionado.QuantidadeResposta == 0) {
+      this.carregar = false;
+      this.toastr.error('Nenhum envio foi realizado para esse simulado.', '', {
+        timeOut: 2000,
+        progressBar: true,
+        progressAnimation: 'decreasing',
+      });
+    } else {
+      this.carregar = true;
+      this.salasService.buscarResultadosSalaSimuladoProf(this.simuladoSelecionado.Id).pipe(first()).subscribe(
+        listaAlunos => {
+          sessionStorage.setItem('listaAlunos', JSON.stringify(listaAlunos.Data));
+          this.router.navigateByUrl("/prof/alunossimulado");
+          this.toastr.success('Lista de alunos gerada', '', {
+            timeOut: 2000,
+            progressBar: true,
+            progressAnimation: 'decreasing',
+          });
+          this.carregar = false;
+        },
+        error => {
+          this.carregar = false;
+          error = error.toString().replace("Error:", "");
+          this.toastr.error(error, '', {
+            timeOut: 2000,
+            progressBar: true,
+            progressAnimation: 'decreasing',
+          });
+        });
+    }
   }
 
 }
