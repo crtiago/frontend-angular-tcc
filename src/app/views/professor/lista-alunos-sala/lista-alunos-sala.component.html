@@ -4,6 +4,7 @@
             <div class="card-header bg-white shadow-sm border-0" [attr.id]="'headingOne_' + i">
                 <h6 class="mb-0 font-weight-bold">
                     <a data-toggle="collapse" [attr.aria-controls]="'collapseOne' + i"
+                        (click)="buscarResultadoSalaSimuladoAlunoEspecifico(item.IdUsuario, item.IdSimulado, i)"
                         [attr.data-target]="'#collapseOne_' + i" aria-expanded="false" [attr.href]="'#collapseOne_' + i"
                         class="d-block position-relative text-dark collapsible-link py-2">
                         {{ item.Nome }}</a>
@@ -13,6 +14,10 @@
             <div [attr.id]="'collapseOne_' + i" class="collapse" [attr.aria-labelledby]="'headingOne_' + i"
                 data-parent="#accordion">
                 <div class="card-body" style="background-color: #d8ecdb;">
+
+                    <div class="row">
+                        <h5 style="padding-left:15px;">Data de envio: {{formatDate(item.DataEnvio)}}</h5>
+                    </div>
 
                     <div class="row">
                         <!--Card menor do desempenho geral-->
@@ -125,10 +130,36 @@
                         </div>
                     </div>
 
+                    <div class="row">
+                        <!--Gráfico em Setores do Desempenho Geral-->
+                        <div class="col-12 col-xl-6 mb-4 align-items-stretch">
+                            <div class="card h-100 border-0 rounded-1">
+                                <div class="card-title mb-1 p-3 text-center">
+                                    <h6>Desempenho geral</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="chart-container" style="position: relative;">
+                                        <canvas [attr.id]="'pie-desempenho-geral_' + i" style="height:100%"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
-
-
-
+                        <!--Gráfico Barra Horizontal Desempenho por disciplinas de interesse do professor-->
+                        <div class="col-12 col-xl-6 mb-4 align-items-stretch">
+                            <div class="card h-100 border-0 rounded-1">
+                                <div class="card-title mb-1 p-3 text-center">
+                                    <h6>Desempenho por disciplinas de intereese do professor</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="chart-container" style="position: relative;">
+                                        <canvas [attr.id]="'bar-chart-desempenho-disciplina_' + i"
+                                            style="height:100%;"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

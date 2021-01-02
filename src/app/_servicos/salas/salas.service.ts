@@ -95,4 +95,20 @@ export class SalasService {
 
     }
 
+    buscarResultadoSalaSimuladoAlunoEspecifico(IdAluno: number, IdSimulado: number) {
+        let IdProfessor: number = this.autenticacaoService.getUsuario.IdUsuario;
+        return this.http.post<any>(`${environment.apiUrl}/BuscarResultadoSalaSimulado`, { IdAluno, IdProfessor, IdSimulado })
+            .pipe(
+                map(resposta => {
+                    if (resposta.Sucesso) {
+                        return resposta;
+                    } else {
+                        throw new Error(resposta.Mensagem);
+                    }
+                }
+                )
+            )
+
+    }
+
 }
