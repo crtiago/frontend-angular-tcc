@@ -3,20 +3,21 @@
     <div class="row">
       <div class="col-md-4 mb-1">
         <h5 style="color: rgb(47,158,64);">Sala</h5>
-        <select class="form-control form-control" [disabled]="nenhumaSala" [(ngModel)]="salaSelecionada" (change)="buscarListaSimulados()">
+        <select class="form-control form-control" [disabled]="nenhumaSala" [(ngModel)]="salaSelecionada" (change)="buscarResultadoGeralPorSala()">
           <option [ngValue]="undefined" selected disabled hidden>Selecione uma sala</option>
           <option *ngFor="let item of listaSalas; let i = index" [ngValue]="item">{{item.Nome}}</option>
         </select>
         <div *ngIf="nenhumaSala" class="text-muted">Você não possui nenhuma sala criada.</div>
       </div>
 
-      <div *ngIf="salaSelecionadaBoolean" class="col-md-4 mb-1">
+      <div *ngIf="salaSelecionadaBoolean" class="col-md-5 mb-1">
         <h5 style="color: rgb(47,158,64);">Simulado</h5>
         <select class="form-control form-control" [disabled]="nenhumSimulado" [(ngModel)]="simuladoSelecionado"
-          (change)="buscarResultadoSimulado()">
-          <option [ngValue]="undefined" selected disabled hidden>Selecione um simulado</option>
+          (change)="buscarDesempenhoAlunos()">
+          <option [ngValue]="undefined" selected disabled hidden> --</option>
           <option *ngFor="let item of listaSimulados; let i = index" [ngValue]="item">{{item.Nome}}</option>
         </select>
+        <div *ngIf="salaSelecionadaBoolean" class="text-muted">Selecione um simulado para conferir o desempenho individual.</div>
         <div *ngIf="nenhumSimulado" class="text-muted">Você não possui nenhum simulado criado nessa sala.</div>
       </div>
     </div>
@@ -37,11 +38,5 @@
     <!--Nenhum envio foi realizado-->
     <div class="align-items-center d-flex justify-content-center text-muted" style="height: 50vh; text-align: center;"
       *ngIf="simuladoSelecionadoBoolean && quantidadeResposta == 0"><i class="far fa-calendar-times fa-7x"></i>&nbsp;&nbsp;Nenhum envio foi realizado para esse simulado.</div>
-  </div>
-
-  <div class="card-footer">
-    <button style="float: right;" [disabled]="!simuladoSelecionadoBoolean || quantidadeResposta == 0"
-      (click)="buscarDesempenhoAlunos()"><span *ngIf="carregar"
-        class="spinner-border spinner-border-sm mr-1"></span>Conferir desempenho individual</button>
   </div>
 </div>

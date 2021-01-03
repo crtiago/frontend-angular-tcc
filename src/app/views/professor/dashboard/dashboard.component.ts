@@ -14,10 +14,11 @@ export class DashboardComponent implements OnInit {
 
   listaSalas = [];
   listaSimulados = [];
+  listaAlunos = [];
+  resultadoGeralSala: any;
   salaSelecionadaBoolean: boolean = false;
   simuladoSelecionadoBoolean: boolean = false;
   idSimuladoSelecionado: number;
-  carregar: boolean = false;
   salaSelecionada: any;
   simuladoSelecionado: any;
   quantidadeResposta: number = 0;
@@ -35,17 +36,12 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() { }
 
-  buscarListaSimulados() {
+  buscarResultadoGeralPorSala() {
     //Atualizar para quando trocar de sala
-    this.salasService.buscarSimuladosPorSala(this.salaSelecionada.Id).pipe(first()).subscribe(
+    this.salasService.buscarResultadoGeralPorSala(this.salaSelecionada.Id).pipe(first()).subscribe(
       resposta => {
-        this.salaSelecionadaBoolean = true;
-        this.listaSimulados = resposta.Data;
-        if(this.listaSimulados.length == 0){
-          this.nenhumSimulado = true;
-        }else{
-          this.nenhumSimulado = false;
-        }
+        this.resultadoGeralSala = resposta.Data;
+        this.buscarListaSimulados();
       },
       error => {
         this.salaSelecionadaBoolean = false;
@@ -58,28 +54,42 @@ export class DashboardComponent implements OnInit {
       });
   }
 
-  buscarResultadoSimulado() {
-    console.log(this.simuladoSelecionado)
-    this.simuladoSelecionadoBoolean = true;
-    this.quantidadeResposta = Number(this.simuladoSelecionado.QuantidadeResposta);
-    console.log(this.quantidadeResposta)
-  }
-
-  buscarDesempenhoAlunos() {
-    this.carregar = true;
-    this.salasService.buscarResultadosSalaSimuladoProf(this.simuladoSelecionado.Id).pipe(first()).subscribe(
-      listaAlunos => {
-        sessionStorage.setItem('listaAlunos', JSON.stringify(listaAlunos.Data));
-        this.router.navigateByUrl("/prof/alunossimulado");
-        this.toastr.success('Lista de alunos gerada', '', {
+  buscarListaSimulados() {
+    //Atualizar para quando trocar de sala
+    this.salasService.buscarSimuladosPorSala(this.salaSelecionada.Id).pipe(first()).subscribe(
+      resposta => {
+        //this.salaSelecionadaBoolean = true;
+        this.listaSimulados = resposta.Data;
+        this.salaSelecionadaBoolean = true;
+        if (this.listaSimulados.length == 0) {
+          this.nenhumSimulado = true;
+        } else {
+          this.nenhumSimulado = false;
+        }
+      },
+      error => {
+        // this.salaSelecionadaBoolean = false;
+        error = error.toString().replace("Error:", "");
+        this.toastr.error(error, '', {
           timeOut: 2000,
           progressBar: true,
           progressAnimation: 'decreasing',
         });
-        this.carregar = false;
+      });
+  }
+
+  buscarResultadoSimulado() {
+
+  }
+
+  buscarDesempenhoAlunos() {
+    this.simuladoSelecionadoBoolean = true;
+    this.quantidadeResposta = Number(this.simuladoSelecionado.QuantidadeResposta);
+    this.salasService.buscarResultadosSalaSimuladoProf(this.simuladoSelecionado.Id).pipe(first()).subscribe(
+      listaAlunos => {
+        this.listaAlunos = listaAlunos.Data;
       },
       error => {
-        this.carregar = false;
         error = error.toString().replace("Error:", "");
         this.toastr.error(error, '', {
           timeOut: 2000,
