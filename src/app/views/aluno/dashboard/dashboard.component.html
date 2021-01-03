@@ -53,7 +53,7 @@
 
   <div class="canvas_div_pdf">
     <!--2º Linha-->
-    <div class="row" *ngIf="!nenhumResultado">
+    <div class="row" *ngIf="!nenhumResultadoGerais">
       <!--Card menor do desempenho geral-->
       <div class="col-md-6 col-lg-3 mb-4">
         <div class="card border-0 rounded-1">
@@ -206,9 +206,9 @@
           <div class="card-body">
             <div class="chart-container" style="position: relative;">
               <canvas id="pie-desempenho-geral" style="height:100%"></canvas>
-              <div *ngIf="nenhumResultado" class="text-center text-muted">Nenhum simulado realizado</div>
+              <div *ngIf="nenhumResultadoGerais" class="text-center text-muted">Nenhum simulado realizado</div>
             </div>
-            <button class="float-right btn-sm" *ngIf="!nenhumResultado"
+            <button class="float-right btn-sm" *ngIf="!nenhumResultadoGerais"
               (click)="getPdfGraficoEspecifico('.grafico3', 'Desempenho geral')"> <i class="fa fa-download"></i>
             </button>
           </div>
@@ -224,9 +224,9 @@
           <div class="card-body">
             <div class="chart-container" style="position: relative;">
               <canvas id="bar-chart-desempenho-area" style="height:100%"></canvas>
-              <div *ngIf="nenhumResultado" class="text-center text-muted">Nenhum simulado realizado</div>
+              <div *ngIf="nenhumResultadoGerais" class="text-center text-muted">Nenhum simulado realizado</div>
             </div>
-            <button class="float-right btn-sm" *ngIf="!nenhumResultado"
+            <button class="float-right btn-sm" *ngIf="!nenhumResultadoGerais"
               (click)="getPdfGraficoEspecifico('.grafico4', 'Desempenho por área')"> <i class="fa fa-download"></i>
             </button>
           </div>
@@ -245,9 +245,9 @@
           <div class="card-body">
             <div class="chart-container" style="position: relative;">
               <canvas id="pie-area-acertos" style="height:100%"></canvas>
-              <div *ngIf="nenhumResultado" class="text-center text-muted">Nenhum simulado realizado</div>
+              <div *ngIf="nenhumResultadoGerais" class="text-center text-muted">Nenhum simulado realizado</div>
             </div>
-            <button class="float-right btn-sm" *ngIf="!nenhumResultado"
+            <button class="float-right btn-sm" *ngIf="!nenhumResultadoGerais"
               (click)="getPdfGraficoEspecifico('.grafico5', 'Quantidade de acertos por área')"> <i
                 class="fa fa-download"></i>
             </button>
@@ -263,9 +263,9 @@
           <div class="card-body">
             <div class="chart-container" style="position: relative;">
               <canvas id="pie-area-erros" style="height:100%"></canvas>
-              <div *ngIf="nenhumResultado" class="text-center text-muted">Nenhum simulado realizado</div>
+              <div *ngIf="nenhumResultadoGerais" class="text-center text-muted">Nenhum simulado realizado</div>
             </div>
-            <button class="float-right btn-sm" *ngIf="!nenhumResultado"
+            <button class="float-right btn-sm" *ngIf="!nenhumResultadoGerais"
               (click)="getPdfGraficoEspecifico('.grafico6', 'Quantidade de erros por área')"> <i
                 class="fa fa-download"></i>
             </button>
@@ -286,9 +286,9 @@
           <div class="card-body">
             <div class="chart-container" style="position: relative;">
               <canvas id="bar-chart-desempenho-disciplina-fundamentos" style="height:100%;"></canvas>
-              <div *ngIf="nenhumResultado" class="text-center text-muted">Nenhum simulado realizado</div>
+              <div *ngIf="nenhumResultadoDisciplina" class="text-center text-muted">Nenhum simulado realizado</div>
             </div>
-            <button class="float-right btn-sm" *ngIf="!nenhumResultado"
+            <button class="float-right btn-sm" *ngIf="!nenhumResultadoDisciplina"
               (click)="getPdfGraficoEspecifico('.grafico7', 'Desempenho por disciplinas na área de Fundamentos')"> <i
                 class="fa fa-download"></i>
             </button>
@@ -305,9 +305,9 @@
           <div class="card-body">
             <div class="chart-container" style="position: relative;">
               <canvas id="bar-chart-desempenho-disciplina-matematica" style="height:100%"></canvas>
-              <div *ngIf="nenhumResultado" class="text-center text-muted">Nenhum simulado realizado</div>
+              <div *ngIf="nenhumResultadoDisciplina" class="text-center text-muted">Nenhum simulado realizado</div>
             </div>
-            <button class="float-right btn-sm" *ngIf="!nenhumResultado"
+            <button class="float-right btn-sm" *ngIf="!nenhumResultadoDisciplina"
               (click)="getPdfGraficoEspecifico('.grafico8', 'Desempenho por disciplinas na área de Matemática')"> <i
                 class="fa fa-download"></i>
             </button>
@@ -327,9 +327,9 @@
           <div class="card-body">
             <div class="chart-container" style="position: relative;">
               <canvas id="bar-chart-desempenho-disciplina-tecnologia" style="height:100%;"></canvas>
-              <div *ngIf="nenhumResultado" class="text-center text-muted">Nenhum simulado realizado</div>
+              <div *ngIf="nenhumResultadoDisciplina" class="text-center text-muted">Nenhum simulado realizado</div>
             </div>
-            <button class="float-right btn-sm" *ngIf="!nenhumResultado"
+            <button class="float-right btn-sm" *ngIf="!nenhumResultadoDisciplina"
               (click)="getPdfGraficoEspecifico('.grafico9', 'Desempenho por disciplinas na área de Tecnologia')"> <i
                 class="fa fa-download"></i>
             </button>

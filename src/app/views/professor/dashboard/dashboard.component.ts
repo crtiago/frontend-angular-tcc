@@ -21,18 +21,31 @@ export class DashboardComponent implements OnInit {
   salaSelecionada: any;
   simuladoSelecionado: any;
   quantidadeResposta: number = 0;
+  nenhumaSala: boolean = false;
+  nenhumSimulado: boolean = false;
 
   constructor(private router: Router, private toastr: ToastrService, private route: ActivatedRoute, private salasService: SalasService) {
     this.listaSalas = this.route.snapshot.data.response.Data;
+    if (this.listaSalas.length == 0) {
+      this.nenhumaSala = true;
+    } else {
+      this.nenhumaSala = false;
+    }
   }
 
   ngOnInit() { }
 
   buscarListaSimulados() {
+    //Atualizar para quando trocar de sala
     this.salasService.buscarSimuladosPorSala(this.salaSelecionada.Id).pipe(first()).subscribe(
       resposta => {
         this.salaSelecionadaBoolean = true;
         this.listaSimulados = resposta.Data;
+        if(this.listaSimulados.length == 0){
+          this.nenhumSimulado = true;
+        }else{
+          this.nenhumSimulado = false;
+        }
       },
       error => {
         this.salaSelecionadaBoolean = false;

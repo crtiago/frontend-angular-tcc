@@ -2,38 +2,46 @@
   <div class="card-header">
     <div class="row">
       <div class="col-md-4 mb-1">
-        <h5>Sala</h5>
-        <select class="form-control form-control" [(ngModel)]="salaSelecionada" (change)="buscarListaSimulados()">
+        <h5 style="color: rgb(47,158,64);">Sala</h5>
+        <select class="form-control form-control" [disabled]="nenhumaSala" [(ngModel)]="salaSelecionada" (change)="buscarListaSimulados()">
           <option [ngValue]="undefined" selected disabled hidden>Selecione uma sala</option>
           <option *ngFor="let item of listaSalas; let i = index" [ngValue]="item">{{item.Nome}}</option>
         </select>
+        <div *ngIf="nenhumaSala" class="text-muted">Você não possui nenhuma sala criada.</div>
       </div>
 
       <div *ngIf="salaSelecionadaBoolean" class="col-md-4 mb-1">
-        <h5>Simulado</h5>
-        <select class="form-control form-control" [(ngModel)]="simuladoSelecionado"
+        <h5 style="color: rgb(47,158,64);">Simulado</h5>
+        <select class="form-control form-control" [disabled]="nenhumSimulado" [(ngModel)]="simuladoSelecionado"
           (change)="buscarResultadoSimulado()">
           <option [ngValue]="undefined" selected disabled hidden>Selecione um simulado</option>
           <option *ngFor="let item of listaSimulados; let i = index" [ngValue]="item">{{item.Nome}}</option>
         </select>
+        <div *ngIf="nenhumSimulado" class="text-muted">Você não possui nenhum simulado criado nessa sala.</div>
       </div>
     </div>
   </div>
 
   <div class="card-body">
     <div *ngIf="simuladoSelecionadoBoolean && quantidadeResposta != 0" class="card-body" style="border-radius: 10px;">
-      Colocar o desempenho geral da simulado aqui
+      Colocar o desempenho geral do simulado aqui
     </div>
-    <div class="align-items-center d-flex justify-content-center text-muted" style="height: 60vh; text-align: center;"
-      *ngIf="!salaSelecionadaBoolean">Selecione uma sala para poder ver a lista de simulados</div>
-    <div class="align-items-center d-flex justify-content-center text-muted" style="height: 60vh; text-align: center;"
-      *ngIf="!simuladoSelecionadoBoolean && salaSelecionadaBoolean">Selecione um simulado para ver o desempenho</div>
-    <div class="align-items-center d-flex justify-content-center text-muted" style="height: 60vh; text-align: center;"
-      *ngIf="simuladoSelecionadoBoolean && quantidadeResposta == 0">Nenhum envio foi realizado para esse simulado.</div>
+    <!--Sala não selecionada-->
+    <div class="align-items-center d-flex justify-content-center text-muted" style="height: 50vh; text-align: center;"
+      *ngIf="!salaSelecionadaBoolean"><i class="fas fa-chalkboard-teacher fa-7x" style="color: gray;"></i>&nbsp;&nbsp;
+      Selecione uma sala</div>
+    <!--Simulado não selecionado-->
+    <div class="align-items-center d-flex justify-content-center text-muted" style="height: 50vh; text-align: center;"
+      *ngIf="!simuladoSelecionadoBoolean && salaSelecionadaBoolean"><i class="fas fa-list-ul fa-7x"
+        style="color: gray;"></i>&nbsp;&nbsp;Selecione um simulado</div>
+    <!--Nenhum envio foi realizado-->
+    <div class="align-items-center d-flex justify-content-center text-muted" style="height: 50vh; text-align: center;"
+      *ngIf="simuladoSelecionadoBoolean && quantidadeResposta == 0"><i class="far fa-calendar-times fa-7x"></i>&nbsp;&nbsp;Nenhum envio foi realizado para esse simulado.</div>
   </div>
 
   <div class="card-footer">
-    <button style="float: right;" [disabled]="!simuladoSelecionadoBoolean || quantidadeResposta == 0" (click)="buscarDesempenhoAlunos()"><span
-        *ngIf="carregar" class="spinner-border spinner-border-sm mr-1"></span>Conferir desempenho individual</button>
+    <button style="float: right;" [disabled]="!simuladoSelecionadoBoolean || quantidadeResposta == 0"
+      (click)="buscarDesempenhoAlunos()"><span *ngIf="carregar"
+        class="spinner-border spinner-border-sm mr-1"></span>Conferir desempenho individual</button>
   </div>
 </div>

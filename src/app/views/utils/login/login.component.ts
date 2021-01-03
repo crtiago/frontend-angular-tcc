@@ -29,11 +29,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     @Inject(DOCUMENT) private _document,
     private fb: FormBuilder,
     private router: Router,
-    private route: ActivatedRoute,
-    private autenticacaoService: AutenticacaoService,
-    private tituloAba: Title) {
-    
-      tituloAba.setTitle(route.snapshot.data['title'])
+    private autenticacaoService: AutenticacaoService,) {
 
     /**
       * Antes de construir verifica se há algum usuário logado, caso haja, direciona pra home do mesmo
@@ -81,12 +77,12 @@ export class LoginComponent implements OnInit, OnDestroy {
           }
         },
         error => {
-          this.erro = error.toString().replace("Error:","");
+          this.erro = error.toString().replace("Error:", "");
           this.spinnerLogin = false;
         });
   }
 
-  cadastro(){
+  cadastro() {
     this.spinnerCadastro = true;
     this.router.navigate(['cadastro']);
   }

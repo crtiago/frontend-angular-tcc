@@ -25,15 +25,14 @@ export class DashboardComponent implements OnInit {
   desempenhoDisciplinas: any;
   imagem: any;
   nenhumResultado: boolean = true;
+  nenhumResultadoGerais: boolean = true;
+  nenhumResultadoDisciplina: boolean = true;
   carregar: boolean = false;
   usuario: any;
   textoBotao = "Gerar relatórios";
 
   constructor(private route: ActivatedRoute, private dashboardService: DashboardService, private autenticacaoService: AutenticacaoService) {
-    console.log(this.route.snapshot.data['respostaResultados'][0])
-    console.log(this.route.snapshot.data['respostaResultados'][1])
-    console.log(this.route.snapshot.data['respostaResultados'][2])
-   
+
     if (this.route.snapshot.data['respostaResultados'][0].Sucesso &&
       this.route.snapshot.data['respostaResultados'][1].Sucesso &&
       this.route.snapshot.data['respostaResultados'][2].Sucesso) {
@@ -43,8 +42,24 @@ export class DashboardComponent implements OnInit {
       this.desempenhoDisciplinas = this.route.snapshot.data['respostaResultados'][2].Data;
       this.usuario = this.autenticacaoService.getUsuario;
       this.nenhumResultado = false;
+
+
+      if (this.resultadosGerais.RespostasEnviadas == 0) {
+        this.nenhumResultadoGerais = true;
+      } else {
+        console.log(this.resultadosGerais)
+        this.nenhumResultadoGerais = false;
+      }
+
+      if (this.desempenhoDisciplinas.length == 0) {
+        this.nenhumResultadoDisciplina = true;
+      } else {
+        this.nenhumResultadoDisciplina = false;
+      }
     } else {
       this.nenhumResultado = true;
+      this.nenhumResultadoGerais = true;
+      this.nenhumResultadoDisciplina = true;
     }
 
   }
@@ -53,13 +68,20 @@ export class DashboardComponent implements OnInit {
     if (this.route.snapshot.data['respostaResultados'][0].Sucesso && this.route.snapshot.data['respostaResultados'][1].Sucesso) {
       this.getGraficoBarraDesempenhoUltimos();
       this.getGraficoLinha();
-      this.getGraficoCirculoDesempenhoGeral();
-      this.getGraficoBarraHorizontalDesempenhoArea();
-      this.getGraficoAcertosArea();
-      this.getGraficoErrosArea();
-      this.getGraficoHorizontalDesempenhoDisciplinaAreaFundamentos();
-      this.getGraficoHorizontalDesempenhoDisciplinaAreaMatematica();
-      this.getGraficoHorizontalDesempenhoDisciplinaAreaTecnologia();
+
+      if (!this.nenhumResultadoGerais) {
+        this.getGraficoCirculoDesempenhoGeral();
+        this.getGraficoBarraHorizontalDesempenhoArea();
+        this.getGraficoAcertosArea();
+        this.getGraficoErrosArea();
+      }
+
+      if (!this.nenhumResultadoDisciplina) {
+        this.getGraficoHorizontalDesempenhoDisciplinaAreaFundamentos();
+        this.getGraficoHorizontalDesempenhoDisciplinaAreaMatematica();
+        this.getGraficoHorizontalDesempenhoDisciplinaAreaTecnologia();
+      }
+
     }
   }
 

@@ -80,13 +80,12 @@ export class Validacoes {
     }
 
     static restringirData(controle: AbstractControl) {
-        const prazo = controle.value;
-        const [ano, mes, dia] = prazo.split('-');
+       const data = controle.value;
+        const [ano, mes, dia] = data.split('-');
+        const prazo = new Date(ano, mes-1, dia);
         const hoje = new Date();
-
-        if (ano < hoje.getFullYear()) {
-            return { dataInvalida: true };
-        } else if (mes < hoje.getMonth() && dia < hoje.getDay()) {
+       
+        if(prazo < hoje){
             return { dataInvalida: true };
         }
         return null;
