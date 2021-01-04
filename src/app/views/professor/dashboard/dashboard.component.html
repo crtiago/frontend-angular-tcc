@@ -1,42 +1,376 @@
 <div class="card m-4">
   <div class="card-header">
     <div class="row">
+      <!--Select Sala-->
       <div class="col-md-4 mb-1">
         <h5 style="color: rgb(47,158,64);">Sala</h5>
-        <select class="form-control form-control" [disabled]="nenhumaSala" [(ngModel)]="salaSelecionada" (change)="buscarResultadoGeralPorSala()">
+        <select class="form-control form-control" [disabled]="nenhumaSala" [(ngModel)]="salaSelecionada"
+          (change)="buscarResultadoGeralPorSala()">
           <option [ngValue]="undefined" selected disabled hidden>Selecione uma sala</option>
           <option *ngFor="let item of listaSalas; let i = index" [ngValue]="item">{{item.Nome}}</option>
         </select>
         <div *ngIf="nenhumaSala" class="text-muted">Você não possui nenhuma sala criada.</div>
       </div>
-
+      <!--Select Simulado-->
       <div *ngIf="salaSelecionadaBoolean" class="col-md-5 mb-1">
         <h5 style="color: rgb(47,158,64);">Simulado</h5>
-        <select class="form-control form-control" [disabled]="nenhumSimulado" [(ngModel)]="simuladoSelecionado"
-          (change)="buscarDesempenhoAlunos()">
+        <select class="form-control form-control" [disabled]="nenhumSimulado || respostaEnviadaParaSala == 0 || !simuladosCarregados"
+          [(ngModel)]="simuladoSelecionado" (change)="buscarDesempenhoAlunos()">
           <option [ngValue]="undefined" selected disabled hidden> --</option>
           <option *ngFor="let item of listaSimulados; let i = index" [ngValue]="item">{{item.Nome}}</option>
         </select>
-        <div *ngIf="salaSelecionadaBoolean" class="text-muted">Selecione um simulado para conferir o desempenho individual.</div>
+        <div *ngIf="salaSelecionadaBoolean" class="text-muted">Selecione um simulado para conferir o desempenho
+          individual.</div>
         <div *ngIf="nenhumSimulado" class="text-muted">Você não possui nenhum simulado criado nessa sala.</div>
       </div>
     </div>
   </div>
 
-  <div class="card-body">
-    <div *ngIf="simuladoSelecionadoBoolean && quantidadeResposta != 0" class="card-body" style="border-radius: 10px;">
-      Colocar o desempenho geral do simulado aqui
+  <div class="card-body" style="min-height: 50vh;">
+
+    <div *ngIf="spinnerCarregamento">
+      <div class="text-center">
+        <div class="spinner-border text-success" style="width: 4rem; height: 4rem; margin-top: 8rem;" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+      </div>
     </div>
+
+    <!--Lista de desempenho da sala-->
+    <div *ngIf="salaSelecionadaBoolean && respostaEnviadaParaSala != 0 && !spinnerCarregamento" class="card-body"
+      style="border-radius: 10px;">
+
+      <div class="col-lg-6 offset-lg-3">
+        <div class="row justify-content-center">
+          <h5>Desempenho geral da sala</h5>
+        </div>
+      </div>
+
+      <div class="row">
+        <!--Card menor do desempenho geral-->
+        <div class="col-md-6 col-lg-3 mb-4">
+          <div class="card border-0 rounded-1">
+            <div class="card-body">
+              <div class="card-innerBody d-flex align-items-center">
+                <i class="fas fa-chart-bar fa-3x" style="color: gray;"></i>
+                <div class="ml-auto">
+                  <p class="card-label text-right text-muted">Desempenho Geral</p>
+                  <h4 class="card-text text-success text-right" style="font-size: 20px;">
+                    Acertos:
+                    {{resultadoGeralSala.ResultadoGeral.Acertos}}</h4>
+                  <h4 class="card-text text-danger text-right" style="font-size: 20px;">Erros:
+                    {{resultadoGeralSala.ResultadoGeral.Erros}}</h4>
+                  <h4 class="card-text text-info text-right" style="font-size: 20px;">Não
+                    respondidas:
+                    {{resultadoGeralSala.ResultadoGeral.NaoRespondidas}}</h4>
+                </div>
+              </div>
+            </div>
+            <div class="card-footer d-flex ">
+              <small class="text-text-secondary text-muted">Questões realizadas</small>
+              <small class="text-text-secondary ml-auto text-muted">
+                {{resultadoGeralSala.ResultadoGeral.TotalQuestao}}
+              </small>
+            </div>
+          </div>
+        </div>
+        <!--Card menor da Área de Fundamentos-->
+        <div class="col-md-6 col-lg-3 mb-4">
+          <div class="card border-0 rounded-1">
+            <div class="card-body">
+              <div class="card-innerBody d-flex align-items-center">
+                <i class="fas fa-shapes fa-3x" style="color: gray;"></i>
+                <div class="ml-auto">
+                  <p class="card-label text-right text-muted">Área de Fundamentos</p>
+                  <h4 class="card-text text-success text-right" style="font-size: 20px;">
+                    Acertos:
+                    {{resultadoGeralSala.ResultadoFundamentos.Acertos}}</h4>
+                  <h4 class="card-text text-danger text-right" style="font-size: 20px;">Erros:
+                    {{resultadoGeralSala.ResultadoFundamentos.Erros}}</h4>
+                  <h4 class="card-text text-info text-right" style="font-size: 20px;">Não
+                    respondidas:
+                    {{resultadoGeralSala.ResultadoFundamentos.NaoRespondidas}}</h4>
+                </div>
+              </div>
+            </div>
+            <div class="card-footer d-flex ">
+              <small class="text-text-secondary text-muted">Questões realizadas</small>
+              <small class="text-text-secondary ml-auto text-muted">
+                {{resultadoGeralSala.ResultadoFundamentos.TotalQuestao}}
+              </small>
+            </div>
+          </div>
+        </div>
+        <!--Card menor da Área de Matemática-->
+        <div class="col-md-6 col-lg-3 mb-4">
+          <div class="card border-0 rounded-1">
+            <div class="card-body">
+              <div class="card-innerBody d-flex align-items-center">
+                <i class="fas fa-calculator fa-3x" style="color: gray;"></i>
+                <div class="ml-auto">
+                  <p class="card-label text-right text-muted">Área de Matemática</p>
+                  <h4 class="card-text text-success text-right" style="font-size: 20px;">
+                    Acertos:
+                    {{resultadoGeralSala.ResultadoMatematica.Acertos}}</h4>
+                  <h4 class="card-text text-danger text-right" style="font-size: 20px;">Erros:
+                    {{resultadoGeralSala.ResultadoMatematica.Erros}}</h4>
+                  <h4 class="card-text text-info text-right" style="font-size: 20px;">Não
+                    respondidas:
+                    {{resultadoGeralSala.ResultadoMatematica.NaoRespondidas}}</h4>
+                </div>
+              </div>
+            </div>
+            <div class="card-footer d-flex ">
+              <small class="text-text-secondary text-muted">Questões realizadas</small>
+              <small class="text-text-secondary ml-auto text-muted">
+                {{resultadoGeralSala.ResultadoMatematica.TotalQuestao}}
+              </small>
+            </div>
+          </div>
+        </div>
+        <!--Card menor da Área de Tecnologia-->
+        <div class="col-md-6 col-lg-3 mb-4">
+          <div class="card border-0 rounded-1">
+            <div class="card-body">
+              <div class="card-innerBody d-flex align-items-center">
+                <i class="fas fa-microchip fa-3x" style="color: gray;"></i>
+                <div class="ml-auto">
+                  <p class="card-label text-right text-muted">Área de Tecnologia</p>
+                  <h4 class="card-text text-success text-right" style="font-size: 20px;">
+                    Acertos:
+                    {{resultadoGeralSala.ResultadoTecnologia.Acertos}}</h4>
+                  <h4 class="card-text text-danger text-right" style="font-size: 20px;">Erros:
+                    {{resultadoGeralSala.ResultadoTecnologia.Erros}}</h4>
+                  <h4 class="card-text text-info text-right" style="font-size: 20px;">Não
+                    respondidas:
+                    {{resultadoGeralSala.ResultadoTecnologia.NaoRespondidas}}</h4>
+                </div>
+              </div>
+            </div>
+            <div class="card-footer d-flex ">
+              <small class="text-text-secondary text-muted">Questões realizadas</small>
+              <small class="text-text-secondary ml-auto text-muted">
+                {{resultadoGeralSala.ResultadoTecnologia.TotalQuestao}}
+              </small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--Lista de desempenho individual-->
+    <div *ngIf="respostaEnviadaParaSala != 0 && simuladoSelecionadoBoolean && quantidadeResposta != 0" class="card-body"
+      style="border-radius: 10px;">
+      <div class="col-lg-6 offset-lg-3">
+        <div class="row justify-content-center">
+          <h5>Desempenho individual</h5>
+        </div>
+      </div>
+      <div class="col-lg-6 offset-lg-3">
+        <div class="row justify-content-center">
+          <h5>{{ simuladoSelecionado.Nome }}</h5>
+        </div>
+      </div>
+      <div id="accordion" class="accordion shadow">
+        <div class="card" *ngFor="let item of listaAlunos; let i = index">
+          <div class="card-header bg-white shadow-sm border-0" [attr.id]="'headingOne_' + i">
+            <h6 class="mb-0 font-weight-bold">
+              <a data-toggle="collapse" [attr.aria-controls]="'collapseOne' + i"
+                (click)="buscarResultadoSalaSimuladoAlunoEspecifico(item.IdUsuario, item.IdSimulado, i)"
+                [attr.data-target]="'#collapseOne_' + i" aria-expanded="false" [attr.href]="'#collapseOne_' + i"
+                class="d-block position-relative text-dark collapsible-link py-2">
+                {{ item.Nome }}</a>
+            </h6>
+          </div>
+
+          <div [attr.id]="'collapseOne_' + i" class="collapse" [attr.aria-labelledby]="'headingOne_' + i"
+            data-parent="#accordion">
+            <div class="card-body" style="background-color: #d8ecdb;">
+
+              <div class="row">
+                <h5 style="padding-left:15px;">Data de envio: {{formatDate(item.DataEnvio)}}</h5>
+              </div>
+
+              <div class="row">
+                <!--Card menor do desempenho geral-->
+                <div class="col-md-6 col-lg-3 mb-4">
+                  <div class="card border-0 rounded-1">
+                    <div class="card-body">
+                      <div class="card-innerBody d-flex align-items-center">
+                        <i class="fas fa-chart-bar fa-2x" style="color: gray;"></i>
+                        <div class="ml-auto">
+                          <p class="card-label text-right text-muted">Desempenho Geral</p>
+                          <h4 class="card-text text-success text-right" style="font-size: 20px;">
+                            Acertos:
+                            {{item.ResultadoGeral.Acertos}}</h4>
+                          <h4 class="card-text text-danger text-right" style="font-size: 20px;">Erros:
+                            {{item.ResultadoGeral.Erros}}</h4>
+                          <h4 class="card-text text-info text-right" style="font-size: 20px;">Não
+                            respondidas:
+                            {{item.ResultadoGeral.NaoRespondidas}}</h4>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="card-footer d-flex ">
+                      <small class="text-text-secondary text-muted">Questões realizadas</small>
+                      <small class="text-text-secondary ml-auto text-muted">
+                        {{item.ResultadoGeral.TotalQuestao}}
+                      </small>
+                    </div>
+                  </div>
+                </div>
+                <!--Card menor da Área de Fundamentos-->
+                <div class="col-md-6 col-lg-3 mb-4">
+                  <div class="card border-0 rounded-1">
+                    <div class="card-body">
+                      <div class="card-innerBody d-flex align-items-center">
+                        <i class="fas fa-shapes fa-2x" style="color: gray;"></i>
+                        <div class="ml-auto">
+                          <p class="card-label text-right text-muted">Área de Fundamentos</p>
+                          <h4 class="card-text text-success text-right" style="font-size: 20px;">
+                            Acertos:
+                            {{item.ResultadoFundamentos.Acertos}}</h4>
+                          <h4 class="card-text text-danger text-right" style="font-size: 20px;">Erros:
+                            {{item.ResultadoFundamentos.Erros}}</h4>
+                          <h4 class="card-text text-info text-right" style="font-size: 20px;">Não
+                            respondidas:
+                            {{item.ResultadoFundamentos.NaoRespondidas}}</h4>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="card-footer d-flex ">
+                      <small class="text-text-secondary text-muted">Questões realizadas</small>
+                      <small class="text-text-secondary ml-auto text-muted">
+                        {{item.ResultadoFundamentos.TotalQuestao}}
+                      </small>
+                    </div>
+                  </div>
+                </div>
+                <!--Card menor da Área de Matemática-->
+                <div class="col-md-6 col-lg-3 mb-4">
+                  <div class="card border-0 rounded-1">
+                    <div class="card-body">
+                      <div class="card-innerBody d-flex align-items-center">
+                        <i class="fas fa-calculator fa-2x" style="color: gray;"></i>
+                        <div class="ml-auto">
+                          <p class="card-label text-right text-muted">Área de Matemática</p>
+                          <h4 class="card-text text-success text-right" style="font-size: 20px;">
+                            Acertos:
+                            {{item.ResultadoMatematica.Acertos}}</h4>
+                          <h4 class="card-text text-danger text-right" style="font-size: 20px;">Erros:
+                            {{item.ResultadoMatematica.Erros}}</h4>
+                          <h4 class="card-text text-info text-right" style="font-size: 20px;">Não
+                            respondidas:
+                            {{item.ResultadoMatematica.NaoRespondidas}}</h4>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="card-footer d-flex ">
+                      <small class="text-text-secondary text-muted">Questões realizadas</small>
+                      <small class="text-text-secondary ml-auto text-muted">
+                        {{item.ResultadoMatematica.TotalQuestao}}
+                      </small>
+                    </div>
+                  </div>
+                </div>
+                <!--Card menor da Área de Tecnologia-->
+                <div class="col-md-6 col-lg-3 mb-4">
+                  <div class="card border-0 rounded-1">
+                    <div class="card-body">
+                      <div class="card-innerBody d-flex align-items-center">
+                        <i class="fas fa-microchip fa-2x" style="color: gray;"></i>
+                        <div class="ml-auto">
+                          <p class="card-label text-right text-muted">Área de Tecnologia</p>
+                          <h4 class="card-text text-success text-right" style="font-size: 20px;">
+                            Acertos:
+                            {{item.ResultadoTecnologia.Acertos}}</h4>
+                          <h4 class="card-text text-danger text-right" style="font-size: 20px;">Erros:
+                            {{item.ResultadoTecnologia.Erros}}</h4>
+                          <h4 class="card-text text-info text-right" style="font-size: 20px;">Não
+                            respondidas:
+                            {{item.ResultadoTecnologia.NaoRespondidas}}</h4>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="card-footer d-flex ">
+                      <small class="text-text-secondary text-muted">Questões realizadas</small>
+                      <small class="text-text-secondary ml-auto text-muted">
+                        {{item.ResultadoTecnologia.TotalQuestao}}
+                      </small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <!--Gráfico em Setores do Desempenho Geral-->
+                <div class="col-12 col-xl-6 mb-4 align-items-stretch">
+                  <div class="card h-100 border-0 rounded-1">
+                    <div class="card-title mb-1 p-3 text-center">
+                      <h6>Desempenho geral</h6>
+                    </div>
+                    <div class="card-body">
+                      <div class="chart-container" style="position: relative;">
+                        <canvas [attr.id]="'pie-desempenho-geral_' + i" style="height:100%"></canvas>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!--Gráfico Barra Horizontal Desempenho por disciplinas de interesse do professor-->
+                <div class="col-12 col-xl-6 mb-4 align-items-stretch">
+                  <div class="card h-100 border-0 rounded-1">
+                    <div class="card-title mb-1 p-3 text-center">
+                      <h6>Desempenho por disciplinas de intereese do professor</h6>
+                    </div>
+                    <div class="card-body">
+                      <div class="chart-container" style="position: relative;">
+                        <canvas [attr.id]="'bar-chart-desempenho-disciplina_' + i" style="height:100%;"></canvas>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--Verificações-->
     <!--Sala não selecionada-->
     <div class="align-items-center d-flex justify-content-center text-muted" style="height: 50vh; text-align: center;"
-      *ngIf="!salaSelecionadaBoolean"><i class="fas fa-chalkboard-teacher fa-7x" style="color: gray;"></i>&nbsp;&nbsp;
+      *ngIf="!salaSelecionadaBoolean && !spinnerCarregamento"><i class="fas fa-chalkboard-teacher fa-7x"
+        style="color: gray;"></i>&nbsp;&nbsp;
       Selecione uma sala</div>
-    <!--Simulado não selecionado-->
+    <!--Nenhum envio foi realizado para os simulados dessa sala.-->
     <div class="align-items-center d-flex justify-content-center text-muted" style="height: 50vh; text-align: center;"
-      *ngIf="!simuladoSelecionadoBoolean && salaSelecionadaBoolean"><i class="fas fa-list-ul fa-7x"
-        style="color: gray;"></i>&nbsp;&nbsp;Selecione um simulado</div>
-    <!--Nenhum envio foi realizado-->
-    <div class="align-items-center d-flex justify-content-center text-muted" style="height: 50vh; text-align: center;"
-      *ngIf="simuladoSelecionadoBoolean && quantidadeResposta == 0"><i class="far fa-calendar-times fa-7x"></i>&nbsp;&nbsp;Nenhum envio foi realizado para esse simulado.</div>
+      *ngIf="respostaEnviadaParaSala == 0 && !spinnerCarregamento"><i
+        class="far fa-calendar-times fa-7x"></i>&nbsp;&nbsp;Nenhum envio foi
+      realizado para os simulados dessa sala.</div>
+
+    <!--Nenhum envio foi realizado para o simulado-->
+    <div
+      *ngIf="respostaEnviadaParaSala != 0 && simuladoSelecionadoBoolean && quantidadeResposta == 0 && !spinnerCarregamento"
+      class="card-body" style="border-radius: 10px;">
+      <div class="col-lg-6 offset-lg-3">
+        <div class="row justify-content-center">
+          <h5>Desempenho individual</h5>
+        </div>
+      </div>
+      <div class="col-lg-6 offset-lg-3">
+        <div class="row justify-content-center">
+          <h5>{{ simuladoSelecionado.Nome }}</h5>
+        </div>
+      </div>
+
+      <!--Nenhum envio foi realizado para o simulado-->
+      <div class="align-items-center d-flex justify-content-center text-muted"
+        style="height: 50vh; text-align: center;">
+        <i class="far fa-calendar-times fa-7x"></i>&nbsp;&nbsp;Nenhum envio foi realizado para esse simulado.
+      </div>
+
+    </div>
+
   </div>
 </div>
