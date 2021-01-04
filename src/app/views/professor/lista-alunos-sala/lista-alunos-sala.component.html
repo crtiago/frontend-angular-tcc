@@ -1,4 +1,6 @@
 <div class="card-body" style="border-radius: 10px;">
+    <button (click)="gerarPdfDesempenho()"><span *ngIf="carregar"
+                class="spinner-border spinner-border-sm mr-1"></span>Gerar relatório</button>
     <div id="accordion" class="accordion shadow">
         <div class="card" *ngFor="let item of listaAlunos; let i = index">
             <div class="card-header bg-white shadow-sm border-0" [attr.id]="'headingOne_' + i">

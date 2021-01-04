@@ -14,7 +14,8 @@
       <!--Select Simulado-->
       <div *ngIf="salaSelecionadaBoolean" class="col-md-5 mb-1">
         <h5 style="color: rgb(47,158,64);">Simulado</h5>
-        <select class="form-control form-control" [disabled]="nenhumSimulado || respostaEnviadaParaSala == 0 || !simuladosCarregados"
+        <select class="form-control form-control"
+          [disabled]="nenhumSimulado || respostaEnviadaParaSala == 0 || !simuladosCarregados"
           [(ngModel)]="simuladoSelecionado" (change)="buscarDesempenhoAlunos()">
           <option [ngValue]="undefined" selected disabled hidden> --</option>
           <option *ngFor="let item of listaSimulados; let i = index" [ngValue]="item">{{item.Nome}}</option>
@@ -335,7 +336,9 @@
           </div>
         </div>
       </div>
-      <button (click)="gerarPdfDesempenho()">Gerar relatório</button>
+      <div style="padding-top: 35px;"><button (click)="gerarPdfDesempenho()"><span *ngIf="carregar"
+            class="spinner-border spinner-border-sm mr-1"></span>Gerar relatório</button></div>
+
     </div>
 
     <!--Verificações-->

@@ -21,6 +21,7 @@ export class ListaSimuladosSalaComponent implements OnInit, OnDestroy {
   carregarGabarito: boolean = false;
   nenhumSimulado: boolean = false;
   enviosMaiorQueZero: boolean = false;
+  nomeSimulado: string;
 
   constructor(private salasService: SalasService, private toastr: ToastrService, private autenticacaoService: AutenticacaoService, private simuladoService: SimuladoService, private router: Router, private route: ActivatedRoute) {
     if (sessionStorage.getItem("idSala") == '' || sessionStorage.getItem("idSala") == 'null' || sessionStorage.getItem("idSala") == null) {
@@ -43,6 +44,7 @@ export class ListaSimuladosSalaComponent implements OnInit, OnDestroy {
     this.linhaSelecionada = index;
     this.idSimuladoSelecionado = item.Id;
     this.selecionado = true;
+    this.nomeSimulado = item.Nome;
     if (this.listaSimulados[this.linhaSelecionada].QuantidadeResposta > 0) {
       this.enviosMaiorQueZero = true;
     } else {
@@ -54,7 +56,7 @@ export class ListaSimuladosSalaComponent implements OnInit, OnDestroy {
     this.carregarGabarito = true;
     this.simuladoService.buscarGabaritoProf(this.idSimuladoSelecionado, this.autenticacaoService.getUsuario.IdUsuario).pipe(first()).subscribe(
       gabarito => {
-        sessionStorage.setItem('gabarito', JSON.stringify(gabarito));
+        sessionStorage.setItem('gabarito', JSON.stringify(gabarito));        
         this.router.navigateByUrl("/prof/gabarito");
         this.toastr.success('Gabarito gerado', '', {
           timeOut: 2000,
@@ -78,6 +80,7 @@ export class ListaSimuladosSalaComponent implements OnInit, OnDestroy {
     this.salasService.buscarResultadosSalaSimuladoProf(this.idSimuladoSelecionado).pipe(first()).subscribe(
       listaAlunos => {
         sessionStorage.setItem('listaAlunos', JSON.stringify(listaAlunos.Data));
+        sessionStorage.setItem('nomeSimulado', JSON.stringify(this.nomeSimulado));
         this.router.navigateByUrl("/prof/alunossimulado");
         this.toastr.success('Lista de alunos gerada', '', {
           timeOut: 2000,
