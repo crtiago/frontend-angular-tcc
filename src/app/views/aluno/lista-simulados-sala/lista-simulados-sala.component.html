@@ -21,7 +21,7 @@
                 <tbody *ngIf="!nenhumSimulado">
                     <tr (click)="simuladoSelecionado($event, simulado, i)"
                         *ngFor="let simulado of listaSimulados; let i= index"
-                        [ngClass]="{'data-selected': i == linhaSelecionada }">
+                        [ngClass]="{'data-selected': i == linhaSelecionada && !prazoExpirado, 'prazo-expirado': i == linhaSelecionada && prazoExpirado}">
                         <td style="vertical-align: middle;">{{simulado.Nome}}</td>
                         <td style="vertical-align: middle;">{{simulado.Descricao}}</td>
                         <td style="text-align: center; vertical-align: middle;">{{simulado.QuantidadeQuestoes}}</td>
@@ -33,12 +33,13 @@
                         </td>
                         <td *ngIf="!simulado.SimuladoRespondido" style="text-align: center; vertical-align: middle;">-
                         </td>
-                        <td style="text-align: center; vertical-align: middle;">{{formatDate(simulado.DataFimSimulado)}}</td>
+                        <td style="text-align: center; vertical-align: middle;">{{formatDate(simulado.DataFimSimulado)}}
+                        </td>
                         <td style="text-align: center; vertical-align: middle;">
                             <i *ngIf="simulado.SimuladoRespondido" class="fas fa-check" style="color: rgb(47,158,64);"
-                                [ngClass]="{'data-selected': i == linhaSelecionada && simulado.SimuladoRespondido}"></i>
+                                [ngClass]="{'data-selected': i == linhaSelecionada && simulado.SimuladoRespondido && !prazoExpirado}"></i>
                             <i *ngIf="!simulado.SimuladoRespondido" class="fas fa-times" style="color: red;"
-                                [ngClass]="{'data-selected': i == linhaSelecionada && !simulado.SimuladoRespondido}"></i>
+                                [ngClass]="{'data-selected': i == linhaSelecionada && !simulado.SimuladoRespondido && !prazoExpirado} "></i>
                         </td>
                     </tr>
                 </tbody>

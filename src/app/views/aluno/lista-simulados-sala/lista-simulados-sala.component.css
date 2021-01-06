@@ -4,6 +4,10 @@
     color: white !important;
 }
 
+.prazo-expirado{
+    color: gray !important;
+}
+
 .concluido{
     color: gray;
 }

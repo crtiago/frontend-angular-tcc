@@ -21,6 +21,7 @@ export class ListaSimuladosSalaComponent implements OnInit, OnDestroy {
   carregarGabarito: boolean = false;
   tipoSimulado: number;
   nenhumSimulado: boolean = false;
+  prazoExpirado: boolean = false;
 
   constructor(private toastr: ToastrService, private autenticacaoService: AutenticacaoService, private simuladoService: SimuladoService, private router: Router, private route: ActivatedRoute) {
     if (sessionStorage.getItem("idSala") == '' || sessionStorage.getItem("idSala") == 'null') {
@@ -44,12 +45,29 @@ export class ListaSimuladosSalaComponent implements OnInit, OnDestroy {
 
   simuladoSelecionado(event: any, item: any, index: any) {
     this.linhaSelecionada = index;
-    if (!item.SimuladoRespondido) {
+    const prazo = new Date(item.DataFimSimulado);
+    const hoje = new Date();
+    if (prazo < hoje) {
+      this.prazoExpirado = true;
+      this.selecionado = false;
+      if (item.SimuladoRespondido) {
+        this.idSimuladoSelecionado = item.Id;
+        this.respondido = true;
+      } else {
+        this.toastr.error("Prazo para responder a esse simulado se encerrou.", '', {
+          timeOut: 2000,
+          progressBar: true,
+          progressAnimation: 'decreasing',
+        });
+      }
+    } else if (!item.SimuladoRespondido) {
+      this.prazoExpirado = false;
       this.respondido = false;
       this.selecionado = true;
       this.idSimuladoSelecionado = item.Id;
       this.tipoSimulado = item.TipoSimulado;
     } else {
+      this.prazoExpirado = false;
       this.idSimuladoSelecionado = item.Id;
       this.respondido = true;
       this.selecionado = false;
