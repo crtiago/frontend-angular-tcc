@@ -79,6 +79,16 @@ export class CadastroService {
     ))
   };
 
+  enviarEmail(Assunto: string, Mensagem: string) {
+    return this.http.post<any>(`${environment.apiUrl}/EnviarEmail`, {Assunto, Mensagem}).pipe(map(data => {
+      if (data.Sucesso) {
+        return data;
+      } else {
+        throw new Error(data.Mensagem);
+      }
+    }
+    ))
+  };
 
   getInstituicoes() {
     return this.http.get<DataReponse>(`${environment.apiUrl}/BuscarTodasInstituicao`).pipe(delay(500));

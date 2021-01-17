@@ -47,7 +47,6 @@ export class DashboardComponent implements OnInit {
       if (this.resultadosGerais.RespostasEnviadas == 0) {
         this.nenhumResultadoGerais = true;
       } else {
-        console.log(this.resultadosGerais)
         this.nenhumResultadoGerais = false;
       }
 

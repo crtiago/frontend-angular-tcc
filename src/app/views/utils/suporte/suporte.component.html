@@ -8,7 +8,7 @@
           <select (change)="getAssunto($event)" formControlName="assunto" class="form-control"
             [ngClass]="{ 'is-invalid': !f.assunto.pristine && f.assunto.errors, 'is-valid': !f.assunto.errors }">
             <option value="" selected disabled hidden>Escolha um assunto</option>
-            <option *ngFor="let assunto of assuntos; let i = index" value={{i}}>{{ assunto }}
+            <option *ngFor="let assunto of assuntos; let i = index" value={{assunto}}>{{ assunto }}
             </option>
           </select>
           <div *ngIf="!f.assunto.pristine && f.assunto.errors" class="invalid-feedback">
@@ -21,7 +21,7 @@
 
 
       <!--Input do Outro Assunto-->
-      <div *ngIf="f.assunto.value == 2" class="col-md-6 mb-6">
+      <div *ngIf="f.assunto.value == 'Outro'" class="col-md-6 mb-6">
 
         <input type="text" formControlName="outroAssunto" class="form-control" placeholder="Digite um assunto"
           [ngClass]="{ 'is-invalid':!f.outroAssunto.pristine && f.outroAssunto.errors, 'is-valid': !f.outroAssunto.errors  }" />
@@ -53,6 +53,7 @@
       </div>
     </div>
 
-    <button style="float:right;" [disabled]="!formularioDeUsuario.valid">Enviar</button>
+    <button style="float:right;" [disabled]="!formularioDeUsuario.valid" (click)="enviarEmail()"><span *ngIf="carregar"
+      class="spinner-border spinner-border-sm mr-1"></span>Enviar</button>
   </form>
 </div>
