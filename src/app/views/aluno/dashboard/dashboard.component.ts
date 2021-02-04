@@ -621,7 +621,6 @@ export class DashboardComponent implements OnInit {
         return 2;
       }
       default: {
-        console.log(disciplina + "não existe");
         return -1;
       }
     }

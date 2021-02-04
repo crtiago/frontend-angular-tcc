@@ -146,7 +146,9 @@
           <div class="form-row" *ngIf="item.TipoQuestao == '2'">
             <div class="col-md mb-1">
               <form>
-                Resposta Correta: Colocar a correta aqui
+                Resposta Correta: 
+                <ng-katex-paragraph class="math" [paragraph]="item.PossivelResposta">
+                </ng-katex-paragraph>                
               </form>
               <form>
                 Sua resposta: {{ item.RespostaUsuario }}
