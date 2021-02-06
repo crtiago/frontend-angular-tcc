@@ -158,6 +158,24 @@
 
     <!--3º Linha-->
     <div class="row">
+
+      <!--Gráfico em Setores do Desempenho Geral-->
+      <div class="col-12 col-xl-6 mb-4 align-items-stretch grafico3">
+        <div class="card h-100 border-0 rounded-1">
+          <div class="card-title mb-1 p-3 text-center">
+            <h6>Desempenho geral</h6>
+          </div>
+          <div class="card-body">
+            <div class="chart-container" style="position: relative;">
+              <canvas id="pie-desempenho-geral" style="height:100%"></canvas>
+              <div *ngIf="nenhumResultadoGerais" class="text-center text-muted">Nenhum simulado realizado</div>
+            </div>
+            <button class="float-right btn-sm" *ngIf="!nenhumResultadoGerais"
+              (click)="getPdfGraficoEspecifico('.grafico3', 'Desempenho geral')"> <i class="fa fa-download"></i>
+            </button>
+          </div>
+        </div>
+      </div>
       <!--Gráfico de barras do Desempenho Geral dos últimos simulados-->
       <div class="col-12 col-xl-6 mb-4 align-items-stretch grafico1">
         <div class="card border-0 1">
@@ -176,8 +194,13 @@
         </div>
       </div>
 
-      <!--Gráfico Misto do Desempenho Geral dos últimos simulados-->
-      <div class="col-12 col-xl-6 mb-4 align-items-stretch grafico2">
+     
+    </div>
+
+    <div class="row">
+
+       <!--Gráfico Misto do Desempenho Geral dos últimos simulados-->
+       <div class="col-12 col-xl-6 mb-4 align-items-stretch grafico2">
         <div class="card h-100 border-0 rounded-1">
           <div class="card-title mb-1 p-3 text-center">
             <h6>Desempenho geral dos últimos simulados</h6>
@@ -190,27 +213,6 @@
             <button class="float-right btn-sm" *ngIf="!nenhumResultado"
               (click)="getPdfGraficoEspecifico('.grafico2', 'Desempenho geral dos últimos simulados - Misto')"> <i
                 class="fa fa-download"></i> </button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="row">
-
-      <!--Gráfico em Setores do Desempenho Geral-->
-      <div class="col-12 col-xl-6 mb-4 align-items-stretch grafico3">
-        <div class="card h-100 border-0 rounded-1">
-          <div class="card-title mb-1 p-3 text-center">
-            <h6>Desempenho geral</h6>
-          </div>
-          <div class="card-body">
-            <div class="chart-container" style="position: relative;">
-              <canvas id="pie-desempenho-geral" style="height:100%"></canvas>
-              <div *ngIf="nenhumResultadoGerais" class="text-center text-muted">Nenhum simulado realizado</div>
-            </div>
-            <button class="float-right btn-sm" *ngIf="!nenhumResultadoGerais"
-              (click)="getPdfGraficoEspecifico('.grafico3', 'Desempenho geral')"> <i class="fa fa-download"></i>
-            </button>
           </div>
         </div>
       </div>
