@@ -6,7 +6,7 @@ export enum EDisciplinaId {
     "Matemática Discreta" = 2,
 
     //	FASE 2
-    "Álgebra Linear e Geometria analítica" = 4,
+    "Álgebra Linear e Geometria Analítica" = 4,
     "Arquitetura de Computadores" = 5,
     "Linguagem e Paradigamas de Programação" = 7,
 
