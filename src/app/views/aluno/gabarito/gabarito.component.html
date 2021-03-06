@@ -6,8 +6,9 @@
           <a data-toggle="collapse" [attr.aria-controls]="'collapseOne' + i" [attr.data-target]="'#collapseOne_' + i"
             aria-expanded="false" [attr.href]="'#collapseOne_' + i"
             class="d-block position-relative text-dark collapsible-link py-2">
-            <i *ngIf="item.Correta" class="fas fa-check" style="color: rgb(47,158,64);"></i>
+            <i *ngIf="item.Correta && item.TipoQuestao != '2'" class="fas fa-check" style="color: rgb(47,158,64);"></i>
             <i *ngIf="!item.Correta && item.RespostaUsuario != null" class="fas fa-times" style="color: red;"></i>
+            <i *ngIf="item.TipoQuestao == '2'" class="fas fa-user-edit" style="color: #36A2EB;"></i>
             <i *ngIf="item.RespostaUsuario == null" class="fas fa-question" style="color: #36A2EB;"></i>
             Questão {{i + 1}}</a>
         </h6>
@@ -146,14 +147,18 @@
           <div class="form-row" *ngIf="item.TipoQuestao == '2'">
             <div class="col-md mb-1">
               <form>
-                Resposta Correta: 
+                <b>Resposta Correta: </b>
                 <ng-katex-paragraph class="math" [paragraph]="item.PossivelResposta">
                 </ng-katex-paragraph>                
               </form>
               <form>
-                Sua resposta: {{ item.RespostaUsuario }}
+                <b>Sua resposta:</b> {{ item.RespostaUsuario }}
               </form>
             </div>
+          </div>
+
+          <div *ngIf="item.TipoQuestao == '2'">
+            <b>Obs.: As questões discursivas devem ser conferidas pelo usuário.</b>
           </div>
 
           <div *ngIf="item.RespostaUsuario == null">
