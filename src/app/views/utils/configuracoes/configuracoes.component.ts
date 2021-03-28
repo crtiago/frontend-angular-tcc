@@ -102,6 +102,7 @@ export class ConfiguracoesComponent implements OnInit {
 
   convertDate(input) {
     let data = new Date(input);
+    data.setDate(data.getDate() + 1)
     let date = ("0" + data.getDate()).slice(-2);
     let month = ("0" + (data.getMonth() + 1)).slice(-2);
     let year = data.getFullYear();
